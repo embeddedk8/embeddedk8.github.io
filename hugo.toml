@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://embeddedk8.github.io/"
 
 
 
@@ -10,7 +10,7 @@ theme = "LoveIt"
 
 # website title
 
-title = "My New Hugo Site"
+title = "Tech Notes by @embeddedk8"
 
 
 
