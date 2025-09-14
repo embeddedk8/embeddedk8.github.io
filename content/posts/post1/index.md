@@ -1,19 +1,19 @@
 ---
 weight: 2
-title: "Theme Documentation - Content"
-date: 2020-03-05T15:58:26+08:00
-lastmod: 2020-03-05T15:58:26+08:00
+title: "Arduino Blink Explained - from Sketch to Microcontroller"
+date: 2025-09-13T15:58:26+08:00
+lastmod: 2025-09-13T15:58:26+08:00
 draft: true
-author: "Dillon"
-authorLink: "https://dillonzq.com"
-description: "Find out how to create and organize your content quickly and intuitively in LoveIt theme."
+author: "embeddedk8"
+authorLink: "https://embeddedk8.com"
+description: "Let’s uncover what truly happens beneath Arduino’s ecosystem."
 images: []
 resources:
 - name: "featured-image"
-  src: "featured-image.jpg"
+  src: "featured-image.png"
 
-tags: ["content", "Markdown"]
-categories: ["documentation"]
+tags: ["content", "Arduino"]
+categories: ["Arduino"]
 
 lightgallery: true
 
@@ -23,7 +23,7 @@ math:
   enable: true
 ---
 
-Find out how to create and organize your content quickly and intuitively in **LoveIt** theme.
+Let’s uncover what truly happens beneath Arduino’s ecosystem.
 
 <!--more-->
 
