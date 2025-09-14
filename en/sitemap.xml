@@ -2,40 +2,40 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://embeddedk8.github.io/posts/</loc><lastmod>2025-09-13T22:15:04&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>http://localhost:1313/about/</loc><lastmod>2025-09-14T13:13:45&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>http://localhost:1313/</loc><lastmod>2025-09-14T13:13:45&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://embeddedk8.github.io/zh-cn/posts/"
+                        href="http://localhost:1313/zh-cn/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://embeddedk8.github.io/posts/"
+                    href="http://localhost:1313/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/</loc><lastmod>2025-09-13T22:15:04&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>http://localhost:1313/posts/</loc><lastmod>2025-09-14T13:10:59&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://embeddedk8.github.io/zh-cn/"
+                        href="http://localhost:1313/zh-cn/posts/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://embeddedk8.github.io/"
+                    href="http://localhost:1313/posts/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/about/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.github.io/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>http://localhost:1313/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://embeddedk8.github.io/zh-cn/categories/"
+                        href="http://localhost:1313/zh-cn/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://embeddedk8.github.io/categories/"
+                    href="http://localhost:1313/categories/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>http://localhost:1313/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="https://embeddedk8.github.io/zh-cn/tags/"
+                        href="http://localhost:1313/zh-cn/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="https://embeddedk8.github.io/tags/"
+                    href="http://localhost:1313/tags/"
                     /></url></urlset>
