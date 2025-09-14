@@ -6,5 +6,13 @@
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>embeddedkate@gmail.com (embeddedk8)</managingEditor>
             <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 14 Sep 2025 11:04:49 &#43;0800</lastBuildDate>
             <atom:link href="https://embeddedk8.github.io/index.xml" rel="self" type="application/rss+xml" />
-        </channel>
+        <item>
+    <title>Arduino Blink Explained - from Sketch to Microcontroller</title>
+    <link>https://embeddedk8.github.io/post0/</link>
+    <pubDate>Sat, 13 Sep 2025 15:58:26 &#43;0800</pubDate>
+    <author>embeddedk8</author>
+    <guid>https://embeddedk8.github.io/post0/</guid>
+    <description><![CDATA[<p>Let’s uncover what truly happens beneath Arduino’s ecosystem.</p>]]></description>
+</item>
+</channel>
 </rss>
