@@ -1,7 +1,7 @@
-# Theme Documentation - Content
+# Arduino Blink Explained - from Sketch to Microcontroller
 
 
-Find out how to create and organize your content quickly and intuitively in **LoveIt** theme.
+Let’s uncover what truly happens beneath Arduino’s ecosystem.
 
 <!--more-->
 
