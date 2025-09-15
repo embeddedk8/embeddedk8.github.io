@@ -2,15 +2,15 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://localhost:1313/post0/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/about/</loc><lastmod>2025-09-14T13:13:45&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/categories/arduino/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/tags/arduino/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/categories/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/tags/content/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/posts/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/tags/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/tags/content/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/tags/installation/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/tags/configuration/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url></urlset>
+            <loc>https://embeddedk8.github.io/post0/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/about/</loc><lastmod>2025-09-14T13:13:45&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/categories/arduino/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/arduino/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/categories/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/content/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/posts/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/content/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/installation/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/configuration/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url></urlset>
