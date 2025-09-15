@@ -42,6 +42,11 @@ enableEmoji = true
 # 忽略一些构建错误
 ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
+[taxonomies]
+  category = "categories"
+  tag      = "tags"
+
+
 # Pagination config
 # 分页配置
 [pagination]
@@ -789,6 +794,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   page = ["HTML", "MarkDown"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
+  term = ["HTML"]
 
 # Multilingual
 # 多语言
@@ -800,6 +806,10 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     hasCJKLanguage = false
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
     [languages.en.menu]
+
+      [languages.en.taxonomies]
+        category = "categories"
+        tag      = "tags"
       [[languages.en.menu.main]]
         weight = 1
         identifier = "posts"
