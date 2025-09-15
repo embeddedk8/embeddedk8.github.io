@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Tech Notes by embeddedk8</title>
-    <link>https://embeddedk8.github.io/categories/</link>
+    <link>http://localhost:1313/categories/</link>
     <description>Recent content in Categories on Tech Notes by embeddedk8</description>
     <generator>Hugo</generator>
     <language>en</language>
@@ -10,12 +10,12 @@
     <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Sun, 14 Sep 2025 14:16:42 +0200</lastBuildDate>
-    <atom:link href="https://embeddedk8.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Arduino</title>
-      <link>https://embeddedk8.github.io/categories/arduino/</link>
+      <link>http://localhost:1313/categories/arduino/</link>
       <pubDate>Sat, 13 Sep 2025 15:58:26 +0800</pubDate><author>embeddedkate@gmail.com (embeddedk8)</author>
-      <guid>https://embeddedk8.github.io/categories/arduino/</guid>
+      <guid>http://localhost:1313/categories/arduino/</guid>
       <description></description>
     </item>
   </channel>
