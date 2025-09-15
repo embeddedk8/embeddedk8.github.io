@@ -802,6 +802,11 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     languageName = "English"
     hasCJKLanguage = false
     copyright = "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License."
+
+    [languages.en.taxonomies]
+      category = "categories"
+      tag      = "tags"
+      
     [languages.en.menu]
       [[languages.en.menu.main]]
         weight = 1
