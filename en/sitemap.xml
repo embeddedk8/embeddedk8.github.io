@@ -2,52 +2,52 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://localhost:1313/post0/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/about/</loc><lastmod>2025-09-14T13:13:45&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/arduino-ide-build-process/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/about/</loc><lastmod>2025-09-14T13:13:45&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
+            <loc>https://embeddedk8.github.io/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://localhost:1313/zh-cn/"
+                        href="https://embeddedk8.github.io/zh-cn/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/"
+                    href="https://embeddedk8.github.io/"
                     /></url><url>
-            <loc>http://localhost:1313/categories/arduino/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/tags/arduino/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/categories/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/categories/arduino/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/arduino/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/categories/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://localhost:1313/zh-cn/categories/"
+                        href="https://embeddedk8.github.io/zh-cn/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/categories/"
+                    href="https://embeddedk8.github.io/categories/"
                     /></url><url>
-            <loc>http://localhost:1313/tags/content/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/tags/content/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://localhost:1313/zh-cn/tags/content/"
+                        href="https://embeddedk8.github.io/zh-cn/tags/content/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/tags/content/"
+                    href="https://embeddedk8.github.io/tags/content/"
                     /></url><url>
-            <loc>http://localhost:1313/posts/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/posts/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://localhost:1313/zh-cn/posts/"
+                        href="https://embeddedk8.github.io/zh-cn/posts/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/posts/"
+                    href="https://embeddedk8.github.io/posts/"
                     /></url><url>
-            <loc>http://localhost:1313/tags/</loc><lastmod>2025-09-14T14:16:42&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/tags/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
-                        href="http://localhost:1313/zh-cn/tags/"
+                        href="https://embeddedk8.github.io/zh-cn/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/tags/"
+                    href="https://embeddedk8.github.io/tags/"
                     /></url></urlset>

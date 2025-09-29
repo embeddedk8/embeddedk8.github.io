@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Tech Notes by embeddedk8</title>
-    <link>http://localhost:1313/zh-cn/tags/</link>
-    <description>Recent content in Tags on Tech Notes by embeddedk8</description>
+    <title>Tags on Embedded Software Blog by embeddedKate</title>
+    <link>https://embeddedk8.github.io/zh-cn/tags/</link>
+    <description>Recent content in Tags on Embedded Software Blog by embeddedKate</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <managingEditor>embeddedkate@gmail.com (embeddedk8)</managingEditor>
     <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Sat, 13 Sep 2025 20:53:54 +0200</lastBuildDate>
-    <atom:link href="http://localhost:1313/zh-cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://embeddedk8.github.io/zh-cn/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Markdown</title>
-      <link>http://localhost:1313/zh-cn/tags/markdown/</link>
+      <link>https://embeddedk8.github.io/zh-cn/tags/markdown/</link>
       <pubDate>Thu, 05 Mar 2020 16:30:05 +0800</pubDate><author>embeddedkate@gmail.com (embeddedk8)</author>
-      <guid>http://localhost:1313/zh-cn/tags/markdown/</guid>
+      <guid>https://embeddedk8.github.io/zh-cn/tags/markdown/</guid>
       <description></description>
     </item>
     <item>
       <title>Shortcodes</title>
-      <link>http://localhost:1313/zh-cn/tags/shortcodes/</link>
+      <link>https://embeddedk8.github.io/zh-cn/tags/shortcodes/</link>
       <pubDate>Wed, 04 Mar 2020 16:29:59 +0800</pubDate><author>embeddedkate@gmail.com (embeddedk8)</author>
-      <guid>http://localhost:1313/zh-cn/tags/shortcodes/</guid>
+      <guid>https://embeddedk8.github.io/zh-cn/tags/shortcodes/</guid>
       <description></description>
     </item>
     <item>
       <title>HTML</title>
-      <link>http://localhost:1313/zh-cn/tags/html/</link>
+      <link>https://embeddedk8.github.io/zh-cn/tags/html/</link>
       <pubDate>Sun, 01 Dec 2019 21:57:40 +0800</pubDate><author>embeddedkate@gmail.com (embeddedk8)</author>
-      <guid>http://localhost:1313/zh-cn/tags/html/</guid>
+      <guid>https://embeddedk8.github.io/zh-cn/tags/html/</guid>
       <description></description>
     </item>
     <item>
       <title>Emoji</title>
-      <link>http://localhost:1313/zh-cn/tags/emoji/</link>
+      <link>https://embeddedk8.github.io/zh-cn/tags/emoji/</link>
       <pubDate>Tue, 01 Oct 2019 17:55:28 +0800</pubDate><author>embeddedkate@gmail.com (embeddedk8)</author>
-      <guid>http://localhost:1313/zh-cn/tags/emoji/</guid>
+      <guid>https://embeddedk8.github.io/zh-cn/tags/emoji/</guid>
       <description></description>
     </item>
     <item>
       <title>安装</title>
-      <link>http://localhost:1313/zh-cn/tags/installation/</link>
+      <link>https://embeddedk8.github.io/zh-cn/tags/installation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>embeddedkate@gmail.com (embeddedk8)</author>
-      <guid>http://localhost:1313/zh-cn/tags/installation/</guid>
+      <guid>https://embeddedk8.github.io/zh-cn/tags/installation/</guid>
       <description></description>
     </item>
     <item>
       <title>内容</title>
-      <link>http://localhost:1313/zh-cn/tags/content/</link>
+      <link>https://embeddedk8.github.io/zh-cn/tags/content/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>embeddedkate@gmail.com (embeddedk8)</author>
-      <guid>http://localhost:1313/zh-cn/tags/content/</guid>
+      <guid>https://embeddedk8.github.io/zh-cn/tags/content/</guid>
       <description></description>
     </item>
     <item>
       <title>配置</title>
-      <link>http://localhost:1313/zh-cn/tags/configuration/</link>
+      <link>https://embeddedk8.github.io/zh-cn/tags/configuration/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>embeddedkate@gmail.com (embeddedk8)</author>
-      <guid>http://localhost:1313/zh-cn/tags/configuration/</guid>
+      <guid>https://embeddedk8.github.io/zh-cn/tags/configuration/</guid>
       <description></description>
     </item>
   </channel>
