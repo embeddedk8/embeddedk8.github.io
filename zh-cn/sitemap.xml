@@ -19,6 +19,10 @@
                         hreflang="en"
                         href="https://embeddedk8.github.io/categories/"
                         /><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/categories/"
+                        /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
                     href="https://embeddedk8.github.io/zh-cn/categories/"
@@ -29,6 +33,10 @@
                         hreflang="en"
                         href="https://embeddedk8.github.io/"
                         /><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/"
+                        /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
                     href="https://embeddedk8.github.io/zh-cn/"
@@ -38,6 +46,10 @@
                         hreflang="en"
                         href="https://embeddedk8.github.io/posts/"
                         /><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/posts/"
+                        /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
                     href="https://embeddedk8.github.io/zh-cn/posts/"
@@ -46,6 +58,10 @@
                         rel="alternate"
                         hreflang="en"
                         href="https://embeddedk8.github.io/tags/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
@@ -61,6 +77,10 @@
                         rel="alternate"
                         hreflang="en"
                         href="https://embeddedk8.github.io/tags/content/"
+                        /><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/tags/content/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"

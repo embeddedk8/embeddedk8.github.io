@@ -2,9 +2,29 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://embeddedk8.github.io/arduino-ide-build-process/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.github.io/about/</loc><lastmod>2025-09-14T13:13:45&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://embeddedk8.github.io/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/arduino-ide-build-process/</loc><lastmod>2025-09-30T16:23:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/arduino-ide-build-process/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://embeddedk8.github.io/arduino-ide-build-process/"
+                    /></url><url>
+            <loc>https://embeddedk8.github.io/about/</loc><lastmod>2025-09-14T13:13:45&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/about/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://embeddedk8.github.io/about/"
+                    /></url><url>
+            <loc>https://embeddedk8.github.io/</loc><lastmod>2025-09-30T16:23:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/"
+                        /><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://embeddedk8.github.io/zh-cn/"
@@ -13,9 +33,29 @@
                     hreflang="en"
                     href="https://embeddedk8.github.io/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/categories/arduino/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.github.io/tags/arduino/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.github.io/categories/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/categories/arduino/</loc><lastmod>2025-09-30T16:23:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/categories/arduino/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://embeddedk8.github.io/categories/arduino/"
+                    /></url><url>
+            <loc>https://embeddedk8.github.io/tags/arduino/</loc><lastmod>2025-09-30T16:23:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/tags/arduino/"
+                        /><xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://embeddedk8.github.io/tags/arduino/"
+                    /></url><url>
+            <loc>https://embeddedk8.github.io/categories/</loc><lastmod>2025-09-30T16:23:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/categories/"
+                        /><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://embeddedk8.github.io/zh-cn/categories/"
@@ -24,7 +64,11 @@
                     hreflang="en"
                     href="https://embeddedk8.github.io/categories/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/tags/content/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/tags/content/</loc><lastmod>2025-09-30T16:23:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/tags/content/"
+                        /><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://embeddedk8.github.io/zh-cn/tags/content/"
@@ -33,7 +77,11 @@
                     hreflang="en"
                     href="https://embeddedk8.github.io/tags/content/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/posts/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/posts/</loc><lastmod>2025-09-30T16:23:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/posts/"
+                        /><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://embeddedk8.github.io/zh-cn/posts/"
@@ -42,7 +90,11 @@
                     hreflang="en"
                     href="https://embeddedk8.github.io/posts/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/tags/</loc><lastmod>2025-09-29T19:34:14&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/tags/</loc><lastmod>2025-09-30T16:23:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+                        rel="alternate"
+                        hreflang="pl"
+                        href="https://embeddedk8.github.io/pl/tags/"
+                        /><xhtml:link
                         rel="alternate"
                         hreflang="zh-cn"
                         href="https://embeddedk8.github.io/zh-cn/tags/"
