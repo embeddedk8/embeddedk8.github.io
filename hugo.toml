@@ -89,7 +89,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   images = ["/logo.png"]
 
   # Author config
-  # 作者配置
   [params.author]
     name = "embeddedk8"
     email = "embeddedkate@gmail.com"
@@ -199,7 +198,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # URL of avatar shown in home page
       avatarURL = "/images/avatar.png"
       # title shown in home page (HTML format is supported)
-      title = ""
+      title = "Embedded Kate Blog"
       # subtitle shown in home page (HTML format is supported)
       subtitle = "The easiest guide to embedded development on the whole Internet!"
       # whether to use typeit animation for subtitle
