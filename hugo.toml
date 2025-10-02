@@ -738,12 +738,12 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
           gravatarEmail = ""
           avatarURL = "/images/avatar.png"
           title = ""
-          subtitle = "The easiest guide to embedded development on the whole Internet!"
+          subtitle = "The easiest guide to embedded development"
           typeit = true
           social = true
           disclaimer = ""
       [languages.en.params.social]
-        GitHub = "xxxx"
+        GitHub = "embeddedk8"
         Twitter = "xxxx"
         Instagram = "xxxx"
         Facebook = "xxxx"
@@ -788,13 +788,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         url = "/categories/"
         title = ""
       [[languages.pl.menu.main]]
-        weight = 4
-        identifier = "documentation"
-        pre = ""
-        name = "文档"
-        url = "/categories/documentation/"
-        title = ""
-      [[languages.pl.menu.main]]
         weight = 5
         identifier = "about"
         pre = ""
@@ -812,7 +805,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         title = "GitHub"
     [languages.pl.params]
       [languages.pl.params.search]
-        enable = true
+        enable = false
         type = "algolia"
         contentLength = 4000
         placeholder = ""
@@ -822,27 +815,21 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         absoluteURL = false
         [languages.pl.params.search.algolia]
           index = "index"
-          appID = "GZT24PWKNT"
-          searchKey = "634ab679e825b815de2663de38908f9d"
+          appID = ""
+          searchKey = ""
       [languages.pl.params.home]
         rss = 10
         [languages.pl.params.home.profile]
           enable = true
           gravatarEmail = ""
           avatarURL = "/images/avatar.png"
-          title = ""
-          subtitle = "一个简洁、优雅且高效的 Hugo 主题"
+          title = "Sparkling Embedded Software"
+          subtitle = "The easiest guide to embedded development"
           typeit = true
           social = true
           disclaimer = ""
-      [languages.zh-cn.params.social]
-        GitHub = "xxxx"
-        Weibo = "xxxx"
-        Steam = "xxxx"
-        Zhihu = "xxxx"
-        Douban = "xxxx"
-        Devto = "xxxx"
-        Bilibili = "xxxx"
-        Email = "xxxx@xxxx.com"
-        Phone = "555-555-555"
+      [languages.pl.params.social]
+        GitHub = "embeddedk8"
+        Devto = "embeddedk8"
+        Email = "embeddedkate@gmail.com"
         RSS = true

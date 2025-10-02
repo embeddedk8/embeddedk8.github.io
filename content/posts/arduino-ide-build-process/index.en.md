@@ -12,7 +12,7 @@ resources:
 - name: "featured-image"
   src: "featured-image.png"
 
-tags: ["content", "Arduino"]
+tags: ["Arduino"]
 categories: ["Arduino"]
 
 lightgallery: true
@@ -354,4 +354,4 @@ arm-none-eabi-size -A MyBlink.ino.elf
 
 1. [Build Sketch Process from docs.arduino.cc](https://docs.arduino.cc/arduino-cli/sketch-build-process/)
 2. [Find sketches, libraries, board cores and other files on your computer from support.arduino.cc](https://support.arduino.cc/hc/en-us/articles/4415103213714-Find-sketches-libraries-board-cores-and-other-files-on-your-computer)
-
+3. [ARM Reverse Engineering Notes: Compilation](https://github.com/microbuilder/armreveng/blob/main/compilation.md)
