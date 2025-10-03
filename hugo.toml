@@ -482,7 +482,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       [params.page.library.js]
         # someJavascript = "some.js"
         # located in "assets/" 位于 "assets/"
-        # Or 或者
         # someJavascript = "https://cdn.example.com/some.js"
     # Page SEO config
     [params.page.seo]
@@ -490,7 +489,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       images = []
       # Publisher info
       [params.page.seo.publisher]
-        name = "Blog on embedded software by embeddedk8"
+        name = "Sparkling Embedded Software blog by embeddedk8"
         logoUrl = "/images/avatar.png"
 
   # TypeIt config
@@ -515,7 +514,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # Site SEO config
   [params.seo]
     # image URL
-    # 图片 URL
     image = "/images/Apple-Devices-Preview.png"
     # thumbnail URL
     thumbnailUrl = "/images/screenshot.png"
@@ -564,20 +562,15 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     data = "jsdelivr.yml"
 
   # Compatibility config
-  # 兼容性设置
   [params.compatibility]
     # whether to use Polyfill.io to be compatible with older browsers
-    # 是否使用 Polyfill.io 来兼容旧式浏览器
     polyfill = false
     # whether to use object-fit-images to be compatible with older browsers
-    # 是否使用 object-fit-images 来兼容旧式浏览器
     objectFit = false
 
 # Markup related configuration in Hugo
-# Hugo 解析文档的配置
 [markup]
   # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
-  # 语法高亮设置 (https://gohugo.io/content-management/syntax-highlighting)
   [markup.highlight]
     codeFences = true
     guessSyntax = true
@@ -587,7 +580,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     # false 是必要的设置 (https://github.com/dillonzq/LoveIt/issues/158)
     noClasses = false
   # Goldmark is from Hugo 0.60 the default library used for Markdown
-  # Goldmark 是 Hugo 0.60 以来的默认 Markdown 解析库
   [markup.goldmark]
     [markup.goldmark.extensions]
       definitionList = true
@@ -599,29 +591,24 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       typographer = true
     [markup.goldmark.renderer]
       # whether to use HTML tags directly in the document
-      # 是否在文档中直接使用 HTML 标签
       unsafe = true
   # Table Of Contents settings
-  # 目录设置
   [markup.tableOfContents]
     startLevel = 2
     endLevel = 6
 
 # Sitemap config
-# 网站地图配置
 [sitemap]
   changefreq = "weekly"
   filename = "sitemap.xml"
   priority = 0.5
 
 # Permalinks config (https://gohugo.io/content-management/urls/#permalinks)
-# Permalinks 配置 (https://gohugo.io/content-management/urls/#permalinks)
 [permalinks]
   # posts = ":year/:month/:filename"
   posts = ":filename"
 
 # Privacy config (https://gohugo.io/about/hugo-and-gdpr/)
-# 隐私信息配置 (https://gohugo.io/about/hugo-and-gdpr/)
 [privacy]
   # privacy of the Google Analytics (replaced by params.analytics.google)
   # Google Analytics 相关隐私 (被 params.analytics.google 替代)
@@ -633,13 +620,11 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     privacyEnhanced = true
 
 # Options to make output .md files
-# 用于输出 Markdown 格式文档的设置
 [mediaTypes]
   [mediaTypes."text/plain"]
     suffixes = ["md"]
 
 # Options to make output .md files
-# 用于输出 Markdown 格式文档的设置
 [outputFormats.MarkDown]
   mediaType = "text/plain"
   isPlainText = true
@@ -647,7 +632,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 
 
 # Options to make hugo output files
-# 用于 Hugo 输出文档的设置
 [outputs]
   home = ["HTML", "RSS", "JSON"]
   page = ["HTML", "MarkDown"]
@@ -656,7 +640,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   term = ["HTML"]
 
 # Multilingual
-# 多语言
 [languages]
   [languages.en]
     weight = 1
@@ -694,14 +677,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         url = "/categories/"
         title = ""
       [[languages.en.menu.main]]
-        weight = 4
-        identifier = "documentation"
-        pre = ""
-        post = ""
-        name = "Docs"
-        url = "/categories/documentation/"
-        title = ""
-      [[languages.en.menu.main]]
         weight = 5
         identifier = "about"
         pre = ""
@@ -729,8 +704,8 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         absoluteURL = false
         [languages.en.params.search.algolia]
           index = "index.en"
-          appID = "PASDMWALPK"
-          searchKey = "b42948e51daaa93df92381c8e2ac0f93"
+          appID = ""
+          searchKey = ""
       [languages.en.params.home]
         rss = 10
         [languages.en.params.home.profile]
@@ -744,17 +719,16 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
           disclaimer = ""
       [languages.en.params.social]
         GitHub = "embeddedk8"
-        Twitter = "xxxx"
-        Instagram = "xxxx"
-        Facebook = "xxxx"
-        Telegram = "xxxx"
-        Youtubelegacy = "xxxx"
-        Phone = "555-555-555"
-        Email = "xxxx@xxxx.com"
+        Twitter = "EmbeddedKate"
+        #Instagram = "xxxx"
+        #Facebook = "xxxx"
+        #Telegram = "xxxx"
+        #Youtubelegacy = "xxxx"
+        Email = "embeddedkate@gmail.com"
         RSS = true
-        [languages.en.params.social.Mastodon]
-          id = "@xxxx"
-          prefix = "https://mastodon.technology/"
+#        [languages.en.params.social.Mastodon]
+#          id = "@xxxx"
+#          prefix = "https://mastodon.technology/"
 
   [languages.pl]
     weight = 2
