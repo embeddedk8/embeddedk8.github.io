@@ -3,7 +3,7 @@ weight: 2
 title: "Arduino IDE build process explained (in details)"
 date: 2025-09-13T15:58:26+08:00
 lastmod: 2025-09-13T15:58:26+08:00
-draft: false
+draft: true
 author: "embeddedk8"
 authorLink: "https://embeddedk8.github.io"
 description: "Explaining the compilation process in Arduino IDE"
@@ -12,7 +12,7 @@ resources:
 - name: "featured-image"
   src: "featured-image.png"
 
-tags: ["content", "Arduino"]
+tags: ["Arduino"]
 categories: ["Arduino"]
 
 lightgallery: true
