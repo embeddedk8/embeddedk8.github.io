@@ -53,7 +53,7 @@ This means the compilation process and generated machine code will differ betwee
 Load up the Blink example and make a minimal change (like changing the delay value).
 Then save and store new sketch in your sketchbook and click **Verify/Compile**. Observe the **Output** window.
 You just triggered the entire build process with a single click. The sketch is already packaged and ready to upload to your board. 
-But if you’re still running with the Arduino IDE’s default settings, the **Output** window will only contain minimal information on program space and memory,
+But if you didn't change the Arduino IDE’s default settings yet, the **Output** window will only contain minimal information on program space and memory,
 saying nothing about actual compilation process.
 
 [![Arduino IDE doesn't say much about compilation steps by default](/arduino-ide-default-output.png)](/arduino-ide-default-output.png)
@@ -70,16 +70,24 @@ Let’s break it down to atoms!
 
 ## Board and package identification
 
-The first piece of information is the board identification:
+When building a sketch, the Arduino IDE needs to know exactly which board you are using - that's why at first step
+you had to choose board from **Select Board** menu.
+This ensures the compiled code matches the board’s hardware, memory, and pin mapping. 
+
 ```bash
 FQBN: arduino:renesas_uno:unor4wifi
 Using board 'unor4wifi' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 Using core 'arduino' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 ```
-**FQBN** (Fully Qualified Board Name) is a unique identifier that tells the IDE exactly which board you’re compiling for. It consists of three segments:
-- Vendor: arduino → official Arduino package
-- Architecture: renesas_uno → Renesas-based boards family
-- Board: unor4wifi → exact model: the Arduino Uno R4 WiFi.
+
+This information is called the **Fully Qualified Board Name (FQBN)**.
+It is unique for each board and defines exactly which hardware you are targeting.
+It consists of three segments:
+- Vendor: `arduino` (*it's official Arduino package*)
+- Architecture: `renesas_uno` (*Renesas-based boards family*)
+- Board: `unor4wifi` (*exact model: Arduino Uno R4 WiFi*).
+
+If you choose wrong board, the code may compile but fail at runtime, or compilation may fail.
 
 ## Arduino15 directory
 The build log also shows the location of the **Arduino15** directory on your system. This is the hidden folder used by the Arduino IDE, containing user preferences,

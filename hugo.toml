@@ -719,13 +719,14 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
           disclaimer = ""
       [languages.en.params.social]
         GitHub = "embeddedk8"
+        Devto = "embeddedk8"
         Twitter = "EmbeddedKate"
         #Instagram = "xxxx"
         #Facebook = "xxxx"
         #Telegram = "xxxx"
         #Youtubelegacy = "xxxx"
         Email = "embeddedkate@gmail.com"
-        RSS = true
+#        RSS = true
 #        [languages.en.params.social.Mastodon]
 #          id = "@xxxx"
 #          prefix = "https://mastodon.technology/"
@@ -805,5 +806,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       [languages.pl.params.social]
         GitHub = "embeddedk8"
         Devto = "embeddedk8"
+        Twitter = "EmbeddedKate"
         Email = "embeddedkate@gmail.com"
-        RSS = true
+#        RSS = true
