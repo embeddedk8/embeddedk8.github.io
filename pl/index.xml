@@ -6,17 +6,5 @@
         <generator>Hugo -- gohugo.io</generator><language>pl</language><managingEditor>embeddedkate@gmail.com (embeddedk8)</managingEditor>
             <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 14 Sep 2025 11:04:49 &#43;0800</lastBuildDate>
             <atom:link href="https://embeddedk8.github.io/pl/index.xml" rel="self" type="application/rss+xml" />
-        <item>
-    <title>Arduino IDE build process explained (in details)</title>
-    <link>https://embeddedk8.github.io/pl/arduino-ide-build-process/</link>
-    <pubDate>Sat, 13 Sep 2025 15:58:26 &#43;0800</pubDate>
-    <author>embeddedk8</author>
-    <guid>https://embeddedk8.github.io/pl/arduino-ide-build-process/</guid>
-    <description><![CDATA[<p>Many beginner embedded developers begin their journey with the Arduino development board, because it&rsquo;s extremely easy to use even with no prior knowledge.
-After installing Arduino IDE and connecting the board, you can just choose an example Sketch and with two clicks compile it and upload it to the board.
-But if you want to be able to move to more professional boards or setups,
-it&rsquo;s necessary to understand what is an Arduino Sketch and what is really happening under the hood when
-Arduino IDE is compiling your code.</p>]]></description>
-</item>
-</channel>
+        </channel>
 </rss>

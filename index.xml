@@ -12,11 +12,11 @@
     <pubDate>Sat, 13 Sep 2025 15:58:26 &#43;0800</pubDate>
     <author>embeddedk8</author>
     <guid>https://embeddedk8.github.io/arduino-ide-build-process/</guid>
-    <description><![CDATA[<p>Many beginner embedded developers begin their journey with the Arduino development board, because it&rsquo;s extremely easy to use even with no prior knowledge.
-After installing Arduino IDE and connecting the board, you can just choose an example Sketch and with two clicks compile it and upload it to the board.
-But if you want to be able to move to more professional boards or setups,
-it&rsquo;s necessary to understand what is an Arduino Sketch and what is really happening under the hood when
-Arduino IDE is compiling your code.</p>]]></description>
+    <description><![CDATA[<p>Many beginner embedded developers start their journey with an Arduino development board because it’s extremely easy to use, even with no prior experience.
+After installing the Arduino IDE and connecting the board, you can simply choose an example sketch and, with just two clicks, build and upload it.
+Does this sound like you?
+If so, this post will help you understand <strong>what an Arduino sketch really is — and what happens “under the hood” when the Arduino IDE builds your code</strong>.
+By understanding this process, you’ll be ready to move on to more professional boards and development setups.</p>]]></description>
 </item>
 </channel>
 </rss>

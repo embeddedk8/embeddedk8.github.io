@@ -2,16 +2,8 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://embeddedk8.github.io/arduino-ide-build-process/</loc><lastmod>2025-10-02T20:02:39&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="pl"
-                        href="https://embeddedk8.github.io/pl/arduino-ide-build-process/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://embeddedk8.github.io/arduino-ide-build-process/"
-                    /></url><url>
-            <loc>https://embeddedk8.github.io/posts/</loc><lastmod>2025-10-02T20:02:39&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/arduino-ide-build-process/</loc><lastmod>2025-10-05T10:04:34&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/posts/</loc><lastmod>2025-10-05T10:04:34&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.github.io/pl/posts/"
@@ -20,7 +12,7 @@
                     hreflang="en"
                     href="https://embeddedk8.github.io/posts/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/</loc><lastmod>2025-10-02T20:02:39&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/</loc><lastmod>2025-10-05T10:04:34&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.github.io/pl/"
@@ -38,25 +30,9 @@
                     hreflang="en"
                     href="https://embeddedk8.github.io/about/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/categories/arduino/</loc><lastmod>2025-10-02T20:02:39&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="pl"
-                        href="https://embeddedk8.github.io/pl/categories/arduino/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://embeddedk8.github.io/categories/arduino/"
-                    /></url><url>
-            <loc>https://embeddedk8.github.io/tags/arduino/</loc><lastmod>2025-10-02T20:02:39&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
-                        rel="alternate"
-                        hreflang="pl"
-                        href="https://embeddedk8.github.io/pl/tags/arduino/"
-                        /><xhtml:link
-                    rel="alternate"
-                    hreflang="en"
-                    href="https://embeddedk8.github.io/tags/arduino/"
-                    /></url><url>
-            <loc>https://embeddedk8.github.io/categories/</loc><lastmod>2025-10-02T20:02:39&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/categories/arduino/</loc><lastmod>2025-10-05T10:04:34&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/arduino/</loc><lastmod>2025-10-05T10:04:34&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/categories/</loc><lastmod>2025-10-05T10:04:34&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.github.io/pl/categories/"
@@ -65,7 +41,7 @@
                     hreflang="en"
                     href="https://embeddedk8.github.io/categories/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/tags/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/tags/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.github.io/pl/tags/"
@@ -74,6 +50,6 @@
                     hreflang="en"
                     href="https://embeddedk8.github.io/tags/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/tags/content/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://embeddedk8.github.io/tags/installation/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url>
-            <loc>https://embeddedk8.github.io/tags/configuration/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url></urlset>
+            <loc>https://embeddedk8.github.io/tags/content/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/installation/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/configuration/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url></urlset>

@@ -4,22 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Arduino IDE build process explained (in details) - Sparkling Embedded Software blog</title><meta name="Description" content="Explaining the compilation process in Arduino IDE"><meta property="og:url" content="https://embeddedk8.github.io/arduino-ide-build-process/">
+        <title>Arduino IDE build process explained (in details) - Sparkling Embedded Software blog</title><meta name="Description" content="Explaining the sketch build process in Arduino IDE"><meta property="og:url" content="https://embeddedk8.github.io/arduino-ide-build-process/">
   <meta property="og:site_name" content="Sparkling Embedded Software blog">
   <meta property="og:title" content="Arduino IDE build process explained (in details)">
-  <meta property="og:description" content="Explaining the compilation process in Arduino IDE">
+  <meta property="og:description" content="Explaining the sketch build process in Arduino IDE">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-09-13T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-10-02T20:02:39+02:00">
+    <meta property="article:modified_time" content="2025-10-05T10:04:34+02:00">
     <meta property="article:tag" content="Arduino">
     <meta property="og:image" content="https://embeddedk8.github.io/arduino-ide-build-process/featured-image.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://embeddedk8.github.io/arduino-ide-build-process/featured-image.png">
   <meta name="twitter:title" content="Arduino IDE build process explained (in details)">
-  <meta name="twitter:description" content="Explaining the compilation process in Arduino IDE">
+  <meta name="twitter:description" content="Explaining the sketch build process in Arduino IDE">
       <meta name="twitter:site" content="@EmbeddedKate">
 <meta name="application-name" content="embeddedk8">
 <meta name="apple-mobile-web-app-title" content="embeddedk8"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino","wordcount":  2021 ,
-        "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-02T20:02:39+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino","wordcount":  2168 ,
+        "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-05T10:04:34+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Sparkling Embedded Software blog by Kate","logo": {
                     "@type": "ImageObject",
@@ -51,7 +51,7 @@
                 }},"author": {
                 "@type": "Person",
                 "name": "embeddedk8"
-            },"description": "Explaining the compilation process in Arduino IDE"
+            },"description": "Explaining the sketch build process in Arduino IDE"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -77,7 +77,7 @@
                     <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
                     <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/arduino-ide-build-process/" selected>English</option><option value="/pl/arduino-ide-build-process/">Polski</option></select>
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/arduino-ide-build-process/" selected>English</option></select>
                 </a></div>
         </div>
     </div>
@@ -111,7 +111,7 @@
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
                     <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/arduino-ide-build-process/" selected>English</option><option value="/pl/arduino-ide-build-process/">Polski</option></select>
+                    <select class="language-select" onchange="location = this.value;"><option value="/arduino-ide-build-process/" selected>English</option></select>
                 </a></div>
     </div>
 </header><div class="search-dropdown desktop">
@@ -125,8 +125,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino IDE build process explained (in details)</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2021 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;10 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2168 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;11 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -134,14 +134,14 @@
         data-srcset="/arduino-ide-build-process/featured-image.png, /arduino-ide-build-process/featured-image.png 1.5x, /arduino-ide-build-process/featured-image.png 2x"
         data-sizes="auto"
         alt="/arduino-ide-build-process/featured-image.png"
-        title="Explaining the compilation process in Arduino IDE" /></div><div class="details toc" id="toc-static"  data-kept="">
+        title="Explaining the sketch build process in Arduino IDE" /></div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#compiling-first-sketch">Compiling first Sketch</a></li>
+    <li><a href="#build-your-first-sketch">Build your first sketch</a></li>
     <li><a href="#enable-verbose-output">Enable verbose output</a></li>
     <li><a href="#board-and-package-identification">Board and package identification</a></li>
     <li><a href="#arduino15-directory">Arduino15 directory</a></li>
@@ -155,14 +155,15 @@
     <li><a href="#linking-everything-together">Linking everything together</a></li>
     <li><a href="#creating-binary-and-hex-files">Creating binary and hex files</a></li>
     <li><a href="#measuring-the-program-size">Measuring the program size</a></li>
+    <li><a href="#cleaning-the-build">Cleaning the build</a></li>
     <li><a href="#more-reading">More reading</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>Many beginner embedded developers begin their journey with the Arduino development board, because it&rsquo;s extremely easy to use even with no prior knowledge.
-After installing Arduino IDE and connecting the board, you can just choose an example Sketch and with two clicks compile it and upload it to the board.
-But if you want to be able to move to more professional boards or setups,
-it&rsquo;s necessary to understand what is an Arduino Sketch and what is really happening under the hood when
-Arduino IDE is compiling your code.</p>
+            </div><div class="content" id="content"><p>Many beginner embedded developers start their journey with an Arduino development board because it’s extremely easy to use, even with no prior experience.
+After installing the Arduino IDE and connecting the board, you can simply choose an example sketch and, with just two clicks, build and upload it.
+Does this sound like you?
+If so, this post will help you understand <strong>what an Arduino sketch really is — and what happens “under the hood” when the Arduino IDE builds your code</strong>.
+By understanding this process, you’ll be ready to move on to more professional boards and development setups.</p>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Assumed Knowledge<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -173,7 +174,7 @@ Arduino IDE is compiling your code.</p>
     </div>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Setup I used<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>My setup<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
             <div class="admonition-content"><ul>
@@ -181,13 +182,23 @@ Arduino IDE is compiling your code.</p>
 <li>Arduino IDE  2.3.6</li>
 <li>Linux Mint</li>
 </ul>
-<p>Described things may look different on your PC.</p></div>
+<p>If you’re using a different board, IDE version, or operating system - don’t worry! You can still follow along. Some details may just look a little different on your setup.</p></div>
         </div>
     </div>
-<h2 id="compiling-first-sketch">Compiling first Sketch</h2>
-<p>Pick the right board from <strong>Select Board</strong> menu, load up the Blink example and make a minimal change (like changing the delay value).
-Then save and store new Sketch in your Sketchbook and click <strong>Verify/Compile</strong>. Observe the <strong>Output</strong> window.
-You just triggered the entire build process with a single click. The Sketch is already packaged and ready to upload to your board.
+<h2 id="build-your-first-sketch">Build your first sketch</h2>
+<p>Pick the right board from <strong>Select Board</strong> menu. In my case it&rsquo;s <strong>Arduino UNO R4 WiFi</strong>.</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>true<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">The <strong>Arduino UNO R4 WiFi</strong> is based on an <strong>ARM</strong> architecture. Be aware that some other Arduino boards (like the <strong>UNO R3</strong> or <strong>Mega 2560</strong>) use <strong>AVR</strong> architecture instead.
+This means the compilation process and generated machine code will differ between these boards.</div>
+        </div>
+    </div>
+<p>Load up the Blink example and make a minimal change (like changing the delay value).
+Then save and store new sketch in your sketchbook and click <strong>Verify/Compile</strong>. Observe the <strong>Output</strong> window.
+You just triggered the entire build process with a single click. The sketch is already packaged and ready to upload to your board.
 But if you’re still running with the Arduino IDE’s default settings, the <strong>Output</strong> window will only contain minimal information on program space and memory,
 saying nothing about actual compilation process.</p>
 <p><a href="/arduino-ide-build-process/arduino-ide-default-output.png" rel=""><img
@@ -199,7 +210,7 @@ saying nothing about actual compilation process.</p>
         alt="/arduino-ide-build-process/arduino-ide-default-output.png"
         title="Arduino IDE doesn&rsquo;t say much about compilation steps by default" width="1284" height="748" /></a></p>
 <h2 id="enable-verbose-output">Enable verbose output</h2>
-<p>If your <strong>Output</strong> windows looks like above, you need to mark <code>File-&gt;Preferences-&gt;Show verbose output</code> setting for both compiling and upload, and compile again.
+<p>If your <strong>Output</strong> window looks like above, you need to mark <code>File-&gt;Preferences-&gt;Show verbose output</code> setting for both compiling and upload, and compile again.
 Now the output will be complete.
 Let’s break it down to atoms!
 <br></p>
@@ -235,8 +246,8 @@ Let’s break it down to atoms!
 <p>The build log also shows the location of the <strong>Arduino15</strong> directory on your system. This is the hidden folder used by the Arduino IDE, containing user preferences,
 downloaded board packages (cores, toolchains, board definitions) and libraries that the IDE automatically installs.</p>
 <p>The exact location depends on your operating system. You can find the official reference here:
-<a href="https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder" target="_blank" rel="noopener noreffer ">Open the Arduino15 folder</a>.</p>
-<p>Inside this directory, in file <code>.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/boards.txt</code> you will find the collection of board definitions.
+<a href="https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder" target="_blank" rel="noopener noreffer ">Arduino15 folder</a>.</p>
+<p>In this directory there is a file <code>.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/boards.txt</code>, where you will find the collection of board definitions.
 This file lists all supported boards. Each board has its own section with key-value pairs that tell the IDE how to compile, upload, and debug for that target.
 Here’s the entry for the Arduino UNO R4 WiFi:</p>
 <div class="highlight"><div class="chroma">
@@ -254,6 +265,8 @@ Here’s the entry for the Arduino UNO R4 WiFi:</p>
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">##############################################################</span>
@@ -268,22 +281,24 @@ Here’s the entry for the Arduino UNO R4 WiFi:</p>
 </span></span><span class="line"><span class="cl"><span class="n">unor4wifi</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">architecture</span><span class="o">=</span><span class="n">cortex</span><span class="o">-</span><span class="n">m4</span>
 </span></span><span class="line"><span class="cl"><span class="n">unor4wifi</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">fpu</span><span class="o">=-</span><span class="n">mfpu</span><span class="o">=</span><span class="n">fpv4</span><span class="o">-</span><span class="n">sp</span><span class="o">-</span><span class="n">d16</span>
 </span></span><span class="line"><span class="cl"><span class="n">unor4wifi</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">float</span><span class="o">-</span><span class="n">abi</span><span class="o">=-</span><span class="n">mfloat</span><span class="o">-</span><span class="n">abi</span><span class="o">=</span><span class="n">hard</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">unor4wifi</span><span class="o">.</span><span class="n">upload</span><span class="o">.</span><span class="k">tool</span><span class="o">=</span><span class="n">bossac</span>
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Thanks to these settings, you only need to pick your board from the <strong>Select Board</strong> menu.
-The correct toolchain, compiler flags, and upload method are then applied automatically.</p>
+</div><p>Thanks to these settings, after you pick your board from the <strong>Select Board</strong> menu,
+the correct toolchain, compiler flags (like MCU, clock speed), upload tool and bootloader info are applied automatically.</p>
 <h2 id="arduino-core">Arduino core</h2>
 <p>While we’re here, take a look at: <code>.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores</code>.
 This folder contains Arduino core, the implementation of familiar functions like digital I/O, analog reads/writes, timers, interrupts, and more.
 And most importantly, it contains <code>main.cpp</code> file.</p>
-<p>In your Sketch, you only write <code>setup()</code> and <code>loop()</code> implementations. Who calls them and in what context? Open <code>main.cpp</code> and see yourself.
+<p>In your sketch, you only write <code>setup()</code> and <code>loop()</code> implementations. Who calls them and in what context? Open <code>main.cpp</code> and see yourself.
 There is a lot of logic the Arduino core has already added for you.
 Once you’ve explored that, let’s return to the <strong>Build Output</strong> and see what comes next.</p>
 <h2 id="creating-the-build-directory">Creating the build directory</h2>
 <p>When you compile a sketch, the Arduino IDE doesn’t build it directly in your project folder.
 Instead, it creates a build directory (a per-sketch cache) in a hidden folder to store all intermediate files.
-This lets the IDE produce builds for different boards/variants without making a mess in your Sketch folder.
+This lets the IDE produce builds for different boards/variants without making a mess in your sketch folder.
 You can spot the build directory path in the build log.
 On my system it&rsquo;s:
 <code>/home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/</code>.</p>
@@ -293,8 +308,8 @@ On my system it&rsquo;s:
             <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">Export the compiled binary into your Sketch folder: click <strong>Sketch → Export Compiled Binary</strong> option from menu.
-That performs a compilation and places a copy of the .hex, .bin, .elf and .map inside the stored Sketch folder so it’s easy to find later.
+            <div class="admonition-content">Export the compiled binary into your sketch folder: click <strong>Sketch → Export Compiled Binary</strong> option from menu.
+That performs a compilation and places a copy of the .hex, .bin, .elf and .map inside the stored sketch folder so it’s easy to find later.
 This is handy if you want to keep a copy next to the source.</div>
         </div>
     </div></p>
@@ -324,9 +339,9 @@ This is handy if you want to keep a copy next to the source.</div>
 </div>
         </div>
     </div>
-<p>This step is used to figure out which libraries your Sketch actually needs.
+<p>This step is used to figure out which libraries your sketch actually needs.
 Arduino IDE compiles only the libraries you include. Otherwise, every build would be painfully slow.
-In the case of the Blink Sketch, this stage isn’t very exciting: it doesn’t pull in any additional libraries that need compilation.
+In the case of the Blink sketch, this stage isn’t very exciting: it doesn’t pull in any additional libraries that need compilation.
 That’s why the Build Output doesn’t list any detected libraries.</p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
@@ -341,7 +356,7 @@ Hint: pay attention to the <em>#include</em> directives and the role of the prep
     </div>
 <h2 id="automatic-function-prototypes-generation">Automatic function prototypes generation</h2>
 <p>The next stage in the build process is automatic function prototype generation. In C or C++, each function must be
-declared or defined before it&rsquo;s called. In Arduino you don&rsquo;t need to worry about that - you can write whatever functions
+either defined or declared before it&rsquo;s called. In Arduino, you don&rsquo;t need to worry about that - you can write whatever functions
 in any order, without adding their prototypes. How does it work? Arduino generates these prototypes for you!</p>
 <p>Here’s what the build log shows:</p>
 <div class="highlight"><div class="chroma">
@@ -479,7 +494,7 @@ Without them, errors would show up with the line numbers of the generated .cpp, 
 </span></span><span class="line"><span class="cl">arm-none-eabi-g++ (...) -c sketch/MyBlink.ino.cpp -o sketch/MyBlink.ino.cpp.o
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Now we reached the Sketch compilation.
+</div><p>Now we reached the sketch compilation.
 Compiler is ivoked with <code>-c</code> flag, which means compile only (generate object code .o, don’t link).</p>
 <p><strong>Input:</strong> <code>MyBlink.ino.cpp</code> - the auto-generated sketch with prototypes, includes, and line directives.</p>
 <p><strong>Output:</strong> <code>MyBlink.ino.cpp.o</code> - machine-code object file, ready to be linked later.</p>
@@ -608,7 +623,12 @@ They are not optional user libraries, so they don’t appear in the detection ph
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">arm-none-eabi-size -A MyBlink.ino.elf
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="more-reading">More reading</h2>
+</div><h2 id="cleaning-the-build">Cleaning the build</h2>
+<p>Unfortunately, Arduino IDE does not offer the <code>Clean build</code> or <code>Force rebuild</code> option (<a href="https://forum.arduino.cc/t/feature-request-clean-build-option/1291789" target="_blank" rel="noopener noreffer ">[1]</a>,
+<a href="https://forum.arduino.cc/t/can-i-force-the-arduino-ide-to-recompile-everything/866547" target="_blank" rel="noopener noreffer ">[2]</a>,
+<a href="https://github.com/arduino/arduino-ide/issues/419" target="_blank" rel="noopener noreffer ">[3]</a>). The workaround for it is to manually delete the cached build directories we mentioned earlier.
+A much better alternative is to use Arduino CLI, which is more flexible and gives you full control over compilation and rebuilding.</p>
+<h2 id="more-reading">More reading</h2>
 <ol>
 <li><a href="https://docs.arduino.cc/arduino-cli/sketch-build-process/" target="_blank" rel="noopener noreffer ">Build Sketch Process from docs.arduino.cc</a></li>
 <li><a href="https://support.arduino.cc/hc/en-us/articles/4415103213714-Find-sketches-libraries-board-cores-and-other-files-on-your-computer" target="_blank" rel="noopener noreffer ">Find sketches, libraries, board cores and other files on your computer from support.arduino.cc</a></li>
@@ -618,8 +638,8 @@ They are not optional user libraries, so they don’t appear in the detection ph
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-10-02&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/d0841b1de7ef6af924ba69699a5d1b138d65f557" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) d0841b1de7ef6af924ba69699a5d1b138d65f557: Minor improvements and 2 drafts started">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>d0841b1</a></span>
+                <span>Updated on 2025-10-05&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/c5e41bfe32fdebb5cd2ff0afa5631d9e32825d1c" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) c5e41bfe32fdebb5cd2ff0afa5631d9e32825d1c: Minor tweaks">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>c5e41bf</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
