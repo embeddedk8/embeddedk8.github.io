@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-09-13T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-10-05T10:04:34+02:00">
+    <meta property="article:modified_time" content="2025-10-05T13:58:47+02:00">
     <meta property="article:tag" content="Arduino">
     <meta property="og:image" content="https://embeddedk8.github.io/arduino-ide-build-process/featured-image.png">
 
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino","wordcount":  2168 ,
-        "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-05T10:04:34+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino","wordcount":  2222 ,
+        "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-05T13:58:47+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Sparkling Embedded Software blog by Kate","logo": {
                     "@type": "ImageObject",
@@ -125,7 +125,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino IDE build process explained (in details)</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2168 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2222 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;11 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -199,7 +199,7 @@ This means the compilation process and generated machine code will differ betwee
 <p>Load up the Blink example and make a minimal change (like changing the delay value).
 Then save and store new sketch in your sketchbook and click <strong>Verify/Compile</strong>. Observe the <strong>Output</strong> window.
 You just triggered the entire build process with a single click. The sketch is already packaged and ready to upload to your board.
-But if you’re still running with the Arduino IDE’s default settings, the <strong>Output</strong> window will only contain minimal information on program space and memory,
+But if you didn&rsquo;t change the Arduino IDE’s default settings yet, the <strong>Output</strong> window will only contain minimal information on program space and memory,
 saying nothing about actual compilation process.</p>
 <p><a href="/arduino-ide-build-process/arduino-ide-default-output.png" rel=""><img
         class="lazyload"
@@ -223,7 +223,9 @@ Let’s break it down to atoms!
         alt="/arduino-ide-build-process/arduino-ide-verbose-output.png"
         title="Verbose compilation output in Arduino IDE" width="1280" height="749" /></a></p>
 <h2 id="board-and-package-identification">Board and package identification</h2>
-<p>The first piece of information is the board identification:</p>
+<p>When building a sketch, the Arduino IDE needs to know exactly which board you are using - that&rsquo;s why at first step
+you had to choose board from <strong>Select Board</strong> menu.
+This ensures the compiled code matches the board’s hardware, memory, and pin mapping.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -236,12 +238,15 @@ Let’s break it down to atoms!
 </span></span><span class="line"><span class="cl">Using core <span class="s1">&#39;arduino&#39;</span> from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>FQBN</strong> (Fully Qualified Board Name) is a unique identifier that tells the IDE exactly which board you’re compiling for. It consists of three segments:</p>
+</div><p>This information is called the <strong>Fully Qualified Board Name (FQBN)</strong>.
+It is unique for each board and defines exactly which hardware you are targeting.
+It consists of three segments:</p>
 <ul>
-<li>Vendor: arduino → official Arduino package</li>
-<li>Architecture: renesas_uno → Renesas-based boards family</li>
-<li>Board: unor4wifi → exact model: the Arduino Uno R4 WiFi.</li>
+<li>Vendor: <code>arduino</code> (<em>it&rsquo;s official Arduino package</em>)</li>
+<li>Architecture: <code>renesas_uno</code> (<em>Renesas-based boards family</em>)</li>
+<li>Board: <code>unor4wifi</code> (<em>exact model: Arduino Uno R4 WiFi</em>).</li>
 </ul>
+<p>If you choose wrong board, the code may compile but fail at runtime, or compilation may fail.</p>
 <h2 id="arduino15-directory">Arduino15 directory</h2>
 <p>The build log also shows the location of the <strong>Arduino15</strong> directory on your system. This is the hidden folder used by the Arduino IDE, containing user preferences,
 downloaded board packages (cores, toolchains, board definitions) and libraries that the IDE automatically installs.</p>
@@ -638,8 +643,8 @@ A much better alternative is to use Arduino CLI, which is more flexible and give
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-10-05&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/c5e41bfe32fdebb5cd2ff0afa5631d9e32825d1c" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) c5e41bfe32fdebb5cd2ff0afa5631d9e32825d1c: Minor tweaks">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>c5e41bf</a></span>
+                <span>Updated on 2025-10-05&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/7c51b4e4432dd780caaef7d82fec639ba9616288" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) 7c51b4e4432dd780caaef7d82fec639ba9616288: Minor tweaks">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>7c51b4e</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
