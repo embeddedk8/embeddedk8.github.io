@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on Sparkling Embedded Software blog</title>
+    <title>Categories on Embedded Kate Blog</title>
     <link>https://embeddedk8.github.io/categories/</link>
-    <description>Recent content in Categories on Sparkling Embedded Software blog</description>
+    <description>Recent content in Categories on Embedded Kate Blog</description>
     <generator>Hugo</generator>
     <language>en</language>
     <managingEditor>embeddedkate@gmail.com (embeddedk8)</managingEditor>
