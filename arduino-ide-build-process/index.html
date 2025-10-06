@@ -40,7 +40,7 @@
                             "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino","wordcount":  2222 ,
+                        }],"genre": "posts","keywords": "Arduino","wordcount":  2309 ,
         "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-05T13:58:47+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Sparkling Embedded Software blog by Kate","logo": {
@@ -125,7 +125,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino IDE build process explained (in details)</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2222 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2309 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;11 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -166,7 +166,7 @@ If so, this post will help you understand <strong>what an Arduino sketch really 
 By understanding this process, you’ll be ready to move on to more professional boards and development setups.</p>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Assumed Knowledge<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Assumed knowledge<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
             <div class="admonition-content">I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.</div>
@@ -189,7 +189,7 @@ By understanding this process, you’ll be ready to move on to more professional
 <p>Pick the right board from <strong>Select Board</strong> menu. In my case it&rsquo;s <strong>Arduino UNO R4 WiFi</strong>.</p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>true<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
             <div class="admonition-content">The <strong>Arduino UNO R4 WiFi</strong> is based on an <strong>ARM</strong> architecture. Be aware that some other Arduino boards (like the <strong>UNO R3</strong> or <strong>Mega 2560</strong>) use <strong>AVR</strong> architecture instead.
@@ -198,7 +198,7 @@ This means the compilation process and generated machine code will differ betwee
     </div>
 <p>Load up the Blink example and make a minimal change (like changing the delay value).
 Then save and store new sketch in your sketchbook and click <strong>Verify/Compile</strong>. Observe the <strong>Output</strong> window.
-You just triggered the entire build process with a single click. The sketch is already packaged and ready to upload to your board.
+You just triggered the entire build process with a single click. The sketch is ready to upload to your board.
 But if you didn&rsquo;t change the Arduino IDE’s default settings yet, the <strong>Output</strong> window will only contain minimal information on program space and memory,
 saying nothing about actual compilation process.</p>
 <p><a href="/arduino-ide-build-process/arduino-ide-default-output.png" rel=""><img
@@ -225,7 +225,7 @@ Let’s break it down to atoms!
 <h2 id="board-and-package-identification">Board and package identification</h2>
 <p>When building a sketch, the Arduino IDE needs to know exactly which board you are using - that&rsquo;s why at first step
 you had to choose board from <strong>Select Board</strong> menu.
-This ensures the compiled code matches the board’s hardware, memory, and pin mapping.</p>
+This ensures the compiled code matches the board’s architecture, hardware, pin mapping etc.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -252,6 +252,46 @@ It consists of three segments:</p>
 downloaded board packages (cores, toolchains, board definitions) and libraries that the IDE automatically installs.</p>
 <p>The exact location depends on your operating system. You can find the official reference here:
 <a href="https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder" target="_blank" rel="noopener noreffer ">Arduino15 folder</a>.</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>In some cases, you may want to move the <strong>Arduino15 folder</strong> - for example, to free up space on your primary drive.</p>
+<p>To do this:</p>
+<ol>
+<li>
+<p>Copy the <strong>Arduino15</strong> directory to your desired location.</p>
+</li>
+<li>
+<p>Open the file <code>~/.arduinoIDE/arduino-cli.yaml</code> and update the <code>directories:data</code> path, for example:</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">board_manager:
+</span></span><span class="line"><span class="cl">    additional_urls: []
+</span></span><span class="line"><span class="cl">directories:
+</span></span><span class="line"><span class="cl">    data: /home/kate/new-location-arduino15
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>
+<p>Restart the Arduino IDE. It will now use the new <strong>Arduino15</strong> location. Verify the build output to ensure everything is working correctly.</p>
+</li>
+<li>
+<p>Once you’ve confirmed everything works correctly, you can safely delete the old folder.</p>
+</li>
+</ol>
+</div>
+        </div>
+    </div>
 <p>In this directory there is a file <code>.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/boards.txt</code>, where you will find the collection of board definitions.
 This file lists all supported boards. Each board has its own section with key-value pairs that tell the IDE how to compile, upload, and debug for that target.
 Here’s the entry for the Arduino UNO R4 WiFi:</p>
