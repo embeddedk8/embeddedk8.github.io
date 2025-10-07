@@ -2,7 +2,7 @@
 weight: 2
 title: "Arduino IDE build process explained (in details)"
 date: 2025-09-13T15:58:26+08:00
-lastmod: 2025-10-05T15:58:26+08:00
+# lastmod is omitted on purpose
 draft: false
 author: "embeddedk8"
 authorLink: "https://embeddedk8.github.io"
@@ -30,7 +30,7 @@ If so, this post will help you understand **what an Arduino sketch really is —
 By understanding this process, you’ll be ready to move on to more professional boards and development setups.
 
 
-{{< admonition note "Assumed Knowledge" true >}}
+{{< admonition note "Assumed knowledge" true >}}
 I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.
 {{< /admonition >}}
 
@@ -45,14 +45,14 @@ If you’re using a different board, IDE version, or operating system - don’t 
 ## Build your first sketch
 Pick the right board from **Select Board** menu. In my case it's **Arduino UNO R4 WiFi**.
 
-{{< admonition tip true >}}
+{{< admonition tip >}}
 The **Arduino UNO R4 WiFi** is based on an **ARM** architecture. Be aware that some other Arduino boards (like the **UNO R3** or **Mega 2560**) use **AVR** architecture instead. 
 This means the compilation process and generated machine code will differ between these boards.
 {{< /admonition >}}
 
 Load up the Blink example and make a minimal change (like changing the delay value).
 Then save and store new sketch in your sketchbook and click **Verify/Compile**. Observe the **Output** window.
-You just triggered the entire build process with a single click. The sketch is already packaged and ready to upload to your board. 
+You just triggered the entire build process with a single click. The sketch is ready to upload to your board. 
 But if you didn't change the Arduino IDE’s default settings yet, the **Output** window will only contain minimal information on program space and memory,
 saying nothing about actual compilation process.
 
@@ -72,7 +72,7 @@ Let’s break it down to atoms!
 
 When building a sketch, the Arduino IDE needs to know exactly which board you are using - that's why at first step
 you had to choose board from **Select Board** menu.
-This ensures the compiled code matches the board’s hardware, memory, and pin mapping. 
+This ensures the compiled code matches the board’s architecture, hardware, pin mapping etc.
 
 ```bash
 FQBN: arduino:renesas_uno:unor4wifi
@@ -95,6 +95,27 @@ downloaded board packages (cores, toolchains, board definitions) and libraries t
 
 The exact location depends on your operating system. You can find the official reference here:
 [Arduino15 folder](https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder).
+
+{{< admonition tip >}}
+In some cases, you may want to move the **Arduino15 folder** - for example, to free up space on your primary drive.
+
+To do this:
+
+1. Copy the **Arduino15** directory to your desired location.
+
+2. Open the file `~/.arduinoIDE/arduino-cli.yaml` and update the `directories:data` path, for example:
+
+```
+board_manager:
+    additional_urls: []
+directories:
+    data: /home/kate/new-location-arduino15
+```
+
+3. Restart the Arduino IDE. It will now use the new **Arduino15** location. Verify the build output to ensure everything is working correctly.
+
+4. Once you’ve confirmed everything works correctly, you can safely delete the old folder.
+{{< /admonition >}}
 
 In this directory there is a file `.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/boards.txt`, where you will find the collection of board definitions.
 This file lists all supported boards. Each board has its own section with key-value pairs that tell the IDE how to compile, upload, and debug for that target.
@@ -121,13 +142,18 @@ Thanks to these settings, after you pick your board from the **Select Board** me
 the correct toolchain, compiler flags (like MCU, clock speed), upload tool and bootloader info are applied automatically.
 
 ## Arduino core
-While we’re here, take a look at: `.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores`.
-This folder contains Arduino core, the implementation of familiar functions like digital I/O, analog reads/writes, timers, interrupts, and more.
-And most importantly, it contains `main.cpp` file.
+While we’re here, take a look at the package used in your build: `.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores`
+(check your build log to find your exact path — it may differ depending on your hardware or version).
+This directory contains **Arduino Core**, the essential components of your Arduino program.
 
-In your sketch, you only write `setup()` and `loop()` implementations. Who calls them and in what context? Open `main.cpp` and see yourself. 
-There is a lot of logic the Arduino core has already added for you.
-Once you’ve explored that, let’s return to the **Build Output** and see what comes next.
+{{< admonition type=info >}}
+**Arduino Core** is the implementation of the Arduino API for a specific chip family. Each chip family has its own core.
+{{< /admonition >}}
+
+You may have noticed that in your sketch you only implement the `setup()` and `loop()` functions. But who calls them, and in what context?
+Open `main.cpp` and see for yourself - there’s a lot of logic the Arduino Core already provides for you.
+
+Once you’ve explored that, let's go back to the Build Output and see what happens next.
 
 ## Creating the build directory
 When you compile a sketch, the Arduino IDE doesn’t build it directly in your project folder.
