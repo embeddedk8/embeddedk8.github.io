@@ -120,13 +120,18 @@ Thanks to these settings, after you pick your board from the **Select Board** me
 the correct toolchain, compiler flags (like MCU, clock speed), upload tool and bootloader info are applied automatically.
 
 ## Arduino core
-While we’re here, take a look at: `.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores`.
-This folder contains Arduino core, the implementation of familiar functions like digital I/O, analog reads/writes, timers, interrupts, and more.
-And most importantly, it contains `main.cpp` file.
+While we’re here, take a look at the package used in your build: `.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores`
+(check your build log to find your exact path — it may differ depending on your hardware or version).
+This directory contains **Arduino Core**, the essential components of your Arduino program.
 
-In your sketch, you only write `setup()` and `loop()` implementations. Who calls them and in what context? Open `main.cpp` and see yourself. 
-There is a lot of logic the Arduino core has already added for you.
-Once you’ve explored that, let’s return to the **Build Output** and see what comes next.
+{{< admonition type=info >}}
+**Arduino Core** is the implementation of the Arduino API for a specific chip family. Each chip family has its own core.
+{{< /admonition >}}
+
+You may have noticed that in your sketch you only implement the `setup()` and `loop()` functions. But who calls them, and in what context?
+Open `main.cpp` and see for yourself - there’s a lot of logic the Arduino Core already provides for you.
+
+Once you’ve explored that, let's go back to the Build Output and see what happens next.
 
 ## Creating the build directory
 When you compile a sketch, the Arduino IDE doesn’t build it directly in your project folder.

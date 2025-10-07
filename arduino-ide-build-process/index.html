@@ -40,7 +40,7 @@
                             "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino","wordcount":  2309 ,
+                        }],"genre": "posts","keywords": "Arduino","wordcount":  2350 ,
         "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-05T13:58:47+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Sparkling Embedded Software blog by Kate","logo": {
@@ -125,8 +125,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino IDE build process explained (in details)</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2309 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;11 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2350 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;12 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -334,12 +334,20 @@ Here’s the entry for the Arduino UNO R4 WiFi:</p>
 </div><p>Thanks to these settings, after you pick your board from the <strong>Select Board</strong> menu,
 the correct toolchain, compiler flags (like MCU, clock speed), upload tool and bootloader info are applied automatically.</p>
 <h2 id="arduino-core">Arduino core</h2>
-<p>While we’re here, take a look at: <code>.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores</code>.
-This folder contains Arduino core, the implementation of familiar functions like digital I/O, analog reads/writes, timers, interrupts, and more.
-And most importantly, it contains <code>main.cpp</code> file.</p>
-<p>In your sketch, you only write <code>setup()</code> and <code>loop()</code> implementations. Who calls them and in what context? Open <code>main.cpp</code> and see yourself.
-There is a lot of logic the Arduino core has already added for you.
-Once you’ve explored that, let’s return to the <strong>Build Output</strong> and see what comes next.</p>
+<p>While we’re here, take a look at the package used in your build: <code>.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores</code>
+(check your build log to find your exact path — it may differ depending on your hardware or version).
+This directory contains <strong>Arduino Core</strong>, the essential components of your Arduino program.</p>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><strong>Arduino Core</strong> is the implementation of the Arduino API for a specific chip family. Each chip family has its own core.</div>
+        </div>
+    </div>
+<p>You may have noticed that in your sketch you only implement the <code>setup()</code> and <code>loop()</code> functions. But who calls them, and in what context?
+Open <code>main.cpp</code> and see for yourself - there’s a lot of logic the Arduino Core already provides for you.</p>
+<p>Once you’ve explored that, let&rsquo;s go back to the Build Output and see what happens next.</p>
 <h2 id="creating-the-build-directory">Creating the build directory</h2>
 <p>When you compile a sketch, the Arduino IDE doesn’t build it directly in your project folder.
 Instead, it creates a build directory (a per-sketch cache) in a hidden folder to store all intermediate files.
