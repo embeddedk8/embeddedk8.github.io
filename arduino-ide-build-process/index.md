@@ -7,6 +7,7 @@ Does this sound like you?
 If so, this post will help you understand **what an Arduino sketch really is — and what happens “under the hood” when the Arduino IDE builds your code**.
 By understanding this process, you’ll be ready to move on to more professional boards and development setups.
 
+# Understanding Arduino IDE build process
 
 {{< admonition note "Assumed knowledge" true >}}
 I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.
@@ -141,34 +142,33 @@ You can spot the build directory path in the build log.
 On my system it's:
 `/home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/`.
 
-Open this folder. You’ll see the build artifacts (object files, preprocessed sources, and the final .bin/.hex/.elf binaries).
+Open this folder. You’ll see the build artifacts (object files, preprocessed sources, and the final `.bin`/`.hex`/`.elf` binaries).
 {{< admonition tip >}}
-Export the compiled binary into your sketch folder: click **Sketch → Export Compiled Binary** option from menu. 
-That performs a compilation and places a copy of the .hex, .bin, .elf and .map inside the stored sketch folder so it’s easy to find later. 
-This is handy if you want to keep a copy next to the source.
+If you want to have the compiled binaries in your sketch folder: click **Sketch → Export Compiled Binary** option from Arduino IDE menu. 
+This will build your sketch and place a copy of the `.hex`, `.bin`, `.elf` and `.map` inside the sketch sources folder so it’s easy to find later.
 {{</ admonition >}}
 
 Now, let's take a look at next lines from Build Output.
 
 ## Detecting libraries used
-The first phase of the build is preprocessing. For clarity, I’ve shortened the command shown in the log:
+The first phase of the build is preprocessing. To keep things readable, I’ve shortened the command shown in the log:
 ```
 Detecting libraries used...
 /home/kate/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/arm-none-eabi-g++ (...) -E \
 /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/MyBlink.ino.cpp -o /dev/null
 ```
 Here, the compiler is invoked with the `-E`flag, which tells it to stop after the preprocessor stage and not produce any compiled output.
+Basically the IDE just checks which libraries and headers does this sketch actually need.
 
 {{< admonition tip >}}
-Notice the toolchain path: `/home/kate//.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/`. 
+Notice the toolchain path: `.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/`. 
 
-This path may be useful later!
+Besides the compiler itself, toolchain contains other useful tools like `objdump`. We may use it later!
 {{</ admonition >}}
 
-This step is used to figure out which libraries your sketch actually needs.
 Arduino IDE compiles only the libraries you include. Otherwise, every build would be painfully slow.
 In the case of the Blink sketch, this stage isn’t very exciting: it doesn’t pull in any additional libraries that need compilation.
-That’s why the Build Output doesn’t list any detected libraries.
+That’s why the build output doesn’t list any detected libraries.
 
 {{< admonition tip >}}
 Open other example sketches, such as those from **WiFiS3** or **EEPROM**, and compare what shows up under *Detecting libraries used…*
