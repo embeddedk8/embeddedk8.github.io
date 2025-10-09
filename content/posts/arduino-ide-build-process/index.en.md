@@ -43,7 +43,9 @@ I assume you already know how to compile and flash an Arduino board with the Ard
 If you’re using a different board, IDE version, or operating system - don’t worry! You can still follow along. Some details may just look a little different on your setup.
 {{< /admonition >}}
 
-## Build your first sketch
+## Build preparations
+
+### Build your first sketch
 Pick the right board from **Select Board** menu. In my case it's **Arduino UNO R4 WiFi**.
 
 {{< admonition tip >}}
@@ -59,7 +61,7 @@ saying nothing about actual compilation process.
 
 [![Arduino IDE doesn't say much about compilation steps by default](/arduino-ide-default-output.png)](/arduino-ide-default-output.png)
 
-## Enable verbose output 
+### Enable verbose output 
 If your **Output** window looks like above, you need to mark `File->Preferences->Show verbose output` setting for both compiling and upload, and compile again.
 Now the output will be complete.
 Let’s break it down to atoms!
@@ -69,7 +71,7 @@ Let’s break it down to atoms!
 [![Verbose compilation output in Arduino IDE](/arduino-ide-verbose-output.png)](/arduino-ide-verbose-output.png)
 
 
-## Board and package identification
+### Board and package identification
 
 When building a sketch, the Arduino IDE needs to know exactly which board you are using - that's why at first step
 you had to choose board from **Select Board** menu.
@@ -90,7 +92,7 @@ It consists of three segments:
 
 If you choose wrong board, the code may compile but fail at runtime, or compilation may fail.
 
-## Arduino15 directory
+### Arduino15 directory
 The build log also shows the location of the **Arduino15** directory on your system. This is the hidden folder used by the Arduino IDE, containing user preferences,
 downloaded board packages (cores, toolchains, board definitions) and libraries that the IDE automatically installs. 
 
@@ -142,7 +144,7 @@ unor4wifi.upload.tool=bossac
 Thanks to these settings, after you pick your board from the **Select Board** menu,
 the correct toolchain, compiler flags (like MCU, clock speed), upload tool and bootloader info are applied automatically.
 
-## Arduino core
+### Arduino core
 While we’re here, take a look at the package used in your build: `.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores`
 (check your build log to find your exact path — it may differ depending on your hardware or version).
 This directory contains **Arduino Core**, the essential components of your Arduino program.
@@ -156,7 +158,7 @@ Open `main.cpp` and see for yourself - there’s a lot of logic the Arduino Core
 
 Once you’ve explored that, let's go back to the Build Output and see what happens next.
 
-## Creating the build directory
+### Creating the build directory
 When you compile a sketch, the Arduino IDE doesn’t build it directly in your project folder.
 Instead, it creates a build directory (a per-sketch cache) in a hidden folder to store all intermediate files. 
 This lets the IDE produce builds for different boards/variants without making a mess in your sketch folder.
@@ -172,34 +174,44 @@ This will build your sketch and place a copy of the `.hex`, `.bin`, `.elf` and `
 
 Now, let's take a look at next lines from Build Output.
 
-## Detecting libraries used
-The first phase of the build is preprocessing. To keep things readable, I’ve shortened the command shown in the log:
+## Preprocessing
+
+### Detecting libraries used
+The first phase of the build is preprocessing. 
+
+Before any actual compilation happens, 
+the Arduino IDE scans your code to figure out which additional libraries your sketch needs. 
+In the build log, you’ll see something like this (shortened for readability):
 ```
 Detecting libraries used...
 /home/kate/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/arm-none-eabi-g++ (...) -E \
 /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/MyBlink.ino.cpp -o /dev/null
 ```
-Here, the compiler is invoked with the `-E`flag, which tells it to stop after the preprocessor stage and not produce any compiled output.
-Basically the IDE just checks which libraries and headers does this sketch actually need.
+Here, the compiler is invoked with the `-E` flag, which tells it to stop after the preprocessing
+stage and not produce any compiled output.
+It will only expand all `#include` directives and check which libraries are required for your sketch. 
+Based on this, the IDE knows which libraries should be compiled and which 
+include directories need to be added to the build process.
+
+For a simple sketch like Blink, this stage isn't very exciting: it doesn't pull in any additional libraries.
+That's why the build output doesn't show anything under *Detecting libraries used...*.
+Open other example sketches, such as those from **WiFiS3** or **EEPROM**, and you'll see how more complex projects trigger detection of multiple libraries.
+
+**Why such preprocessing is needed?**
+
+Arduino IDE compiles only the libraries that your sketch needs.
+In other development environments, this step is usually the developer’s responsibility: you must explicitly tell the compiler which libraries or dependencies to include in the build.
+Arduino automates this process, scanning your code and selecting what’s needed.
 
 {{< admonition tip >}}
-Notice the toolchain path: `.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/`. 
+Notice the toolchain path: `.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/`.
 
 Besides the compiler itself, toolchain contains other useful tools like `objdump`. We may use it later!
 {{</ admonition >}}
 
-Arduino IDE compiles only the libraries you include. Otherwise, every build would be painfully slow.
-In the case of the Blink sketch, this stage isn’t very exciting: it doesn’t pull in any additional libraries that need compilation.
-That’s why the build output doesn’t list any detected libraries.
 
-{{< admonition tip >}}
-Open other example sketches, such as those from **WiFiS3** or **EEPROM**, and compare what shows up under *Detecting libraries used…*
 
-Can you spot the pattern in how the IDE decides which libraries to compile?
-Hint: pay attention to the *#include* directives and the role of the preprocessor!
-{{</ admonition >}}
-
-## Automatic function prototypes generation
+### Automatic function prototypes generation
 The next stage in the build process is automatic function prototype generation. In C or C++, each function must be
 either defined or declared before it's called. In Arduino, you don't need to worry about that - you can write whatever functions
 in any order, without adding their prototypes. How does it work? Arduino generates these prototypes for you!
@@ -282,7 +294,9 @@ Without them, errors would show up with the line numbers of the generated .cpp, 
 
 - function prototypes are added.
 
-## Sketch compilation
+## Compilation
+
+### Sketch compilation
 Here’s where your code finally turns into machine instructions.
 ```
 Compiling sketch...
@@ -319,7 +333,7 @@ If you want to change some settings, you’ve got two ways:
 At this point, your sketch has been turned into machine code, stored in `MyBlink.ino.cpp.o`. 
 This file contains your `setup()` and `loop()` code, ready to be linked with the Arduino core and libraries in the next step.
 
-## Compiling libraries
+### Compiling libraries
 ```cpp
 Compiling libraries...
 ```
@@ -329,7 +343,7 @@ Blink only relies on core Arduino functions such as `pinMode`, `digitalWrite`, a
 In more advanced sketches the output looks different. 
 For example, in **WiFiS3/ConnectWithWPA** the **WiFiS3** library is detected and its source files are compiled here.
 
-## Compiling core
+### Compiling core
 
 ```bash
 Compiling core...
@@ -375,7 +389,8 @@ Toolchain standard libraries:
 - `-lgcc` → helper routines from GCC itself,
 - `-lnosys` → stubs for system calls.
 
-## Creating binary and hex files
+## Finalizing build
+### Creating binary and hex files
 
 After the ELF file (`MyBlink.ino.elf`) is created, the build system uses `objcopy` to generate `hex` and `bin` formats:
 
@@ -385,14 +400,14 @@ arm-none-eabi-objcopy -O ihex   -j .text -j .data MyBlink.ino.elf MyBlink.ino.he
 ```
 Both formats contain the same program, just encoded differently for different flashing tools.
 
-## Measuring the program size
+### Measuring the program size
 Finally, the build system reports memory usage with `arm-none-eabi-size`:
 
 ```bash
 arm-none-eabi-size -A MyBlink.ino.elf
 ```
 
-## Cleaning the build
+### Cleaning the build
 Unfortunately, Arduino IDE does not offer the `Clean build` or `Force rebuild` option ([[1]](https://forum.arduino.cc/t/feature-request-clean-build-option/1291789),
 [[2]](https://forum.arduino.cc/t/can-i-force-the-arduino-ide-to-recompile-everything/866547), 
 [[3]](https://github.com/arduino/arduino-ide/issues/419)). The workaround for it is to manually delete the cached build directories we mentioned earlier.

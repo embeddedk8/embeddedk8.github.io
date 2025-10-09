@@ -102,6 +102,9 @@ arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi --verbos
 How to check what port is your board connected?
 
 
+arduino-cli lib deps path/to/your/sketch.ino
+
+
 
 https://docs.arduino.cc/arduino-cli/
 https://arduino.github.io/arduino-cli/1.3/getting-started/
