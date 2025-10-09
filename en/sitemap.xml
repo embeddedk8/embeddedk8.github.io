@@ -2,8 +2,8 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://embeddedk8.github.io/arduino-ide-build-process/</loc><lastmod>2025-10-08T13:48:37&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.github.io/</loc><lastmod>2025-10-08T13:48:37&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/arduino-ide-build-process/</loc><lastmod>2025-10-09T09:39:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/</loc><lastmod>2025-10-09T09:39:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.github.io/pl/"
@@ -12,7 +12,7 @@
                     hreflang="en"
                     href="https://embeddedk8.github.io/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/posts/</loc><lastmod>2025-10-08T13:48:37&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/posts/</loc><lastmod>2025-10-09T09:39:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.github.io/pl/posts/"
@@ -30,9 +30,9 @@
                     hreflang="en"
                     href="https://embeddedk8.github.io/about/"
                     /></url><url>
-            <loc>https://embeddedk8.github.io/categories/arduino/</loc><lastmod>2025-10-08T13:48:37&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.github.io/tags/arduino/</loc><lastmod>2025-10-08T13:48:37&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.github.io/categories/</loc><lastmod>2025-10-08T13:48:37&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.github.io/categories/arduino/</loc><lastmod>2025-10-09T09:39:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/tags/arduino/</loc><lastmod>2025-10-09T09:39:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.github.io/categories/</loc><lastmod>2025-10-09T09:39:02&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.github.io/pl/categories/"
