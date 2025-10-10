@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-09-13T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-10-09T09:39:02+02:00">
+    <meta property="article:modified_time" content="2025-10-10T19:39:32+02:00">
     <meta property="article:tag" content="Arduino">
     <meta property="og:image" content="https://embeddedk8.github.io/arduino-ide-build-process/featured-image.png">
 
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino","wordcount":  2423 ,
-        "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-09T09:39:02+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino","wordcount":  2507 ,
+        "url": "https:\/\/embeddedk8.github.io\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-10T19:39:32+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Sparkling Embedded Software blog by Kate","logo": {
                     "@type": "ImageObject",
@@ -125,7 +125,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino IDE build process explained (in details)</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2423 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2507 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;12 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -141,11 +141,16 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#build-preparations">Build preparations</a>
+    <li><a href="#what-you-will-learn">What you will learn?</a></li>
+    <li><a href="#lets-start">Let&rsquo;s start!</a>
       <ul>
-        <li><a href="#build-your-first-sketch">Build your first sketch</a></li>
+        <li><a href="#building-a-sketch">Building a sketch</a></li>
         <li><a href="#enable-verbose-output">Enable verbose output</a></li>
-        <li><a href="#board-and-package-identification">Board and package identification</a></li>
+      </ul>
+    </li>
+    <li><a href="#board-and-package-identification">Board and package identification</a></li>
+    <li><a href="#arduino-specific-directories">Arduino specific directories</a>
+      <ul>
         <li><a href="#arduino15-directory">Arduino15 directory</a></li>
         <li><a href="#arduino-core">Arduino core</a></li>
         <li><a href="#creating-the-build-directory">Creating the build directory</a></li>
@@ -175,11 +180,9 @@
     <li><a href="#more-reading">More reading</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>Many beginner embedded developers start their journey with an Arduino development board because it’s extremely easy to use, even with no prior experience.
-After installing the Arduino IDE and connecting the board, you can simply choose an example sketch and, with just two clicks, build and upload it.
-Does this sound like you?
-If so, this post will help you understand <strong>what an Arduino sketch really is — and what happens “under the hood” when the Arduino IDE builds your code</strong>.
-By understanding this process, you’ll be ready to move on to more professional boards and development setups.</p>
+            </div><div class="content" id="content"><p>From the user’s perspective, <strong>building an Arduino sketch with the Arduino IDE seems as simple as clicking one button</strong>.
+But under the hood, the IDE performs several important steps: some are common to every embedded development environment, while others are unique to Arduino — and might surprise you if you’re new to it.
+In this post, we’ll take a closer look at <strong>what actually happens when the Arduino IDE builds your sketch</strong>, and why understanding this process can help you move toward more advanced embedded development.</p>
 <h1 id="understanding-arduino-ide-build-process">Understanding Arduino IDE build process</h1>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
@@ -202,9 +205,17 @@ By understanding this process, you’ll be ready to move on to more professional
 <p>If you’re using a different board, IDE version, or operating system - don’t worry! You can still follow along. Some details may just look a little different on your setup.</p></div>
         </div>
     </div>
-<h2 id="build-preparations">Build preparations</h2>
-<h3 id="build-your-first-sketch">Build your first sketch</h3>
-<p>Pick the right board from <strong>Select Board</strong> menu. In my case it&rsquo;s <strong>Arduino UNO R4 WiFi</strong>.</p>
+<h2 id="what-you-will-learn">What you will learn?</h2>
+<p>After reading this article, you will:</p>
+<ul>
+<li>Understand the standard build flow used in embedded development,</li>
+<li>Learn which additional steps the Arduino IDE performs on top of it.</li>
+</ul>
+<h2 id="lets-start">Let&rsquo;s start!</h2>
+<p>Let&rsquo;s build a sketch together and go step by step along the build process.</p>
+<h3 id="building-a-sketch">Building a sketch</h3>
+<p>Open your Arduino IDE and pick the right board from <strong>Select Board</strong> menu.
+In my case it&rsquo;s <strong>Arduino UNO R4 WiFi</strong>.</p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Tip<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -214,36 +225,42 @@ By understanding this process, you’ll be ready to move on to more professional
 This means the compilation process and generated machine code will differ between these boards.</div>
         </div>
     </div>
-<p>Load up the Blink example and make a minimal change (like changing the delay value).
-Then save and store new sketch in your sketchbook and click <strong>Verify/Compile</strong>. Observe the <strong>Output</strong> window.
-You just triggered the entire build process with a single click. The sketch is ready to upload to your board.
-But if you didn&rsquo;t change the Arduino IDE’s default settings yet, the <strong>Output</strong> window will only contain minimal information on program space and memory,
-saying nothing about actual compilation process.</p>
-<p><a href="/arduino-ide-build-process/arduino-ide-default-output.png" rel=""><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/arduino-ide-build-process/arduino-ide-default-output.png"
-        data-srcset="/arduino-ide-build-process/arduino-ide-default-output.png, /arduino-ide-build-process/arduino-ide-default-output.png 1.5x, /arduino-ide-build-process/arduino-ide-default-output.png 2x"
-        data-sizes="auto"
-        alt="/arduino-ide-build-process/arduino-ide-default-output.png"
-        title="Arduino IDE doesn&rsquo;t say much about compilation steps by default" width="1284" height="748" /></a></p>
+<p>Load up the Blink example. Make a minimal change (like changing the delay value) and save the new sketch in your sketchbook.
+Then, to trigger the build, click <strong>Verify/Compile</strong> and observe the <strong>Output</strong> window.</p>
+<p>Based on the concise message in <strong>Output</strong>, it looks that the sketch has been built successfully and
+is ready to upload to the board. Does your <strong>Output</strong> windows look like below and only contains two lines of message?
+It means that you didn&rsquo;t change the Arduino IDE’s default settings yet, and the <strong>Output</strong> is mostly hidden.</p>
+<p><a href="/arduino-ide-build-process/arduino-ide-default-output.png" rel=""><figure><a class="lightgallery" href="/arduino-ide-build-process/arduino-ide-default-output.png" title="Arduino IDE doesn&rsquo;t say much about compilation steps by default" data-thumbnail="/arduino-ide-build-process/arduino-ide-default-output.png" data-sub-html="<h2>Arduino IDE - default build output</h2><p>Arduino IDE doesn&rsquo;t say much about compilation steps by default</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/arduino-ide-build-process/arduino-ide-default-output.png"
+            data-srcset="/arduino-ide-build-process/arduino-ide-default-output.png, /arduino-ide-build-process/arduino-ide-default-output.png 1.5x, /arduino-ide-build-process/arduino-ide-default-output.png 2x"
+            data-sizes="auto"
+            alt="/arduino-ide-build-process/arduino-ide-default-output.png" width="1284" height="748" />
+    </a><figcaption class="image-caption">Arduino IDE - default build output</figcaption>
+    </figure></a></p>
 <h3 id="enable-verbose-output">Enable verbose output</h3>
-<p>If your <strong>Output</strong> window looks like above, you need to mark <code>File-&gt;Preferences-&gt;Show verbose output</code> setting for both compiling and upload, and compile again.
+<p>First step to understand the build process is to uncover the verbose output in IDE.
+To do so, you need to mark <code>File-&gt; Preferences-&gt; Show verbose output</code> setting for both compiling and upload, and compile again.
 Now the output will be complete.
 Let’s break it down to atoms!
 <br></p>
-<p><a href="/arduino-ide-build-process/arduino-ide-verbose-output.png" rel=""><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/arduino-ide-build-process/arduino-ide-verbose-output.png"
-        data-srcset="/arduino-ide-build-process/arduino-ide-verbose-output.png, /arduino-ide-build-process/arduino-ide-verbose-output.png 1.5x, /arduino-ide-build-process/arduino-ide-verbose-output.png 2x"
-        data-sizes="auto"
-        alt="/arduino-ide-build-process/arduino-ide-verbose-output.png"
-        title="Verbose compilation output in Arduino IDE" width="1280" height="749" /></a></p>
-<h3 id="board-and-package-identification">Board and package identification</h3>
-<p>When building a sketch, the Arduino IDE needs to know exactly which board you are using - that&rsquo;s why at first step
-you had to choose board from <strong>Select Board</strong> menu.
-This ensures the compiled code matches the board’s architecture, hardware, pin mapping etc.</p>
+<p><a href="/arduino-ide-build-process/arduino-ide-verbose-output.png" rel=""><figure><a class="lightgallery" href="/arduino-ide-build-process/arduino-ide-verbose-output.png" title="Verbose compilation output in Arduino IDE" data-thumbnail="/arduino-ide-build-process/arduino-ide-verbose-output.png" data-sub-html="<h2>Arduino IDE - verbose build output</h2><p>Verbose compilation output in Arduino IDE</p>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="/arduino-ide-build-process/arduino-ide-verbose-output.png"
+            data-srcset="/arduino-ide-build-process/arduino-ide-verbose-output.png, /arduino-ide-build-process/arduino-ide-verbose-output.png 1.5x, /arduino-ide-build-process/arduino-ide-verbose-output.png 2x"
+            data-sizes="auto"
+            alt="/arduino-ide-build-process/arduino-ide-verbose-output.png" width="1280" height="749" />
+    </a><figcaption class="image-caption">Arduino IDE - verbose build output</figcaption>
+    </figure></a></p>
+<h2 id="board-and-package-identification">Board and package identification</h2>
+<p>When building a sketch, the Arduino IDE needs to know exactly which board you are using - and it knows it because
+you have selected the right board from <strong>Select Board</strong> menu. Thanks to this, the compiled code will match
+the board’s architecture, hardware, pin mapping etc.</p>
+<p>This board identity presents as follows:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -256,7 +273,7 @@ This ensures the compiled code matches the board’s architecture, hardware, pin
 </span></span><span class="line"><span class="cl">Using core <span class="s1">&#39;arduino&#39;</span> from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>This information is called the <strong>Fully Qualified Board Name (FQBN)</strong>.
+</div><p>Arduino IDE identifies a board with <strong>Fully Qualified Board Name (FQBN)</strong>.
 It is unique for each board and defines exactly which hardware you are targeting.
 It consists of three segments:</p>
 <ul>
@@ -265,6 +282,7 @@ It consists of three segments:</p>
 <li>Board: <code>unor4wifi</code> (<em>exact model: Arduino Uno R4 WiFi</em>).</li>
 </ul>
 <p>If you choose wrong board, the code may compile but fail at runtime, or compilation may fail.</p>
+<h2 id="arduino-specific-directories">Arduino specific directories</h2>
 <h3 id="arduino15-directory">Arduino15 directory</h3>
 <p>The build log also shows the location of the <strong>Arduino15</strong> directory on your system. This is the hidden folder used by the Arduino IDE, containing user preferences,
 downloaded board packages (cores, toolchains, board definitions) and libraries that the IDE automatically installs.</p>
@@ -710,8 +728,8 @@ A much better alternative is to use Arduino CLI, which is more flexible and give
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-10-09&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/898e9fa2d193fa1a5e7c31b1a4196028265aef3d" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) 898e9fa2d193fa1a5e7c31b1a4196028265aef3d: P1 tweaks">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>898e9fa</a></span>
+                <span>Updated on 2025-10-10&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/faedfd747bacdd6d91ad1cd1cf1c4d127c3d99c2" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) faedfd747bacdd6d91ad1cd1cf1c4d127c3d99c2: Updates to P1">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>faedfd7</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>

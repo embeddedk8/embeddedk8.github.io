@@ -33,53 +33,87 @@ As of October 2025, the latest version is Arduino CLI 1.3.1, which I'll be using
 Please refer to [official installation guide](https://docs.arduino.cc/arduino-cli/installation/) to install Arduino CLI.
 
 {{< admonition note >}}
-On Linux, I installed the Arduino CLI in second with command:
+On Linux, I installed the Arduino CLI in just a few seconds with command:
 ```
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 ```
 {{</ admonition >}}
 
+### Setup your board core
 
-Connect board to PC and run
+After Arduino CLI is installed, you need to install needed boards definitions. First, let's update the board index:
 ```
 arduino-cli core update-index
-
-# Install needed boards definitions
-arduino-cli core install arduino:renesas_uno
 ```
+
+Then you need to install the core relevant for your board. Right now, we don't know what is the core id that we need.
+So let's peek what we can choose:
+```
+~/Arduino/MyBlink$ arduino-cli core search
+Downloading index: package_index.tar.bz2 downloaded                                                                                                                                                                                                                                                                           
+ID                       Version          Name
+arduino:avr              1.8.6            Arduino AVR Boards
+arduino:esp32            2.0.18-arduino.5 Arduino ESP32 Boards
+arduino:megaavr          1.8.8            Arduino megaAVR Boards
+arduino:nrf52            1.0.2            Arduino nRF52 Boards
+arduino:renesas_uno      1.5.1            Arduino UNO R4 Boards
+arduino:sam              1.6.12           Arduino SAM Boards (32-bits ARM Cortex-M3)
+...
+```
+Ok, so it's clear now, that for Arduino UNO R4 WiFi that I have I need to use arduino:renesas_uno ID.
+So let's install needed boards definitions:
+```
+arduino-cli core install arduino:renesas_uno
+ ```
 
 https://docs.arduino.cc/arduino-cli/getting-started/
 
 You can create new sketch with
 ```
 $ arduino-cli sketch new MyFirstSketch
-Sketch created in: /home/luca/MyFirstSketch
+Sketch created in: /XXX/MyFirstSketch
 ```
 
 But I want to reuse MyBlink sketch, that I was working on as in previous post.
 
 ```bash
-cd ~/Arduino/MyBlink
-
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi ~/Arduino/MyBlink
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi /home/kate/Arduino/MyBlink
 ```
 
 Similar to what we observed in IDE, default output is quite concise.
 
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi ~/Arduino/MyBlink
+```bash
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi /home/kate/Arduino/MyBlink
 Sketch uses 51880 bytes (19%) of program storage space. Maximum is 262144 bytes.
 Global variables use 6740 bytes (20%) of dynamic memory, leaving 26028 bytes for local variables. Maximum is 32768 bytes.
-
+```
 
 I suggest to compile with Verbose output.
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  ~/Arduino/MyBlink
+```bash
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/Arduino/MyBlink
+```
 
 Then upload
-arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi --verbose ~/Arduino/MyBlink
+arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi --verbose /home/kate/Arduino/MyBlink
 
-How to check what port is your board connected?
+How to check what port is your board connected? 
+Well, no need to observe ls /dev/tty* with board plugged and unplugged. There is a command for it too:
 
 
+arduino-cli board list
+
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/Arduino/MyBlink --build-property compiler.c.extra_flags="-Wall -O2"
+
+If you want to set permanent settings to your CLI, create a config file if you haven't:
+```
+arduino-cli config init
+Config file written to: /home/kate/.arduino15/arduino-cli.yaml
+```
+```
+arduino-cli config dump
+board_manager:
+additional_urls: []
+```
 
 https://docs.arduino.cc/arduino-cli/
 https://arduino.github.io/arduino-cli/1.3/getting-started/

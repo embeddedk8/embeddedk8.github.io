@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-10-01T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-10-02T20:02:39+02:00">
+    <meta property="article:modified_time" content="2025-10-09T09:39:02+02:00">
     <meta property="article:tag" content="Arduino">
     <meta property="og:image" content="http://localhost:1313/arduino-cli-compilation/featured-image.png">
 
@@ -40,8 +40,8 @@
                             "url": "http:\/\/localhost:1313\/arduino-cli-compilation\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino","wordcount":  434 ,
-        "url": "http:\/\/localhost:1313\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-10-02T20:02:39+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino","wordcount":  626 ,
+        "url": "http:\/\/localhost:1313\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-10-09T09:39:02+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Sparkling Embedded Software blog by Kate","logo": {
                     "@type": "ImageObject",
@@ -125,7 +125,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Building Projects with Arduino CLI</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;434 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;626 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -141,7 +141,11 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#installing-arduino-cli">Installing Arduino CLI</a></li>
+    <li><a href="#installing-arduino-cli">Installing Arduino CLI</a>
+      <ul>
+        <li><a href="#setup-your-board-core">Setup your board core</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a>, we explored what really happens when you press <strong>Verify/Compile</strong> in the Arduino IDE.
@@ -180,7 +184,7 @@ Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" targ
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><p>On Linux, I installed the Arduino CLI in second with command:</p>
+            <div class="admonition-content"><p>On Linux, I installed the Arduino CLI in just a few seconds with command:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -192,19 +196,52 @@ Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" targ
 </div></div>
         </div>
     </div>
-<p>Connect board to PC and run</p>
+<h3 id="setup-your-board-core">Setup your board core</h3>
+<p>After Arduino CLI is installed, you need to install needed boards definitions. First, let&rsquo;s update the board index:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli core update-index
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># Install needed boards definitions
-</span></span><span class="line"><span class="cl">arduino-cli core install arduino:renesas_uno
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then you need to install the core relevant for your board. Right now, we don&rsquo;t know what is the core id that we need.
+So let&rsquo;s peek what we can choose:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">~/</span><span class="n">Arduino</span><span class="o">/</span><span class="n">MyBlink</span><span class="o">$</span> <span class="n">arduino</span><span class="o">-</span><span class="n">cli</span> <span class="n">core</span> <span class="n">search</span>
+</span></span><span class="line"><span class="cl"><span class="n">Downloading</span> <span class="n">index</span><span class="p">:</span> <span class="n">package_index</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">bz2</span> <span class="n">downloaded</span>                                                                                                                                                                                                                                                                           
+</span></span><span class="line"><span class="cl"><span class="n">ID</span>                       <span class="n">Version</span>          <span class="n">Name</span>
+</span></span><span class="line"><span class="cl"><span class="n">arduino</span><span class="p">:</span><span class="n">avr</span>              <span class="mf">1.8</span><span class="o">.</span><span class="mi">6</span>            <span class="n">Arduino</span> <span class="n">AVR</span> <span class="n">Boards</span>
+</span></span><span class="line"><span class="cl"><span class="n">arduino</span><span class="p">:</span><span class="n">esp32</span>            <span class="mf">2.0</span><span class="o">.</span><span class="mi">18</span><span class="o">-</span><span class="n">arduino</span><span class="o">.</span><span class="mi">5</span> <span class="n">Arduino</span> <span class="n">ESP32</span> <span class="n">Boards</span>
+</span></span><span class="line"><span class="cl"><span class="n">arduino</span><span class="p">:</span><span class="n">megaavr</span>          <span class="mf">1.8</span><span class="o">.</span><span class="mi">8</span>            <span class="n">Arduino</span> <span class="n">megaAVR</span> <span class="n">Boards</span>
+</span></span><span class="line"><span class="cl"><span class="n">arduino</span><span class="p">:</span><span class="n">nrf52</span>            <span class="mf">1.0</span><span class="o">.</span><span class="mi">2</span>            <span class="n">Arduino</span> <span class="n">nRF52</span> <span class="n">Boards</span>
+</span></span><span class="line"><span class="cl"><span class="n">arduino</span><span class="p">:</span><span class="n">renesas_uno</span>      <span class="mf">1.5</span><span class="o">.</span><span class="mi">1</span>            <span class="n">Arduino</span> <span class="n">UNO</span> <span class="n">R4</span> <span class="n">Boards</span>
+</span></span><span class="line"><span class="cl"><span class="n">arduino</span><span class="p">:</span><span class="n">sam</span>              <span class="mf">1.6</span><span class="o">.</span><span class="mi">12</span>           <span class="n">Arduino</span> <span class="n">SAM</span> <span class="n">Boards</span> <span class="p">(</span><span class="mi">32</span><span class="o">-</span><span class="n">bits</span> <span class="n">ARM</span> <span class="n">Cortex</span><span class="o">-</span><span class="n">M3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ok, so it&rsquo;s clear now, that for Arduino UNO R4 WiFi that I have I need to use arduino:renesas_uno ID.
+So let&rsquo;s install needed boards definitions:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli core install arduino:renesas_uno
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><a href="https://docs.arduino.cc/arduino-cli/getting-started/" target="_blank" rel="noopener noreffer ">https://docs.arduino.cc/arduino-cli/getting-started/</a></p>
@@ -216,10 +253,19 @@ Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" targ
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ arduino-cli sketch new MyFirstSketch
-</span></span><span class="line"><span class="cl">Sketch created in: /home/luca/MyFirstSketch
+</span></span><span class="line"><span class="cl">Sketch created in: /XXX/MyFirstSketch
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>But I want to reuse MyBlink sketch, that I was working on as in previous post.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi /home/kate/Arduino/MyBlink
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Similar to what we observed in IDE, default output is quite concise.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -227,21 +273,50 @@ Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" targ
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~/Arduino/MyBlink
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi ~/Arduino/MyBlink
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi /home/kate/Arduino/MyBlink
+</span></span><span class="line"><span class="cl">Sketch uses <span class="m">51880</span> bytes <span class="o">(</span>19%<span class="o">)</span> of program storage space. Maximum is <span class="m">262144</span> bytes.
+</span></span><span class="line"><span class="cl">Global variables use <span class="m">6740</span> bytes <span class="o">(</span>20%<span class="o">)</span> of dynamic memory, leaving <span class="m">26028</span> bytes <span class="k">for</span> <span class="nb">local</span> variables. Maximum is <span class="m">32768</span> bytes.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Similar to what we observed in IDE, default output is quite concise.</p>
-<p>arduino-cli compile &ndash;fqbn arduino:renesas_uno:unor4wifi ~/Arduino/MyBlink
-Sketch uses 51880 bytes (19%) of program storage space. Maximum is 262144 bytes.
-Global variables use 6740 bytes (20%) of dynamic memory, leaving 26028 bytes for local variables. Maximum is 32768 bytes.</p>
-<p>I suggest to compile with Verbose output.
-arduino-cli compile &ndash;fqbn arduino:renesas_uno:unor4wifi &ndash;verbose  ~/Arduino/MyBlink</p>
-<p>Then upload
-arduino-cli upload -p /dev/ttyACM0 &ndash;fqbn arduino:renesas_uno:unor4wifi &ndash;verbose ~/Arduino/MyBlink</p>
-<p>How to check what port is your board connected?</p>
-<p><a href="https://docs.arduino.cc/arduino-cli/" target="_blank" rel="noopener noreffer ">https://docs.arduino.cc/arduino-cli/</a>
+</div><p>I suggest to compile with Verbose output.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/Arduino/MyBlink
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then upload
+arduino-cli upload -p /dev/ttyACM0 &ndash;fqbn arduino:renesas_uno:unor4wifi &ndash;verbose /home/kate/Arduino/MyBlink</p>
+<p>How to check what port is your board connected?
+Well, no need to observe ls /dev/tty* with board plugged and unplugged. There is a command for it too:</p>
+<p>arduino-cli board list</p>
+<p>arduino-cli compile &ndash;fqbn arduino:renesas_uno:unor4wifi &ndash;verbose  /home/kate/Arduino/MyBlink &ndash;build-property compiler.c.extra_flags=&quot;-Wall -O2&quot;</p>
+<p>If you want to set permanent settings to your CLI, create a config file if you haven&rsquo;t:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli config init
+</span></span><span class="line"><span class="cl">Config file written to: /home/kate/.arduino15/arduino-cli.yaml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli config dump
+</span></span><span class="line"><span class="cl">board_manager:
+</span></span><span class="line"><span class="cl">additional_urls: []
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://docs.arduino.cc/arduino-cli/" target="_blank" rel="noopener noreffer ">https://docs.arduino.cc/arduino-cli/</a>
 <a href="https://arduino.github.io/arduino-cli/1.3/getting-started/" target="_blank" rel="noopener noreffer ">https://arduino.github.io/arduino-cli/1.3/getting-started/</a>
 <a href="https://evan.widloski.com/notes/arduino_cli.html" target="_blank" rel="noopener noreffer ">https://evan.widloski.com/notes/arduino_cli.html</a>
 <a href="https://dumblebots.com/blog/arduino-cli-getting-started" target="_blank" rel="noopener noreffer ">https://dumblebots.com/blog/arduino-cli-getting-started</a></p>
@@ -249,8 +324,8 @@ arduino-cli upload -p /dev/ttyACM0 &ndash;fqbn arduino:renesas_uno:unor4wifi &nd
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-10-02&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/d0841b1de7ef6af924ba69699a5d1b138d65f557" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) d0841b1de7ef6af924ba69699a5d1b138d65f557: Minor improvements and 2 drafts started">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>d0841b1</a></span>
+                <span>Updated on 2025-10-09&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/898e9fa2d193fa1a5e7c31b1a4196028265aef3d" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) 898e9fa2d193fa1a5e7c31b1a4196028265aef3d: P1 tweaks">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>898e9fa</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
