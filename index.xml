@@ -7,6 +7,20 @@
             <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Oct 2025 15:58:26 &#43;0800</lastBuildDate>
             <atom:link href="https://embeddedk8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Building projects with Arduino CLI</title>
+    <link>https://embeddedk8.github.io/arduino-cli-compilation/</link>
+    <pubDate>Wed, 01 Oct 2025 15:58:26 &#43;0800</pubDate>
+    <author>embeddedk8</author>
+    <guid>https://embeddedk8.github.io/arduino-cli-compilation/</guid>
+    <description><![CDATA[<p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look on build process in the Arduino IDE.
+It turned out that a lot of things go on behind the scenes - the classic steps of preprocessing, compiling, and linking,
+along with a few Arduino-specific addons to the process.</p>
+<p>Now, let’s take a more advanced approach and build the same project without the Arduino IDE - using the Arduino CLI.</p>
+<h1 id="compiling-arduino-sketch-via-arduino-cli">Compiling Arduino sketch via Arduino CLI</h1>
+<p>Ok, but why would we want to use CLI at the first place, when the Arduino IDE already provides such a simple way to build and upload sketches?
+Maybe, because of&hellip;</p>]]></description>
+</item>
+<item>
     <title>Arduino IDE build process explained (in details)</title>
     <link>https://embeddedk8.github.io/arduino-ide-build-process/</link>
     <pubDate>Sat, 13 Sep 2025 15:58:26 &#43;0800</pubDate>
