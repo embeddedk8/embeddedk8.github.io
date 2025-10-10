@@ -23,12 +23,9 @@ math:
   enable: true
 ---
 
-Many beginner embedded developers start their journey with an Arduino development board because it’s extremely easy to use, even with no prior experience.
-After installing the Arduino IDE and connecting the board, you can simply choose an example sketch and, with just two clicks, build and upload it.
-Does this sound like you?
-If so, this post will help you understand **what an Arduino sketch really is — and what happens “under the hood” when the Arduino IDE builds your code**.
-By understanding this process, you’ll be ready to move on to more professional boards and development setups.
-
+From the user’s perspective, **building an Arduino sketch with the Arduino IDE seems as simple as clicking one button**.
+But under the hood, the IDE performs several important steps: some are common to every embedded development environment, while others are unique to Arduino — and might surprise you if you’re new to it.
+In this post, we’ll take a closer look at **what actually happens when the Arduino IDE builds your sketch**, and why understanding this process can help you move toward more advanced embedded development.
 # Understanding Arduino IDE build process
 
 {{< admonition note "Assumed knowledge" true >}}
@@ -43,47 +40,59 @@ I assume you already know how to compile and flash an Arduino board with the Ard
 If you’re using a different board, IDE version, or operating system - don’t worry! You can still follow along. Some details may just look a little different on your setup.
 {{< /admonition >}}
 
-## Build preparations
+## What you will learn?
+After reading this article, you will:
+- Understand the standard build flow used in embedded development,
+- Learn which additional steps the Arduino IDE performs on top of it.
 
-### Build your first sketch
-Pick the right board from **Select Board** menu. In my case it's **Arduino UNO R4 WiFi**.
+## Let's start!
+
+Let's build a sketch together and go step by step along the build process.
+
+### Building a sketch
+Open your Arduino IDE and pick the right board from **Select Board** menu. 
+In my case it's **Arduino UNO R4 WiFi**.
 
 {{< admonition tip >}}
 The **Arduino UNO R4 WiFi** is based on an **ARM** architecture. Be aware that some other Arduino boards (like the **UNO R3** or **Mega 2560**) use **AVR** architecture instead. 
 This means the compilation process and generated machine code will differ between these boards.
 {{< /admonition >}}
 
-Load up the Blink example and make a minimal change (like changing the delay value).
-Then save and store new sketch in your sketchbook and click **Verify/Compile**. Observe the **Output** window.
-You just triggered the entire build process with a single click. The sketch is ready to upload to your board. 
-But if you didn't change the Arduino IDE’s default settings yet, the **Output** window will only contain minimal information on program space and memory,
-saying nothing about actual compilation process.
+Load up the Blink example. Make a minimal change (like changing the delay value) and save the new sketch in your sketchbook.
+Then, to trigger the build, click **Verify/Compile** and observe the **Output** window.
 
-[![Arduino IDE doesn't say much about compilation steps by default](/arduino-ide-default-output.png)](/arduino-ide-default-output.png)
 
-### Enable verbose output 
-If your **Output** window looks like above, you need to mark `File->Preferences->Show verbose output` setting for both compiling and upload, and compile again.
+Based on the concise message in **Output**, it looks that the sketch has been built successfully and
+is ready to upload to the board. Does your **Output** windows look like below and only contains two lines of message?
+It means that you didn't change the Arduino IDE’s default settings yet, and the **Output** is mostly hidden.
+
+[![Arduino IDE doesn't say much about compilation steps by default](/arduino-ide-default-output.png "Arduino IDE - default build output")](/arduino-ide-default-output.png)
+
+### Enable verbose output
+First step to understand the build process is to uncover the verbose output in IDE.
+To do so, you need to mark `File-> Preferences-> Show verbose output` setting for both compiling and upload, and compile again.
 Now the output will be complete.
 Let’s break it down to atoms!
 <br>
 
 
-[![Verbose compilation output in Arduino IDE](/arduino-ide-verbose-output.png)](/arduino-ide-verbose-output.png)
+[![Verbose compilation output in Arduino IDE](/arduino-ide-verbose-output.png "Arduino IDE - verbose build output")](/arduino-ide-verbose-output.png)
 
 
-### Board and package identification
+## Board and package identification
 
-When building a sketch, the Arduino IDE needs to know exactly which board you are using - that's why at first step
-you had to choose board from **Select Board** menu.
-This ensures the compiled code matches the board’s architecture, hardware, pin mapping etc.
+When building a sketch, the Arduino IDE needs to know exactly which board you are using - and it knows it because
+you have selected the right board from **Select Board** menu. Thanks to this, the compiled code will match
+the board’s architecture, hardware, pin mapping etc.
 
+This board identity presents as follows:
 ```bash
 FQBN: arduino:renesas_uno:unor4wifi
 Using board 'unor4wifi' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 Using core 'arduino' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 ```
 
-This information is called the **Fully Qualified Board Name (FQBN)**.
+Arduino IDE identifies a board with **Fully Qualified Board Name (FQBN)**.
 It is unique for each board and defines exactly which hardware you are targeting.
 It consists of three segments:
 - Vendor: `arduino` (*it's official Arduino package*)
@@ -91,6 +100,8 @@ It consists of three segments:
 - Board: `unor4wifi` (*exact model: Arduino Uno R4 WiFi*).
 
 If you choose wrong board, the code may compile but fail at runtime, or compilation may fail.
+
+## Arduino specific directories
 
 ### Arduino15 directory
 The build log also shows the location of the **Arduino15** directory on your system. This is the hidden folder used by the Arduino IDE, containing user preferences,
