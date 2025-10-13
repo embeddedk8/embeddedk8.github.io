@@ -82,7 +82,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   # date format
   dateFormat = "2006-01-02"
   # website title for Open Graph and Twitter Cards
-  title = "Sparkling Embedded Software blog"
+  title = "Embedded Kate Blog"
   # website description for RSS, SEO, Open Graph and Twitter Cards
   description = "The easiest guide to embedded development on the whole Internet!"
   # website images for Open Graph and Twitter Cards
@@ -105,7 +105,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # URL of the LOGO
       logo = ""
       # title name
-      name = "Sparkling Embedded Software blog"
+      name = "Embedded Kate Blog"
       # you can add extra information before the name (HTML format is supported), such as icons
       pre = "<i class='fa-solid fa-microchip fa-fw' aria-hidden='true'></i>"
       # you can add extra information after the name (HTML format is supported), such as icons
@@ -198,7 +198,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # URL of avatar shown in home page
       avatarURL = "/images/avatar.png"
       # title shown in home page (HTML format is supported)
-      title = "Sparkling Embedded Software blog"
+      title = "Embedded Kate Blog"
       # subtitle shown in home page (HTML format is supported)
       subtitle = "The easiest guide to embedded software development"
       # whether to use typeit animation for subtitle
@@ -489,7 +489,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       images = []
       # Publisher info
       [params.page.seo.publisher]
-        name = "Sparkling Embedded Software blog by Kate"
+        name = "Embedded Kate Blog"
         logoUrl = "/images/avatar.png"
 
   # TypeIt config
@@ -712,7 +712,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
           enable = true
           gravatarEmail = ""
           avatarURL = "/images/avatar.png"
-          title = "Sparkling Embedded Software"
+          title = "Embedded Kate Blog"
           subtitle = "The easiest guide to embedded development"
           typeit = true
           social = true
@@ -798,7 +798,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
           enable = true
           gravatarEmail = ""
           avatarURL = "/images/avatar.png"
-          title = "Sparkling Embedded Software"
+          title = "Embedded Kate Blog"
           subtitle = "The easiest guide to embedded development"
           typeit = true
           social = true
