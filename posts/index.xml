@@ -1,15 +1,15 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>All Posts - Embedded Kate Blog</title>
-        <link>https://embeddedk8.github.io/posts/</link>
+        <link>https://embeddedk8.com/posts/</link>
         <description>All Posts | Embedded Kate Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>embeddedkate@gmail.com (embeddedk8)</managingEditor>
-            <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Oct 2025 15:58:26 &#43;0800</lastBuildDate><atom:link href="https://embeddedk8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 01 Oct 2025 15:58:26 &#43;0800</lastBuildDate><atom:link href="https://embeddedk8.com/posts/" rel="self" type="application/rss+xml" /><item>
     <title>Building projects with Arduino CLI</title>
-    <link>https://embeddedk8.github.io/arduino-cli-compilation/</link>
+    <link>https://embeddedk8.com/arduino-cli-compilation/</link>
     <pubDate>Wed, 01 Oct 2025 15:58:26 &#43;0800</pubDate>
     <author>embeddedk8</author>
-    <guid>https://embeddedk8.github.io/arduino-cli-compilation/</guid>
+    <guid>https://embeddedk8.com/arduino-cli-compilation/</guid>
     <description><![CDATA[<p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look on build process in the Arduino IDE.
 It turned out that a lot of things go on behind the scenes - the classic steps of preprocessing, compiling, and linking,
 along with a few Arduino-specific addons to the process.</p>
@@ -20,10 +20,10 @@ Maybe, because of&hellip;</p>]]></description>
 </item>
 <item>
     <title>How the Arduino IDE builds your code – step by step</title>
-    <link>https://embeddedk8.github.io/arduino-ide-build-process/</link>
+    <link>https://embeddedk8.com/arduino-ide-build-process/</link>
     <pubDate>Sat, 13 Sep 2025 15:58:26 &#43;0800</pubDate>
     <author>embeddedk8</author>
-    <guid>https://embeddedk8.github.io/arduino-ide-build-process/</guid>
+    <guid>https://embeddedk8.com/arduino-ide-build-process/</guid>
     <description><![CDATA[<p>As an embedded developer, you probably can&rsquo;t help wondering what actually happens when Arduino IDE builds the sketch.
 What’s being compiled, where the files go, and how the toolchain turns the code into instructions able to run on the board?</p>]]></description>
 </item>
