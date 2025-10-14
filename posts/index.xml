@@ -24,11 +24,8 @@ Maybe, because of&hellip;</p>]]></description>
     <pubDate>Sat, 13 Sep 2025 15:58:26 &#43;0800</pubDate>
     <author>embeddedk8</author>
     <guid>https://embeddedk8.github.io/arduino-ide-build-process/</guid>
-    <description><![CDATA[<p>From the user’s perspective, <strong>building an Arduino sketch with the Arduino IDE seems as simple as clicking one button</strong>.
-But under the hood, the IDE performs several important steps: some are common to every embedded development environment,
-while others are unique to Arduino — and they might surprise you if you’re new to it.</p>
-<p>In this post, we’ll take a closer look at <strong>what actually happens when the Arduino IDE builds your sketch</strong>.
-Understanding this process can help you move toward more advanced embedded development.</p>]]></description>
+    <description><![CDATA[<p>As an embedded developer, you probably can&rsquo;t help wondering what actually happens when Arduino IDE builds the sketch.
+What’s being compiled, where the files go, and how the toolchain turns the code into instructions able to run on the board?</p>]]></description>
 </item>
 </channel>
 </rss>
