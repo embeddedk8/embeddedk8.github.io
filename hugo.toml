@@ -1,4 +1,4 @@
-baseURL = "https://embeddedk8.github.io/"
+baseURL = "https://embeddedk8.com/"
 
 # theme
 theme = "LoveIt"
@@ -92,7 +92,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
   [params.author]
     name = "embeddedk8"
     email = "embeddedkate@gmail.com"
-    link = "https://embeddedk8.github.io/"
+    link = "https://embeddedk8.com/"
 
   # Header config
   [params.header]

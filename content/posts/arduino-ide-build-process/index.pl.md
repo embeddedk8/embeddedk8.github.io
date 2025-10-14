@@ -5,7 +5,7 @@ date: 2025-09-13T15:58:26+08:00
 lastmod: 2025-09-13T15:58:26+08:00
 draft: true
 author: "embeddedk8"
-authorLink: "https://embeddedk8.github.io"
+authorLink: "https://embeddedk8.com"
 description: "Explaining the compilation process in Arduino IDE"
 images: []
 resources:
