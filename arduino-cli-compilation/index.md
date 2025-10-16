@@ -1,4 +1,4 @@
-# Building projects with Arduino CLI
+# Arduino Internals: building sketches with Arduino CLI
 
 
 In the [previous post](/arduino-ide-build-process/) we took a closer look on build process in the Arduino IDE.

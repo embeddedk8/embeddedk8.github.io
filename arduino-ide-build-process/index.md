@@ -1,15 +1,16 @@
-# How the Arduino IDE builds your code – step by step
+# Arduino Internals: how Arduino IDE builds your code
 
 As an embedded developer, you probably can't help wondering what actually happens when Arduino IDE builds the sketch.
 What’s being compiled, where the files go, and how the toolchain turns the code into instructions able to run on the board?
 <!--more-->
 
-While building an Arduino sketch with the Arduino IDE seems as simple as clicking one button,
-under the hood, the IDE performs several important steps: some are common to every embedded development environment, 
-while others are unique to Arduino — and they might surprise you if you’re new to it.
+You hit the spot! We’re about to take a closer look at the Arduino build process.
 
-In this post, we’ll take a closer look at **what actually happens when the Arduino IDE builds your sketch**.
-Understanding this process can help you move toward more advanced embedded development.
+While building an Arduino sketch in the IDE seems as simple as clicking one button,
+under the hood it performs several important steps — some common to nearly every embedded development environment,
+and others unique to Arduino.
+
+Understanding this process is a great way to move beyond the beginner stage and start thinking like an embedded developer.
 # Understanding Arduino IDE build process
 
 {{< admonition note "Assumed knowledge" true >}}
@@ -27,34 +28,30 @@ If you’re using a different board, IDE version, or operating system — don’
 ## What you will learn?
 After reading this article, you will:
 - understand the standard build flow in embedded software development,
-- learn which additional steps the Arduino IDE performs on top of it.
+- learn about the additional steps performed during the Arduino build process,
+- know where to find the build files and caches.
 
-## Let's start!
+## Let's get started!
 
-Let's build a sketch together and go step by step along the build process.
+Let's build a sketch together and go step through the build process.
+We’ll pretend we know nothing and analyze the build output to infer what the Arduino IDE actually did.
 
 ### Build an example sketch
-Open your Arduino IDE and pick the right board from **Select Board** menu. 
+Open the Arduino IDE and select the correct board from **Select Board** menu. 
 In my case it's **Arduino UNO R4 WiFi**.
 
-{{< admonition tip >}}
-The **Arduino UNO R4 WiFi** is based on an **ARM** architecture. Be aware that some other Arduino boards (like the **UNO R3** or **Mega 2560**) use **AVR** architecture instead. 
-This means the compilation process and generated machine code will differ between these boards.
-{{< /admonition >}}
-
-Load up the Blink example. Make a minimal change (like changing the delay value) and save the new sketch in your sketchbook.
+Load the Blink example and save the sketch in your sketchbook.
 Then, to trigger the build, click **Verify/Compile** and observe the **Output** window.
 
 In my IDE, only a very short message has appeared in **Output** window. It looks that the sketch has been built successfully and
-is ready to upload to the board. The message contains only two lines, because I didn't change 
-the Arduino IDE’s default settings yet, so the **Output** is mostly hidden.
+is ready to upload to the board. The message contains just two lines because I haven’t changed the Arduino IDE’s default settings yet — by default, most of the build output is hidden.
 
 [![Arduino IDE doesn't say much about compilation steps by default](/arduino-ide-default-output.png "Arduino IDE - default build output")](/arduino-ide-default-output.png)
 
 ### Enable verbose output
-To understand the build process better, it will be useful to enable the **verbose output** in IDE.
-To do so, I need to mark `File-> Preferences-> Show verbose output` setting for both compiling and upload, and compile again.
-Now the output will be complete.
+To understand the build process better we need to enable the **verbose output** in IDE.
+To do so, go to **File-> Preferences** and check **Show verbose output** setting for both compiling and upload. When you compile again,
+the output will be complete.
 Let’s break it down to atoms!
 <br>
 
@@ -63,17 +60,15 @@ Let’s break it down to atoms!
 
 
 ## Board and package identification
-The first lines in Output are identifying the board.
+The first lines in **Output** are identifying the board.
 
 When building a sketch, the Arduino environment needs to know exactly which board you are using — and it knows it because
 you have selected the right board from **Select Board** menu. Thanks to this, the compiled code will match
 the board’s architecture, hardware, pin mapping etc.
 
-This board identity is called **FQBN (Fully Qualified Board Name)** and presents as follows:
+This board identity is called **FQBN (Fully Qualified Board Name)** and looks as follows:
 ```bash
 FQBN: arduino:renesas_uno:unor4wifi
-Using board 'unor4wifi' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
-Using core 'arduino' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 ```
 
 **FQBN** is unique for each board. It consists of three segments:
@@ -95,32 +90,14 @@ You can see their paths in the build log — let’s take a closer look.
 ### Arduino15 directory
 **Arduino15** contains user preferences,
 downloaded board packages (cores, toolchains, board definitions) and libraries that Arduino automatically installs. The 
-[exact location depends on your operating system](https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder).
-
-{{< admonition tip >}}
-In some cases, you may want to move the **Arduino15 folder** —  for example, to free up space on your primary drive.
-
-To do this:
-
-1. Copy the **Arduino15** directory to your desired location.
-
-2. Open the file `~/.arduinoIDE/arduino-cli.yaml` and update the `directories:data` path, for example:
+[exact location depends on your operating system](https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder). You will see it under the `FQBN` log:
 
 ```
-board_manager:
-    additional_urls: []
-directories:
-    data: /home/kate/new-location-arduino15
+Using board 'unor4wifi' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
+Using core 'arduino' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 ```
 
-3. Restart the Arduino IDE. It will now use the new **Arduino15** location. Verify the build output to ensure everything is working correctly.
-
-4. Once you’ve confirmed everything works correctly, you can safely delete the old folder.
-{{< /admonition >}}
-
-
-Take a look on [boards.txt](https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt) file for your platform, located somewhere in `Arduino15/packages` (take a look at the build output with teh board identity —
-you will find the proper directory there).
+Take a look on [boards.txt](https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt) file for your platform, located in the directory listed above.
 This file lists all supported boards. Each board has its own section with key-value pairs that define how to compile, upload, and debug for that target.
 Here’s the entry for the Arduino UNO R4 WiFi:
 
@@ -144,7 +121,29 @@ unor4wifi.upload.tool=bossac
 Thanks to those settings, once you select your board from the **Select Board** menu, 
 the correct toolchain, compiler flags (such as MCU type and clock speed) and upload tool are selected automatically.
 
+{{< admonition type=tip title="Do you want to move Arduino15 folder?" open=true  >}}
+In some cases, you may want to move the **Arduino15 folder** —  for example, to free up space on your primary drive.
+
+To do this:
+
+1. Copy the **Arduino15** directory to your desired location.
+
+2. Open the file `~/.arduinoIDE/arduino-cli.yaml` and update the `directories:data` path, for example:
+
+```
+board_manager:
+    additional_urls: []
+directories:
+    data: /home/kate/new-location-arduino15
+```
+
+3. Restart the Arduino IDE. It will now use the new **Arduino15** location. Verify the build output to ensure everything is working correctly.
+
+4. Once you’ve confirmed everything works correctly, you can safely delete the old folder.
+   {{< /admonition >}}
+
 ### Arduino core
+
 Inside **Arduino15** directory there is a folder called **Arduino Core**. It contains the essential components of your Arduino program 
 and is specific to the hardware platform you are using. You can find it in the cores subdirectory of your board package, for example:
 
@@ -170,7 +169,7 @@ When you compile a sketch, the Arduino IDE doesn’t build it directly in your p
 Instead, it creates a build directory — a per-sketch cache — in a hidden folder to store all intermediate files. 
 
 This approach lets the IDE generate builds for different boards or variants without cluttering your sketch folder. 
-You can find the path to this build directory in the build log. For example, my sketch was built here:
+You can find the path to this build directory in the build log. My sketch was built here:
 
 ``` 
 /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/`.
@@ -187,10 +186,10 @@ This will build your sketch and place a copy of the `.hex`, `.bin`, `.elf` and `
 folder so it’s easy to find later.
 {{</ admonition >}}
 
-Now, let's take a look at next lines from Build Output.
+Now, let's move to the preprocessing stage.
 
 ## Preprocessing
-The first phase of the C/C++ program build is preprocessing. In Arduino, preprocessing includes some specific steps.
+The first phase of every C/C++ program build is preprocessing. In Arduino, preprocessing includes some specific steps.
 
 ### Detecting libraries used
 Before any actual compilation happens, the Arduino IDE scans your code to figure out which additional libraries your sketch needs.
@@ -427,6 +426,11 @@ Unfortunately, Arduino IDE does not offer the `Clean build` or `Force rebuild` o
 [[3]](https://github.com/arduino/arduino-ide/issues/419)). The workaround for it is to manually delete the cached build directories we mentioned earlier.
 A much better alternative is to use Arduino CLI, which is more flexible and gives you full control over compilation and rebuilding.
 
+{{< admonition tip >}}
+The **Arduino UNO R4 WiFi** is based on an **ARM** architecture. Be aware that some other Arduino boards (like the **UNO R3** or **Mega 2560**) use **AVR** architecture instead.
+This means the compilation process and generated machine code will differ between these boards.
+{{< /admonition >}}
+
 ## More reading
 
 1. [Build Sketch Process from docs.arduino.cc](https://docs.arduino.cc/arduino-cli/sketch-build-process/)
@@ -436,4 +440,6 @@ A much better alternative is to use Arduino CLI, which is more flexible and give
 3. [ARM Reverse Engineering Notes: Compilation](https://github.com/microbuilder/armreveng/blob/main/compilation.md)
 4. [Open issues in arduino-cli related to build process](https://github.com/arduino/arduino-cli/issues?q=state%3Aopen%20label%3A%22topic%3A%20build-process%22)
 5. [De-Mystifying Libraries - How Arduino IDE Finds and Uses Your Files - OhioIoT](https://www.youtube.com/watch?v=7vLjK9t-uZY)
+
+
 
