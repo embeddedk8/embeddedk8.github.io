@@ -1,6 +1,6 @@
 ---
 weight: 2
-title: "Building projects with Arduino CLI"
+title: "Arduino Internals: building sketches with Arduino CLI"
 date: 2025-10-01T15:58:26+08:00
 lastmod: 2025-10-01T15:58:26+08:00
 draft: false
@@ -12,8 +12,8 @@ resources:
 - name: "featured-image"
   src: "featured-image.png"
 
-tags: ["Arduino"]
-categories: ["Arduino"]
+tags: ["Arduino Internals"]
+categories: ["Arduino Internals"]
 
 lightgallery: true
 
