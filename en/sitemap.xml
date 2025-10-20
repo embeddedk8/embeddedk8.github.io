@@ -2,55 +2,55 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://localhost:1313/arduino-cli-compilation/</loc><lastmod>2025-10-10T20:39:11&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/arduino-ide-build-process/</loc><lastmod>2025-10-14T12:56:55&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/categories/arduino/</loc><lastmod>2025-10-14T12:56:55&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/tags/arduino/</loc><lastmod>2025-10-14T12:56:55&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>http://localhost:1313/categories/</loc><lastmod>2025-10-14T12:56:55&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.com/arduino-cli-compilation/</loc><lastmod>2025-10-16T21:38:24&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.com/arduino-ide-build-process/</loc><lastmod>2025-10-20T08:21:08&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.com/categories/arduino-internals/</loc><lastmod>2025-10-20T08:21:08&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.com/tags/arduino-internals/</loc><lastmod>2025-10-20T08:21:08&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.com/categories/</loc><lastmod>2025-10-20T08:21:08&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
-                        href="http://localhost:1313/pl/categories/"
+                        href="https://embeddedk8.com/pl/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/categories/"
+                    href="https://embeddedk8.com/categories/"
                     /></url><url>
-            <loc>http://localhost:1313/</loc><lastmod>2025-10-14T12:56:55&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.com/</loc><lastmod>2025-10-20T08:21:08&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
-                        href="http://localhost:1313/pl/"
+                        href="https://embeddedk8.com/pl/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/"
+                    href="https://embeddedk8.com/"
                     /></url><url>
-            <loc>http://localhost:1313/posts/</loc><lastmod>2025-10-14T12:56:55&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.com/posts/</loc><lastmod>2025-10-20T08:21:08&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
-                        href="http://localhost:1313/pl/posts/"
+                        href="https://embeddedk8.com/pl/posts/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/posts/"
+                    href="https://embeddedk8.com/posts/"
                     /></url><url>
-            <loc>http://localhost:1313/about/</loc><lastmod>2025-09-14T13:13:45&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+            <loc>https://embeddedk8.com/about/</loc><lastmod>2025-09-14T13:13:45&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
-                        href="http://localhost:1313/pl/about/"
+                        href="https://embeddedk8.com/pl/about/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/about/"
+                    href="https://embeddedk8.com/about/"
                     /></url><url>
-            <loc>http://localhost:1313/tags/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority><xhtml:link
+            <loc>https://embeddedk8.com/tags/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
-                        href="http://localhost:1313/pl/tags/"
+                        href="https://embeddedk8.com/pl/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="en"
-                    href="http://localhost:1313/tags/"
+                    href="https://embeddedk8.com/tags/"
                     /></url><url>
-            <loc>http://localhost:1313/tags/content/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://localhost:1313/tags/installation/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
-            <loc>http://localhost:1313/tags/configuration/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url></urlset>
+            <loc>https://embeddedk8.com/tags/content/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://embeddedk8.com/tags/installation/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://embeddedk8.com/tags/configuration/_index.zh-cn/</loc><lastmod>2025-09-13T20:53:54&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url></urlset>
