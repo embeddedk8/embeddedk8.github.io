@@ -233,6 +233,9 @@ In general, preprocessor expands macros like `#include`, `#define`, and conditio
 The output is a single expanded source file.
 In Arduino, some additional steps are added around preprocessing stage.
 
+### Concatenating .ino files
+If the sketch contains of multiple `.ino` files, they are first concatenated into a single `.cpp` file.
+
 ### Detecting libraries used
 Arduino uses a special build recipe (`recipe.preproc.macros` [[1]](https://docs.arduino.cc/arduino-cli/platform-specification/))
 to detect which libraries are required by your sketch. 
@@ -258,12 +261,9 @@ The Arduino IDE compiles only the libraries that your sketch actually needs — 
 In most other development environments, this step is up to the developer: you have to configure which libraries or dependencies should be included in the build.
 Arduino takes care of this automatically, keeping things simple and beginner-friendly.
 
-
-<!-- REVIEWED UP TO HERE -->
-
-### Automatic function prototypes generation
+### Generating function prototypes
 The next stage in the build process is automatic function prototype generation. In C or C++, each function must be
-either defined or declared before it's called. In Arduino, you don't need to worry about that - you can write whatever functions
+either defined or declared before it's called. In Arduino, you don't need to worry about that — you can write functions
 in any order, without adding their prototypes. How does it work? Arduino generates these prototypes for you!
 
 Here’s what the build log shows:
@@ -273,22 +273,20 @@ arm-none-eabi-g++ (...) -E /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67
 ctags (...) /tmp/1121713208/sketch_merged.cpp
 ```
 Again, the compiler is invoked with the `-E` flag, meaning only the preprocessor runs. 
-Behind the scenes, the Arduino IDE performs these steps for you:
-1. **Concatenate .ino files**
+This is what happens now:
 
-    All `.ino` files in the sketch folder are concatenated into a single file (`MyBlink.ino.cpp`).
-2. **Preprocess it**
+1. **Preprocessing**
 
-    The new `MyBlink.ino.cpp` is input for the preprocessor: `#include`s are expanded and macros replaces.
+    The `MyBlink.ino.cpp` (file concatenated of all `.ino` files) is input for the preprocessor: `#include`s are expanded and macros replaces.
     The expanded file is stored as `/tmp/1121713208/sketch_merged.cpp`.
 
-3. **Scan functions**
+2. **Scanning functions**
 
     Tool `ctags` is running over expanded `sketch_merged.cpp`, to extract function symbols.
 
-4. **Generate prototypes**
+3. **Generating prototypes**
 
-    Based on the `ctags` result, the IDE inserts forward declarations (prototypes) for you. This way, you don't need to worry 
+    Based on the `ctags` result, Arduino environment inserts forward declarations for you. This way, you don't need to worry 
 about undeclared functions, functions order, etc.
 
 5. **Store prototypes into .ino.cpp**
@@ -334,26 +332,24 @@ void loop() {
 ```
 
 To summarize differences:
-- `#include <Arduino.h>`
-
-    in preprocessed file there is `<Arduino.h>` header added,
-- `#line` macros
-
-    These keep compiler error messages pointing to the right lines in your .ino file. 
-Without them, errors would show up with the line numbers of the generated .cpp, which would be super confusing.
-
+- `#include <Arduino.h>` is added,
+- `#line` macros are added — they keep compiler error messages pointing to the right lines in your `.ino` file. 
+Without them, errors would show up with the line numbers of the generated `.cpp`, which would be super confusing.
 - function prototypes are added.
 
 ## Compilation
+Here’s where your code finally turns into machine instructions that the microcontroller can execute.
 
 ### Sketch compilation
-Here’s where your code finally turns into machine instructions.
+During this step, the compiler checks your code for syntax errors and converts it 
+into the object code that can be linked with libraries later.
+
 ```
 Compiling sketch...
 arm-none-eabi-g++ (...) -c sketch/MyBlink.ino.cpp -o sketch/MyBlink.ino.cpp.o
 ```
-Now we reached the sketch compilation.
-Compiler is ivoked with `-c` flag, which means compile only (generate object code .o, don’t link).
+
+Compiler is invoked with `-c` flag, which means compile only (and don’t link yet).
 
 **Input:** `MyBlink.ino.cpp` - the auto-generated sketch with prototypes, includes, and line directives.
 
@@ -364,7 +360,7 @@ Some highlights:
 - `-Os` → optimize for size.
 - `-g3` → include debug info at max level.
 - `-fno-rtti`, `-fno-exceptions` → strip C++ runtime features to save space.
-- `-nostdlib` → don’t link against standard system libraries.
+- `-nostdlib` → don’t link against standard system libraries [[1]](https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html).
 - `-mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16` → target an ARM Cortex-M4 with hardware floating point.
 - `-I` and `@.../includes.txt` → add search paths for Arduino core and variant headers.
 - Many `-D...` → defines for board, CPU frequency, Arduino version, etc.
@@ -373,10 +369,11 @@ Some highlights:
 Most advanced IDEs let you change compiler settings like optimization level, debug info, or extra flags right from a project menu.  
 Arduino IDE is so simple that it doesn't offer this option: you don’t get a button or menu for that.
 
-If you want to change some settings, you’ve got two ways:
+If you want to change some settings, you’ve got several ways:
 
-- **Edit build recipes**: you can change files like `platform.txt` or `boards.local.txt` to change or add your own compilation flags.
-- **Use Arduino CLI**: the command-line tool gives you more flexibility and can build your sketch with whatever options you like.
+- **Edit build recipes**: you can change files like `platform.txt` or `boards.local.txt` to change or add your own compilation flags,
+- **modify `arduino-cli.yaml`** from **ArduinoIDE** folder,
+- **use Arduino CLI** directly: the command-line tool gives you more flexibility and can build your sketch with whatever options you like.
 
 {{</ admonition >}}
 
@@ -405,8 +402,7 @@ Using precompiled core: /home/kate/.cache/arduino/cores/arduino_renesas_uno_unor
 ```
 
 The core is the foundation of every Arduino program. 
-It provides the low-level code relevant to the specific board you selected, like startup code, 
-pin mappings, and implementations of important functions. Instead of recompiling the same core files every time you build, 
+We disussed in in [Arduino core](#arduino-core) chapter. Instead of recompiling the same core files every time you build, 
 the Arduino IDE uses precompiled objects from a cache. It speeds up the compilation.
 
 ## Linking everything together
@@ -461,19 +457,12 @@ arm-none-eabi-size -A MyBlink.ino.elf
 Unfortunately, Arduino IDE does not offer the `Clean build` or `Force rebuild` option ([[1]](https://forum.arduino.cc/t/feature-request-clean-build-option/1291789),
 [[2]](https://forum.arduino.cc/t/can-i-force-the-arduino-ide-to-recompile-everything/866547), 
 [[3]](https://github.com/arduino/arduino-ide/issues/419)). The workaround for it is to manually delete the cached build directories we mentioned earlier.
-A much better alternative is to use Arduino CLI, which is more flexible and gives you full control over compilation and rebuilding.
 
-{{< admonition tip >}}
-The **Arduino UNO R4 WiFi** is based on an **ARM** architecture. Be aware that some other Arduino boards (like the **UNO R3** or **Mega 2560**) use **AVR** architecture instead.
-This means the compilation process and generated machine code will differ between these boards.
-{{< /admonition >}}
 
 ## More reading
 
 1. [Build Sketch Process from docs.arduino.cc](https://docs.arduino.cc/arduino-cli/sketch-build-process/)
 2. [Find sketches, libraries, board cores and other files on your computer from support.arduino.cc](https://support.arduino.cc/hc/en-us/articles/4415103213714-Find-sketches-libraries-board-cores-and-other-files-on-your-computer)
-
-### Digging deeper
 3. [ARM Reverse Engineering Notes: Compilation](https://github.com/microbuilder/armreveng/blob/main/compilation.md)
 4. [Open issues in arduino-cli related to build process](https://github.com/arduino/arduino-cli/issues?q=state%3Aopen%20label%3A%22topic%3A%20build-process%22)
 5. [De-Mystifying Libraries - How Arduino IDE Finds and Uses Your Files - OhioIoT](https://www.youtube.com/watch?v=7vLjK9t-uZY)
