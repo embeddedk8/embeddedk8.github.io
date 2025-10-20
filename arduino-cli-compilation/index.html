@@ -4,22 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Arduino Internals: building sketches with Arduino CLI - Embedded Kate Blog</title><meta name="Description" content="Compiling with Arduino CLI"><meta property="og:url" content="https://embeddedk8.com/arduino-cli-compilation/">
+        <title>Arduino Internals: building sketches with Arduino CLI - Embedded Kate Blog</title><meta name="Description" content="Build and upload Arduino sketches using Arduino CLI. Installing Arduino CLI, setting up boards, uploading sketches, and customizing commands"><meta property="og:url" content="https://embeddedk8.com/arduino-cli-compilation/">
   <meta property="og:site_name" content="Embedded Kate Blog">
   <meta property="og:title" content="Arduino Internals: building sketches with Arduino CLI">
-  <meta property="og:description" content="Compiling with Arduino CLI">
+  <meta property="og:description" content="Build and upload Arduino sketches using Arduino CLI. Installing Arduino CLI, setting up boards, uploading sketches, and customizing commands">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-10-01T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-10-16T21:38:24+02:00">
+    <meta property="article:modified_time" content="2025-10-20T12:28:16+02:00">
     <meta property="article:tag" content="Arduino Internals">
     <meta property="og:image" content="https://embeddedk8.com/arduino-cli-compilation/featured-image.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://embeddedk8.com/arduino-cli-compilation/featured-image.png">
   <meta name="twitter:title" content="Arduino Internals: building sketches with Arduino CLI">
-  <meta name="twitter:description" content="Compiling with Arduino CLI">
+  <meta name="twitter:description" content="Build and upload Arduino sketches using Arduino CLI. Installing Arduino CLI, setting up boards, uploading sketches, and customizing commands">
       <meta name="twitter:site" content="@EmbeddedKate">
 <meta name="application-name" content="embeddedk8">
 <meta name="apple-mobile-web-app-title" content="embeddedk8"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  790 ,
-        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-10-16T21:38:24+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  933 ,
+        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-10-20T12:28:16+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
@@ -51,7 +51,7 @@
                 }},"author": {
                 "@type": "Person",
                 "name": "embeddedk8"
-            },"description": "Compiling with Arduino CLI"
+            },"description": "Build and upload Arduino sketches using Arduino CLI. Installing Arduino CLI, setting up boards, uploading sketches, and customizing commands"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -124,9 +124,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: building sketches with Arduino CLI</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;790 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;933 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -134,49 +134,54 @@
         data-srcset="/arduino-cli-compilation/featured-image.png, /arduino-cli-compilation/featured-image.png 1.5x, /arduino-cli-compilation/featured-image.png 2x"
         data-sizes="auto"
         alt="/arduino-cli-compilation/featured-image.png"
-        title="Compiling with Arduino CLI" /></div><div class="details toc" id="toc-static"  data-kept="">
+        title="Build and upload Arduino sketches using Arduino CLI. Installing Arduino CLI, setting up boards, uploading sketches, and customizing commands" /></div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#installing-arduino-cli">Installing Arduino CLI</a>
-      <ul>
-        <li><a href="#setup-your-board-core">Setup your board core</a></li>
-      </ul>
-    </li>
+    <li><a href="#installing-arduino-cli">Installing Arduino CLI</a></li>
+    <li><a href="#setup-your-board-core">Setup your board core</a></li>
     <li><a href="#creating-a-new-sketch">Creating a new sketch</a></li>
     <li><a href="#compile-a-sketch">Compile a sketch</a></li>
     <li><a href="#uploading-a-sketch">Uploading a sketch</a></li>
     <li><a href="#customizing-command">Customizing command</a></li>
     <li><a href="#permanent-cli-settings">Permanent CLI settings</a></li>
+    <li><a href="#summary">Summary</a></li>
     <li><a href="#more-reading">More reading</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look on build process in the Arduino IDE.
-It turned out that a lot of things go on behind the scenes - the classic steps of preprocessing, compiling, and linking,
-along with a few Arduino-specific addons to the process.</p>
-<p>Now, let’s take a more advanced approach and build the same project without the Arduino IDE - using the Arduino CLI.</p>
+            </div><div class="content" id="content"><p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look at how the Arduino IDE builds sketches.
+A lot happens behind the scenes — from the classic C/C++ build steps (preprocessing, compiling, assembling, and linking)
+to a few Arduino-specific additions.</p>
+<p>Now, let’s take things a step further and build the same project without the Arduino IDE — this time using the Arduino CLI (Arduino
+Command Line Interface).</p>
 <h1 id="compiling-arduino-sketch-via-arduino-cli">Compiling Arduino sketch via Arduino CLI</h1>
-<p>Ok, but why would we want to use CLI at the first place, when the Arduino IDE already provides such a simple way to build and upload sketches?
-Maybe, because of&hellip;</p>
+<p>It’s worth to start with mentioning that, starting with Arduino IDE 2.0, the Arduino IDE uses the Arduino CLI
+for the build process. This means that when you build a sketch using the CLI directly, it follows exactly the same steps as the IDE does.</p>
+<p>So, what’s the point of using the CLI directly?</p>
+<p>There are several advantages:</p>
 <ul>
 <li>
 <p><strong>Advanced configuration options</strong></p>
-<p>Some build or configuration options aren&rsquo;t exposed in the IDE. With the CLI, you can fully control compiler flags, board settings, library versions from command line.</p>
+<p>Some build or configuration options aren&rsquo;t exposed in the IDE. It&rsquo;s possible to configure them via configuration files
+for the IDE, but it makes this process more complicated and harder to maintain (the configuration file can be per-sketch or global).
+With the CLI, you can fully control compiler flags, board settings, library versions from command line.</p>
 </li>
 <li>
 <p><strong>Automation and integration</strong></p>
-<p>The CLI makes it easy to compile, verify, and upload sketches automatically. It can run on systems without a graphical interface, such as Docker containers.</p>
+<p>The CLI makes it easy to compile, verify, and upload sketches automatically.
+It can run on systems without a graphical interface, such as Docker containers.
+We will try to use it for creating simple CI/CD pipeline later.</p>
 </li>
 <li>
 <p><strong>Reproducibility</strong></p>
-<p>Makes sure that your colleague compiles with exactly the same setup as you.</p>
+<p>Makes sure that your colleague compiles with exactly the same setup as you. It solves the &ldquo;it works on my machine&rdquo; problem.</p>
 </li>
 <li>
 <p><strong>IDE independence</strong></p>
-<p>Use your favourite IDE for code development!</p>
+<p>Use your favourite IDE for code development! You don&rsquo;t have to use Arduino IDE if you don&rsquo;t want!</p>
 </li>
 </ul>
 <p>I am sure it was enough to convince you to give it a try, so let&rsquo;s start!</p>
@@ -201,7 +206,7 @@ Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" targ
 </div></div>
         </div>
     </div>
-<h3 id="setup-your-board-core">Setup your board core</h3>
+<h2 id="setup-your-board-core">Setup your board core</h2>
 <p>After Arduino CLI is installed, you need to install needed boards definitions <a href="https://docs.arduino.cc/arduino-cli/getting-started/" target="_blank" rel="noopener noreffer ">[1]</a>. First, let&rsquo;s update the board index:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -262,7 +267,7 @@ So let&rsquo;s install needed boards definitions:</p>
 </span></span><span class="line"><span class="cl">Sketch created in: /XXX/MyFirstSketch
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>But I want to reuse MyBlink sketch, that I was working on as in previous post.</p>
+</div><p>But I want to reuse MyBlink sketch, that I was already working on, as in previous post.</p>
 <h2 id="compile-a-sketch">Compile a sketch</h2>
 <p>To compile a sketch, use <code>arduino-cli compile</code> command followed by:</p>
 <ul>
@@ -302,7 +307,7 @@ So let&rsquo;s install needed boards definitions:</p>
 </div>
 </div><h2 id="uploading-a-sketch">Uploading a sketch</h2>
 <p>Before we jump to upload command, we must now to which port is the board connected. How can we check it?
-Good news - no need to observe <code>ls /dev/tty*</code> with board plugged and unplugged. There is a command for it too:</p>
+Good news — no need to observe <code>ls /dev/tty*</code> with board plugged and unplugged. There is a command for it too:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -324,7 +329,8 @@ Good news - no need to observe <code>ls /dev/tty*</code> with board plugged and 
 <pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">arduino</span><span class="o">-</span><span class="n">cli</span> <span class="n">upload</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM0</span> <span class="o">--</span><span class="n">fqbn</span> <span class="n">arduino</span><span class="p">:</span><span class="n">renesas_uno</span><span class="p">:</span><span class="n">unor4wifi</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kate</span><span class="o">/</span><span class="n">Arduino</span><span class="o">/</span><span class="n">MyBlink</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="customizing-command">Customizing command</h2>
+</div><p>So it was basically all needed to replace the usage of Arduino IDE <strong>Verify/Compile</strong> and <strong>Upload</strong> actions.</p>
+<h2 id="customizing-command">Customizing command</h2>
 <p>The compile command can be extended with additional stuff, like extra compiler flags:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -361,27 +367,25 @@ Good news - no need to observe <code>ls /dev/tty*</code> with board plugged and 
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Settings added globally to this file will affect all builds done with Arduino CLI. You can also set some options per-board.</p>
-<div class="details admonition info open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Info<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">This blog post is still work in progress&hellip; It will be updated soon!</div>
-        </div>
-    </div>
+<h2 id="summary">Summary</h2>
+<p>Using the Arduino CLI gives you full control over the build process,
+from compiling to uploading sketches, without relying on the Arduino IDE.
+It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.
+In the next post, we’ll explore how to automate builds and uploads.</p>
 <h2 id="more-reading">More reading</h2>
 <ul>
 <li><a href="https://docs.arduino.cc/arduino-cli/" target="_blank" rel="noopener noreffer ">https://docs.arduino.cc/arduino-cli/</a></li>
 <li><a href="https://arduino.github.io/arduino-cli/1.3/getting-started/" target="_blank" rel="noopener noreffer ">https://arduino.github.io/arduino-cli/1.3/getting-started/</a></li>
 <li><a href="https://evan.widloski.com/notes/arduino_cli.html" target="_blank" rel="noopener noreffer ">https://evan.widloski.com/notes/arduino_cli.html</a></li>
 <li><a href="https://dumblebots.com/blog/arduino-cli-getting-started" target="_blank" rel="noopener noreffer ">https://dumblebots.com/blog/arduino-cli-getting-started</a></li>
+<li><a href="https://www.pcbway.com/blog/Activities/Arduino_cli__compile__upload_and_manage_libraries__cores__and_boards.html" target="_blank" rel="noopener noreffer ">https://www.pcbway.com/blog/Activities/Arduino_cli__compile__upload_and_manage_libraries__cores__and_boards.html</a></li>
 </ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-10-16&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/595cf32841db6ed97c9df2b2a78c1e69cc9fc12e" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) 595cf32841db6ed97c9df2b2a78c1e69cc9fc12e: Improvements P1, P2">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>595cf32</a></span>
+                <span>Updated on 2025-10-20&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/c544c8269d57bb777c1bbf2bf99d5fc551895844" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) c544c8269d57bb777c1bbf2bf99d5fc551895844: Update">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>c544c82</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>

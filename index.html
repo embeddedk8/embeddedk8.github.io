@@ -116,16 +116,17 @@
         data-srcset="/arduino-cli-compilation/featured-image.png, /arduino-cli-compilation/featured-image.png 1.5x, /arduino-cli-compilation/featured-image.png 2x"
         data-sizes="auto"
         alt="/arduino-cli-compilation/featured-image.png"
-        title="Compiling with Arduino CLI" /></a>
+        title="Build and upload Arduino sketches using Arduino CLI. Installing Arduino CLI, setting up boards, uploading sketches, and customizing commands" /></a>
         </div><h1 class="single-title" itemprop="name headline">
         <a href="/arduino-cli-compilation/">Arduino Internals: building sketches with Arduino CLI</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="https://embeddedk8.github.io" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-publish">published on <time datetime="2025-10-01">2025-10-01</time></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div><div class="content"><p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look on build process in the Arduino IDE.
-It turned out that a lot of things go on behind the scenes - the classic steps of preprocessing, compiling, and linking,
-along with a few Arduino-specific addons to the process.</p>
-<p>Now, let’s take a more advanced approach and build the same project without the Arduino IDE - using the Arduino CLI.</p>
+    </h1><div class="post-meta"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-publish">published on <time datetime="2025-10-01">2025-10-01</time></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div><div class="content"><p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look at how the Arduino IDE builds sketches.
+A lot happens behind the scenes — from the classic C/C++ build steps (preprocessing, compiling, assembling, and linking)
+to a few Arduino-specific additions.</p>
+<p>Now, let’s take things a step further and build the same project without the Arduino IDE — this time using the Arduino CLI (Arduino
+Command Line Interface).</p>
 <h1 id="compiling-arduino-sketch-via-arduino-cli">Compiling Arduino sketch via Arduino CLI</h1>
-<p>Ok, but why would we want to use CLI at the first place, when the Arduino IDE already provides such a simple way to build and upload sketches?
-Maybe, because of&hellip;</p></div><div class="post-footer">
+<p>It’s worth to start with mentioning that, starting with Arduino IDE 2.0, the Arduino IDE uses the Arduino CLI
+for the build process. This means that when you build a sketch using the CLI directly, it follows exactly the same steps as the IDE does.</p></div><div class="post-footer">
         <a href="/arduino-cli-compilation/">Read More</a><div class="post-tags">
                 <i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/arduino-internals/">Arduino Internals</a></div></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><div class="featured-image-preview">
