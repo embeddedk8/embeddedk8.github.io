@@ -2,7 +2,7 @@
     <channel>
         <title>Embedded Kate Blog</title>
         <link>https://embeddedk8.com/pl/</link>
-        <description>The easiest guide to embedded development on the whole Internet!</description>
+        <description>I share my thoughts and in-depth articles on embedded systems, RTOS, and C programming — making complex topics easy to understand.</description>
         <generator>Hugo -- gohugo.io</generator><language>pl</language><managingEditor>embeddedkate@gmail.com (embeddedk8)</managingEditor>
             <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 14 Sep 2025 11:04:49 &#43;0800</lastBuildDate>
             <atom:link href="https://embeddedk8.com/pl/index.xml" rel="self" type="application/rss+xml" />
