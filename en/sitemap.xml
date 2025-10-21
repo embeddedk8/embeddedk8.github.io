@@ -2,12 +2,12 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://embeddedk8.com/arduino-iot-cloud/</loc><lastmod>2025-10-21T06:00:11&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.com/arduino-iot-cloud/</loc><lastmod>2025-10-21T06:09:33&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://embeddedk8.com/arduino-cli-compilation/</loc><lastmod>2025-10-20T12:28:16&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://embeddedk8.com/arduino-ide-build-process/</loc><lastmod>2025-10-20T12:28:16&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.com/categories/arduino/</loc><lastmod>2025-10-21T06:00:11&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.com/tags/arduino-iot-cloud/</loc><lastmod>2025-10-21T06:00:11&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.com/categories/</loc><lastmod>2025-10-21T06:00:11&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.com/categories/arduino/</loc><lastmod>2025-10-21T06:09:33&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.com/tags/arduino-iot-cloud/</loc><lastmod>2025-10-21T06:09:33&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.com/categories/</loc><lastmod>2025-10-21T06:09:33&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.com/pl/categories/"
@@ -16,7 +16,7 @@
                     hreflang="en"
                     href="https://embeddedk8.com/categories/"
                     /></url><url>
-            <loc>https://embeddedk8.com/</loc><lastmod>2025-10-21T06:00:11&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.com/</loc><lastmod>2025-10-21T06:09:33&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.com/pl/"
@@ -25,7 +25,7 @@
                     hreflang="en"
                     href="https://embeddedk8.com/"
                     /></url><url>
-            <loc>https://embeddedk8.com/posts/</loc><lastmod>2025-10-21T06:00:11&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.com/posts/</loc><lastmod>2025-10-21T06:09:33&#43;02:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.com/pl/posts/"
