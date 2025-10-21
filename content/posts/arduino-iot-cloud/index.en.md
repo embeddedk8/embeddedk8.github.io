@@ -55,7 +55,7 @@ help: Ensure that the device is connected and the reset and boot pins are
 not being held down
 ```
 
-What’s worse, after several attempts, the board seemed to stop become bricked. 
+What’s worse, after several attempts, the board seemed to be bricked. 
 I unplugged and plugged it back several times, but it didn’t help. I couldn’t flash any sketches anymore (I admit I panicked).
 
 I found some topic relating to similar issues, like [this](https://forum.arduino.cc/t/arduino-create-agent-uno-r4-wifi-unable-to-update-firmware/1233222).
