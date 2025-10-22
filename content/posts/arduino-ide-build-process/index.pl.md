@@ -1,12 +1,12 @@
 ---
 weight: 2
-title: "Arduino IDE build process explained (in details)"
+title: "Proces budowania w Arduino IDE (w szczegółach!)"
 date: 2025-09-13T15:58:26+08:00
 lastmod: 2025-09-13T15:58:26+08:00
 draft: true
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Explaining the compilation process in Arduino IDE"
+description: "Post opisuje w szczegółach proces budowania programów w Arduino IDE"
 images: []
 resources:
 - name: "featured-image"
@@ -23,68 +23,114 @@ math:
   enable: true
 ---
 
-Many beginner embedded developers begin their journey with the Arduino development board, because it's extremely easy to use even with no prior knowledge.
-After installing Arduino IDE and connecting the board, you can just choose an example Sketch and with two clicks compile it and upload it to the board. 
-But if you want to be able to move to more professional boards or setups, 
-it's necessary to understand what is an Arduino Sketch and what is really happening under the hood when 
-Arduino IDE is compiling your code.
+Wielu początkujących programistów systemów wbudowanych zaczyna od Arduino. Jest to całkiem dobry pomysł, gdyż żadne
+inne środowisko embedded nie jest aż tak łatwe w obsłudze! 
 
-{{< admonition note "Assumed Knowledge" true >}}
-I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.
+Instalacja Arduino IDE przebiega raczej bezproblemowo, a potem wystarczy połączyć płytkę po USB, i jednym kliknięciem zbudować program,
+a drugim załadować go na płytkę. Choć brzmi jak błogosławieństwo, to nadmierna prostota potrafi być też przeszkodą w nauce —
+no bo skoro wszystko działa samo z siebie, to po co zagłębiać się w jakieś nadmierne szczegóły? Kopiujemy kod z chatGPT i jazda! 
+
+O nonono! No własnie, tak dobrze to nie ma. Czego się w ten sposób nauczysz? Trzeba się trochę pomęczyć i pogrzebać, nawet kiedy wydaje się,
+że nie ma po co. Dlatego właśnie napisałam tego posta — popatrzymy razem, co dokładnie dzieje się, kiedy Arduino IDE buduje nasz program
+(*jak powiedzieć po polsku sketch?!*).
+
+{{< admonition note "Co zakładam, że wiesz" true >}}
+Zakładam, że masz zainstalowane środowisko Arduino IDE, umiesz skompilować program i wgrać go na płytkę, ale nie znasz szczegółów dotyczących 
+procesu kompilacji i flashowania.
 {{< /admonition >}}
 
-{{< admonition note "Setup I used" true >}}
-- Arduino UNO R4 WiFi board
-- Arduino IDE  2.3.6
+{{< admonition note "Czego użyłam" true >}}
+- płytka Arduino UNO R4 WiFi
+- płytka Arduino IDE  2.3.6
 - Linux Mint
 
-Described things may look different on your PC.
+Jeśli masz inną płytkę, inną wersję IDE czy inny system operacyjny, to wizualnie wszystko u Ciebie może wyglądać inaczej, ale 
+pod spodem **powinno** być z grubsza to samo! 
 {{< /admonition >}}
 
-## Compiling first Sketch
-Pick the right board from **Select Board** menu, load up the Blink example and make a minimal change (like changing the delay value).
-Then save and store new Sketch in your Sketchbook and click **Verify/Compile**. Observe the **Output** window.
-You just triggered the entire build process with a single click. The Sketch is already packaged and ready to upload to your board. 
-But if you’re still running with the Arduino IDE’s default settings, the **Output** window will only contain minimal information on program space and memory,
-saying nothing about actual compilation process.
+## Czego się nauczysz?
+Po przeczytaniu tego artykułu,
+- będziesz rozumiał standardowy proces budowania aplikacji na systemy wbudowane,
+- dowiesz się, jakie dodatkowe operacje wykonuje środowisko Arduino,
+- będziesz też wiedział, gdzie leżą te wszystkie pliki, artefakty i cache.
 
-[![Arduino IDE doesn't say much about compilation steps by default](/arduino-ide-default-output.png)](/arduino-ide-default-output.png)
+## Zaczynamy!
+Zbudujemy razem *sketch* i przejdziemy krok po kroku przez proces budowania go.
+Mogę udawać razem z Tobą, że nie mam pojęcia co się tam dzieje. Nasze obserwacje
+będziemy opierać na logach z okienka **Build Output**.
 
-## Enable verbose output 
-If your **Output** windows looks like above, you need to mark `File->Preferences->Show verbose output` setting for both compiling and upload, and compile again.
-Now the output will be complete.
-Let’s break it down to atoms!
+### Budujemy przykładowy program
+Otwórz Arduino IDE i wybierz swoją płytkę w menu **Select Board**. Ja mam **Arduino UNO R4 WiFi**.
+
+Załaduj przykładowy program Blink i zapisz w swoim sketchbooku.
+Teraz naciśnij **Verify/Compile**. Program zaczyna się budować, a w okienku **Output** pojawiają się logi.
+
+Udało się! Program zbudował się poprawnie. Teraz już można wgrać go na płytkę.
+Tylko... mieliśmy się uczyć z **Build Outputu**, a tam są tylko dwie linijki. Nie pouczymy się za wiele.
+
+Na szczęście ten problem jest łatwo rozwiązać.
+
+[![Arduino IDE przy domyślnych ustawieniach ukrywa większość logów](/arduino-ide-default-output.png "Arduino IDE - domyślny Build Output")](/arduino-ide-default-output.png)
+
+### Włączamy szczegółowe logi
+Jeśli chcemy się dowiedzieć więcej na temat procesu budowania z logów z IDE, musimy 
+włączyć opcję **verbose output**, dzięki której okienko **Build Output** będzie zawierało dużo więcej informacji.
+Żeby to włączyć, wejdź w **File-> Preferences** i zaznacz **Show verbose output** dla kompilowania i uploadowania.
+
+Teraz, gdy ponownie uruchomisz budowanie, Arduino IDE nie będzie obcinało logów.
+No to teraz je przeanalizujmy!
 <br>
 
-
-[![Verbose compilation output in Arduino IDE](/arduino-ide-verbose-output.png)](/arduino-ide-verbose-output.png)
-
+[![Verbose compilation output in Arduino IDE](/arduino-ide-verbose-output.png "Arduino IDE - verbose build output")](/arduino-ide-verbose-output.png)
 
 
-## Board and package identification
+## Identyfikacja płytki
 
-The first piece of information is the board identification:
+W programowaniu systemów wbudowanych, proces kompilacji zawsze jest zależny od targetu, na który chcemy wgrać program.
+Każda płytka ma swoją architekturę, a każda architektura wymaga, by do budowania używać dedykowanego dla niej toolchaina.
+Właśnie dlatego zanim jeszcze zacznie się proces budowania, Arduino musi wiedzieć na jaką płytkę ma to być budowane
+— a wiedzą to stąd, że wybrałeś właściwą płytkę z menu **Select Board**.
+
+Do identyfikacji płytki Arduino używa formatu **FQBN (Fully Qualified Board Name)**, który wygląda tak:
+
 ```bash
 FQBN: arduino:renesas_uno:unor4wifi
+```
+**FQBN** jest unikalny dla każdej płytki i składa się z trzech segmentów:
+- Vendor: `arduino` (*to oficjalna płytka wyprodukowana przez Arduino*)
+- Architecture: `renesas_uno` (*rodzina płytek opartych na układach Renesas*)
+- Board: `unor4wifi` (*dokładny model płytki: Arduino Uno R4 WiFi*).
+
+Jeśli wybrałbyś niewłaściwą płytkę, to albo program Ci się w ogóle nie skompiluje, albo nie będzie działało po wgraniu.
+
+{{< admonition tip >}}
+Błąd `Compilation error: Missing FQBN (Fully Qualified Board Name)` znaczy, że nie ustawiłeś swojej płytki w menu.
+{{</ admonition>}}
+
+## Foldery w środowisku Arduino
+Na pewno przyda Ci się wiedza, gdzie na dysku są artefakty budowania, albo paczki i biblioteki, dostarczane 
+przez Arduino, używane do kompilacji. Nie jest to takie oczywiste, bo te rzeczy są w ukrytych folderach,
+ale ich lokalizacja jest wypisywana w logach podczas kompilacji. Popatrzmy.
+
+### Folder Arduino15
+Folder **Arduino15** zawiera ustawienia użytkownika, zainstalowane paczki i biblioteki do konkretnych płytek.
+Lokalizacja tego folderu zależy od Twojego [systemu operacyjnego](https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder).
+
+
+
+
+Files related to the target board
+can be found in the path displayed in the build log under the **FQBN**, for example:
+
+```
 Using board 'unor4wifi' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 Using core 'arduino' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 ```
-**FQBN** (Fully Qualified Board Name) is a unique identifier that tells the IDE exactly which board you’re compiling for. It consists of three segments:
-- Vendor: arduino → official Arduino package
-- Architecture: renesas_uno → Renesas-based boards family
-- Board: unor4wifi → exact model: the Arduino Uno R4 WiFi.
+There are several interesting files in this directory.
+One of them is [boards.txt](https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt) file, which lists all boards supported by that platform.
+Each board has its own section with key-value pairs that define how to compile, upload, and debug for that target.
 
-## Arduino15 directory
-The build log also shows the location of the **Arduino15** directory on your system. This is the hidden folder used by the Arduino IDE, containing user preferences,
-downloaded board packages (cores, toolchains, board definitions) and libraries that the IDE automatically installs. 
-
-The exact location depends on your operating system. You can find the official reference here:
-[Open the Arduino15 folder](https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder).
-
-Inside this directory, in file `.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/boards.txt` you will find the collection of board definitions.
-This file lists all supported boards. Each board has its own section with key-value pairs that tell the IDE how to compile, upload, and debug for that target.
-Here’s the entry for the Arduino UNO R4 WiFi:
-
+Here’s the entry for the **Arduino UNO R4 WiFi**:
 ```
 ##############################################################
 
@@ -98,67 +144,128 @@ unor4wifi.build.mcu=cortex-m4
 unor4wifi.build.architecture=cortex-m4
 unor4wifi.build.fpu=-mfpu=fpv4-sp-d16
 unor4wifi.build.float-abi=-mfloat-abi=hard
+
+unor4wifi.upload.tool=bossac
 ...
 ```
-Thanks to these settings, you only need to pick your board from the **Select Board** menu.
-The correct toolchain, compiler flags, and upload method are then applied automatically.
+Thanks to those settings, once you select your board from the **Select Board** menu,
+the correct toolchain, compiler flags (such as MCU type and clock speed) and upload tool are selected automatically.
 
-## Arduino core
-While we’re here, take a look at: `.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores`.
-This folder contains Arduino core, the implementation of familiar functions like digital I/O, analog reads/writes, timers, interrupts, and more.
-And most importantly, it contains `main.cpp` file.
 
-In your Sketch, you only write `setup()` and `loop()` implementations. Who calls them and in what context? Open `main.cpp` and see yourself. 
-There is a lot of logic the Arduino core has already added for you.
-Once you’ve explored that, let’s return to the **Build Output** and see what comes next.
+**Toolchain**
 
-## Creating the build directory
-When you compile a sketch, the Arduino IDE doesn’t build it directly in your project folder.
-Instead, it creates a build directory (a per-sketch cache) in a hidden folder to store all intermediate files. 
-This lets the IDE produce builds for different boards/variants without making a mess in your Sketch folder.
-You can spot the build directory path in the build log.
-On my system it's:
-`/home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/`.
+**Arduino15** also contains the toolchain:`.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/`.
+Besides the compiler itself, toolchain contains other useful tools like `objdump`. We will use it later!
 
-Open this folder. You’ll see the build artifacts (object files, preprocessed sources, and the final .bin/.hex/.elf binaries).
-{{< admonition tip >}}
-Export the compiled binary into your Sketch folder: click **Sketch → Export Compiled Binary** option from menu. 
-That performs a compilation and places a copy of the .hex, .bin, .elf and .map inside the stored Sketch folder so it’s easy to find later. 
-This is handy if you want to keep a copy next to the source.
+{{< admonition type=tip title="Do you want to move Arduino15 folder?" open=true  >}}
+In some cases, you may want to move the **Arduino15 folder** —  for example, to free up space on your primary drive.
+
+To do this:
+
+1. Copy the **Arduino15** directory to your desired location.
+
+2. Open the file `~/.arduinoIDE/arduino-cli.yaml` and update the `directories:data` path, for example:
+
+```
+board_manager:
+    additional_urls: []
+directories:
+    data: /home/kate/new-location-arduino15
+```
+
+3. Restart the Arduino IDE. It will now use the new **Arduino15** location. Verify the build output to ensure everything is working correctly.
+
+4. Once you’ve confirmed everything works correctly, you can safely delete the old folder.
+   {{< /admonition >}}
+
+### Arduino core
+The **Arduino core** directory provides the hardware-specific implementation of core Arduino functions.
+
+It is located in the `cores` subdirectory of your board package, for example:
+```
+.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores/
+```
+Each board family, or platform, has its own core,
+tailored to the hardware and peripherals.
+
+The **Arduino core** contains, among other files:
+- `main.cpp` — defines the startup code that runs before your `setup()` function and repeatedly calls your `loop()` function,
+- `Arduino.h` header — the main header file included by all sketches,
+- implementation of interrupts, UART communication, timing functions like `delay` and other low-level routines.
+
+Open the `main.cpp` and browse the logic that Arduino is adding around the code you implemented in the sketch.
+
+
+### Build directory
+When you compile a sketch, the build artifacts (i.e. intermediate object files) are not stored
+in the same directory as your source code. It would make a mess inside your sketch folder,
+or even made conflicts when building the same sketch for different boards.
+
+That's why build files are always stored in separate build directory.
+
+In case of Arduino IDE, the build directory is a per-sketch cache, created in a hidden folder.
+
+You can find the path to this build directory in the build log. My sketch was built here:
+
+``` 
+/home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/`.
+```
+If you open this folder, you’ll see the build artifacts, including:
+- object files (`.o`),
+- preprocessed sources (`.cpp`),
+- final binaries (`.bin`, `.hex`, `.elf`).
+
+
+{{< admonition tip `Exporting Compiled Binary`>}}
+If you want to have the compiled binaries in your sketch folder, click **Sketch → Export Compiled Binary** option from Arduino IDE menu.
+This will build your sketch and place a copy of the `.hex`, `.bin`, `.elf` and `.map` inside the sketch sources
+folder so it’s easy to find later.
 {{</ admonition >}}
 
-Now, let's take a look at next lines from Build Output.
+We already discussed board identification and the Arduino specific directories. Let's move to actual build process.
 
-## Detecting libraries used
-The first phase of the build is preprocessing. For clarity, I’ve shortened the command shown in the log:
+## General embedded software build process
+At a high level, the Arduino build process is essentially a C++ build process adapted
+for embedded targets, and with some Arduino specific features. The general C/C++ build pipeline is presented below:
+[![General C/C++ build process](/general-c-build-process.png "General C/C++ build process")](/general-c-build-process.png)
+
+## Preprocessing
+The first phase of every C/C++ program build is preprocessing.
+In general, preprocessor expands macros like `#include`, `#define`, and conditional compilation (`#if`, `#ifdef`, etc.).
+The output is a single expanded source file.
+In Arduino, some additional steps are added around preprocessing stage.
+
+### Concatenating .ino files
+If the sketch contains of multiple `.ino` files, they are first concatenated into a single `.cpp` file.
+
+### Detecting libraries used
+Arduino uses a special build recipe (`recipe.preproc.macros` [[1]](https://docs.arduino.cc/arduino-cli/platform-specification/))
+to detect which libraries are required by your sketch.
+During this step, the preprocessor scans the sketch for `#include`s that reference library header files.
+If a matching header is found, the corresponding library is automatically marked as needed and included in the build process.
+
 ```
 Detecting libraries used...
 /home/kate/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/arm-none-eabi-g++ (...) -E \
 /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/MyBlink.ino.cpp -o /dev/null
 ```
-Here, the compiler is invoked with the `-E`flag, which tells it to stop after the preprocessor stage and not produce any compiled output.
 
-{{< admonition tip >}}
-Notice the toolchain path: `/home/kate//.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/`. 
+As we see in build output, the compiler is invoked with the `-E` flag, which tells it to stop after the preprocessing
+stage and not produce any compiled output.
 
-This path may be useful later!
-{{</ admonition >}}
+For a simple sketch like Blink, this stage isn't very exciting: it doesn't detect in any additional libraries.
+That's why the build output doesn't show anything under *Detecting libraries used...*.
+Open other example sketches, such as those from **WiFiS3** or **EEPROM**, and you'll see how more complex projects trigger detection of multiple libraries.
 
-This step is used to figure out which libraries your Sketch actually needs.
-Arduino IDE compiles only the libraries you include. Otherwise, every build would be painfully slow.
-In the case of the Blink Sketch, this stage isn’t very exciting: it doesn’t pull in any additional libraries that need compilation.
-That’s why the Build Output doesn’t list any detected libraries.
+**Why does Arduino detect libraries automatically?**
 
-{{< admonition tip >}}
-Open other example sketches, such as those from **WiFiS3** or **EEPROM**, and compare what shows up under *Detecting libraries used…*
+The Arduino IDE compiles only the libraries that your sketch actually needs — no manual setup required.
+In most other development environments, this step is up to the developer: you have to configure which libraries or dependencies should be included in the build.
+Arduino takes care of this automatically, keeping things simple and beginner-friendly.
 
-Can you spot the pattern in how the IDE decides which libraries to compile?
-Hint: pay attention to the *#include* directives and the role of the preprocessor!
-{{</ admonition >}}
-
-## Automatic function prototypes generation
+### Generating function prototypes
 The next stage in the build process is automatic function prototype generation. In C or C++, each function must be
-declared or defined before it's called. In Arduino you don't need to worry about that - you can write whatever functions
+either defined or declared before it's called. In Arduino, you don't need to worry about that — you can write functions
 in any order, without adding their prototypes. How does it work? Arduino generates these prototypes for you!
 
 Here’s what the build log shows:
@@ -167,28 +274,26 @@ Generating function prototypes...
 arm-none-eabi-g++ (...) -E /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/MyBlink.ino.cpp -o /tmp/1121713208/sketch_merged.cpp
 ctags (...) /tmp/1121713208/sketch_merged.cpp
 ```
-Again, the compiler is invoked with the `-E` flag, meaning only the preprocessor runs. 
-Behind the scenes, the Arduino IDE performs these steps for you:
-1. **Concatenate .ino files**
+Again, the compiler is invoked with the `-E` flag, meaning only the preprocessor runs.
+This is what happens now:
 
-    All `.ino` files in the sketch folder are concatenated into a single file (`MyBlink.ino.cpp`).
-2. **Preprocess it**
+1. **Preprocessing**
 
-    The new `MyBlink.ino.cpp` is input for the preprocessor: `#include`s are expanded and macros replaces.
-    The expanded file is stored as `/tmp/1121713208/sketch_merged.cpp`.
+   The `MyBlink.ino.cpp` (file concatenated of all `.ino` files) is input for the preprocessor: `#include`s are expanded and macros replaces.
+   The expanded file is stored as `/tmp/1121713208/sketch_merged.cpp`.
 
-3. **Scan functions**
+2. **Scanning functions**
 
-    Tool `ctags` is running over expanded `sketch_merged.cpp`, to extract function symbols.
+   Tool `ctags` is running over expanded `sketch_merged.cpp`, to extract function symbols.
 
-4. **Generate prototypes**
+3. **Generating prototypes**
 
-    Based on the `ctags` result, the IDE inserts forward declarations (prototypes) for you. This way, you don't need to worry 
-about undeclared functions, functions order, etc.
+   Based on the `ctags` result, Arduino environment inserts forward declarations for you. This way, you don't need to worry
+   about undeclared functions, functions order, etc.
 
 5. **Store prototypes into .ino.cpp**
 
-    The resulting version is stored into `MyBlink.ino.cpp`. This is what the compiler will actually use later on.
+   The resulting version is stored into `MyBlink.ino.cpp`. This is what the compiler will actually use later on.
 
 
 Your simple sketch (`MyBlink.ino`):
@@ -229,24 +334,24 @@ void loop() {
 ```
 
 To summarize differences:
-- `#include <Arduino.h>`
-
-    in preprocessed file there is `<Arduino.h>` header added,
-- `#line` macros
-
-    These keep compiler error messages pointing to the right lines in your .ino file. 
-Without them, errors would show up with the line numbers of the generated .cpp, which would be super confusing.
-
+- `#include <Arduino.h>` is added,
+- `#line` macros are added — they keep compiler error messages pointing to the right lines in your `.ino` file.
+  Without them, errors would show up with the line numbers of the generated `.cpp`, which would be super confusing.
 - function prototypes are added.
 
-## Sketch compilation
-Here’s where your code finally turns into machine instructions.
+## Compilation
+Here’s where your code finally turns into machine instructions that the microcontroller can execute.
+
+### Sketch compilation
+During this step, the compiler checks your code for syntax errors and converts it
+into the object code that can be linked with libraries later.
+
 ```
 Compiling sketch...
 arm-none-eabi-g++ (...) -c sketch/MyBlink.ino.cpp -o sketch/MyBlink.ino.cpp.o
 ```
-Now we reached the Sketch compilation.
-Compiler is ivoked with `-c` flag, which means compile only (generate object code .o, don’t link).
+
+Compiler is invoked with `-c` flag, which means compile only (and don’t link yet).
 
 **Input:** `MyBlink.ino.cpp` - the auto-generated sketch with prototypes, includes, and line directives.
 
@@ -257,7 +362,7 @@ Some highlights:
 - `-Os` → optimize for size.
 - `-g3` → include debug info at max level.
 - `-fno-rtti`, `-fno-exceptions` → strip C++ runtime features to save space.
-- `-nostdlib` → don’t link against standard system libraries.
+- `-nostdlib` → don’t link against standard system libraries [[1]](https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html).
 - `-mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16` → target an ARM Cortex-M4 with hardware floating point.
 - `-I` and `@.../includes.txt` → add search paths for Arduino core and variant headers.
 - Many `-D...` → defines for board, CPU frequency, Arduino version, etc.
@@ -266,27 +371,28 @@ Some highlights:
 Most advanced IDEs let you change compiler settings like optimization level, debug info, or extra flags right from a project menu.  
 Arduino IDE is so simple that it doesn't offer this option: you don’t get a button or menu for that.
 
-If you want to change some settings, you’ve got two ways:
+If you want to change some settings, you’ve got several ways:
 
-- **Edit build recipes**: you can change files like `platform.txt` or `boards.local.txt` to change or add your own compilation flags.
-- **Use Arduino CLI**: the command-line tool gives you more flexibility and can build your sketch with whatever options you like.
+- **Edit build recipes**: you can change files like `platform.txt` or `boards.local.txt` to change or add your own compilation flags,
+- **modify `arduino-cli.yaml`** from **ArduinoIDE** folder,
+- **use Arduino CLI** directly: the command-line tool gives you more flexibility and can build your sketch with whatever options you like.
 
 {{</ admonition >}}
 
-At this point, your sketch has been turned into machine code, stored in `MyBlink.ino.cpp.o`. 
+At this point, your sketch has been turned into machine code, stored in `MyBlink.ino.cpp.o`.
 This file contains your `setup()` and `loop()` code, ready to be linked with the Arduino core and libraries in the next step.
 
-## Compiling libraries
+### Compiling libraries
 ```cpp
 Compiling libraries...
 ```
-For the Blink sketch this step is empty. In the previous phase (*Detecting libraries used*) no additional libraries were found. 
+For the Blink sketch this step is empty. In the previous phase (*Detecting libraries used*) no additional libraries were found.
 Blink only relies on core Arduino functions such as `pinMode`, `digitalWrite`, and `delay`, which are part of the board core, not separate libraries.
 
-In more advanced sketches the output looks different. 
+In more advanced sketches the output looks different.
 For example, in **WiFiS3/ConnectWithWPA** the **WiFiS3** library is detected and its source files are compiled here.
 
-## Compiling core
+### Compiling core
 
 ```bash
 Compiling core...
@@ -297,9 +403,8 @@ Using previously compiled file: /home/kate/.cache/arduino/sketches/D7CC1D7CA645B
 Using precompiled core: /home/kate/.cache/arduino/cores/arduino_renesas_uno_unor4wifi_4e1bf6711f2b98688d9a4a386931d6dc/core.a
 ```
 
-The core is the foundation of every Arduino program. 
-It provides the low-level code relevant to the specific board you selected, like startup code, 
-pin mappings, and implementations of important functions. Instead of recompiling the same core files every time you build, 
+The core is the foundation of every Arduino program.
+We disussed in in [Arduino core](#arduino-core) chapter. Instead of recompiling the same core files every time you build,
 the Arduino IDE uses precompiled objects from a cache. It speeds up the compilation.
 
 ## Linking everything together
@@ -320,9 +425,9 @@ After this step, the final binary will be `MyBlink.ino.elf`.
 
 Please note which libraries are linked into the build:
 - `libfsp.a` → the Renesas Flexible Software Package, providing hardware drivers and low-level functions for peripherals.
-- `core.a` → the Arduino core for this board. 
-Libraries above are board support libraries. These are part of the Arduino board package (for the Uno R4 in this case). 
-They are not optional user libraries, so they don’t appear in the detection phase.
+- `core.a` → the Arduino core for this board.
+  Libraries above are board support libraries. These are part of the Arduino board package (for the Uno R4 in this case).
+  They are not optional user libraries, so they don’t appear in the detection phase.
 
 Toolchain standard libraries:
 - `-lstdc++` → the C++ standard library,
@@ -332,7 +437,8 @@ Toolchain standard libraries:
 - `-lgcc` → helper routines from GCC itself,
 - `-lnosys` → stubs for system calls.
 
-## Creating binary and hex files
+## Finalizing build
+### Creating binary and hex files
 
 After the ELF file (`MyBlink.ino.elf`) is created, the build system uses `objcopy` to generate `hex` and `bin` formats:
 
@@ -342,16 +448,25 @@ arm-none-eabi-objcopy -O ihex   -j .text -j .data MyBlink.ino.elf MyBlink.ino.he
 ```
 Both formats contain the same program, just encoded differently for different flashing tools.
 
-## Measuring the program size
+### Measuring the program size
 Finally, the build system reports memory usage with `arm-none-eabi-size`:
 
 ```bash
 arm-none-eabi-size -A MyBlink.ino.elf
 ```
 
+### Cleaning the build
+Unfortunately, Arduino IDE does not offer the `Clean build` or `Force rebuild` option ([[1]](https://forum.arduino.cc/t/feature-request-clean-build-option/1291789),
+[[2]](https://forum.arduino.cc/t/can-i-force-the-arduino-ide-to-recompile-everything/866547),
+[[3]](https://github.com/arduino/arduino-ide/issues/419)). The workaround for it is to manually delete the cached build directories we mentioned earlier.
+
 
 ## More reading
 
 1. [Build Sketch Process from docs.arduino.cc](https://docs.arduino.cc/arduino-cli/sketch-build-process/)
 2. [Find sketches, libraries, board cores and other files on your computer from support.arduino.cc](https://support.arduino.cc/hc/en-us/articles/4415103213714-Find-sketches-libraries-board-cores-and-other-files-on-your-computer)
+3. [ARM Reverse Engineering Notes: Compilation](https://github.com/microbuilder/armreveng/blob/main/compilation.md)
+4. [Open issues in arduino-cli related to build process](https://github.com/arduino/arduino-cli/issues?q=state%3Aopen%20label%3A%22topic%3A%20build-process%22)
+5. [De-Mystifying Libraries - How Arduino IDE Finds and Uses Your Files - OhioIoT](https://www.youtube.com/watch?v=7vLjK9t-uZY)
+
 

@@ -22,10 +22,13 @@ toc:
 math:
     enable: true
 ---
+
+
+
 One of the biggest issues and challenges for embedded world is automating the process of
 building and testing. Requiring each feature or release be tested on hardware is slowing down the 
-development and release process. **That's why each step that can be automated in embedded development
-process is of price of gold**.
+development and release process. That's why each step that can be automated in embedded development
+process is of price of gold.
 
 In this post, I will create 
 
