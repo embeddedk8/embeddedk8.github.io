@@ -58,12 +58,31 @@ After reading this article, you will:
 Let's build a sketch together and go step through the build process.
 We’ll pretend we know nothing and analyze the build output to infer what the Arduino IDE actually did.
 
-### Build an example sketch
+### Opening an example sketch
 Open the Arduino IDE and select the correct board from **Select Board** menu. 
 In my case it's **Arduino UNO R4 WiFi**.
-
 Load the Blink example and save the sketch in your sketchbook.
-Then, to trigger the build, click **Verify/Compile** and observe the **Output** window.
+
+This example consists of a single file: `Blink.ino`.
+Files with the `.ino` extension contain code written in the Arduino language [[1]](https://docs.arduino.cc/arduino-cli/sketch-specification/).
+You may notice there is no `main` function in this code, yet it still compiles.
+
+### What exactly is Arduino language?
+
+According to the [official documentation](https://docs.arduino.cc/language-reference/#functions)
+the Arduino “language” consists of:
+- set of functions like `digitalRead`, `digitalWrite` etc, 
+- predefined constants such as `HIGH` and `LOW`, 
+- basic data types like `array`, `bool`, `int`,
+- special sketch functions such as `loop`, `setup`...
+
+And so on. You can just read the full list on the official page.
+There’s also a brief note mentioning that Arduino is based on C++.
+Well — we'll see at the end of our investigation, if Arduino language is actually a language...
+or just a C++ in a disguise.
+
+### Triggering the build
+Click **Verify/Compile** and observe the **Output** window.
 
 It looks that the sketch has been built successfully and
 is ready to upload to the board. The message contains just two lines because I haven’t changed the Arduino IDE’s default settings yet — by default, most of the build output is hidden.
@@ -457,6 +476,13 @@ arm-none-eabi-size -A MyBlink.ino.elf
 Unfortunately, Arduino IDE does not offer the `Clean build` or `Force rebuild` option ([[1]](https://forum.arduino.cc/t/feature-request-clean-build-option/1291789),
 [[2]](https://forum.arduino.cc/t/can-i-force-the-arduino-ide-to-recompile-everything/866547), 
 [[3]](https://github.com/arduino/arduino-ide/issues/419)). The workaround for it is to manually delete the cached build directories we mentioned earlier.
+
+## Summary
+
+- While it’s often called the Arduino language, `.ino` files are actually written in C++. 
+They simply receive some automatic handling from the Arduino build system, 
+and the `main()` function is predefined and hidden within a library.
+
 
 
 ## More reading
