@@ -11,13 +11,6 @@
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <atom:link href="https://embeddedk8.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Arduino IoT Cloud</title>
-      <link>https://embeddedk8.com/tags/arduino-iot-cloud/</link>
-      <pubDate>Mon, 20 Oct 2025 15:58:26 +0800</pubDate><author>embeddedkate@gmail.com (embeddedk8)</author>
-      <guid>https://embeddedk8.com/tags/arduino-iot-cloud/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Arduino Internals</title>
       <link>https://embeddedk8.com/tags/arduino-internals/</link>
       <pubDate>Wed, 01 Oct 2025 15:58:26 +0800</pubDate><author>embeddedkate@gmail.com (embeddedk8)</author>

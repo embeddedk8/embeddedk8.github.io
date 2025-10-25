@@ -5,14 +5,6 @@
         <description>All Posts | Embedded Kate Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>embeddedkate@gmail.com (embeddedk8)</managingEditor>
             <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 20 Oct 2025 15:58:26 &#43;0800</lastBuildDate><atom:link href="https://embeddedk8.com/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>Arduino UNO R4 WiFi &#43; Arduino IoT Cloud: setup and firmware fix on Linux</title>
-    <link>https://embeddedk8.com/arduino-iot-cloud/</link>
-    <pubDate>Mon, 20 Oct 2025 15:58:26 &#43;0800</pubDate>
-    <author>embeddedk8</author>
-    <guid>https://embeddedk8.com/arduino-iot-cloud/</guid>
-    <description><![CDATA[<p>Getting your Arduino UNO R4 WiFi connected to Arduino IoT Cloud can be tricky on Linux. I describe the issue I encountered and how I fixed it.</p>]]></description>
-</item>
-<item>
     <title>Arduino Internals: building sketches with Arduino CLI</title>
     <link>https://embeddedk8.com/arduino-cli-compilation/</link>
     <pubDate>Wed, 01 Oct 2025 15:58:26 &#43;0800</pubDate>

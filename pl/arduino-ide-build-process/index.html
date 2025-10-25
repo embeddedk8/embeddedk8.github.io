@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang="pl">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Proces budowania w Arduino IDE (w szczegółach!) - Embedded Kate Blog</title><meta name="Description" content="Post opisuje w szczegółach proces budowania programów w Arduino IDE"><meta property="og:url" content="http://localhost:1313/pl/arduino-ide-build-process/">
+        <title>Proces budowania w Arduino IDE (ze szczegółami!) - Embedded Kate Blog</title><meta name="Description" content="Post opisuje w szczegółach proces budowania programów w Arduino IDE"><meta property="og:url" content="https://embeddedk8.com/pl/arduino-ide-build-process/">
   <meta property="og:site_name" content="Embedded Kate Blog">
-  <meta property="og:title" content="Proces budowania w Arduino IDE (w szczegółach!)">
+  <meta property="og:title" content="Proces budowania w Arduino IDE (ze szczegółami!)">
   <meta property="og:description" content="Post opisuje w szczegółach proces budowania programów w Arduino IDE">
   <meta property="og:locale" content="pl">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-09-13T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-10-14T15:06:49+02:00">
+    <meta property="article:modified_time" content="2025-10-22T08:31:33+02:00">
     <meta property="article:tag" content="Arduino">
-    <meta property="og:image" content="http://localhost:1313/arduino-ide-build-process/featured-image.png">
+    <meta property="og:image" content="https://embeddedk8.com/arduino-ide-build-process/featured-image.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/arduino-ide-build-process/featured-image.png">
-  <meta name="twitter:title" content="Proces budowania w Arduino IDE (w szczegółach!)">
+  <meta name="twitter:image" content="https://embeddedk8.com/arduino-ide-build-process/featured-image.png">
+  <meta name="twitter:title" content="Proces budowania w Arduino IDE (ze szczegółami!)">
   <meta name="twitter:description" content="Post opisuje w szczegółach proces budowania programów w Arduino IDE">
       <meta name="twitter:site" content="@EmbeddedKate">
 <meta name="application-name" content="embeddedk8">
 <meta name="apple-mobile-web-app-title" content="embeddedk8"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/pl/arduino-ide-build-process/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="KQs-mbFpniq1Quu9zS0toW7fVI-WR14K_Gy3ljZlFUQ" /><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://embeddedk8.com/pl/arduino-ide-build-process/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><meta name="google-site-verification" content="KQs-mbFpniq1Quu9zS0toW7fVI-WR14K_Gy3ljZlFUQ" /><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Proces budowania w Arduino IDE (w szczegółach!)",
+        "headline": "Proces budowania w Arduino IDE (ze szczegółami!)",
         "inLanguage": "pl",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/localhost:1313\/pl\/arduino-ide-build-process\/"
+            "@id": "https:\/\/embeddedk8.com\/pl\/arduino-ide-build-process\/"
         },"image": [{
                             "@type": "ImageObject",
-                            "url": "http:\/\/localhost:1313\/arduino-ide-build-process\/featured-image.png",
+                            "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino","wordcount":  2669 ,
-        "url": "http:\/\/localhost:1313\/pl\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-14T15:06:49+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino","wordcount":  2658 ,
+        "url": "https:\/\/embeddedk8.com\/pl\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-22T08:31:33+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
-                    "url": "http:\/\/localhost:1313\/images\/avatar.png",
+                    "url": "https:\/\/embeddedk8.com\/images\/avatar.png",
                     "width":  1080 ,
                     "height":  1080 
                 }},"author": {
@@ -91,9 +91,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Spis treści</h2>
             <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Proces budowania w Arduino IDE (w szczegółach!)</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Proces budowania w Arduino IDE (ze szczegółami!)</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">zawarty w <a href="/pl/categories/arduino/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2669 słów&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2658 słów&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;13 minuty&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -121,7 +121,7 @@
       <ul>
         <li><a href="#folder-arduino15">Folder Arduino15</a></li>
         <li><a href="#arduino-core">Arduino core</a></li>
-        <li><a href="#build-directory">Build directory</a></li>
+        <li><a href="#folder-budowania">Folder budowania</a></li>
       </ul>
     </li>
     <li><a href="#general-embedded-software-build-process">General embedded software build process</a></li>
@@ -256,14 +256,14 @@ Właśnie dlatego zanim jeszcze zacznie się proces budowania, Arduino musi wied
         </div>
     </div>
 <h2 id="foldery-w-środowisku-arduino">Foldery w środowisku Arduino</h2>
-<p>Na pewno przyda Ci się wiedza, gdzie na dysku są artefakty budowania, albo paczki i biblioteki, dostarczane
+<p>Na pewno warto wiedzieć, gdzie na dysku są artefakty budowania, a gdzie paczki i biblioteki, dostarczane
 przez Arduino, używane do kompilacji. Nie jest to takie oczywiste, bo te rzeczy są w ukrytych folderach,
 ale ich lokalizacja jest wypisywana w logach podczas kompilacji. Popatrzmy.</p>
 <h3 id="folder-arduino15">Folder Arduino15</h3>
 <p>Folder <strong>Arduino15</strong> zawiera ustawienia użytkownika, zainstalowane paczki i biblioteki do konkretnych płytek.
 Lokalizacja tego folderu zależy od Twojego <a href="https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder" target="_blank" rel="noopener noreffer ">systemu operacyjnego</a>.</p>
-<p>Files related to the target board
-can be found in the path displayed in the build log under the <strong>FQBN</strong>, for example:</p>
+<p>Pliki (implementacja API, biblioteki) powiązane z konkretną rodziną płytek leżą w folderze Arduino15,
+pod ścieżką która pokazała nam się w logach kompilacji, na przykład u mnie to jest:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -274,10 +274,10 @@ can be found in the path displayed in the build log under the <strong>FQBN</stro
 </span></span><span class="line"><span class="cl">Using core &#39;arduino&#39; from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>There are several interesting files in this directory.
-One of them is <a href="https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt" target="_blank" rel="noopener noreffer ">boards.txt</a> file, which lists all boards supported by that platform.
-Each board has its own section with key-value pairs that define how to compile, upload, and debug for that target.</p>
-<p>Here’s the entry for the <strong>Arduino UNO R4 WiFi</strong>:</p>
+</div><p>Jednym z ciekawych plików w tym folderze jest <a href="https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt" target="_blank" rel="noopener noreffer ">boards.txt</a>,
+który wypisuje wszystkie płytki wspierane przez platformę. Każda płytka skonfigurowana jest w swojej sekcji,
+jako pary kluczy i wartości definiujące jak na tę płytkę się kompiluje, jak wgrywa program czy debuguje.</p>
+<p>Moja płytka <strong>Arduino UNO R4 WiFi</strong> skonfigurowana jest tak:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -314,24 +314,24 @@ Each board has its own section with key-value pairs that define how to compile, 
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Thanks to those settings, once you select your board from the <strong>Select Board</strong> menu,
-the correct toolchain, compiler flags (such as MCU type and clock speed) and upload tool are selected automatically.</p>
+</div><p>Dzięki tym ustawieniom my — deweloperzy — nie musimy konfigurować nic ponadto, że wybraliśmy
+właściwą płytkę z menu <strong>Select Board</strong>.</p>
 <p><strong>Toolchain</strong></p>
-<p><strong>Arduino15</strong> also contains the toolchain:<code>.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/</code>.
-Besides the compiler itself, toolchain contains other useful tools like <code>objdump</code>. We will use it later!</p>
+<p>W folderze <strong>Arduino15</strong> znajduje się też toolchain:<code>.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/</code>.
+Poza kompilatorem, są tam też inne przydatne narzedzia, np. <code>objdump</code>, którego można użyć do analizowania zbudowanych binarek.</p>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Do you want to move Arduino15 folder?<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>A może chciałbyś przenieść folder Arduino15 w inne miejsce?<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><p>In some cases, you may want to move the <strong>Arduino15 folder</strong> —  for example, to free up space on your primary drive.</p>
-<p>To do this:</p>
+            <div class="admonition-content"><p>W niektórych przypadkach możesz chcieć przenieść folder Arduino15 w inne miejsce na dysku —
+na przykład, gdy na głównym dysku kończy Ci się miejsce. Możesz to zrobić:</p>
 <ol>
 <li>
-<p>Copy the <strong>Arduino15</strong> directory to your desired location.</p>
+<p>Skopiuj folder Arduino15 do nowej lokalizacji,</p>
 </li>
 <li>
-<p>Open the file <code>~/.arduinoIDE/arduino-cli.yaml</code> and update the <code>directories:data</code> path, for example:</p>
+<p>Otwórz plik <code>~/.arduinoIDE/arduino-cli.yaml</code> i zmodyfikuj ścieżkę <code>directories: data</code>, np.:</p>
 </li>
 </ol>
 <div class="highlight"><div class="chroma">
@@ -350,18 +350,19 @@ Besides the compiler itself, toolchain contains other useful tools like <code>ob
 </div>
 </div><ol start="3">
 <li>
-<p>Restart the Arduino IDE. It will now use the new <strong>Arduino15</strong> location. Verify the build output to ensure everything is working correctly.</p>
+<p>Uruchom ponownie Arduino IDE. Powinno już używać nowej lokalizacji <strong>Arduino15</strong>.
+Sprawdź w logach budowania, czy zmiana się powiodła.</p>
 </li>
 <li>
-<p>Once you’ve confirmed everything works correctly, you can safely delete the old folder.</p>
+<p>Jak potwierdzisz, że Arduino IDE używa już przeniesionego folderu, to oryginalny folder <strong>Arduino15</strong> możesz usunąć.</p>
 </li>
 </ol>
 </div>
         </div>
     </div>
 <h3 id="arduino-core">Arduino core</h3>
-<p>The <strong>Arduino core</strong> directory provides the hardware-specific implementation of core Arduino functions.</p>
-<p>It is located in the <code>cores</code> subdirectory of your board package, for example:</p>
+<p><strong>Arduino code</strong> to kolejny ważny folder w środowisku Arduino. Zawiera on implementację funkcji używanych przez
+Arduino, na dany target. Znajdziesz go w podfolderze <code>cores</code>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -370,16 +371,16 @@ Besides the compiler itself, toolchain contains other useful tools like <code>ob
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores/
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Each board family, or platform, has its own core,
-tailored to the hardware and peripherals.</p>
-<p>The <strong>Arduino core</strong> contains, among other files:</p>
+</div><p>Każda rodzina płytek, albo płytka, będzie miała swój własny <code>core</code>, dopasowany do jej hardware.</p>
+<p>Wewnątrz <strong>Arduino core</strong> znajdziemy między innymi:</p>
 <ul>
-<li><code>main.cpp</code> — defines the startup code that runs before your <code>setup()</code> function and repeatedly calls your <code>loop()</code> function,</li>
-<li><code>Arduino.h</code> header — the main header file included by all sketches,</li>
-<li>implementation of interrupts, UART communication, timing functions like <code>delay</code> and other low-level routines.</li>
+<li><code>main.cpp</code> — tutaj zdefiniowany jest kod, który wykonuje się jeszcze przed wywołaniem Twojego <code>setup()</code>
+i woła w pętli Twoją funkcję <code>loop()</code>,</li>
+<li><code>Arduino.h</code> — header używany przez wszystkie programy na Arduino,</li>
+<li>implementacja obsługi przerwań, komunikacji UART, czasu (funkcje jak <code>delay</code>), i wiele innych niskopoziomowych funkcji.</li>
 </ul>
-<p>Open the <code>main.cpp</code> and browse the logic that Arduino is adding around the code you implemented in the sketch.</p>
-<h3 id="build-directory">Build directory</h3>
+<p>Rzuć teraz okiem na <code>main.cpp</code> i zapoznaj się z całą otoczką, którą Arduino wrzuca do Twoich programów.</p>
+<h3 id="folder-budowania">Folder budowania</h3>
 <p>When you compile a sketch, the build artifacts (i.e. intermediate object files) are not stored
 in the same directory as your source code. It would make a mess inside your sketch folder,
 or even made conflicts when building the same sketch for different boards.</p>
@@ -733,15 +734,15 @@ They are not optional user libraries, so they don’t appear in the detection ph
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Zaktualizowano 2025-10-14&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/155fde73558b1ccc889cc6a8592f493f2f8ea16a" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) 155fde73558b1ccc889cc6a8592f493f2f8ea16a: Update baselinks">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>155fde7</a></span>
+                <span>Zaktualizowano 2025-10-22&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/a472f4847875b1ccf5bb936b661010a3e6cbe7de" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) a472f4847875b1ccf5bb936b661010a3e6cbe7de: Some improvements">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>a472f48</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/pl/arduino-ide-build-process/index.md" target="_blank">Zobacz Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Udostępnij na Twitter" data-sharer="twitter" data-url="http://localhost:1313/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (w szczegółach!)" data-via="EmbeddedKate" data-hashtags="Arduino"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Facebook" data-sharer="facebook" data-url="http://localhost:1313/pl/arduino-ide-build-process/" data-hashtag="Arduino"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (w szczegółach!)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Line" data-sharer="line" data-url="http://localhost:1313/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (w szczegółach!)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na 微博" data-sharer="weibo" data-url="http://localhost:1313/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (w szczegółach!)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Udostępnij na Twitter" data-sharer="twitter" data-url="https://embeddedk8.com/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)" data-via="EmbeddedKate" data-hashtags="Arduino"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Facebook" data-sharer="facebook" data-url="https://embeddedk8.com/pl/arduino-ide-build-process/" data-hashtag="Arduino"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Hacker News" data-sharer="hackernews" data-url="https://embeddedk8.com/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Line" data-sharer="line" data-url="https://embeddedk8.com/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na 微博" data-sharer="weibo" data-url="https://embeddedk8.com/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -755,9 +756,11 @@ They are not optional user libraries, so they don’t appear in the detection ph
 
     <div class="post-nav"></div>
 </div>
-</article></div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Napędzany przez <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.152.0">Hugo</a> | Szablon - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+        <div class="footer-container"><div class="footer-line">Napędzany przez <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.152.2">Hugo</a> | Szablon - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://embeddedk8.com/" target="_blank">embeddedk8</a></span></div>
         </div>
     </footer></div>
@@ -767,7 +770,10 @@ They are not optional user libraries, so they don’t appear in the detection ph
             </a><a href="#" id="view-comments" class="fixed-button" title="Zobacz komentarze">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Skopiuj do schowka","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Skopiuj do schowka","maxShownLines":50},"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOPvP-is4CwE3r","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"en","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"embeddedk8/embeddedk8.github.io","repoId":"R_kgDOPvP-ig"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-WMKZ5G9QL5', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-WMKZ5G9QL5" async></script>
 <script type="text/javascript">
 var sc_project=13166912;
 var sc_invisible=1;
