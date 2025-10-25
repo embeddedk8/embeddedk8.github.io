@@ -32,7 +32,13 @@ process is of price of gold.
 
 In this post, I will create 
 
+
+After downloading the default sketch from Arduino IoT Cloud, I added it to my sketch book, but it requires installing additional libraries.
+I had to install ArduinoIoTCLoud from Manage Libraries.
+
+
 We will create a very simple CI/CD for Arduino project with Github Actions.
+
 
 
 

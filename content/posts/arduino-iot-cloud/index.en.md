@@ -2,7 +2,7 @@
 weight: 2
 title: "Arduino UNO R4 WiFi + Arduino IoT Cloud: setup and firmware fix on Linux"
 date: 2025-10-20T15:58:26+08:00
-draft: false
+draft: true
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
 description: "Troubleshooting connecting Arduino UNO R4 WiFi to Arduino IoT Cloud"

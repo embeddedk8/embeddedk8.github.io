@@ -1,6 +1,6 @@
 ---
 weight: 2
-title: "Proces budowania w Arduino IDE (w szczegółach!)"
+title: "Proces budowania w Arduino IDE (ze szczegółami!)"
 date: 2025-09-13T15:58:26+08:00
 lastmod: 2025-09-13T15:58:26+08:00
 draft: true
@@ -108,7 +108,7 @@ Błąd `Compilation error: Missing FQBN (Fully Qualified Board Name)` znaczy, ż
 {{</ admonition>}}
 
 ## Foldery w środowisku Arduino
-Na pewno przyda Ci się wiedza, gdzie na dysku są artefakty budowania, albo paczki i biblioteki, dostarczane 
+Na pewno warto wiedzieć, gdzie na dysku są artefakty budowania, a gdzie paczki i biblioteki, dostarczane 
 przez Arduino, używane do kompilacji. Nie jest to takie oczywiste, bo te rzeczy są w ukrytych folderach,
 ale ich lokalizacja jest wypisywana w logach podczas kompilacji. Popatrzmy.
 
@@ -116,21 +116,19 @@ ale ich lokalizacja jest wypisywana w logach podczas kompilacji. Popatrzmy.
 Folder **Arduino15** zawiera ustawienia użytkownika, zainstalowane paczki i biblioteki do konkretnych płytek.
 Lokalizacja tego folderu zależy od Twojego [systemu operacyjnego](https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder).
 
-
-
-
-Files related to the target board
-can be found in the path displayed in the build log under the **FQBN**, for example:
-
+Pliki (implementacja API, biblioteki) powiązane z konkretną rodziną płytek leżą w folderze Arduino15, 
+pod ścieżką która pokazała nam się w logach kompilacji, na przykład u mnie to jest:
 ```
 Using board 'unor4wifi' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 Using core 'arduino' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 ```
-There are several interesting files in this directory.
-One of them is [boards.txt](https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt) file, which lists all boards supported by that platform.
-Each board has its own section with key-value pairs that define how to compile, upload, and debug for that target.
 
-Here’s the entry for the **Arduino UNO R4 WiFi**:
+Jednym z ciekawych plików w tym folderze jest [boards.txt](https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt),
+który wypisuje wszystkie płytki wspierane przez platformę. Każda płytka skonfigurowana jest w swojej sekcji,
+jako pary kluczy i wartości definiujące jak na tę płytkę się kompiluje, jak wgrywa program czy debuguje.
+
+Moja płytka **Arduino UNO R4 WiFi** skonfigurowana jest tak:
+
 ```
 ##############################################################
 
@@ -148,23 +146,22 @@ unor4wifi.build.float-abi=-mfloat-abi=hard
 unor4wifi.upload.tool=bossac
 ...
 ```
-Thanks to those settings, once you select your board from the **Select Board** menu,
-the correct toolchain, compiler flags (such as MCU type and clock speed) and upload tool are selected automatically.
 
+Dzięki tym ustawieniom my — deweloperzy — nie musimy konfigurować nic ponadto, że wybraliśmy 
+właściwą płytkę z menu **Select Board**.
 
 **Toolchain**
 
-**Arduino15** also contains the toolchain:`.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/`.
-Besides the compiler itself, toolchain contains other useful tools like `objdump`. We will use it later!
+W folderze **Arduino15** znajduje się też toolchain:`.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/`.
+Poza kompilatorem, są tam też inne przydatne narzedzia, np. `objdump`, którego można użyć do analizowania zbudowanych binarek.
 
-{{< admonition type=tip title="Do you want to move Arduino15 folder?" open=true  >}}
-In some cases, you may want to move the **Arduino15 folder** —  for example, to free up space on your primary drive.
+{{< admonition type=tip title="A może chciałbyś przenieść folder Arduino15 w inne miejsce?" open=true  >}}
+W niektórych przypadkach możesz chcieć przenieść folder Arduino15 w inne miejsce na dysku —
+na przykład, gdy na głównym dysku kończy Ci się miejsce. Możesz to zrobić:
 
-To do this:
+1. Skopiuj folder Arduino15 do nowej lokalizacji,
 
-1. Copy the **Arduino15** directory to your desired location.
-
-2. Open the file `~/.arduinoIDE/arduino-cli.yaml` and update the `directories:data` path, for example:
+2. Otwórz plik `~/.arduinoIDE/arduino-cli.yaml` i zmodyfikuj ścieżkę `directories: data`, np.:
 
 ```
 board_manager:
@@ -173,30 +170,29 @@ directories:
     data: /home/kate/new-location-arduino15
 ```
 
-3. Restart the Arduino IDE. It will now use the new **Arduino15** location. Verify the build output to ensure everything is working correctly.
+3. Uruchom ponownie Arduino IDE. Powinno już używać nowej lokalizacji **Arduino15**. 
+Sprawdź w logach budowania, czy zmiana się powiodła.
 
-4. Once you’ve confirmed everything works correctly, you can safely delete the old folder.
+4. Jak potwierdzisz, że Arduino IDE używa już przeniesionego folderu, to oryginalny folder **Arduino15** możesz usunąć.
    {{< /admonition >}}
 
 ### Arduino core
-The **Arduino core** directory provides the hardware-specific implementation of core Arduino functions.
-
-It is located in the `cores` subdirectory of your board package, for example:
+**Arduino code** to kolejny ważny folder w środowisku Arduino. Zawiera on implementację funkcji używanych przez
+Arduino, na dany target. Znajdziesz go w podfolderze `cores`:
 ```
 .arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores/
 ```
-Each board family, or platform, has its own core,
-tailored to the hardware and peripherals.
+Każda rodzina płytek, albo płytka, będzie miała swój własny `core`, dopasowany do jej hardware.
 
-The **Arduino core** contains, among other files:
-- `main.cpp` — defines the startup code that runs before your `setup()` function and repeatedly calls your `loop()` function,
-- `Arduino.h` header — the main header file included by all sketches,
-- implementation of interrupts, UART communication, timing functions like `delay` and other low-level routines.
+Wewnątrz **Arduino core** znajdziemy między innymi:
+- `main.cpp` — tutaj zdefiniowany jest kod, który wykonuje się jeszcze przed wywołaniem Twojego `setup()` 
+    i woła w pętli Twoją funkcję `loop()`,
+- `Arduino.h` — header używany przez wszystkie programy na Arduino,
+- implementacja obsługi przerwań, komunikacji UART, czasu (funkcje jak `delay`), i wiele innych niskopoziomowych funkcji.
 
-Open the `main.cpp` and browse the logic that Arduino is adding around the code you implemented in the sketch.
+Rzuć teraz okiem na `main.cpp` i zapoznaj się z całą otoczką, którą Arduino wrzuca do Twoich programów.
 
-
-### Build directory
+### Folder budowania 
 When you compile a sketch, the build artifacts (i.e. intermediate object files) are not stored
 in the same directory as your source code. It would make a mess inside your sketch folder,
 or even made conflicts when building the same sketch for different boards.
