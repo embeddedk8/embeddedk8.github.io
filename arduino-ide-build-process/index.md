@@ -1,17 +1,18 @@
-# Arduino Internals: how Arduino IDE builds your code
+# Arduino Internals: how Arduino builds your code
 
-As an embedded developer, you probably can't help wondering what actually happens when Arduino IDE builds the sketch.
-What’s being compiled, where the files go, and how the toolchain turns the code into instructions able to run on the board?
+
+
+Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online 
+about whether Arduino is a good choice for that (like "*Is there anything wrong with Arduino?*" [[1]](https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/),
+"*Why engineers hate Arduino?*" [[2]](https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/) ). 
+
+While the list of arguments from Arduino "opponents" is quite long — and some of their points are completely reasonable 
+— I want to prove that you can learn just as much with Arduino as with any other embedded platform,
+as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.
+That's why I am creating the Arduino Internals series.
+
+**As a starting point, let’s take a closer look at what happens when you build a sketch in the Arduino IDE.**
 <!--more-->
-
-You hit the spot! We’re about to take a closer look at the Arduino build process.
-
-While building an Arduino sketch in the IDE seems as simple as clicking one button,
-under the hood it performs several important steps — some common to nearly every embedded development environment,
-and others unique to Arduino.
-
-Understanding this process is a great way to move beyond the beginner stage and start thinking like an embedded developer.
-# Understanding Arduino IDE build process
 
 {{< admonition note "Assumed knowledge" true >}}
 I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.
@@ -25,11 +26,20 @@ I assume you already know how to compile and flash an Arduino board with the Ard
 If you’re using a different board, IDE version, or operating system — don’t worry! You can still follow along. Some details may just look a little different on your setup.
 {{< /admonition >}}
 
+# Understanding Arduino build process
+Building an Arduino sketch in the IDE seems as simple as clicking one button, but
+under the hood it performs several important steps — some common to nearly every embedded development environment,
+and others unique to Arduino.
+
+Understanding this process is essential to see Arduino as a real embedded platform, not just a magic toy.
+
+
 ## What you will learn?
 After reading this article, you will:
 - understand the standard build flow in embedded software development,
 - learn about the additional steps performed during the Arduino build process,
-- know where to find the build files and caches.
+- know where to find the build files and caches,
+- discover what language Arduino sketches are actually written in.
 
 ## Let's get started!
 
@@ -60,32 +70,32 @@ Well — we'll see at the end of our investigation, if Arduino language is actua
 or just a C++ in a disguise.
 
 ### Triggering the build
-Click **Verify/Compile** and observe the **Output** window.
+We are ready to build this sketch. Click **Verify/Compile** and observe the **Output** window.
+
+[![Arduino IDE doesn't say much about compilation steps by default](/arduino-ide-default-output.png "Arduino IDE - default build output")](/arduino-ide-default-output.png)
 
 It looks that the sketch has been built successfully and
 is ready to upload to the board. The message contains just two lines because I haven’t changed the Arduino IDE’s default settings yet — by default, most of the build output is hidden.
 
-[![Arduino IDE doesn't say much about compilation steps by default](/arduino-ide-default-output.png "Arduino IDE - default build output")](/arduino-ide-default-output.png)
 
 ### Enable verbose output
 To understand the build process better we need to enable the **verbose output** in IDE.
 To do so, go to **File-> Preferences** and check **Show verbose output** setting for both compiling and upload. When you compile again,
 the output will be complete.
-Let’s break it down to atoms!
+Let’s read it line by line.
 <br>
-
 
 [![Verbose compilation output in Arduino IDE](/arduino-ide-verbose-output.png "Arduino IDE - verbose build output")](/arduino-ide-verbose-output.png)
 
-
 ## Board and package identification
 In embedded software development, the compilation process is always target-dependent. 
-Each hardware architecture — such as ARM or AVR — requires its own dedicated toolchain. 
-That's why the first lines in **Output** are identifying the board.
+Each hardware architecture — such as ARM or AVR — requires its own dedicated cross-compilation toolchain.
+In addition, the appropriate version of the hardware libraries must be selected and linked.
+Therefore, the target board must be identified before the build begins.
 
-Before the build process starts, Arduino environment checks which board you are using,
-based on what you have selected in **Select Board** menu. 
-Thanks to this, the compiled code will match the board’s architecture, hardware, pin mapping etc.
+Arduino handles this step automatically. 
+It looks at the board you’ve chosen in the **Select Board** menu and configures the build accordingly.
+This ensures that the compiled code will match the board’s architecture, hardware, pin mapping etc.
 
 This board identity is called **FQBN (Fully Qualified Board Name)** and looks as follows:
 ```bash
@@ -227,7 +237,7 @@ for embedded targets, and with some Arduino specific features. The general C/C++
 ## Preprocessing
 The first phase of every C/C++ program build is preprocessing. 
 In general, preprocessor expands macros like `#include`, `#define`, and conditional compilation (`#if`, `#ifdef`, etc.).
-The output is a single expanded source file.
+The output is an expanded source file.
 In Arduino, some additional steps are added around preprocessing stage.
 
 ### Concatenating .ino files
@@ -254,7 +264,7 @@ Open other example sketches, such as those from **WiFiS3** or **EEPROM**, and yo
 
 **Why does Arduino detect libraries automatically?**
 
-The Arduino IDE compiles only the libraries that your sketch actually needs — no manual setup required.
+The Arduino compiles the libraries that your sketch actually needs, and only them — no manual setup required.
 In most other development environments, this step is up to the developer: you have to configure which libraries or dependencies should be included in the build.
 Arduino takes care of this automatically, keeping things simple and beginner-friendly.
 
@@ -470,6 +480,7 @@ and the `main()` function is predefined and hidden within a library.
 3. [ARM Reverse Engineering Notes: Compilation](https://github.com/microbuilder/armreveng/blob/main/compilation.md)
 4. [Open issues in arduino-cli related to build process](https://github.com/arduino/arduino-cli/issues?q=state%3Aopen%20label%3A%22topic%3A%20build-process%22)
 5. [De-Mystifying Libraries - How Arduino IDE Finds and Uses Your Files - OhioIoT](https://www.youtube.com/watch?v=7vLjK9t-uZY)
+6. [Don't use Arduino for professional work](https://embedded.fm/blog/2017/8/12/dont-use-arduino-for-professional-work)
 
 
 

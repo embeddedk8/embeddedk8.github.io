@@ -20,13 +20,19 @@ Command Line Interface).</p>
 for the build process. This means that when you build a sketch using the CLI directly, it follows exactly the same steps as the IDE does.</p>]]></description>
 </item>
 <item>
-    <title>Arduino Internals: how Arduino IDE builds your code</title>
+    <title>Arduino Internals: how Arduino builds your code</title>
     <link>https://embeddedk8.com/arduino-ide-build-process/</link>
     <pubDate>Sat, 13 Sep 2025 15:58:26 &#43;0800</pubDate>
     <author>embeddedk8</author>
     <guid>https://embeddedk8.com/arduino-ide-build-process/</guid>
-    <description><![CDATA[<p>As an embedded developer, you probably can&rsquo;t help wondering what actually happens when Arduino IDE builds the sketch.
-What’s being compiled, where the files go, and how the toolchain turns the code into instructions able to run on the board?</p>]]></description>
+    <description><![CDATA[<p>Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online
+about whether Arduino is a good choice for that (like &ldquo;<em>Is there anything wrong with Arduino?</em>&rdquo; <a href="https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/" target="_blank" rel="noopener noreffer ">[1]</a>,
+&ldquo;<em>Why engineers hate Arduino?</em>&rdquo; <a href="https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/" target="_blank" rel="noopener noreffer ">[2]</a> ).</p>
+<p>While the list of arguments from Arduino &ldquo;opponents&rdquo; is quite long — and some of their points are completely reasonable
+— I want to prove that you can learn just as much with Arduino as with any other embedded platform,
+as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.
+That&rsquo;s why I am creating the Arduino Internals series.</p>
+<p><strong>As a starting point, let’s take a closer look at what happens when you build a sketch in the Arduino IDE.</strong></p>]]></description>
 </item>
 </channel>
 </rss>

@@ -4,22 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Arduino Internals: how Arduino IDE builds your code - Embedded Kate Blog</title><meta name="Description" content="Step by step guide to how the Arduino IDE builds the code — preprocessing, compiling, and linking explained simply"><meta property="og:url" content="https://embeddedk8.com/arduino-ide-build-process/">
+        <title>Arduino Internals: how Arduino builds your code - Embedded Kate Blog</title><meta name="Description" content="Step by step guide to how the Arduino builds the code — preprocessing, compiling, and linking explained simply"><meta property="og:url" content="https://embeddedk8.com/arduino-ide-build-process/">
   <meta property="og:site_name" content="Embedded Kate Blog">
-  <meta property="og:title" content="Arduino Internals: how Arduino IDE builds your code">
-  <meta property="og:description" content="Step by step guide to how the Arduino IDE builds the code — preprocessing, compiling, and linking explained simply">
+  <meta property="og:title" content="Arduino Internals: how Arduino builds your code">
+  <meta property="og:description" content="Step by step guide to how the Arduino builds the code — preprocessing, compiling, and linking explained simply">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-09-13T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-10-25T21:38:29+02:00">
+    <meta property="article:modified_time" content="2025-10-26T18:57:59+01:00">
     <meta property="article:tag" content="Arduino Internals">
     <meta property="og:image" content="https://embeddedk8.com/arduino-ide-build-process/featured-image.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://embeddedk8.com/arduino-ide-build-process/featured-image.png">
-  <meta name="twitter:title" content="Arduino Internals: how Arduino IDE builds your code">
-  <meta name="twitter:description" content="Step by step guide to how the Arduino IDE builds the code — preprocessing, compiling, and linking explained simply">
+  <meta name="twitter:title" content="Arduino Internals: how Arduino builds your code">
+  <meta name="twitter:description" content="Step by step guide to how the Arduino builds the code — preprocessing, compiling, and linking explained simply">
       <meta name="twitter:site" content="@EmbeddedKate">
 <meta name="application-name" content="embeddedk8">
 <meta name="apple-mobile-web-app-title" content="embeddedk8"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -30,7 +30,7 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Arduino Internals: how Arduino IDE builds your code",
+        "headline": "Arduino Internals: how Arduino builds your code",
         "inLanguage": "en",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  2834 ,
-        "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-25T21:38:29+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  2949 ,
+        "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-26T18:57:59+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
@@ -51,7 +51,7 @@
                 }},"author": {
                 "@type": "Person",
                 "name": "embeddedk8"
-            },"description": "Step by step guide to how the Arduino IDE builds the code — preprocessing, compiling, and linking explained simply"
+            },"description": "Step by step guide to how the Arduino builds the code — preprocessing, compiling, and linking explained simply"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -123,9 +123,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: how Arduino IDE builds your code</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: how Arduino builds your code</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2834 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2949 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;14 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -134,7 +134,7 @@
         data-srcset="/arduino-ide-build-process/featured-image.png, /arduino-ide-build-process/featured-image.png 1.5x, /arduino-ide-build-process/featured-image.png 2x"
         data-sizes="auto"
         alt="/arduino-ide-build-process/featured-image.png"
-        title="Step by step guide to how the Arduino IDE builds the code — preprocessing, compiling, and linking explained simply" /></div><div class="details toc" id="toc-static"  data-kept="">
+        title="Step by step guide to how the Arduino builds the code — preprocessing, compiling, and linking explained simply" /></div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
@@ -185,14 +185,14 @@
     <li><a href="#more-reading">More reading</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>As an embedded developer, you probably can&rsquo;t help wondering what actually happens when Arduino IDE builds the sketch.
-What’s being compiled, where the files go, and how the toolchain turns the code into instructions able to run on the board?</p>
-<p>You hit the spot! We’re about to take a closer look at the Arduino build process.</p>
-<p>While building an Arduino sketch in the IDE seems as simple as clicking one button,
-under the hood it performs several important steps — some common to nearly every embedded development environment,
-and others unique to Arduino.</p>
-<p>Understanding this process is a great way to move beyond the beginner stage and start thinking like an embedded developer.</p>
-<h1 id="understanding-arduino-ide-build-process">Understanding Arduino IDE build process</h1>
+            </div><div class="content" id="content"><p>Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online
+about whether Arduino is a good choice for that (like &ldquo;<em>Is there anything wrong with Arduino?</em>&rdquo; <a href="https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/" target="_blank" rel="noopener noreffer ">[1]</a>,
+&ldquo;<em>Why engineers hate Arduino?</em>&rdquo; <a href="https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/" target="_blank" rel="noopener noreffer ">[2]</a> ).</p>
+<p>While the list of arguments from Arduino &ldquo;opponents&rdquo; is quite long — and some of their points are completely reasonable
+— I want to prove that you can learn just as much with Arduino as with any other embedded platform,
+as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.
+That&rsquo;s why I am creating the Arduino Internals series.</p>
+<p><strong>As a starting point, let’s take a closer look at what happens when you build a sketch in the Arduino IDE.</strong></p>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Assumed knowledge<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -214,12 +214,18 @@ and others unique to Arduino.</p>
 <p>If you’re using a different board, IDE version, or operating system — don’t worry! You can still follow along. Some details may just look a little different on your setup.</p></div>
         </div>
     </div>
+<h1 id="understanding-arduino-build-process">Understanding Arduino build process</h1>
+<p>Building an Arduino sketch in the IDE seems as simple as clicking one button, but
+under the hood it performs several important steps — some common to nearly every embedded development environment,
+and others unique to Arduino.</p>
+<p>Understanding this process is essential to see Arduino as a real embedded platform, not just a magic toy.</p>
 <h2 id="what-you-will-learn">What you will learn?</h2>
 <p>After reading this article, you will:</p>
 <ul>
 <li>understand the standard build flow in embedded software development,</li>
 <li>learn about the additional steps performed during the Arduino build process,</li>
-<li>know where to find the build files and caches.</li>
+<li>know where to find the build files and caches,</li>
+<li>discover what language Arduino sketches are actually written in.</li>
 </ul>
 <h2 id="lets-get-started">Let&rsquo;s get started!</h2>
 <p>Let&rsquo;s build a sketch together and go step through the build process.
@@ -245,9 +251,7 @@ There’s also a brief note mentioning that Arduino is based on C++.
 Well — we&rsquo;ll see at the end of our investigation, if Arduino language is actually a language&hellip;
 or just a C++ in a disguise.</p>
 <h3 id="triggering-the-build">Triggering the build</h3>
-<p>Click <strong>Verify/Compile</strong> and observe the <strong>Output</strong> window.</p>
-<p>It looks that the sketch has been built successfully and
-is ready to upload to the board. The message contains just two lines because I haven’t changed the Arduino IDE’s default settings yet — by default, most of the build output is hidden.</p>
+<p>We are ready to build this sketch. Click <strong>Verify/Compile</strong> and observe the <strong>Output</strong> window.</p>
 <p><a href="/arduino-ide-build-process/arduino-ide-default-output.png" rel=""><figure><a class="lightgallery" href="/arduino-ide-build-process/arduino-ide-default-output.png" title="Arduino IDE doesn&rsquo;t say much about compilation steps by default" data-thumbnail="/arduino-ide-build-process/arduino-ide-default-output.png" data-sub-html="<h2>Arduino IDE - default build output</h2><p>Arduino IDE doesn&rsquo;t say much about compilation steps by default</p>">
         <img
             class="lazyload"
@@ -258,11 +262,13 @@ is ready to upload to the board. The message contains just two lines because I h
             alt="/arduino-ide-build-process/arduino-ide-default-output.png" width="1284" height="748" />
     </a><figcaption class="image-caption">Arduino IDE - default build output</figcaption>
     </figure></a></p>
+<p>It looks that the sketch has been built successfully and
+is ready to upload to the board. The message contains just two lines because I haven’t changed the Arduino IDE’s default settings yet — by default, most of the build output is hidden.</p>
 <h3 id="enable-verbose-output">Enable verbose output</h3>
 <p>To understand the build process better we need to enable the <strong>verbose output</strong> in IDE.
 To do so, go to <strong>File-&gt; Preferences</strong> and check <strong>Show verbose output</strong> setting for both compiling and upload. When you compile again,
 the output will be complete.
-Let’s break it down to atoms!
+Let’s read it line by line.
 <br></p>
 <p><a href="/arduino-ide-build-process/arduino-ide-verbose-output.png" rel=""><figure><a class="lightgallery" href="/arduino-ide-build-process/arduino-ide-verbose-output.png" title="Verbose compilation output in Arduino IDE" data-thumbnail="/arduino-ide-build-process/arduino-ide-verbose-output.png" data-sub-html="<h2>Arduino IDE - verbose build output</h2><p>Verbose compilation output in Arduino IDE</p>">
         <img
@@ -276,11 +282,12 @@ Let’s break it down to atoms!
     </figure></a></p>
 <h2 id="board-and-package-identification">Board and package identification</h2>
 <p>In embedded software development, the compilation process is always target-dependent.
-Each hardware architecture — such as ARM or AVR — requires its own dedicated toolchain.
-That&rsquo;s why the first lines in <strong>Output</strong> are identifying the board.</p>
-<p>Before the build process starts, Arduino environment checks which board you are using,
-based on what you have selected in <strong>Select Board</strong> menu.
-Thanks to this, the compiled code will match the board’s architecture, hardware, pin mapping etc.</p>
+Each hardware architecture — such as ARM or AVR — requires its own dedicated cross-compilation toolchain.
+In addition, the appropriate version of the hardware libraries must be selected and linked.
+Therefore, the target board must be identified before the build begins.</p>
+<p>Arduino handles this step automatically.
+It looks at the board you’ve chosen in the <strong>Select Board</strong> menu and configures the build accordingly.
+This ensures that the compiled code will match the board’s architecture, hardware, pin mapping etc.</p>
 <p>This board identity is called <strong>FQBN (Fully Qualified Board Name)</strong> and looks as follows:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -479,7 +486,7 @@ for embedded targets, and with some Arduino specific features. The general C/C++
 <h2 id="preprocessing">Preprocessing</h2>
 <p>The first phase of every C/C++ program build is preprocessing.
 In general, preprocessor expands macros like <code>#include</code>, <code>#define</code>, and conditional compilation (<code>#if</code>, <code>#ifdef</code>, etc.).
-The output is a single expanded source file.
+The output is an expanded source file.
 In Arduino, some additional steps are added around preprocessing stage.</p>
 <h3 id="concatenating-ino-files">Concatenating .ino files</h3>
 <p>If the sketch contains of multiple <code>.ino</code> files, they are first concatenated into a single <code>.cpp</code> file.</p>
@@ -506,7 +513,7 @@ stage and not produce any compiled output.</p>
 That&rsquo;s why the build output doesn&rsquo;t show anything under <em>Detecting libraries used&hellip;</em>.
 Open other example sketches, such as those from <strong>WiFiS3</strong> or <strong>EEPROM</strong>, and you&rsquo;ll see how more complex projects trigger detection of multiple libraries.</p>
 <p><strong>Why does Arduino detect libraries automatically?</strong></p>
-<p>The Arduino IDE compiles only the libraries that your sketch actually needs — no manual setup required.
+<p>The Arduino compiles the libraries that your sketch actually needs, and only them — no manual setup required.
 In most other development environments, this step is up to the developer: you have to configure which libraries or dependencies should be included in the build.
 Arduino takes care of this automatically, keeping things simple and beginner-friendly.</p>
 <h3 id="generating-function-prototypes">Generating function prototypes</h3>
@@ -786,19 +793,20 @@ and the <code>main()</code> function is predefined and hidden within a library.<
 <li><a href="https://github.com/microbuilder/armreveng/blob/main/compilation.md" target="_blank" rel="noopener noreffer ">ARM Reverse Engineering Notes: Compilation</a></li>
 <li><a href="https://github.com/arduino/arduino-cli/issues?q=state%3Aopen%20label%3A%22topic%3A%20build-process%22" target="_blank" rel="noopener noreffer ">Open issues in arduino-cli related to build process</a></li>
 <li><a href="https://www.youtube.com/watch?v=7vLjK9t-uZY" target="_blank" rel="noopener noreffer ">De-Mystifying Libraries - How Arduino IDE Finds and Uses Your Files - OhioIoT</a></li>
+<li><a href="https://embedded.fm/blog/2017/8/12/dont-use-arduino-for-professional-work" target="_blank" rel="noopener noreffer ">Don&rsquo;t use Arduino for professional work</a></li>
 </ol></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-10-25&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/f0d2272246e8fa42ad070ddf7b82b88e562fa29b" target="_blank" title="commit by Kate(embeddedkate@gmail.com) f0d2272246e8fa42ad070ddf7b82b88e562fa29b: Minor tweaks P1">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>f0d2272</a></span>
+                <span>Updated on 2025-10-26&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/4d2386893554a8e1eaee88aba6eb609d727fe6e6" target="_blank" title="commit by Kate(embeddedkate@gmail.com) 4d2386893554a8e1eaee88aba6eb609d727fe6e6: P1 tweaks">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>4d23868</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/arduino-ide-build-process/index.md" target="_blank">Read Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://embeddedk8.com/arduino-ide-build-process/" data-title="Arduino Internals: how Arduino IDE builds your code" data-via="EmbeddedKate" data-hashtags="Arduino Internals"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://embeddedk8.com/arduino-ide-build-process/" data-hashtag="Arduino Internals"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://embeddedk8.com/arduino-ide-build-process/" data-title="Arduino Internals: how Arduino IDE builds your code"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://embeddedk8.com/arduino-ide-build-process/" data-title="Arduino Internals: how Arduino IDE builds your code"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://embeddedk8.com/arduino-ide-build-process/" data-title="Arduino Internals: how Arduino IDE builds your code"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://embeddedk8.com/arduino-ide-build-process/" data-title="Arduino Internals: how Arduino builds your code" data-via="EmbeddedKate" data-hashtags="Arduino Internals"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://embeddedk8.com/arduino-ide-build-process/" data-hashtag="Arduino Internals"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://embeddedk8.com/arduino-ide-build-process/" data-title="Arduino Internals: how Arduino builds your code"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://embeddedk8.com/arduino-ide-build-process/" data-title="Arduino Internals: how Arduino builds your code"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://embeddedk8.com/arduino-ide-build-process/" data-title="Arduino Internals: how Arduino builds your code"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
