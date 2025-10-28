@@ -12,14 +12,11 @@
     <pubDate>Wed, 01 Oct 2025 15:58:26 &#43;0800</pubDate>
     <author>embeddedk8</author>
     <guid>https://embeddedk8.com/arduino-cli-compilation/</guid>
-    <description><![CDATA[<p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look at how the Arduino IDE builds sketches.
-A lot happens behind the scenes — from the classic C/C++ build steps (preprocessing, compiling, assembling, and linking)
-to a few Arduino-specific additions.</p>
-<p>Now, let’s take things a step further and build the same project without the Arduino IDE — this time using the Arduino CLI (Arduino
-Command Line Interface).</p>
-<h1 id="compiling-arduino-sketch-via-arduino-cli">Compiling Arduino sketch via Arduino CLI</h1>
-<p>It’s worth to start with mentioning that, starting with Arduino IDE 2.0, the Arduino IDE uses the Arduino CLI
-for the build process. This means that when you build a sketch using the CLI directly, it follows exactly the same steps as the IDE does.</p>]]></description>
+    <description><![CDATA[<p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look at how the Arduino IDE builds sketches.</p>
+<p>Arduino also offers another way to build projects — by using the <strong>Arduino Command Line Interface (CLI)</strong> directly.
+Starting with Arduino IDE 2.0, the IDE actually uses <code>arduino-cli</code> under the hood the build process,
+so working with the CLI directly simply removes one layer of abstraction
+while following the exact same steps — but with better flexibility and possibilities.</p>]]></description>
 </item>
 <item>
     <title>Arduino Internals: how Arduino builds your code</title>
@@ -28,8 +25,8 @@ for the build process. This means that when you build a sketch using the CLI dir
     <author>embeddedk8</author>
     <guid>https://embeddedk8.com/arduino-ide-build-process/</guid>
     <description><![CDATA[<p>Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online
-about whether Arduino is a good choice for that (like &ldquo;<em>Is there anything wrong with Arduino?</em>&rdquo; <a href="https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/" target="_blank" rel="noopener noreffer ">[1]</a>,
-&ldquo;<em>Why engineers hate Arduino?</em>&rdquo; <a href="https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/" target="_blank" rel="noopener noreffer ">[2]</a> ).</p>
+about whether Arduino is a good choice for that (like &ldquo;<em>Is there anything wrong with Arduino?</em>&rdquo;,
+&ldquo;<em>Why engineers hate Arduino?</em>&rdquo; <a href="https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/" target="_blank" rel="noopener noreffer ">[1]</a>, <a href="https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/" target="_blank" rel="noopener noreffer ">[2]</a> ).</p>
 <p>While the list of arguments from Arduino &ldquo;opponents&rdquo; is quite long — and some of their points are completely reasonable
 — I want to prove that you can learn just as much with Arduino as with any other embedded platform,
 as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.

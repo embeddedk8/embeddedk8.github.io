@@ -40,7 +40,7 @@
                             "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  933 ,
+                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  1132 ,
         "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-10-25T10:13:57+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
@@ -125,8 +125,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: building sketches with Arduino CLI</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;933 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1132 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -141,6 +141,7 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
+    <li><a href="#why-should-you-use-arduino-cli">Why should you use Arduino CLI?</a></li>
     <li><a href="#installing-arduino-cli">Installing Arduino CLI</a></li>
     <li><a href="#setup-your-board-core">Setup your board core</a></li>
     <li><a href="#creating-a-new-sketch">Creating a new sketch</a></li>
@@ -152,43 +153,55 @@
     <li><a href="#more-reading">More reading</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look at how the Arduino IDE builds sketches.
-A lot happens behind the scenes — from the classic C/C++ build steps (preprocessing, compiling, assembling, and linking)
-to a few Arduino-specific additions.</p>
-<p>Now, let’s take things a step further and build the same project without the Arduino IDE — this time using the Arduino CLI (Arduino
-Command Line Interface).</p>
-<h1 id="compiling-arduino-sketch-via-arduino-cli">Compiling Arduino sketch via Arduino CLI</h1>
-<p>It’s worth to start with mentioning that, starting with Arduino IDE 2.0, the Arduino IDE uses the Arduino CLI
-for the build process. This means that when you build a sketch using the CLI directly, it follows exactly the same steps as the IDE does.</p>
-<p>So, what’s the point of using the CLI directly?</p>
-<p>There are several advantages:</p>
+            </div><div class="content" id="content"><p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look at how the Arduino IDE builds sketches.</p>
+<p>Arduino also offers another way to build projects — by using the <strong>Arduino Command Line Interface (CLI)</strong> directly.
+Starting with Arduino IDE 2.0, the IDE actually uses <code>arduino-cli</code> under the hood the build process,
+so working with the CLI directly simply removes one layer of abstraction
+while following the exact same steps — but with better flexibility and possibilities.</p>
+<h2 id="why-should-you-use-arduino-cli">Why should you use Arduino CLI?</h2>
+<p>While the Arduino IDE is great for getting started, the Arduino Command Line Interface offers
+much more control and flexibility. Here are some of the key benefits you gain by using it:</p>
 <ul>
 <li>
-<p><strong>Advanced configuration options</strong></p>
-<p>Some build or configuration options aren&rsquo;t exposed in the IDE. It&rsquo;s possible to configure them via configuration files
-for the IDE, but it makes this process more complicated and harder to maintain (the configuration file can be per-sketch or global).
-With the CLI, you can fully control compiler flags, board settings, library versions from command line.</p>
+<p><strong>Easier configuration</strong></p>
+<p>Some build or configuration options aren&rsquo;t exposed in the Arduino IDE.
+It&rsquo;s possible to configure them with configuration files, but this approach
+can be complicated and harder to maintain —
+global configuration would affect all projects, per-board or per-sketch configuration would be tedious.
+With the CLI, you can fully control compiler flags, board settings, library versions from command line,
+for each project separately.</p>
 </li>
 <li>
 <p><strong>Automation and integration</strong></p>
-<p>The CLI makes it easy to compile, verify, and upload sketches automatically.
-It can run on systems without a graphical interface, such as Docker containers.
-We will try to use it for creating simple CI/CD pipeline later.</p>
+<p>Using the CLI, you can easily implement the scripts for tasks like building, uploading, deploying and testing the project.
+These scripts can run on lightweight systems without graphical interface, such as Docker containers.
+This makes possible to integrate Arduino project into the CI/CD pipeline for automated builds and testing.</p>
 </li>
 <li>
 <p><strong>Reproducibility</strong></p>
-<p>Makes sure that your colleague compiles with exactly the same setup as you. It solves the &ldquo;it works on my machine&rdquo; problem.</p>
+<p>When working in a team, using the Arduino CLI ensures that everyone builds the project with exactly the same setup and dependencies.
+This helps eliminate the classic “it works on my machine” problem and makes builds consistent across different environments.</p>
 </li>
 <li>
 <p><strong>IDE independence</strong></p>
-<p>Use your favourite IDE for code development! You don&rsquo;t have to use Arduino IDE if you don&rsquo;t want!</p>
+<p>You don’t have to rely on the Arduino IDE to develop your projects.
+With the CLI, you can use your favorite code editor
+— whether it’s for better IntelliSense, built-in integrations like GitHub Copilot,
+or simply because you’re more comfortable with its shortcuts, workflow or looks.</p>
+</li>
+<li>
+<p><strong>Dependency control</strong></p>
+<p>In Arduino IDE, only one version of a library can be installed at the same time. This becomes a real problem when
+you work on multiple projects that require different versions of the same library. This issue is solved when
+using CLI — you can specify library versions directly from the command line, ensuring each one uses the correct dependencies.</p>
 </li>
 </ul>
-<p>I am sure it was enough to convince you to give it a try, so let&rsquo;s start!</p>
+<p>Hopefully, that was enough to convince you to give the Arduino CLI a try!
+Alright, it&rsquo;s time to get our hands dirty. We’ll install the Arduino CLI, set it up, and then build the project from the command line.</p>
 <h2 id="installing-arduino-cli">Installing Arduino CLI</h2>
 <p>In September 2024, Arduino released a <a href="https://blog.arduino.cc/2024/09/05/arduino-cli-1-0-is-out/" target="_blank" rel="noopener noreffer ">major update to Arduino CLI</a>.
 As of October 2025, the latest version is Arduino CLI 1.3.1, which I&rsquo;ll be using here.
-Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" target="_blank" rel="noopener noreffer ">official installation guide</a> to install Arduino CLI.</p>
+Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" target="_blank" rel="noopener noreffer ">official installation guide</a> to install Arduino CLI on your system.</p>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -206,6 +219,38 @@ Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" targ
 </div></div>
         </div>
     </div>
+<p>After installing, type <code>arduino-cli</code> in your terminal, to confirm that the tool was installed successfully.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ arduino-cli
+</span></span><span class="line"><span class="cl">Arduino Command Line Interface <span class="o">(</span>arduino-cli<span class="o">)</span>.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  arduino-cli <span class="o">[</span>command<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Examples:
+</span></span><span class="line"><span class="cl">  /snap/arduino-cli/62/usr/bin/arduino-cli &lt;command&gt; <span class="o">[</span>flags...<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Available Commands:
+</span></span><span class="line"><span class="cl">  board           Arduino board commands.
+</span></span><span class="line"><span class="cl">  ...
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>All good on my side!</p>
 <h2 id="setup-your-board-core">Setup your board core</h2>
 <p>After Arduino CLI is installed, you need to install needed boards definitions <a href="https://docs.arduino.cc/arduino-cli/getting-started/" target="_blank" rel="noopener noreffer ">[1]</a>. First, let&rsquo;s update the board index:</p>
 <div class="highlight"><div class="chroma">
@@ -245,7 +290,7 @@ So let&rsquo;s peek what we can choose:</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Ok, so it&rsquo;s clear now, that for Arduino UNO R4 WiFi that I have I need to use <code>arduino:renesas_uno</code> ID.
-So let&rsquo;s install needed boards definitions:</p>
+I will install it with following command:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -254,7 +299,7 @@ So let&rsquo;s install needed boards definitions:</p>
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli core install arduino:renesas_uno
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>The preparations are done!</p>
+</div><p>The preparations are done! It was easy, wasn&rsquo;t it?</p>
 <h2 id="creating-a-new-sketch">Creating a new sketch</h2>
 <p>You can create new sketch with</p>
 <div class="highlight"><div class="chroma">
@@ -370,8 +415,7 @@ Good news — no need to observe <code>ls /dev/tty*</code> with board plugged an
 <h2 id="summary">Summary</h2>
 <p>Using the Arduino CLI gives you full control over the build process,
 from compiling to uploading sketches, without relying on the Arduino IDE.
-It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.
-In the next post, we’ll explore how to automate builds and uploads.</p>
+It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.</p>
 <h2 id="more-reading">More reading</h2>
 <ul>
 <li><a href="https://docs.arduino.cc/arduino-cli/" target="_blank" rel="noopener noreffer ">https://docs.arduino.cc/arduino-cli/</a></li>
@@ -379,6 +423,7 @@ In the next post, we’ll explore how to automate builds and uploads.</p>
 <li><a href="https://evan.widloski.com/notes/arduino_cli.html" target="_blank" rel="noopener noreffer ">https://evan.widloski.com/notes/arduino_cli.html</a></li>
 <li><a href="https://dumblebots.com/blog/arduino-cli-getting-started" target="_blank" rel="noopener noreffer ">https://dumblebots.com/blog/arduino-cli-getting-started</a></li>
 <li><a href="https://www.pcbway.com/blog/Activities/Arduino_cli__compile__upload_and_manage_libraries__cores__and_boards.html" target="_blank" rel="noopener noreffer ">https://www.pcbway.com/blog/Activities/Arduino_cli__compile__upload_and_manage_libraries__cores__and_boards.html</a></li>
+<li><a href="https://www.youtube.com/watch?v=Uk5_RKMf2Dk&amp;t=356s" target="_blank" rel="noopener noreffer ">Arduino CLI - What and Why? | Breaking Out of Arduino IDE | Part 2 | Magpie Embedded</a></li>
 </ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">

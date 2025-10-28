@@ -3,8 +3,8 @@
 
 
 Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online 
-about whether Arduino is a good choice for that (like "*Is there anything wrong with Arduino?*" [[1]](https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/),
-"*Why engineers hate Arduino?*" [[2]](https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/) ). 
+about whether Arduino is a good choice for that (like "*Is there anything wrong with Arduino?*",
+"*Why engineers hate Arduino?*" [[1]](https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/), [[2]](https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/) ). 
 
 While the list of arguments from Arduino "opponents" is quite long — and some of their points are completely reasonable 
 — I want to prove that you can learn just as much with Arduino as with any other embedded platform,
@@ -38,7 +38,7 @@ Understanding this process is essential to see Arduino as a real embedded platfo
 After reading this article, you will:
 - understand the standard build flow in embedded software development,
 - learn about the additional steps performed during the Arduino build process,
-- know where to find the build files and caches,
+- know where to find the build files, caches, and linked libraries,
 - discover what language Arduino sketches are actually written in.
 
 ## Let's get started!
@@ -114,25 +114,39 @@ Error `Compilation error: Missing FQBN (Fully Qualified Board Name)` means you h
 {{</ admonition>}}
 
 ## Arduino specific directories
-It’s also useful to know where the compilation artifacts end up and where the packages
-used for building a specific target are stored. This isn’t immediately obvious, since these files are 
+In a typical embedded development environment, the build process produces various artifacts 
+(object files, binaries, maps, etc.), which are stored in a user-defined or default build directory.
+Knowing where these artifacts are located allows developers to:
+- see which source files are compiled and linked,
+- inspect intermediate and output files (e.g., `.o` or `.elf`) to diagnose build or linking issues.
+
+In most embedded IDEs, the user also knows and can control where all linked libraries come from.
+
+In Arduino, location of build artifacts and used libraries is not immediately obvious, since these files are 
 placed in several hidden directories. However, their locations can be found
 in the build log. Let’s take a quick look at these directories.
 
 ### Arduino15 directory
-**Arduino15** contains user preferences, downloaded board packages
-(cores, toolchains, board definitions) and libraries that Arduino automatically installs. The 
-[exact location depends on your operating system](https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder). 
+**Arduino15** contains, among others:
+- installed board packages (cores, toolchains, board definitions, hardware specific libraries), 
+- global libraries that Arduino automatically installs,
+- tools needed for development with Arduino,
+- user preferences.
 
-Files related to the target board
-can be found in the path displayed in the build log under the **FQBN**, for example:
+The [exact location depends on your operating system](https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder). 
+
+#### Board packages 
+The build log shows the directory where the target board’s related files are located, for example:
 
 ```
 Using board 'unor4wifi' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 Using core 'arduino' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1
 ```
-There are several interesting files in this directory.
-One of them is [boards.txt](https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt) file, which lists all boards supported by that platform.
+
+Inside this directory, two files deserve special attention: **boards.txt** and **platform.txt**.
+
+##### boards.txt
+The [boards.txt](https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt) file lists all boards supported by this platform.
 Each board has its own section with key-value pairs that define how to compile, upload, and debug for that target.
 
 Here’s the entry for the **Arduino UNO R4 WiFi**:
@@ -153,11 +167,40 @@ unor4wifi.build.float-abi=-mfloat-abi=hard
 unor4wifi.upload.tool=bossac
 ...
 ```
-Thanks to those settings, once you select your board from the **Select Board** menu, 
+These settings ensure that once you select your board from the **Select Board** menu, 
 the correct toolchain, compiler flags (such as MCU type and clock speed) and upload tool are selected automatically.
 
+Advanced users may feel need to modify the *boards.txt* contents, to i.e. add new board or customize some build options.
+Just remember that such changes will be lost after Arduino IDE update!
 
-**Toolchain**
+##### platform.txt
+
+Another important file is [platform.txt](https://arduino.github.io/arduino-cli/1.3/platform-specification/#platformtxt).
+This file defines the command patterns (recipes) that tell Arduino exactly how to compile, 
+link, and package a sketch for a specific platform.
+
+It defines:
+- the commands used for compiling and linking,
+- how archives and output files are created,
+- the flags and options passed to the compiler,
+- and the commands used to calculate the size of the final program.
+
+Basically, this is the most important file telling us **how Arduino builds a program**.
+Unlike traditional C/C++ projects, there is no Makefile in the Arduino build system — 
+instead, *platform.txt* provides all the recipes that define each step of the build process.
+
+Behind the scenes, the Arduino IDE uses **arduino-cli** to build sketches according to these recipes. 
+The arduino-cli tool expands and executes the command patterns defined in *platform.txt*. 
+For example, the recipe for compiling a C source file is as follows:
+
+```
+## Compile c files
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_RENESAS -DARDUINO_FSP -D_XOPEN_SOURCE=700 {compiler.fsp.cflags} {compiler.tinyusb.cflags} {compiler.c.extra_flags} {build.extra_flags} {tinyusb.includes} "-I{build.core.path}/api/deprecated" "-I{build.core.path}/api/deprecated-avr-comp" {includes} "-iprefix{runtime.platform.path}" "@{compiler.fsp.includes}" -o "{object_file}" "{source_file}"
+```
+
+
+
+#### Toolchain
 
 **Arduino15** also contains the toolchain:`.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/`.
 Besides the compiler itself, toolchain contains other useful tools like `objdump`. We will use it later!
@@ -183,7 +226,7 @@ directories:
 4. Once you’ve confirmed everything works correctly, you can safely delete the old folder.
    {{< /admonition >}}
 
-### Arduino core
+#### Arduino core
 The **Arduino core** directory provides the hardware-specific implementation of core Arduino functions. 
 
 It is located in the `cores` subdirectory of your board package, for example:
@@ -470,6 +513,12 @@ Unfortunately, Arduino IDE does not offer the `Clean build` or `Force rebuild` o
 - While it’s often called the Arduino language, `.ino` files are actually written in C++. 
 They simply receive some automatic handling from the Arduino build system, 
 and the `main()` function is predefined and hidden within a library.
+- Arduino build process follows standard C/C++ build steps, but adds some additions: automatically
+  detects libraries that need to be linked, includes main header, generates function prototypes if they are
+  not included.
+- Arduino doesn't use `Make` or any other common build system. Instead, it uses `arduino-cli` which constructs
+  build commands based on recipies from `platform.txt` and `boards.txt`.
+
 
 
 
