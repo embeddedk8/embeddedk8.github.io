@@ -24,48 +24,57 @@ math:
 ---
 
 In the [previous post](/arduino-ide-build-process/) we took a closer look at how the Arduino IDE builds sketches.
-A lot happens behind the scenes — from the classic C/C++ build steps (preprocessing, compiling, assembling, and linking) 
-to a few Arduino-specific additions.
 
-Now, let’s take things a step further and build the same project without the Arduino IDE — this time using the Arduino CLI (Arduino
-Command Line Interface).
+Arduino also offers another way to build projects — by using the **Arduino Command Line Interface (CLI)** directly.
+Starting with Arduino IDE 2.0, the IDE actually uses `arduino-cli` under the hood the build process, 
+so working with the CLI directly simply removes one layer of abstraction 
+while following the exact same steps — but with better flexibility and possibilities.
 
-# Compiling Arduino sketch via Arduino CLI
 
-It’s worth to start with mentioning that, starting with Arduino IDE 2.0, the Arduino IDE uses the Arduino CLI
-for the build process. This means that when you build a sketch using the CLI directly, it follows exactly the same steps as the IDE does.
+## Why should you use Arduino CLI?
+While the Arduino IDE is great for getting started, the Arduino Command Line Interface offers 
+much more control and flexibility. Here are some of the key benefits you gain by using it:
 
-So, what’s the point of using the CLI directly?
+- **Easier configuration**
 
-There are several advantages:
-
-- **Advanced configuration options**
-
-    Some build or configuration options aren't exposed in the IDE. It's possible to configure them via configuration files
-    for the IDE, but it makes this process more complicated and harder to maintain (the configuration file can be per-sketch or global).
-    With the CLI, you can fully control compiler flags, board settings, library versions from command line.
+    Some build or configuration options aren't exposed in the Arduino IDE. 
+    It's possible to configure them with configuration files, but this approach 
+    can be complicated and harder to maintain —
+    global configuration would affect all projects, per-board or per-sketch configuration would be tedious. 
+    With the CLI, you can fully control compiler flags, board settings, library versions from command line,
+    for each project separately.
 
 - **Automation and integration**
 
-  The CLI makes it easy to compile, verify, and upload sketches automatically. 
-  It can run on systems without a graphical interface, such as Docker containers.
-  We will try to use it for creating simple CI/CD pipeline later.
+  Using the CLI, you can easily implement the scripts for tasks like building, uploading, deploying and testing the project.
+  These scripts can run on lightweight systems without graphical interface, such as Docker containers.
+  This makes possible to integrate Arduino project into the CI/CD pipeline for automated builds and testing.
 
 - **Reproducibility**
 
-    Makes sure that your colleague compiles with exactly the same setup as you. It solves the "it works on my machine" problem.
+    When working in a team, using the Arduino CLI ensures that everyone builds the project with exactly the same setup and dependencies.
+    This helps eliminate the classic “it works on my machine” problem and makes builds consistent across different environments.
 
 - **IDE independence**
-    
-    Use your favourite IDE for code development! You don't have to use Arduino IDE if you don't want!
 
-I am sure it was enough to convince you to give it a try, so let's start!
+  You don’t have to rely on the Arduino IDE to develop your projects.
+  With the CLI, you can use your favorite code editor 
+  — whether it’s for better IntelliSense, built-in integrations like GitHub Copilot, 
+ or simply because you’re more comfortable with its shortcuts, workflow or looks.
 
+- **Dependency control**
+
+    In Arduino IDE, only one version of a library can be installed at the same time. This becomes a real problem when
+    you work on multiple projects that require different versions of the same library. This issue is solved when 
+    using CLI — you can specify library versions directly from the command line, ensuring each one uses the correct dependencies.
+
+Hopefully, that was enough to convince you to give the Arduino CLI a try!
+Alright, it's time to get our hands dirty. We’ll install the Arduino CLI, set it up, and then build the project from the command line.
 
 ## Installing Arduino CLI
 In September 2024, Arduino released a [major update to Arduino CLI](https://blog.arduino.cc/2024/09/05/arduino-cli-1-0-is-out/). 
 As of October 2025, the latest version is Arduino CLI 1.3.1, which I'll be using here. 
-Please refer to [official installation guide](https://docs.arduino.cc/arduino-cli/installation/) to install Arduino CLI. 
+Please refer to [official installation guide](https://docs.arduino.cc/arduino-cli/installation/) to install Arduino CLI on your system. 
 
 {{< admonition note >}}
 On Linux, I installed the Arduino CLI in just a few seconds with just one command:
@@ -73,6 +82,24 @@ On Linux, I installed the Arduino CLI in just a few seconds with just one comman
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 ```
 {{</ admonition >}}
+
+After installing, type `arduino-cli` in your terminal, to confirm that the tool was installed successfully.
+
+```bash
+$ arduino-cli
+Arduino Command Line Interface (arduino-cli).
+
+Usage:
+  arduino-cli [command]
+
+Examples:
+  /snap/arduino-cli/62/usr/bin/arduino-cli <command> [flags...]
+
+Available Commands:
+  board           Arduino board commands.
+  ...
+```
+All good on my side! 
 
 ## Setup your board core
 
@@ -96,12 +123,12 @@ arduino:sam              1.6.12           Arduino SAM Boards (32-bits ARM Cortex
 ...
 ```
 Ok, so it's clear now, that for Arduino UNO R4 WiFi that I have I need to use `arduino:renesas_uno` ID.
-So let's install needed boards definitions:
+I will install it with following command:
 ```
 arduino-cli core install arduino:renesas_uno
  ```
 
-The preparations are done!
+The preparations are done! It was easy, wasn't it?
 
 ## Creating a new sketch
 
@@ -183,8 +210,7 @@ Settings added globally to this file will affect all builds done with Arduino CL
 ## Summary
 Using the Arduino CLI gives you full control over the build process, 
 from compiling to uploading sketches, without relying on the Arduino IDE. 
-It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines. 
-In the next post, we’ll explore how to automate builds and uploads.
+It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.
 
 ## More reading
 - [https://docs.arduino.cc/arduino-cli/](https://docs.arduino.cc/arduino-cli/)
@@ -192,4 +218,4 @@ In the next post, we’ll explore how to automate builds and uploads.
 - [https://evan.widloski.com/notes/arduino_cli.html](https://evan.widloski.com/notes/arduino_cli.html)
 - [https://dumblebots.com/blog/arduino-cli-getting-started](https://dumblebots.com/blog/arduino-cli-getting-started)
 - [https://www.pcbway.com/blog/Activities/Arduino_cli__compile__upload_and_manage_libraries__cores__and_boards.html](https://www.pcbway.com/blog/Activities/Arduino_cli__compile__upload_and_manage_libraries__cores__and_boards.html)
-
+- [Arduino CLI - What and Why? | Breaking Out of Arduino IDE | Part 2 | Magpie Embedded](https://www.youtube.com/watch?v=Uk5_RKMf2Dk&t=356s)
