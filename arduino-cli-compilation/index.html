@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-10-01T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-10-25T10:13:57+02:00">
+    <meta property="article:modified_time" content="2025-11-03T10:02:18+01:00">
     <meta property="article:tag" content="Arduino Internals">
     <meta property="og:image" content="https://embeddedk8.com/arduino-cli-compilation/featured-image.png">
 
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  1132 ,
-        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-10-25T10:13:57+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  1060 ,
+        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-11-03T10:02:18+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
@@ -53,7 +53,9 @@
                 "name": "embeddedk8"
             },"description": "Build and upload Arduino sketches using Arduino CLI. Installing Arduino CLI, setting up boards, uploading sketches, and customizing commands"
     }
-    </script></head>
+
+
+</script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
@@ -62,7 +64,7 @@
             <a href="/" title="Embedded Kate Blog"><span class="header-title-pre"><i class='fa-solid fa-microchip fa-fw' aria-hidden='true'></i></span>Embedded Kate Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="https://github.com/embeddedk8" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="/resources/"> Resources </a><a class="menu-item" href="https://github.com/embeddedk8" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -107,7 +109,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="https://github.com/embeddedk8" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/resources/" title="">Resources</a><a class="menu-item" href="https://github.com/embeddedk8" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
                     <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
@@ -125,8 +127,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: building sketches with Arduino CLI</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1132 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1060 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -309,15 +311,15 @@ I will install it with following command:</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ arduino-cli sketch new MyFirstSketch
-</span></span><span class="line"><span class="cl">Sketch created in: /XXX/MyFirstSketch
+</span></span><span class="line"><span class="cl">Sketch created in: /home/kate/Arduino/MyFirstSketch
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>But I want to reuse MyBlink sketch, that I was already working on, as in previous post.</p>
-<h2 id="compile-a-sketch">Compile a sketch</h2>
+</div><h2 id="compile-a-sketch">Compile a sketch</h2>
 <p>To compile a sketch, use <code>arduino-cli compile</code> command followed by:</p>
 <ul>
 <li><code>--fqbn &lt;id&gt;</code> - your board id,</li>
-<li><code>&lt;sketch root dir&gt;</code> - the path to root directory of the sketch to compile.</li>
+<li><code>&lt;sketch root dir&gt;</code> - the path to root directory of the sketch to compile,</li>
+<li><code>--verbose</code> - verbose flag to print all build logs to console.</li>
 </ul>
 <p>So to compile MyBlink that was previously compiled with the IDE, I will use:</p>
 <div class="highlight"><div class="chroma">
@@ -325,29 +327,7 @@ I will install it with following command:</p>
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi /home/kate/Arduino/MyBlink
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Again, like we already saw in IDE, the default output is very concise.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi /home/kate/Arduino/MyBlink
-</span></span><span class="line"><span class="cl">Sketch uses <span class="m">51880</span> bytes <span class="o">(</span>19%<span class="o">)</span> of program storage space. Maximum is <span class="m">262144</span> bytes.
-</span></span><span class="line"><span class="cl">Global variables use <span class="m">6740</span> bytes <span class="o">(</span>20%<span class="o">)</span> of dynamic memory, leaving <span class="m">26028</span> bytes <span class="k">for</span> <span class="nb">local</span> variables. Maximum is <span class="m">32768</span> bytes.
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>We can <strong>enable verbose output</strong> here too.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/Arduino/MyBlink
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose /home/kate/Arduino/MyBlink
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="uploading-a-sketch">Uploading a sketch</h2>
@@ -429,8 +409,8 @@ It’s perfect for automation, reproducibility, and integrating Arduino projects
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-10-25&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/ce9cd53d4ed897f8db0cec7841f77085cab8728b" target="_blank" title="commit by Kate(embeddedkate@gmail.com) ce9cd53d4ed897f8db0cec7841f77085cab8728b: Update">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>ce9cd53</a></span>
+                <span>Updated on 2025-11-03&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/a9e4ff85dc177e1d260db1ae148f1b368c2ece28" target="_blank" title="commit by Kate(embeddedkate@gmail.com) a9e4ff85dc177e1d260db1ae148f1b368c2ece28: Tweaks P1">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>a9e4ff8</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
@@ -485,6 +465,7 @@ referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 
 
 <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+
 
     </body>
 </html>

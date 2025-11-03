@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-09-13T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-10-26T18:57:59+01:00">
+    <meta property="article:modified_time" content="2025-11-03T10:02:18+01:00">
     <meta property="article:tag" content="Arduino Internals">
     <meta property="og:image" content="https://embeddedk8.com/arduino-ide-build-process/featured-image.png">
 
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  3282 ,
-        "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-26T18:57:59+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  3444 ,
+        "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-11-03T10:02:18+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
@@ -53,7 +53,9 @@
                 "name": "embeddedk8"
             },"description": "Step by step guide to how the Arduino builds the code — preprocessing, compiling, and linking explained simply"
     }
-    </script></head>
+
+
+</script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
@@ -62,7 +64,7 @@
             <a href="/" title="Embedded Kate Blog"><span class="header-title-pre"><i class='fa-solid fa-microchip fa-fw' aria-hidden='true'></i></span>Embedded Kate Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="https://github.com/embeddedk8" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/about/"> About </a><a class="menu-item" href="/resources/"> Resources </a><a class="menu-item" href="https://github.com/embeddedk8" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -107,7 +109,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="https://github.com/embeddedk8" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/about/" title="">About</a><a class="menu-item" href="/resources/" title="">Resources</a><a class="menu-item" href="https://github.com/embeddedk8" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
                     <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
@@ -125,8 +127,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: how Arduino builds your code</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3282 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;16 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3444 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;17 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -147,7 +149,7 @@
         <li><a href="#opening-an-example-sketch">Opening an example sketch</a></li>
         <li><a href="#what-exactly-is-arduino-language">What exactly is Arduino language?</a></li>
         <li><a href="#triggering-the-build">Triggering the build</a></li>
-        <li><a href="#enable-verbose-output">Enable verbose output</a></li>
+        <li><a href="#enabling-verbose-output">Enabling verbose output</a></li>
       </ul>
     </li>
     <li><a href="#board-and-package-identification">Board and package identification</a></li>
@@ -161,7 +163,7 @@
                 <li><a href="#platformtxt">platform.txt</a></li>
               </ul>
             </li>
-            <li><a href="#toolchain">Toolchain</a></li>
+            <li><a href="#toolchains">Toolchains</a></li>
             <li><a href="#arduino-core">Arduino core</a></li>
           </ul>
         </li>
@@ -183,7 +185,7 @@
         <li><a href="#compiling-core">Compiling core</a></li>
       </ul>
     </li>
-    <li><a href="#linking-everything-together">Linking everything together</a></li>
+    <li><a href="#linking">Linking</a></li>
     <li><a href="#finalizing-build">Finalizing build</a>
       <ul>
         <li><a href="#creating-binary-and-hex-files">Creating binary and hex files</a></li>
@@ -219,7 +221,7 @@ That&rsquo;s why I am creating the Arduino Internals series.</p>
             <div class="admonition-content"><ul>
 <li>Arduino UNO R4 WiFi board</li>
 <li>Arduino IDE  2.3.6</li>
-<li>Linux Mint</li>
+<li>Ubuntu 24.04</li>
 </ul>
 <p>If you’re using a different board, IDE version, or operating system — don’t worry! You can still follow along. Some details may just look a little different on your setup.</p></div>
         </div>
@@ -228,7 +230,10 @@ That&rsquo;s why I am creating the Arduino Internals series.</p>
 <p>Building an Arduino sketch in the IDE seems as simple as clicking one button, but
 under the hood it performs several important steps — some common to nearly every embedded development environment,
 and others unique to Arduino.</p>
-<p>Understanding this process is essential to see Arduino as a real embedded platform, not just a magic toy.</p>
+<p>This simplicity is great for beginners, but if you want to take embedded systems seriously,
+it’s worth understanding what really happens behind the scenes.
+Once you move beyond Arduino’s friendly abstraction layer,
+you’ll need to know how the build process works — because without it, things may not behave as you expect.</p>
 <h2 id="what-you-will-learn">What you will learn?</h2>
 <p>After reading this article, you will:</p>
 <ul>
@@ -239,7 +244,7 @@ and others unique to Arduino.</p>
 </ul>
 <h2 id="lets-get-started">Let&rsquo;s get started!</h2>
 <p>Let&rsquo;s build a sketch together and go step through the build process.
-We’ll pretend we know nothing and analyze the build output to infer what the Arduino IDE actually did.</p>
+We’ll pretend we know nothing and analyze the build output to see what the Arduino IDE actually did.</p>
 <h3 id="opening-an-example-sketch">Opening an example sketch</h3>
 <p>Open the Arduino IDE and select the correct board from <strong>Select Board</strong> menu.
 In my case it&rsquo;s <strong>Arduino UNO R4 WiFi</strong>.
@@ -249,7 +254,7 @@ Files with the <code>.ino</code> extension contain code written in the Arduino l
 You may notice there is no <code>main</code> function in this code, yet it still compiles.</p>
 <h3 id="what-exactly-is-arduino-language">What exactly is Arduino language?</h3>
 <p>According to the <a href="https://docs.arduino.cc/language-reference/#functions" target="_blank" rel="noopener noreffer ">official documentation</a>
-the Arduino “language” consists of:</p>
+the Arduino language consists of:</p>
 <ul>
 <li>set of functions like <code>digitalRead</code>, <code>digitalWrite</code> etc,</li>
 <li>predefined constants such as <code>HIGH</code> and <code>LOW</code>,</li>
@@ -272,11 +277,11 @@ or just a C++ in a disguise.</p>
             alt="/arduino-ide-build-process/arduino-ide-default-output.png" width="1284" height="748" />
     </a><figcaption class="image-caption">Arduino IDE - default build output</figcaption>
     </figure></a></p>
-<p>It looks that the sketch has been built successfully and
-is ready to upload to the board. The message contains just two lines because I haven’t changed the Arduino IDE’s default settings yet — by default, most of the build output is hidden.</p>
-<h3 id="enable-verbose-output">Enable verbose output</h3>
+<p>It looks like the sketch has been built successfully and is ready to upload to the board.
+You only see two lines of output because the Arduino IDE hides most of the build details by default.</p>
+<h3 id="enabling-verbose-output">Enabling verbose output</h3>
 <p>To understand the build process better we need to enable the <strong>verbose output</strong> in IDE.
-To do so, go to <strong>File-&gt; Preferences</strong> and check <strong>Show verbose output</strong> setting for both compiling and upload. When you compile again,
+To do so, go to <strong>File → Preferences</strong> and check <strong>Show verbose output</strong> setting for both compiling and upload. When you compile again,
 the output will be complete.
 Let’s read it line by line.
 <br></p>
@@ -292,7 +297,7 @@ Let’s read it line by line.
     </figure></a></p>
 <h2 id="board-and-package-identification">Board and package identification</h2>
 <p>In embedded software development, the compilation process is always target-dependent.
-Each hardware architecture — such as ARM or AVR — requires its own dedicated cross-compilation toolchain.
+Each hardware architecture — such as ARM or AVR — requires its own dedicated <a href="https://en.wikipedia.org/wiki/Cross_compiler" target="_blank" rel="noopener noreffer ">cross-compilation</a> toolchain.
 In addition, the appropriate version of the hardware libraries must be selected and linked.
 Therefore, the target board must be identified before the build begins.</p>
 <p>Arduino handles this step automatically.
@@ -327,8 +332,9 @@ This ensures that the compiled code will match the board’s architecture, hardw
 (object files, binaries, maps, etc.), which are stored in a user-defined or default build directory.
 Knowing where these artifacts are located allows developers to:</p>
 <ul>
-<li>see which source files are compiled and linked,</li>
-<li>inspect intermediate and output files (e.g., <code>.o</code> or <code>.elf</code>) to diagnose build or linking issues.</li>
+<li>see which source files are compiled,</li>
+<li>inspect intermediate and output files (e.g., <code>.o</code> or <code>.elf</code>) to diagnose build or linking issues,</li>
+<li>analyze additional information from <code>.map</code> file.</li>
 </ul>
 <p>In most embedded IDEs, the user also knows and can control where all linked libraries come from.</p>
 <p>In Arduino, location of build artifacts and used libraries is not immediately obvious, since these files are
@@ -337,12 +343,12 @@ in the build log. Let’s take a quick look at these directories.</p>
 <h3 id="arduino15-directory">Arduino15 directory</h3>
 <p><strong>Arduino15</strong> contains, among others:</p>
 <ul>
-<li>installed board packages (cores, toolchains, board definitions, hardware specific libraries),</li>
+<li>installed board packages (cores, board definitions, hardware specific libraries),</li>
 <li>global libraries that Arduino automatically installs,</li>
-<li>tools needed for development with Arduino,</li>
-<li>user preferences.</li>
+<li>tools needed for development with Arduino (like toolchains and flashing tools),</li>
+<li>user preferences, customized settings, etc.</li>
 </ul>
-<p>The <a href="https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder" target="_blank" rel="noopener noreffer ">exact location depends on your operating system</a>.</p>
+<p>The exact location depends on your operating system <a href="https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder" target="_blank" rel="noopener noreffer ">[1]</a>.</p>
 <h4 id="board-packages">Board packages</h4>
 <p>The build log shows the directory where the target board’s related files are located, for example:</p>
 <div class="highlight"><div class="chroma">
@@ -427,46 +433,31 @@ For example, the recipe for compiling a C source file is as follows:</p>
 </span></span><span class="line"><span class="cl">recipe.c.o.pattern=&#34;{compiler.path}{compiler.c.cmd}&#34; {compiler.c.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_RENESAS -DARDUINO_FSP -D_XOPEN_SOURCE=700 {compiler.fsp.cflags} {compiler.tinyusb.cflags} {compiler.c.extra_flags} {build.extra_flags} {tinyusb.includes} &#34;-I{build.core.path}/api/deprecated&#34; &#34;-I{build.core.path}/api/deprecated-avr-comp&#34; {includes} &#34;-iprefix{runtime.platform.path}&#34; &#34;@{compiler.fsp.includes}&#34; -o &#34;{object_file}&#34; &#34;{source_file}&#34;
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="toolchain">Toolchain</h4>
-<p><strong>Arduino15</strong> also contains the toolchain:<code>.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/</code>.
-Besides the compiler itself, toolchain contains other useful tools like <code>objdump</code>. We will use it later!</p>
-<div class="details admonition tip open">
+</div><h4 id="toolchains">Toolchains</h4>
+<p>Inside the <strong>Arduino15</strong>&rsquo;s tools directory, you will also find the cross-compilation toolchains
+used to build sketches for different microcontroller architectures.</p>
+<p>In my setup, two toolchains are installed:</p>
+<ul>
+<li><code>.arduino15/packages/arduino/tools/arm-none-eabi-gcc</code>, for ARM based boards, like Arduino UNO R4 WiFi,</li>
+<li><code>.arduino15/packages/arduino/tools/avr-gcc</code>, for AVR/Atmega based boards.</li>
+</ul>
+<p>The main components of toolchain are compiler, asembler and linker. Everything
+that is required to build for a specific architecture.</p>
+<div class="details admonition info open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Do you want to move Arduino15 folder?<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+            <i class="icon fas fa-info-circle fa-fw" aria-hidden="true"></i>Why we need cross compilation toolchains?<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><p>In some cases, you may want to move the <strong>Arduino15 folder</strong> —  for example, to free up space on your primary drive.</p>
-<p>To do this:</p>
-<ol>
-<li>
-<p>Copy the <strong>Arduino15</strong> directory to your desired location.</p>
-</li>
-<li>
-<p>Open the file <code>~/.arduinoIDE/arduino-cli.yaml</code> and update the <code>directories:data</code> path, for example:</p>
-</li>
-</ol>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">board_manager:
-</span></span><span class="line"><span class="cl">    additional_urls: []
-</span></span><span class="line"><span class="cl">directories:
-</span></span><span class="line"><span class="cl">    data: /home/kate/new-location-arduino15
-</span></span></code></pre></td></tr></table>
-</div>
-</div><ol start="3">
-<li>
-<p>Restart the Arduino IDE. It will now use the new <strong>Arduino15</strong> location. Verify the build output to ensure everything is working correctly.</p>
-</li>
-<li>
-<p>Once you’ve confirmed everything works correctly, you can safely delete the old folder.</p>
-</li>
-</ol>
+            <div class="admonition-content"><p>When building application for embedded devices, the compilation happens on the <strong>host</strong>
+— your development computer running the Arduino IDE — not on the <strong>target device</strong> itself.</p>
+<p>The host (PC) typically uses an x86_64 processor with its own instruction set and operating system.
+The target device (like an Arduino board) uses a completely different architecture
+— for example ARM or AVR.</p>
+<p>To generate code that runs correctly on the target,
+we need a cross-compilation toolchain:
+compiler tools that are able to produce binaries for a
+different architecture than the one running the compiler.</p>
+<p>Most Arduino boards use either ARM or AVR architectures, which is why you’ll find these two toolchains installed in the Arduino15 directory.</p>
 </div>
         </div>
     </div>
@@ -521,6 +512,46 @@ This will build your sketch and place a copy of the <code>.hex</code>, <code>.bi
 folder so it’s easy to find later.</div>
         </div>
     </div>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw" aria-hidden="true"></i>Do you want to move Arduino15 folder?<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>In some cases, you may want to move the <strong>Arduino15 folder</strong> —  for example, to free up space on your primary drive.</p>
+<p>To do this:</p>
+<ol>
+<li>
+<p>Copy the <strong>Arduino15</strong> directory to your desired location.</p>
+</li>
+<li>
+<p>Open the file <code>~/.arduinoIDE/arduino-cli.yaml</code> and update the <code>directories:data</code> path, for example:</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">board_manager:
+</span></span><span class="line"><span class="cl">    additional_urls: []
+</span></span><span class="line"><span class="cl">directories:
+</span></span><span class="line"><span class="cl">    data: /home/kate/new-location-arduino15
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>
+<p>Restart the Arduino IDE. It will now use the new <strong>Arduino15</strong> location. Verify the build output to ensure everything is working correctly.</p>
+</li>
+<li>
+<p>Once you’ve confirmed everything works correctly, you can safely delete the old folder.</p>
+</li>
+</ol>
+</div>
+        </div>
+    </div>
 <p>We already discussed board identification and the Arduino specific directories. Let&rsquo;s move to actual build process.</p>
 <h2 id="general-embedded-software-build-process">General embedded software build process</h2>
 <p>At a high level, the Arduino build process is essentially a C++ build process adapted
@@ -535,6 +566,7 @@ for embedded targets, and with some Arduino specific features. The general C/C++
             alt="/arduino-ide-build-process/general-c-build-process.png" width="1092" height="542" />
     </a><figcaption class="image-caption">General C/C++ build process</figcaption>
     </figure></a></p>
+<p>Now, let’s go through each stage and see how Arduino adapts the standard C/C++ build process for embedded targets.</p>
 <h2 id="preprocessing">Preprocessing</h2>
 <p>The first phase of every C/C++ program build is preprocessing.
 In general, preprocessor expands macros like <code>#include</code>, <code>#define</code>, and conditional compilation (<code>#if</code>, <code>#ifdef</code>, etc.).
@@ -545,8 +577,9 @@ In Arduino, some additional steps are added around preprocessing stage.</p>
 <h3 id="detecting-libraries-used">Detecting libraries used</h3>
 <p>Arduino uses a special build recipe (<code>recipe.preproc.macros</code> <a href="https://docs.arduino.cc/arduino-cli/platform-specification/" target="_blank" rel="noopener noreffer ">[1]</a>)
 to detect which libraries are required by your sketch.
-During this step, the preprocessor scans the sketch for <code>#include</code>s that reference library header files.
-If a matching header is found, the corresponding library is automatically marked as needed and included in the build process.</p>
+During this step, the preprocessor scans the sketch for <code>#include</code> directives that reference library header files.
+If a matching header is found, the corresponding library is automatically marked as required and included in the build process
+— in other words, that library will be compiled and then linked in next stages of build process.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -559,15 +592,12 @@ If a matching header is found, the corresponding library is automatically marked
 </span></span><span class="line"><span class="cl"><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kate</span><span class="o">/.</span><span class="n">cache</span><span class="o">/</span><span class="n">arduino</span><span class="o">/</span><span class="n">sketches</span><span class="o">/</span><span class="n">D7CC1D7CA645BCFE67207C07A05B3A2A</span><span class="o">/</span><span class="n">sketch</span><span class="o">/</span><span class="n">MyBlink</span><span class="o">.</span><span class="n">ino</span><span class="o">.</span><span class="n">cpp</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>As we see in build output, the compiler is invoked with the <code>-E</code> flag, which tells it to stop after the preprocessing
-stage and not produce any compiled output.</p>
-<p>For a simple sketch like Blink, this stage isn&rsquo;t very exciting: it doesn&rsquo;t detect in any additional libraries.
+</div><p><em>The <code>-E</code> flag tells GCC to perform only the preprocessing step —
+it expands all macros and headers, then stops before compiling or assembling anything.</em></p>
+<p>For a simple sketch like Blink, this stage isn&rsquo;t very exciting — it doesn&rsquo;t detect in any additional libraries.
 That&rsquo;s why the build output doesn&rsquo;t show anything under <em>Detecting libraries used&hellip;</em>.
-Open other example sketches, such as those from <strong>WiFiS3</strong> or <strong>EEPROM</strong>, and you&rsquo;ll see how more complex projects trigger detection of multiple libraries.</p>
-<p><strong>Why does Arduino detect libraries automatically?</strong></p>
-<p>The Arduino compiles the libraries that your sketch actually needs, and only them — no manual setup required.
-In most other development environments, this step is up to the developer: you have to configure which libraries or dependencies should be included in the build.
-Arduino takes care of this automatically, keeping things simple and beginner-friendly.</p>
+But if you open other example sketches, such as those from <strong>WiFiS3</strong> or <strong>EEPROM</strong>,
+you&rsquo;ll see how more complex projects trigger detection of multiple libraries.</p>
 <h3 id="generating-function-prototypes">Generating function prototypes</h3>
 <p>The next stage in the build process is automatic function prototype generation. In C or C++, each function must be
 either defined or declared before it&rsquo;s called. In Arduino, you don&rsquo;t need to worry about that — you can write functions
@@ -677,14 +707,15 @@ about undeclared functions, functions order, etc.</p>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>To summarize differences:</p>
+</div><p>The key differences can be summarized as follows:</p>
 <ul>
 <li><code>#include &lt;Arduino.h&gt;</code> is added,</li>
+<li>function prototypes are added,</li>
 <li><code>#line</code> macros are added — they keep compiler error messages pointing to the right lines in your <code>.ino</code> file.
 Without them, errors would show up with the line numbers of the generated <code>.cpp</code>, which would be super confusing.</li>
-<li>function prototypes are added.</li>
 </ul>
 <h2 id="compilation">Compilation</h2>
+<!-- TODO: minimalnie rozwin to zdanie-->
 <p>Here’s where your code finally turns into machine instructions that the microcontroller can execute.</p>
 <h3 id="sketch-compilation">Sketch compilation</h3>
 <p>During this step, the compiler checks your code for syntax errors and converts it
@@ -699,9 +730,11 @@ into the object code that can be linked with libraries later.</p>
 </span></span><span class="line"><span class="cl">arm-none-eabi-g++ (...) -c sketch/MyBlink.ino.cpp -o sketch/MyBlink.ino.cpp.o
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Compiler is invoked with <code>-c</code> flag, which means compile only (and don’t link yet).</p>
-<p><strong>Input:</strong> <code>MyBlink.ino.cpp</code> - the auto-generated sketch with prototypes, includes, and line directives.</p>
-<p><strong>Output:</strong> <code>MyBlink.ino.cpp.o</code> - machine-code object file, ready to be linked later.</p>
+</div><!-- TODO: ok, a jest tu assembling, czy jeszcze bedzie pozniej ?-->
+<p>Compiler is invoked with <code>-c</code> flag, which means compile only (and don’t link yet).</p>
+<p><strong>Input:</strong> <code>MyBlink.ino.cpp</code> — the auto-generated sketch with prototypes, includes, and line directives.</p>
+<p><strong>Output:</strong> <code>MyBlink.ino.cpp.o</code> — machine-code object file, ready to be linked later.</p>
+<!-- TODO: Os, minimalnie rozwin -->
 <p>I shortened the compilation command, so it&rsquo;s not in the snippet above, but in IDE we can observe a lots of compilation flags that were used.
 Some highlights:</p>
 <ul>
@@ -732,6 +765,7 @@ Arduino IDE is so simple that it doesn&rsquo;t offer this option: you don’t ge
 <p>At this point, your sketch has been turned into machine code, stored in <code>MyBlink.ino.cpp.o</code>.
 This file contains your <code>setup()</code> and <code>loop()</code> code, ready to be linked with the Arduino core and libraries in the next step.</p>
 <h3 id="compiling-libraries">Compiling libraries</h3>
+<!-- TODO: chyba brakuje zdania wstepu-->
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -763,10 +797,11 @@ For example, in <strong>WiFiS3/ConnectWithWPA</strong> the <strong>WiFiS3</stron
 </span></span><span class="line"><span class="cl">Using precompiled core: /home/kate/.cache/arduino/cores/arduino_renesas_uno_unor4wifi_4e1bf6711f2b98688d9a4a386931d6dc/core.a
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>The core is the foundation of every Arduino program.
-We disussed in in <a href="#arduino-core" rel="">Arduino core</a> chapter. Instead of recompiling the same core files every time you build,
+</div><!-- TODO: szarpane zdania-->
+<p>The core is the foundation of every Arduino program.
+We discussed it in <a href="#arduino-core" rel="">Arduino core</a> chapter. Instead of recompiling the same core files every time you build,
 the Arduino IDE uses precompiled objects from a cache. It speeds up the compilation.</p>
-<h2 id="linking-everything-together">Linking everything together</h2>
+<h2 id="linking">Linking</h2>
 <p>Once all the individual files are compiled, the Arduino build system needs to link them into a single program.
 I shortened the link command to present only the most important stuff:</p>
 <div class="highlight"><div class="chroma">
@@ -788,6 +823,7 @@ I shortened the link command to present only the most important stuff:</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>After this step, the final binary will be <code>MyBlink.ino.elf</code>.</p>
+<!-- TODO: zamien Please Note-->
 <p>Please note which libraries are linked into the build:</p>
 <ul>
 <li><code>libfsp.a</code> → the Renesas Flexible Software Package, providing hardware drivers and low-level functions for peripherals.</li>
@@ -805,6 +841,7 @@ They are not optional user libraries, so they don’t appear in the detection ph
 <li><code>-lnosys</code> → stubs for system calls.</li>
 </ul>
 <h2 id="finalizing-build">Finalizing build</h2>
+<!-- TODO: brakuje zdania wstepu-->
 <h3 id="creating-binary-and-hex-files">Creating binary and hex files</h3>
 <p>After the ELF file (<code>MyBlink.ino.elf</code>) is created, the build system uses <code>objcopy</code> to generate <code>hex</code> and <code>bin</code> formats:</p>
 <div class="highlight"><div class="chroma">
@@ -847,16 +884,13 @@ build commands based on recipies from <code>platform.txt</code> and <code>boards
 <ol>
 <li><a href="https://docs.arduino.cc/arduino-cli/sketch-build-process/" target="_blank" rel="noopener noreffer ">Build Sketch Process from docs.arduino.cc</a></li>
 <li><a href="https://support.arduino.cc/hc/en-us/articles/4415103213714-Find-sketches-libraries-board-cores-and-other-files-on-your-computer" target="_blank" rel="noopener noreffer ">Find sketches, libraries, board cores and other files on your computer from support.arduino.cc</a></li>
-<li><a href="https://github.com/microbuilder/armreveng/blob/main/compilation.md" target="_blank" rel="noopener noreffer ">ARM Reverse Engineering Notes: Compilation</a></li>
-<li><a href="https://github.com/arduino/arduino-cli/issues?q=state%3Aopen%20label%3A%22topic%3A%20build-process%22" target="_blank" rel="noopener noreffer ">Open issues in arduino-cli related to build process</a></li>
 <li><a href="https://www.youtube.com/watch?v=7vLjK9t-uZY" target="_blank" rel="noopener noreffer ">De-Mystifying Libraries - How Arduino IDE Finds and Uses Your Files - OhioIoT</a></li>
-<li><a href="https://embedded.fm/blog/2017/8/12/dont-use-arduino-for-professional-work" target="_blank" rel="noopener noreffer ">Don&rsquo;t use Arduino for professional work</a></li>
 </ol></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-10-26&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/4d2386893554a8e1eaee88aba6eb609d727fe6e6" target="_blank" title="commit by Kate(embeddedkate@gmail.com) 4d2386893554a8e1eaee88aba6eb609d727fe6e6: P1 tweaks">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>4d23868</a></span>
+                <span>Updated on 2025-11-03&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/a9e4ff85dc177e1d260db1ae148f1b368c2ece28" target="_blank" title="commit by Kate(embeddedkate@gmail.com) a9e4ff85dc177e1d260db1ae148f1b368c2ece28: Tweaks P1">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>a9e4ff8</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
@@ -912,6 +946,7 @@ referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 
 
 <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+
 
     </body>
 </html>
