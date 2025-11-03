@@ -432,31 +432,42 @@ The key differences can be summarized as follows:
 - `#line` macros are added — they keep compiler error messages pointing to the right lines in your `.ino` file.
 Without them, errors would show up with the line numbers of the generated `.cpp`, which would be super confusing.
 
+
+This is the first preprocessing step, unique to Arduino.
+Now, `sketch/MyBlink.ino.cpp` is **not yet** fully expanded —
+you can see this file inside your sketch's hidden cache.
+
+After that, the **standard C/C++ preprocessing** takes place when compiler is invoked again in next step —
+all `#include` directives are replaced with the contents of the included files,
+all `#defines` macros are expanded, and the result
+is one fully expanded source file ready for compilation.
+
 ## Compilation
-<!-- TODO: minimalnie rozwin to zdanie-->
-Here’s where your code finally turns into machine instructions that the microcontroller can execute.
+Compilation is where your code is translated into the low-level machine instructions that 
+the microcontroller can actually execute. 
+In other words, your human-readable program becomes something the hardware understands.
 
 ### Sketch compilation
-During this step, the compiler checks your code for syntax errors and converts it 
+During this step, the compiler finalizes preprocessing (the standard C/C++ preprocessing that
+was not yet performed), checks your code for syntax errors and converts it 
 into the object code that can be linked with libraries later.
 
 ```
 Compiling sketch...
 arm-none-eabi-g++ (...) -c sketch/MyBlink.ino.cpp -o sketch/MyBlink.ino.cpp.o
 ```
-<!-- TODO: ok, a jest tu assembling, czy jeszcze bedzie pozniej ?-->
-Compiler is invoked with `-c` flag, which means compile only (and don’t link yet).
+*Compiler is invoked with `-c` flag, which means **compile and assemble** (don’t link yet). 
+It also performs the **standard preprocessing** phase as part of this step.*
 
 **Input:** `MyBlink.ino.cpp` — the auto-generated sketch with prototypes, includes, and line directives.
 
 **Output:** `MyBlink.ino.cpp.o` — machine-code object file, ready to be linked later.
 
-<!-- TODO: Os, minimalnie rozwin -->
 I shortened the compilation command, so it's not in the snippet above, but in IDE we can observe a lots of compilation flags that were used.
 Some highlights:
-- `-Os` → optimize for size.
-- `-g3` → include debug info at max level.
-- `-fno-rtti`, `-fno-exceptions` → strip C++ runtime features to save space.
+- `-Os` → optimize for size [[1]](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-Os).
+- `-g3` → include debug info at max level [[1]](https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html).
+- `-fno-rtti`, `-fno-exceptions` → strip C++ runtime features to save space [[1]](https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html#index-fno-rtti), .
 - `-nostdlib` → don’t link against standard system libraries [[1]](https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html).
 - `-mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16` → target an ARM Cortex-M4 with hardware floating point.
 - `-I` and `@.../includes.txt` → add search paths for Arduino core and variant headers.
@@ -478,7 +489,7 @@ At this point, your sketch has been turned into machine code, stored in `MyBlink
 This file contains your `setup()` and `loop()` code, ready to be linked with the Arduino core and libraries in the next step.
 
 ### Compiling libraries
-<!-- TODO: chyba brakuje zdania wstepu-->
+All libraries, that were marked as required, are compiled now.
 ```cpp
 Compiling libraries...
 ```
@@ -489,6 +500,7 @@ In more advanced sketches the output looks different.
 For example, in **WiFiS3/ConnectWithWPA** the **WiFiS3** library is detected and its source files are compiled here.
 
 ### Compiling core
+All needed core objects are compiled.
 
 ```bash
 Compiling core...
@@ -499,10 +511,9 @@ Using previously compiled file: /home/kate/.cache/arduino/sketches/D7CC1D7CA645B
 Using precompiled core: /home/kate/.cache/arduino/cores/arduino_renesas_uno_unor4wifi_4e1bf6711f2b98688d9a4a386931d6dc/core.a
 ```
 
-<!-- TODO: szarpane zdania-->
-The core is the foundation of every Arduino program. 
-We discussed it in [Arduino core](#arduino-core) chapter. Instead of recompiling the same core files every time you build, 
-the Arduino IDE uses precompiled objects from a cache. It speeds up the compilation.
+The core is the foundation of every Arduino program (we discussed it in [Arduino core](#arduino-core) chapter). 
+Instead of recompiling the same core files every time you build, 
+the Arduino IDE uses precompiled objects from a cache to speed up the compilation.
 
 ## Linking
 
@@ -519,8 +530,8 @@ arm-none-eabi-g++ \
 ```
 
 After this step, the final binary will be `MyBlink.ino.elf`.
-<!-- TODO: zamien Please Note-->
-Please note which libraries are linked into the build:
+
+Take a look at libraries that are linked into the build:
 - `libfsp.a` → the Renesas Flexible Software Package, providing hardware drivers and low-level functions for peripherals.
 - `core.a` → the Arduino core for this board. 
 Libraries above are board support libraries. These are part of the Arduino board package (for the Uno R4 in this case). 
@@ -535,7 +546,9 @@ Toolchain standard libraries:
 - `-lnosys` → stubs for system calls.
 
 ## Finalizing build
-<!-- TODO: brakuje zdania wstepu-->
+
+Build is ready! Arduino will perform two more steps before finishing the process.
+
 ### Creating binary and hex files
 
 After the ELF file (`MyBlink.ino.elf`) is created, the build system uses `objcopy` to generate `hex` and `bin` formats:
