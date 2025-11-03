@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-09-13T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-11-03T10:02:18+01:00">
+    <meta property="article:modified_time" content="2025-11-03T12:18:00+01:00">
     <meta property="article:tag" content="Arduino Internals">
     <meta property="og:image" content="https://embeddedk8.com/arduino-ide-build-process/featured-image.png">
 
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  3444 ,
-        "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-11-03T10:02:18+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  3590 ,
+        "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-11-03T12:18:00+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
@@ -127,7 +127,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: how Arduino builds your code</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3444 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3590 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;17 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -714,11 +714,20 @@ about undeclared functions, functions order, etc.</p>
 <li><code>#line</code> macros are added — they keep compiler error messages pointing to the right lines in your <code>.ino</code> file.
 Without them, errors would show up with the line numbers of the generated <code>.cpp</code>, which would be super confusing.</li>
 </ul>
+<p>This is the first preprocessing step, unique to Arduino.
+Now, <code>sketch/MyBlink.ino.cpp</code> is <strong>not yet</strong> fully expanded —
+you can see this file inside your sketch&rsquo;s hidden cache.</p>
+<p>After that, the <strong>standard C/C++ preprocessing</strong> takes place when compiler is invoked again in next step —
+all <code>#include</code> directives are replaced with the contents of the included files,
+all <code>#defines</code> macros are expanded, and the result
+is one fully expanded source file ready for compilation.</p>
 <h2 id="compilation">Compilation</h2>
-<!-- TODO: minimalnie rozwin to zdanie-->
-<p>Here’s where your code finally turns into machine instructions that the microcontroller can execute.</p>
+<p>Compilation is where your code is translated into the low-level machine instructions that
+the microcontroller can actually execute.
+In other words, your human-readable program becomes something the hardware understands.</p>
 <h3 id="sketch-compilation">Sketch compilation</h3>
-<p>During this step, the compiler checks your code for syntax errors and converts it
+<p>During this step, the compiler finalizes preprocessing (the standard C/C++ preprocessing that
+was not yet performed), checks your code for syntax errors and converts it
 into the object code that can be linked with libraries later.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -730,17 +739,16 @@ into the object code that can be linked with libraries later.</p>
 </span></span><span class="line"><span class="cl">arm-none-eabi-g++ (...) -c sketch/MyBlink.ino.cpp -o sketch/MyBlink.ino.cpp.o
 </span></span></code></pre></td></tr></table>
 </div>
-</div><!-- TODO: ok, a jest tu assembling, czy jeszcze bedzie pozniej ?-->
-<p>Compiler is invoked with <code>-c</code> flag, which means compile only (and don’t link yet).</p>
+</div><p><em>Compiler is invoked with <code>-c</code> flag, which means <strong>compile and assemble</strong> (don’t link yet).
+It also performs the <strong>standard preprocessing</strong> phase as part of this step.</em></p>
 <p><strong>Input:</strong> <code>MyBlink.ino.cpp</code> — the auto-generated sketch with prototypes, includes, and line directives.</p>
 <p><strong>Output:</strong> <code>MyBlink.ino.cpp.o</code> — machine-code object file, ready to be linked later.</p>
-<!-- TODO: Os, minimalnie rozwin -->
 <p>I shortened the compilation command, so it&rsquo;s not in the snippet above, but in IDE we can observe a lots of compilation flags that were used.
 Some highlights:</p>
 <ul>
-<li><code>-Os</code> → optimize for size.</li>
-<li><code>-g3</code> → include debug info at max level.</li>
-<li><code>-fno-rtti</code>, <code>-fno-exceptions</code> → strip C++ runtime features to save space.</li>
+<li><code>-Os</code> → optimize for size <a href="https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-Os" target="_blank" rel="noopener noreffer ">[1]</a>.</li>
+<li><code>-g3</code> → include debug info at max level <a href="https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html" target="_blank" rel="noopener noreffer ">[1]</a>.</li>
+<li><code>-fno-rtti</code>, <code>-fno-exceptions</code> → strip C++ runtime features to save space <a href="https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html#index-fno-rtti" target="_blank" rel="noopener noreffer ">[1]</a>, .</li>
 <li><code>-nostdlib</code> → don’t link against standard system libraries <a href="https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html" target="_blank" rel="noopener noreffer ">[1]</a>.</li>
 <li><code>-mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16</code> → target an ARM Cortex-M4 with hardware floating point.</li>
 <li><code>-I</code> and <code>@.../includes.txt</code> → add search paths for Arduino core and variant headers.</li>
@@ -765,7 +773,7 @@ Arduino IDE is so simple that it doesn&rsquo;t offer this option: you don’t ge
 <p>At this point, your sketch has been turned into machine code, stored in <code>MyBlink.ino.cpp.o</code>.
 This file contains your <code>setup()</code> and <code>loop()</code> code, ready to be linked with the Arduino core and libraries in the next step.</p>
 <h3 id="compiling-libraries">Compiling libraries</h3>
-<!-- TODO: chyba brakuje zdania wstepu-->
+<p>All libraries, that were marked as required, are compiled now.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -779,6 +787,7 @@ Blink only relies on core Arduino functions such as <code>pinMode</code>, <code>
 <p>In more advanced sketches the output looks different.
 For example, in <strong>WiFiS3/ConnectWithWPA</strong> the <strong>WiFiS3</strong> library is detected and its source files are compiled here.</p>
 <h3 id="compiling-core">Compiling core</h3>
+<p>All needed core objects are compiled.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -797,10 +806,9 @@ For example, in <strong>WiFiS3/ConnectWithWPA</strong> the <strong>WiFiS3</stron
 </span></span><span class="line"><span class="cl">Using precompiled core: /home/kate/.cache/arduino/cores/arduino_renesas_uno_unor4wifi_4e1bf6711f2b98688d9a4a386931d6dc/core.a
 </span></span></code></pre></td></tr></table>
 </div>
-</div><!-- TODO: szarpane zdania-->
-<p>The core is the foundation of every Arduino program.
-We discussed it in <a href="#arduino-core" rel="">Arduino core</a> chapter. Instead of recompiling the same core files every time you build,
-the Arduino IDE uses precompiled objects from a cache. It speeds up the compilation.</p>
+</div><p>The core is the foundation of every Arduino program (we discussed it in <a href="#arduino-core" rel="">Arduino core</a> chapter).
+Instead of recompiling the same core files every time you build,
+the Arduino IDE uses precompiled objects from a cache to speed up the compilation.</p>
 <h2 id="linking">Linking</h2>
 <p>Once all the individual files are compiled, the Arduino build system needs to link them into a single program.
 I shortened the link command to present only the most important stuff:</p>
@@ -823,8 +831,7 @@ I shortened the link command to present only the most important stuff:</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>After this step, the final binary will be <code>MyBlink.ino.elf</code>.</p>
-<!-- TODO: zamien Please Note-->
-<p>Please note which libraries are linked into the build:</p>
+<p>Take a look at libraries that are linked into the build:</p>
 <ul>
 <li><code>libfsp.a</code> → the Renesas Flexible Software Package, providing hardware drivers and low-level functions for peripherals.</li>
 <li><code>core.a</code> → the Arduino core for this board.
@@ -841,7 +848,7 @@ They are not optional user libraries, so they don’t appear in the detection ph
 <li><code>-lnosys</code> → stubs for system calls.</li>
 </ul>
 <h2 id="finalizing-build">Finalizing build</h2>
-<!-- TODO: brakuje zdania wstepu-->
+<p>Build is ready! Arduino will perform two more steps before finishing the process.</p>
 <h3 id="creating-binary-and-hex-files">Creating binary and hex files</h3>
 <p>After the ELF file (<code>MyBlink.ino.elf</code>) is created, the build system uses <code>objcopy</code> to generate <code>hex</code> and <code>bin</code> formats:</p>
 <div class="highlight"><div class="chroma">
@@ -889,8 +896,8 @@ build commands based on recipies from <code>platform.txt</code> and <code>boards
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-11-03&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/a9e4ff85dc177e1d260db1ae148f1b368c2ece28" target="_blank" title="commit by Kate(embeddedkate@gmail.com) a9e4ff85dc177e1d260db1ae148f1b368c2ece28: Tweaks P1">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>a9e4ff8</a></span>
+                <span>Updated on 2025-11-03&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/ce560202732565b1a3e311b6b570d480208db829" target="_blank" title="commit by Kate(embeddedkate@gmail.com) ce560202732565b1a3e311b6b570d480208db829: P1 finalized">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>ce56020</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
