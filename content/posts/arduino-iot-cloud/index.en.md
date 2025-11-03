@@ -84,3 +84,37 @@ then return to Linux for normal development.
 
 To be fair on Arduino, I think my operating system may need an upgrade.
 
+
+
+arduino-cli board list
+Error starting discovery: starting discovery builtin:serial-discovery: command failed: Cannot START_SYNC: Error while enumerating serial ports: lstat /dev/mqueue: permission denied
+Error starting discovery: starting discovery builtin:dfu-discovery: command failed: Cannot START_SYNC: can't open libusb: Input/Output Error
+No boards found
+sudo usermod -a -G dialout $USER
+reboot
+
+sudo dmesg | tail -n 20
+
+[  108.043051] usb 1-2: USB disconnect, device number 10
+[  111.010223] usb 1-2: new full-speed USB device number 11 using xhci_hcd
+[  111.134410] usb 1-2: New USB device found, idVendor=2341, idProduct=1002, bcdDevice= 0.06
+[  111.134424] usb 1-2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[  111.134431] usb 1-2: Product: UNO WiFi R4 CMSIS-DAP
+[  111.134436] usb 1-2: Manufacturer: Arduino
+[  111.134440] usb 1-2: SerialNumber: x
+
+
+
+⚡ TL;DR
+
+Your Arduino CLI is installed via Snap, which causes:
+
+blocked access to /dev/mqueue
+
+blocked access to USB via libusb
+
+blocked access to local TCP port 50051 (the CLI daemon)
+
+→ resulting in Error starting discovery
+
+We’ll fix this by removing the Snap version and installing the official binary that has full hardware access.

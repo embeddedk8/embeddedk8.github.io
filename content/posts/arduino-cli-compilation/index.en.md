@@ -135,34 +135,21 @@ The preparations are done! It was easy, wasn't it?
 You can create new sketch with
 ```
 $ arduino-cli sketch new MyFirstSketch
-Sketch created in: /XXX/MyFirstSketch
+Sketch created in: /home/kate/Arduino/MyFirstSketch
 ```
-
-But I want to reuse MyBlink sketch, that I was already working on, as in previous post.
 
 ## Compile a sketch
 To compile a sketch, use `arduino-cli compile` command followed by:
 - `--fqbn <id>` - your board id,
-- `<sketch root dir>` - the path to root directory of the sketch to compile.
+- `<sketch root dir>` - the path to root directory of the sketch to compile,
+- `--verbose` - verbose flag to print all build logs to console.
 
 So to compile MyBlink that was previously compiled with the IDE, I will use:
 
 ```bash
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi /home/kate/Arduino/MyBlink
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose /home/kate/Arduino/MyBlink
 ```
 
-Again, like we already saw in IDE, the default output is very concise.
-
-```bash
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi /home/kate/Arduino/MyBlink
-Sketch uses 51880 bytes (19%) of program storage space. Maximum is 262144 bytes.
-Global variables use 6740 bytes (20%) of dynamic memory, leaving 26028 bytes for local variables. Maximum is 32768 bytes.
-```
-
-We can **enable verbose output** here too.
-```bash
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/Arduino/MyBlink
-```
 
 ## Uploading a sketch
 Before we jump to upload command, we must now to which port is the board connected. How can we check it?
@@ -206,6 +193,8 @@ additional_urls: []
 ```
 
 Settings added globally to this file will affect all builds done with Arduino CLI. You can also set some options per-board.
+
+[//]: # (## Serial monitor)
 
 ## Summary
 Using the Arduino CLI gives you full control over the build process, 
