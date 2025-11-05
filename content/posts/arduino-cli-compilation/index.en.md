@@ -6,7 +6,7 @@ lastmod: 2025-10-01T15:58:26+08:00
 draft: false
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Build and upload Arduino sketches using Arduino CLI. Installing Arduino CLI, setting up boards, uploading sketches, and customizing commands"
+description: "Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, automate and create CI/CD pipeline"
 images: []
 resources:
 - name: "featured-image"
@@ -31,9 +31,14 @@ so working with the CLI directly simply removes one layer of abstraction
 while following the exact same steps — but with better flexibility and possibilities.
 
 
-## Why should you use Arduino CLI?
-While the Arduino IDE is great for getting started, the Arduino Command Line Interface offers 
-much more control and flexibility. Here are some of the key benefits you gain by using it:
+## Reasons to use Arduino CLI
+I’m sure some of you might not immediately see **why** would you use Arduino CLI instead of Arduino IDE.
+Someone once wrote, 
+> ["If you have to ask what the benefits are then the benefits most likely do not apply to or interest you."](https://arduino.stackexchange.com/questions/56767/what-are-the-benefits-or-advantages-of-arduino-cli). 
+
+But I don't agree with that! These benefits might actually apply to you — you just might not realize it yet.
+
+Arduino IDE is great for getting started, but you can do much more if you switch to Arduino CLI:
 
 - **Easier configuration**
 
@@ -71,18 +76,32 @@ much more control and flexibility. Here are some of the key benefits you gain by
 Hopefully, that was enough to convince you to give the Arduino CLI a try!
 Alright, it's time to get our hands dirty. We’ll install the Arduino CLI, set it up, and then build the project from the command line.
 
-## Installing Arduino CLI
-In September 2024, Arduino released a [major update to Arduino CLI](https://blog.arduino.cc/2024/09/05/arduino-cli-1-0-is-out/). 
-As of October 2025, the latest version is Arduino CLI 1.3.1, which I'll be using here. 
-Please refer to [official installation guide](https://docs.arduino.cc/arduino-cli/installation/) to install Arduino CLI on your system. 
+## Arduino CLI setup
+
+In September 2024, Arduino released a [major update to Arduino CLI](https://blog.arduino.cc/2024/09/05/arduino-cli-1-0-is-out/).
+As of October 2025, the latest version is Arduino CLI 1.3.1, which I'll be using here.
+Please refer to [official installation guide](https://docs.arduino.cc/arduino-cli/installation/) to install Arduino CLI on your system.
+
+### Installing Arduino CLI
 
 {{< admonition note >}}
-On Linux, I installed the Arduino CLI in just a few seconds with just one command:
+The quickest way to install the **Arduino CLI** on Linux is with a single command (check for [updates here!](https://docs.arduino.cc/arduino-cli/installation/)):
 ```
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 ```
+
+Other way, or if you have issues with above command, you can download a prebuilt binary from the **Download** section,
+and manually add it to your PATH.
+{{</ admonition >}}
+{{< admonition warning >}}
+⚠️ **Avoid installing arduino-cli with `snap`.**
+
+The Snap package is not officially supported. It often causes permission and path issues (for example, [this one](https://github.com/arduino/arduino-cli/issues/1543)
+— it happened to me when I used snap on Ubuntu 24.04).
+If you’ve already installed it with `snap` and it's not working, remove it and reinstall using one of the methods above.
 {{</ admonition >}}
 
+### Check installation
 After installing, type `arduino-cli` in your terminal, to confirm that the tool was installed successfully.
 
 ```bash
@@ -91,17 +110,19 @@ Arduino Command Line Interface (arduino-cli).
 
 Usage:
   arduino-cli [command]
-
-Examples:
-  /snap/arduino-cli/62/usr/bin/arduino-cli <command> [flags...]
-
-Available Commands:
-  board           Arduino board commands.
   ...
 ```
+
+Additionally, check if boards discovery works well:
+```bash
+$ arduino-cli board list
+Port       Protocol Type        Board Name FQBN Core
+/dev/ttyS4 serial   Serial Port Unknown
+```
+
 All good on my side! 
 
-## Setup your board core
+### Setup your board core
 
 After Arduino CLI is installed, you need to install needed boards definitions [[1]](https://docs.arduino.cc/arduino-cli/getting-started/). First, let's update the board index:
 ```
@@ -111,7 +132,7 @@ arduino-cli core update-index
 Then you need to install the core relevant for your board. Right now, we don't know what is the core id that we need.
 So let's peek what we can choose:
 ```
-~/Arduino/MyBlink$ arduino-cli core search
+$ arduino-cli core search
 Downloading index: package_index.tar.bz2 downloaded                                                                                                                                                                                                                                                                           
 ID                       Version          Name
 arduino:avr              1.8.6            Arduino AVR Boards
@@ -126,19 +147,36 @@ Ok, so it's clear now, that for Arduino UNO R4 WiFi that I have I need to use `a
 I will install it with following command:
 ```
 arduino-cli core install arduino:renesas_uno
- ```
+```
+
+### Initialize configuration
+
+Initialize Arduino CLI configuration file for later usage:
+```
+arduino-cli config init
+Config file written to: /home/kate/.arduino15/arduino-cli.yaml
+```
+
+The configuration options are described [here](https://arduino.github.io/arduino-cli/1.3/configuration/).
 
 The preparations are done! It was easy, wasn't it?
 
-## Creating a new sketch
+
+## Basic usage
+To start using Arduino CLI, you actually just need to use three basic commands: create new sketch, build a sketch and upload the binary to the board.
+
+### Creating a new sketch
 
 You can create new sketch with
 ```
+$ cd Arduino
 $ arduino-cli sketch new MyFirstSketch
 Sketch created in: /home/kate/Arduino/MyFirstSketch
 ```
 
-## Compile a sketch
+By default, the sketches are created inside current working directory.
+
+### Compile a sketch
 To compile a sketch, use `arduino-cli compile` command followed by:
 - `--fqbn <id>` - your board id,
 - `<sketch root dir>` - the path to root directory of the sketch to compile,
@@ -151,7 +189,7 @@ arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose /home/kate/Ar
 ```
 
 
-## Uploading a sketch
+### Uploading a sketch
 Before we jump to upload command, we must now to which port is the board connected. How can we check it?
 Good news — no need to observe `ls /dev/tty*` with board plugged and unplugged. There is a command for it too:
 
@@ -208,3 +246,4 @@ It’s perfect for automation, reproducibility, and integrating Arduino projects
 - [https://dumblebots.com/blog/arduino-cli-getting-started](https://dumblebots.com/blog/arduino-cli-getting-started)
 - [https://www.pcbway.com/blog/Activities/Arduino_cli__compile__upload_and_manage_libraries__cores__and_boards.html](https://www.pcbway.com/blog/Activities/Arduino_cli__compile__upload_and_manage_libraries__cores__and_boards.html)
 - [Arduino CLI - What and Why? | Breaking Out of Arduino IDE | Part 2 | Magpie Embedded](https://www.youtube.com/watch?v=Uk5_RKMf2Dk&t=356s)
+- [Arduino CLI and the art of command line](https://www.youtube.com/watch?v=cVod8k713_8)

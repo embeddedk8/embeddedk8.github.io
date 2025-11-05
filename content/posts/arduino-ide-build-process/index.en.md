@@ -25,7 +25,9 @@ math:
 
 Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online 
 about whether Arduino is a good choice for that (like "*Is there anything wrong with Arduino?*",
-"*Why engineers hate Arduino?*" [[1]](https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/), [[2]](https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/) ). 
+"*Why engineers hate Arduino?*" 
+[[1]](https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/), 
+[[2]](https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/) ). 
 
 While the list of arguments from Arduino "opponents" is quite long — and some of their points are completely reasonable 
 — I want to prove that you can learn just as much with Arduino as with any other embedded platform,

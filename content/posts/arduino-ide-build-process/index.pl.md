@@ -6,7 +6,7 @@ lastmod: 2025-09-13T15:58:26+08:00
 draft: true
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Post opisuje w szczegółach proces budowania programów w Arduino IDE"
+description: "Krok po kroku proces budowania programów w Arduino IDE — preprocessor, kompilacja, linkowanie"
 images: []
 resources:
 - name: "featured-image"
@@ -23,16 +23,21 @@ math:
   enable: true
 ---
 
-Wielu początkujących programistów systemów wbudowanych zaczyna od Arduino. Jest to całkiem dobry pomysł, gdyż żadne
-inne środowisko embedded nie jest aż tak łatwe w obsłudze! 
+Wielu początkujących programistów systemów wbudowanych zaczyna od Arduino. Jednocześnie można natknąć się na liczne dyskusje
+na temat tego, czy jest to dobry wybór (jak "*Is there anything wrong with Arduino?*",
+"*Why engineers hate Arduino?*"
+[[1]](https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/),
+[[2]](https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/)).
 
-Instalacja Arduino IDE przebiega raczej bezproblemowo, a potem wystarczy połączyć płytkę po USB, i jednym kliknięciem zbudować program,
-a drugim załadować go na płytkę. Choć brzmi jak błogosławieństwo, to nadmierna prostota potrafi być też przeszkodą w nauce —
-no bo skoro wszystko działa samo z siebie, to po co zagłębiać się w jakieś nadmierne szczegóły? Kopiujemy kod z chatGPT i jazda! 
+Przeciwnicy Arduino mają dość dużo argumentów, ale najpoważniejszym jest chyba to, że Arduino ukrywa
+i upraszcza proces programowania do tego stopnia, że ciężko się czegokolwiek przy tym nauczyć.
+Chciałabym stawić się w roli obrońcy Arduino i udowodnić, że możesz się z nim nauczyć tak samo dużo,
+jak z każdym innym środowiskiem embedded, pod warunkiem, że nie ograniczysz się do ślepego przepisywania
+wywołań Arduino API i zainteresujesz się tym, co dzieje się pod spodem. Dlatego ruszam z cyklem **Arduino Internals**,
+którego pierwszą część właśnie czytasz.
 
-O nonono! No własnie, tak dobrze to nie ma. Czego się w ten sposób nauczysz? Trzeba się trochę pomęczyć i pogrzebać, nawet kiedy wydaje się,
-że nie ma po co. Dlatego właśnie napisałam tego posta — popatrzymy razem, co dokładnie dzieje się, kiedy Arduino IDE buduje nasz program
-(*jak powiedzieć po polsku sketch?!*).
+**Zacznijmy od tego, co dokładnie dzieje się, kiedy budujesz sketch w Arduino IDE.**
+
 
 {{< admonition note "Co zakładam, że wiesz" true >}}
 Zakładam, że masz zainstalowane środowisko Arduino IDE, umiesz skompilować program i wgrać go na płytkę, ale nie znasz szczegółów dotyczących 
@@ -42,11 +47,22 @@ procesu kompilacji i flashowania.
 {{< admonition note "Czego użyłam" true >}}
 - płytka Arduino UNO R4 WiFi
 - płytka Arduino IDE  2.3.6
-- Linux Mint
+- Ubuntu 24.04
 
 Jeśli masz inną płytkę, inną wersję IDE czy inny system operacyjny, to wizualnie wszystko u Ciebie może wyglądać inaczej, ale 
-pod spodem **powinno** być z grubsza to samo! 
+pod spodem powinno być z grubsza to samo! 
 {{< /admonition >}}
+
+## Proces budowania w Arduino
+Proces budowania w Arduino, zwłaszcza z IDE, z wydaje się ekstremalnie prosty — trzeba tylko nacisnąć **Verify/Compile**, 
+a reszta dzieje się sama. Ta "reszta" to cały standardowy proces budowania aplikacji embedded wzbogacony 
+o pewne rzeczy, które robione są tylko i wyłącznie przez Arduino.
+
+Jeśli dopiero zaczynasz, to sprowadzenie budowania do naciskania guzika może być Ci na rękę, ale
+jeśli chcesz na poważnie zajmować się systemami wbudowanymi, musisz rozumieć na czym polega cały proces budowania.
+W przeciwnym przypadku 
+
+[//]: # (!!!! Finished)
 
 ## Czego się nauczysz?
 Po przeczytaniu tego artykułu,
