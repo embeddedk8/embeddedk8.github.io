@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="pl">
-    <head>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=35389&amp;path=livereload" data-no-instant defer></script>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Proces budowania w Arduino IDE (ze szczegółami!) - Embedded Kate Blog</title><meta name="Description" content="Post opisuje w szczegółach proces budowania programów w Arduino IDE"><meta property="og:url" content="https://embeddedk8.com/pl/arduino-ide-build-process/">
+        <title>Proces budowania w Arduino IDE (ze szczegółami!) - Embedded Kate Blog</title><meta name="Description" content="Krok po kroku proces budowania programów w Arduino IDE — preprocessor, kompilacja, linkowanie"><meta property="og:url" content="http://localhost:35389/pl/arduino-ide-build-process/">
   <meta property="og:site_name" content="Embedded Kate Blog">
   <meta property="og:title" content="Proces budowania w Arduino IDE (ze szczegółami!)">
-  <meta property="og:description" content="Post opisuje w szczegółach proces budowania programów w Arduino IDE">
+  <meta property="og:description" content="Krok po kroku proces budowania programów w Arduino IDE — preprocessor, kompilacja, linkowanie">
   <meta property="og:locale" content="pl">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-09-13T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-10-22T08:31:33+02:00">
+    <meta property="article:modified_time" content="2025-10-25T10:13:57+02:00">
     <meta property="article:tag" content="Arduino">
-    <meta property="og:image" content="https://embeddedk8.com/arduino-ide-build-process/featured-image.png">
+    <meta property="og:image" content="http://localhost:35389/arduino-ide-build-process/featured-image.png">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://embeddedk8.com/arduino-ide-build-process/featured-image.png">
+  <meta name="twitter:image" content="http://localhost:35389/arduino-ide-build-process/featured-image.png">
   <meta name="twitter:title" content="Proces budowania w Arduino IDE (ze szczegółami!)">
-  <meta name="twitter:description" content="Post opisuje w szczegółach proces budowania programów w Arduino IDE">
+  <meta name="twitter:description" content="Krok po kroku proces budowania programów w Arduino IDE — preprocessor, kompilacja, linkowanie">
       <meta name="twitter:site" content="@EmbeddedKate">
 <meta name="application-name" content="embeddedk8">
 <meta name="apple-mobile-web-app-title" content="embeddedk8"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://embeddedk8.com/pl/arduino-ide-build-process/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><meta name="google-site-verification" content="KQs-mbFpniq1Quu9zS0toW7fVI-WR14K_Gy3ljZlFUQ" /><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:35389/pl/arduino-ide-build-process/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="KQs-mbFpniq1Quu9zS0toW7fVI-WR14K_Gy3ljZlFUQ" /><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -34,26 +34,28 @@
         "inLanguage": "pl",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/embeddedk8.com\/pl\/arduino-ide-build-process\/"
+            "@id": "http:\/\/localhost:35389\/pl\/arduino-ide-build-process\/"
         },"image": [{
                             "@type": "ImageObject",
-                            "url": "https:\/\/embeddedk8.com\/arduino-ide-build-process\/featured-image.png",
+                            "url": "http:\/\/localhost:35389\/arduino-ide-build-process\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino","wordcount":  2658 ,
-        "url": "https:\/\/embeddedk8.com\/pl\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-22T08:31:33+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino","wordcount":  2733 ,
+        "url": "http:\/\/localhost:35389\/pl\/arduino-ide-build-process\/","datePublished": "2025-09-13T15:58:26+08:00","dateModified": "2025-10-25T10:13:57+02:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
-                    "url": "https:\/\/embeddedk8.com\/images\/avatar.png",
+                    "url": "http:\/\/localhost:35389\/images\/avatar.png",
                     "width":  1080 ,
                     "height":  1080 
                 }},"author": {
                 "@type": "Person",
                 "name": "embeddedk8"
-            },"description": "Post opisuje w szczegółach proces budowania programów w Arduino IDE"
+            },"description": "Krok po kroku proces budowania programów w Arduino IDE — preprocessor, kompilacja, linkowanie"
     }
-    </script></head>
+
+
+</script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
         <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
@@ -93,7 +95,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Proces budowania w Arduino IDE (ze szczegółami!)</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">zawarty w <a href="/pl/categories/arduino/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2658 słów&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-09-13">2025-09-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2733 słów&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;13 minuty&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -102,13 +104,14 @@
         data-srcset="/arduino-ide-build-process/featured-image.png, /arduino-ide-build-process/featured-image.png 1.5x, /arduino-ide-build-process/featured-image.png 2x"
         data-sizes="auto"
         alt="/arduino-ide-build-process/featured-image.png"
-        title="Post opisuje w szczegółach proces budowania programów w Arduino IDE" /></div><div class="details toc" id="toc-static"  data-kept="">
+        title="Krok po kroku proces budowania programów w Arduino IDE — preprocessor, kompilacja, linkowanie" /></div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Spis treści</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
+    <li><a href="#proces-budowania-w-arduino">Proces budowania w Arduino</a></li>
     <li><a href="#czego-się-nauczysz">Czego się nauczysz?</a></li>
     <li><a href="#zaczynamy">Zaczynamy!</a>
       <ul>
@@ -150,14 +153,18 @@
     <li><a href="#more-reading">More reading</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>Wielu początkujących programistów systemów wbudowanych zaczyna od Arduino. Jest to całkiem dobry pomysł, gdyż żadne
-inne środowisko embedded nie jest aż tak łatwe w obsłudze!</p>
-<p>Instalacja Arduino IDE przebiega raczej bezproblemowo, a potem wystarczy połączyć płytkę po USB, i jednym kliknięciem zbudować program,
-a drugim załadować go na płytkę. Choć brzmi jak błogosławieństwo, to nadmierna prostota potrafi być też przeszkodą w nauce —
-no bo skoro wszystko działa samo z siebie, to po co zagłębiać się w jakieś nadmierne szczegóły? Kopiujemy kod z chatGPT i jazda!</p>
-<p>O nonono! No własnie, tak dobrze to nie ma. Czego się w ten sposób nauczysz? Trzeba się trochę pomęczyć i pogrzebać, nawet kiedy wydaje się,
-że nie ma po co. Dlatego właśnie napisałam tego posta — popatrzymy razem, co dokładnie dzieje się, kiedy Arduino IDE buduje nasz program
-(<em>jak powiedzieć po polsku sketch?!</em>).</p>
+            </div><div class="content" id="content"><p>Wielu początkujących programistów systemów wbudowanych zaczyna od Arduino. Jednocześnie można natknąć się na liczne dyskusje
+na temat tego, czy jest to dobry wybór (jak &ldquo;<em>Is there anything wrong with Arduino?</em>&rdquo;,
+&ldquo;<em>Why engineers hate Arduino?</em>&rdquo;
+<a href="https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/" target="_blank" rel="noopener noreffer ">[1]</a>,
+<a href="https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/" target="_blank" rel="noopener noreffer ">[2]</a>).</p>
+<p>Przeciwnicy Arduino mają dość dużo argumentów, ale najpoważniejszym jest chyba to, że Arduino ukrywa
+i upraszcza proces programowania do tego stopnia, że ciężko się czegokolwiek przy tym nauczyć.
+Chciałabym stawić się w roli obrońcy Arduino i udowodnić, że możesz się z nim nauczyć tak samo dużo,
+jak z każdym innym środowiskiem embedded, pod warunkiem, że nie ograniczysz się do ślepego przepisywania
+wywołań Arduino API i zainteresujesz się tym, co dzieje się pod spodem. Dlatego ruszam z cyklem <strong>Arduino Internals</strong>,
+którego pierwszą część właśnie czytasz.</p>
+<p><strong>Zacznijmy od tego, co dokładnie dzieje się, kiedy budujesz sketch w Arduino IDE.</strong></p>
 <div class="details admonition note open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Co zakładam, że wiesz<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -175,12 +182,19 @@ procesu kompilacji i flashowania.</div>
             <div class="admonition-content"><ul>
 <li>płytka Arduino UNO R4 WiFi</li>
 <li>płytka Arduino IDE  2.3.6</li>
-<li>Linux Mint</li>
+<li>Ubuntu 24.04</li>
 </ul>
 <p>Jeśli masz inną płytkę, inną wersję IDE czy inny system operacyjny, to wizualnie wszystko u Ciebie może wyglądać inaczej, ale
-pod spodem <strong>powinno</strong> być z grubsza to samo!</p></div>
+pod spodem powinno być z grubsza to samo!</p></div>
         </div>
     </div>
+<h2 id="proces-budowania-w-arduino">Proces budowania w Arduino</h2>
+<p>Proces budowania w Arduino, zwłaszcza z IDE, z wydaje się ekstremalnie prosty — trzeba tylko nacisnąć <strong>Verify/Compile</strong>,
+a reszta dzieje się sama. Ta &ldquo;reszta&rdquo; to cały standardowy proces budowania aplikacji embedded wzbogacony
+o pewne rzeczy, które robione są tylko i wyłącznie przez Arduino.</p>
+<p>Jeśli dopiero zaczynasz, to sprowadzenie budowania do naciskania guzika może być Ci na rękę, ale
+jeśli chcesz na poważnie zajmować się systemami wbudowanymi, musisz rozumieć na czym polega cały proces budowania.
+W przeciwnym przypadku</p>
 <h2 id="czego-się-nauczysz">Czego się nauczysz?</h2>
 <p>Po przeczytaniu tego artykułu,</p>
 <ul>
@@ -734,15 +748,15 @@ They are not optional user libraries, so they don’t appear in the detection ph
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Zaktualizowano 2025-10-22&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/a472f4847875b1ccf5bb936b661010a3e6cbe7de" target="_blank" title="commit by Katarzyna Zalewska(embeddedkate@gmail.com) a472f4847875b1ccf5bb936b661010a3e6cbe7de: Some improvements">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>a472f48</a></span>
+                <span>Zaktualizowano 2025-10-25&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/ce9cd53d4ed897f8db0cec7841f77085cab8728b" target="_blank" title="commit by Kate(embeddedkate@gmail.com) ce9cd53d4ed897f8db0cec7841f77085cab8728b: Update">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>ce9cd53</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
                             <a class="link-to-markdown" href="/pl/arduino-ide-build-process/index.md" target="_blank">Zobacz Markdown</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Udostępnij na Twitter" data-sharer="twitter" data-url="https://embeddedk8.com/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)" data-via="EmbeddedKate" data-hashtags="Arduino"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Facebook" data-sharer="facebook" data-url="https://embeddedk8.com/pl/arduino-ide-build-process/" data-hashtag="Arduino"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Hacker News" data-sharer="hackernews" data-url="https://embeddedk8.com/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Line" data-sharer="line" data-url="https://embeddedk8.com/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na 微博" data-sharer="weibo" data-url="https://embeddedk8.com/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Udostępnij na Twitter" data-sharer="twitter" data-url="http://localhost:35389/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)" data-via="EmbeddedKate" data-hashtags="Arduino"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Facebook" data-sharer="facebook" data-url="http://localhost:35389/pl/arduino-ide-build-process/" data-hashtag="Arduino"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Hacker News" data-sharer="hackernews" data-url="http://localhost:35389/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na Line" data-sharer="line" data-url="http://localhost:35389/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)"><i data-svg-src="/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Udostępnij na 微博" data-sharer="weibo" data-url="http://localhost:35389/pl/arduino-ide-build-process/" data-title="Proces budowania w Arduino IDE (ze szczegółami!)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -756,9 +770,7 @@ They are not optional user libraries, so they don’t appear in the detection ph
 
     <div class="post-nav"></div>
 </div>
-<div id="comments"><div id="giscus" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
-            </noscript></div></article></div>
+</article></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Napędzany przez <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.152.2">Hugo</a> | Szablon - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://embeddedk8.com/" target="_blank">embeddedk8</a></span></div>
@@ -770,10 +782,7 @@ They are not optional user libraries, so they don’t appear in the detection ph
             </a><a href="#" id="view-comments" class="fixed-button" title="Zobacz komentarze">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/copy-tex.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Skopiuj do schowka","maxShownLines":50},"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOPvP-is4CwE3r","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"en","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"embeddedk8/embeddedk8.github.io","repoId":"R_kgDOPvP-ig"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
-            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
-            gtag('config', 'G-WMKZ5G9QL5', { 'anonymize_ip': true });
-        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-WMKZ5G9QL5" async></script>
+        </div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Skopiuj do schowka","maxShownLines":50},"comment":{},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script>
 <script type="text/javascript">
 var sc_project=13166912;
 var sc_invisible=1;
@@ -790,6 +799,7 @@ referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 
 
 <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+
 
     </body>
 </html>

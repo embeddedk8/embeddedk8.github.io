@@ -26,7 +26,9 @@ while following the exact same steps — but with better flexibility and possibi
     <guid>https://embeddedk8.com/arduino-ide-build-process/</guid>
     <description><![CDATA[<p>Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online
 about whether Arduino is a good choice for that (like &ldquo;<em>Is there anything wrong with Arduino?</em>&rdquo;,
-&ldquo;<em>Why engineers hate Arduino?</em>&rdquo; <a href="https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/" target="_blank" rel="noopener noreffer ">[1]</a>, <a href="https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/" target="_blank" rel="noopener noreffer ">[2]</a> ).</p>
+&ldquo;<em>Why engineers hate Arduino?</em>&rdquo;
+<a href="https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/" target="_blank" rel="noopener noreffer ">[1]</a>,
+<a href="https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/" target="_blank" rel="noopener noreffer ">[2]</a> ).</p>
 <p>While the list of arguments from Arduino &ldquo;opponents&rdquo; is quite long — and some of their points are completely reasonable
 — I want to prove that you can learn just as much with Arduino as with any other embedded platform,
 as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.

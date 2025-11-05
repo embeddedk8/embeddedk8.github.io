@@ -18,3 +18,4 @@ This is very nice article but please note it's for AVR CPU, and Presented on Ard
 It's great explanation though.
 2. https://www.baldengineer.com/arduino-bootloader.html
 3. 
+
