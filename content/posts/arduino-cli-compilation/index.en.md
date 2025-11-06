@@ -206,7 +206,46 @@ arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi --verbos
 
 So it was basically all needed to replace the usage of Arduino IDE **Verify/Compile** and **Upload** actions.
 
-## Customizing command
+
+## Advanced usage
+
+### Specify build folder
+
+By default, Arduino CLI places build artifacts in a temporary, system-specific folder — which can make it hard to inspect.
+To keep your build outputs organized and easy to analyze, specify a custom build folder using the `--build-path` flag:
+
+```
+$ arduino-cli compile \
+  /home/kate/Arduino/MyBlink \
+  --fqbn arduino:renesas_uno:unor4wifi \
+  --verbose  \
+  --build-path /home/kate/Arduino/MyBlink/build
+```
+
+Now, all generated files are stored in the `build/` directory within your project:
+
+
+```
+~/Arduino/MyBlink/build$ tree -L 1
+.
+├── build.options.json
+├── compile_commands.json
+├── core
+├── includes.cache
+├── libraries
+├── libraries.cache
+├── MyBlink.ino.bin
+├── MyBlink.ino.elf
+├── MyBlink.ino.hex
+├── MyBlink.ino.map
+└── sketch
+
+4 directories, 8 files
+```
+
+This layout makes it much easier to explore intermediate files, inspect compiler output, or integrate the build with external tools (like static analyzers).
+
+### Customizing command
 
 The compile command can be extended with additional stuff, like extra compiler flags:
 
@@ -216,7 +255,7 @@ arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/A
 
 Full documentation of Arduino CLI commands is here: [https://arduino.github.io/arduino-cli/1.3/commands](https://arduino.github.io/arduino-cli/1.3/commands/arduino-cli_compile/)
 
-## Permanent CLI settings
+### Permanent CLI settings
 
 If you want to set permanent settings to your CLI, create a config file if you haven't:
 ```
