@@ -8,6 +8,8 @@ Starting with Arduino IDE 2.0, the IDE actually uses `arduino-cli` under the hoo
 so working with the CLI directly simply removes one layer of abstraction 
 while following the exact same steps — but with better flexibility and possibilities.
 
+[//]: # (I think language here is too wooden)
+
 
 ## Reasons to use Arduino CLI
 I’m sure some of you might not immediately see **why** would you use Arduino CLI instead of Arduino IDE.
@@ -17,6 +19,8 @@ Someone once wrote,
 But I don't agree with that! These benefits might actually apply to you — you just might not realize it yet.
 
 Arduino IDE is great for getting started, but you can do much more if you switch to Arduino CLI:
+
+[//]: # (The names of list items are not matching the sentence flow)
 
 - **Easier configuration**
 
@@ -160,6 +164,8 @@ To compile a sketch, use `arduino-cli compile` command followed by:
 - `<sketch root dir>` - the path to root directory of the sketch to compile,
 - `--verbose` - verbose flag to print all build logs to console.
 
+[//]: # ()
+[//]: # (Poor sentance below)
 So to compile MyBlink that was previously compiled with the IDE, I will use:
 
 ```bash
@@ -184,6 +190,22 @@ arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi --verbos
 
 So it was basically all needed to replace the usage of Arduino IDE **Verify/Compile** and **Upload** actions.
 
+### Serial monitor
+
+If your application sends data using `Serial.write()` or `Serial.print()`, 
+you can view it using the `monitor` command in the Arduino CLI.
+
+Make sure the baud rate in your monitor command matches the one you set in your sketch.
+For example, if your code includes:
+```
+Serial.begin(115200);
+```
+then you should start the `monitor` with the same baud rate:
+```
+arduino-cli monitor -p /dev/ttyACM0 --config 115200
+```
+
+Using serial prints is one of the simplest ways to debug your Arduino applications.
 
 ## Advanced usage
 
@@ -233,6 +255,8 @@ arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/A
 
 Full documentation of Arduino CLI commands is here: [https://arduino.github.io/arduino-cli/1.3/commands](https://arduino.github.io/arduino-cli/1.3/commands/arduino-cli_compile/)
 
+[//]: # (Give more examples)
+
 ### Permanent CLI settings
 
 If you want to set permanent settings to your CLI, create a config file if you haven't:
@@ -250,6 +274,46 @@ additional_urls: []
 Settings added globally to this file will affect all builds done with Arduino CLI. You can also set some options per-board.
 
 [//]: # (## Serial monitor)
+
+## Bonus
+Do you feel somewhere in between IDE and CLI? Then you might like this cool tool — [Arduino CLI Manager on Github](https://github.com/abod8639/arduino-cli-manager).
+
+It's simple, retro looking GUI wrapper for using Arduino CLI, that allows you build and upload sketches easily.
+```
+                                                          
+  ██████╗  █████╗ ██████╗  ██╗   ██╗██╗███╗   ██╗ ██████╗ 
+  ██╔══██╗██╔══██╗██╔══██╗ ██║   ██║██║████╗  ██║██╔═══██╗
+  ██████╔╝███████║██║  ██║ ██║   ██║██║██╔██╗ ██║██║   ██║
+  ██╔══██║██╔══██║██║  ██║ ██║   ██║██║██║╚██╗██║██║   ██║
+  ██████╔╝██║  ██║██████╔╝ ╚██████╔╝██║██║ ╚████║╚██████╔╝
+  ╚═════╝ ╚═╝  ╚═╝╚═════╝   ╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ 
+ ┌────────────────────────────────────────────────────────┐
+ │                 ARDUINO CLI MANAGER                    │
+ │                                                        │
+ │ Select board, serial, compile, upload & monitor easily │
+ └────────────────────────────────────────────────────────┘
+                           v1.0.8                           
+────────────────────────────────────────────────────────────
+ Project:     /home/kate/Arduino/MyBlink
+ Board:       arduino:renesas_uno:unor4wifi
+ Port:           /dev/ttyACM1
+ Baud:           115200
+────────────────────────────────────────────────────────────
+ 1 (S) Select/Create Project    
+ 2 (B) Select Board (FQBN)      
+ 3 (P) Select Port              
+ 5 (U) Upload Project           
+ 4 (C) Compile Project          
+ 6 (L) List Installed Cores     
+ 7 (A) List All Supported Boards
+ 8 (I) Install Core             
+ 9 (M) Open Serial Monitor      
+ 0 (E) Edit Project (nvim)      
+────────────────────────────────────────────────────────────
+ (Q) Quit
+────────────────────────────────────────────────────────────
+Enter your choice: 
+```
 
 ## Summary
 Using the Arduino CLI gives you full control over the build process, 
