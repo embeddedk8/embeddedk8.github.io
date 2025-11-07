@@ -11,8 +11,28 @@ Found something interesting here?
 
 If you want to get updates on new posts, tutorials, and other embedded-related topics,
 just leave your email below:
-<!-- Subscribe embed code -->
-<div data-supascribe-embed-id="770307495757" data-supascribe-subscribe></div>
-<!-- Supascribe Script -->
-<script src="https://js.supascribe.com/v1/loader/IRbHuO3NRGeyfmd1hCilOaqh5C13.js" async></script>
+
+<div style="
+  max-width:480px;
+  margin:auto;
+  padding:2px;
+  background:linear-gradient(90deg,#00e0ff,#ff00ff);
+  border-radius:10px;
+">
+  <iframe 
+    src="https://embeddedkate.substack.com/embed"
+    width="100%"
+    height="250"
+    style="
+      border:0;
+      border-radius:8px;
+      background:#fff;
+      display:block;
+    "
+    frameborder="0"
+    scrolling="no">
+  </iframe>
+</div>
+
+
 
