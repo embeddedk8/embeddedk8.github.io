@@ -10,11 +10,10 @@
     <pubDate>Wed, 01 Oct 2025 15:58:26 &#43;0800</pubDate>
     <author>embeddedk8</author>
     <guid>https://embeddedk8.com/arduino-cli-compilation/</guid>
-    <description><![CDATA[<p>In the <a href="/arduino-ide-build-process/" rel="">previous post</a> we took a closer look at how the Arduino IDE builds sketches.</p>
-<p>Arduino also offers another way to build projects — by using the <strong>Arduino Command Line Interface (CLI)</strong> directly.
-Starting with Arduino IDE 2.0, the IDE actually uses <code>arduino-cli</code> under the hood the build process,
-so working with the CLI directly simply removes one layer of abstraction
-while following the exact same steps — but with better flexibility and possibilities.</p>]]></description>
+    <description><![CDATA[<p>Do you know that you don’t actually need the Arduino IDE to build and upload sketches?</p>
+<p>Arduino projects can be compiled and uploaded straight from the command line using the <strong>Arduino Command Line Interface (CLI)</strong>.
+This process is identical to what happens when you build and upload from the IDE, because Arduino IDE 2.0 and later use <code>arduino-cli</code> under the hood.</p>
+<p>By working directly with the CLI, you remove the IDE as a middle layer and gain more possibilities and control over your builds.</p>]]></description>
 </item>
 <item>
     <title>Arduino Internals: how Arduino builds your code</title>
