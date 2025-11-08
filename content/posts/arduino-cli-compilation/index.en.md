@@ -22,29 +22,26 @@ toc:
 math:
     enable: true
 ---
+Do you know that you don’t actually need the Arduino IDE to build and upload sketches?
 
-In the [previous post](/arduino-ide-build-process/) we took a closer look at how the Arduino IDE builds sketches.
+Arduino projects can be compiled and uploaded straight from the command line using the **Arduino Command Line Interface (CLI)**. 
+This process is identical to what happens when you build and upload from the IDE, because Arduino IDE 2.0 and later use `arduino-cli` under the hood.
 
-Arduino also offers another way to build projects — by using the **Arduino Command Line Interface (CLI)** directly.
-Starting with Arduino IDE 2.0, the IDE actually uses `arduino-cli` under the hood the build process, 
-so working with the CLI directly simply removes one layer of abstraction 
-while following the exact same steps — but with better flexibility and possibilities.
-
-[//]: # (I think language here is too wooden)
-
+By working directly with the CLI, you remove the IDE as a middle layer and gain more possibilities and control over your builds.
 
 ## Reasons to use Arduino CLI
-I’m sure some of you might not immediately see **why** would you use Arduino CLI instead of Arduino IDE.
-Someone once wrote, 
+
+If you were comfortable using IDE, you may not immediately see **why** would you use Arduino CLI instead.
+
+Someone even asked about this more than seven years ago, and got one response like:
 > ["If you have to ask what the benefits are then the benefits most likely do not apply to or interest you."](https://arduino.stackexchange.com/questions/56767/what-are-the-benefits-or-advantages-of-arduino-cli). 
 
-But I don't agree with that! These benefits might actually apply to you — you just might not realize it yet.
-
+That’s not entirely fair, though — it overlooks the fact that people want to learn new things. 
 Arduino IDE is great for getting started, but you can do much more if you switch to Arduino CLI:
 
 [//]: # (The names of list items are not matching the sentence flow)
 
-- **Easier configuration**
+- **you can use advanced configuration options**
 
     Some build or configuration options aren't exposed in the Arduino IDE. 
     It's possible to configure them with configuration files, but this approach 
@@ -53,25 +50,25 @@ Arduino IDE is great for getting started, but you can do much more if you switch
     With the CLI, you can fully control compiler flags, board settings, library versions from command line,
     for each project separately.
 
-- **Automation and integration**
+- **you can automate your builds and create CI/CD pipelines**
 
   Using the CLI, you can easily implement the scripts for tasks like building, uploading, deploying and testing the project.
   These scripts can run on lightweight systems without graphical interface, such as Docker containers.
   This makes possible to integrate Arduino project into the CI/CD pipeline for automated builds and testing.
 
-- **Reproducibility**
+- **you ensure reproducibility for your builds**
 
     When working in a team, using the Arduino CLI ensures that everyone builds the project with exactly the same setup and dependencies.
     This helps eliminate the classic “it works on my machine” problem and makes builds consistent across different environments.
 
-- **IDE independence**
+- **you can use your favourite IDE, not necessarily Arduino IDE**
 
   You don’t have to rely on the Arduino IDE to develop your projects.
   With the CLI, you can use your favorite code editor 
   — whether it’s for better IntelliSense, built-in integrations like GitHub Copilot, 
  or simply because you’re more comfortable with its shortcuts, workflow or looks.
 
-- **Dependency control**
+- **you have full control over project dependencies**
 
     In Arduino IDE, only one version of a library can be installed at the same time. This becomes a real problem when
     you work on multiple projects that require different versions of the same library. This issue is solved when 
@@ -133,8 +130,8 @@ After Arduino CLI is installed, you need to install needed boards definitions [[
 arduino-cli core update-index
 ```
 
-Then you need to install the core relevant for your board. Right now, we don't know what is the core id that we need.
-So let's peek what we can choose:
+Then you need to install the core relevant for your board. Right now, we don't know which core id we need, 
+so let's see what we can choose:
 ```
 $ arduino-cli core search
 Downloading index: package_index.tar.bz2 downloaded                                                                                                                                                                                                                                                                           
@@ -147,7 +144,8 @@ arduino:renesas_uno      1.5.1            Arduino UNO R4 Boards
 arduino:sam              1.6.12           Arduino SAM Boards (32-bits ARM Cortex-M3)
 ...
 ```
-Ok, so it's clear now, that for Arduino UNO R4 WiFi that I have I need to use `arduino:renesas_uno` ID.
+I have **Arduino Uno R4 WiFi**, so I need to use `arduino:renesas_uno` id.
+
 I will install it with following command:
 ```
 arduino-cli core install arduino:renesas_uno
@@ -161,13 +159,15 @@ arduino-cli config init
 Config file written to: /home/kate/.arduino15/arduino-cli.yaml
 ```
 
-The configuration options are described [here](https://arduino.github.io/arduino-cli/1.3/configuration/).
+The configuration options are described [here](https://arduino.github.io/arduino-cli/1.3/configuration/),
+but for now let's leave it empty.
 
 The preparations are done! It was easy, wasn't it?
 
 
 ## Basic usage
-To start using Arduino CLI, you actually just need to use three basic commands: create new sketch, build a sketch and upload the binary to the board.
+To start using Arduino CLI, you actually just need to use three basic commands: create new sketch, 
+build a sketch and upload the binary to the board.
 
 ### Creating a new sketch
 
@@ -182,30 +182,28 @@ By default, the sketches are created inside current working directory.
 
 ### Compile a sketch
 To compile a sketch, use `arduino-cli compile` command followed by:
-- `--fqbn <id>` - your board id,
-- `<sketch root dir>` - the path to root directory of the sketch to compile,
-- `--verbose` - verbose flag to print all build logs to console.
+- `--fqbn <id>` — your board id *(mandatory)*,
+- `<sketch root dir>` — the path to root directory of the sketch to compile *(mandatory, unless you're inside the sketches root dir)*,
+- `--verbose` — verbose flag to print all build logs to console *(if you want it)*.
 
-[//]: # ()
-[//]: # (Poor sentance below)
-So to compile MyBlink that was previously compiled with the IDE, I will use:
+
+I can compile MyBlink sketch with following command:
 
 ```bash
 arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose /home/kate/Arduino/MyBlink
 ```
 
-
 ### Uploading a sketch
 Before we jump to upload command, we must now to which port is the board connected. How can we check it?
-Good news — no need to observe `ls /dev/tty*` with board plugged and unplugged. There is a command for it too:
+Good news — no need to observe `ls /dev/tty*` and plug and unplug the board. There is a command for it too:
 
 ```
-arduino-cli board list
+$ arduino-cli board list
 Port         Protocol Type              Board Name          FQBN                          Core
 /dev/ttyACM0 serial   Serial Port (USB) Arduino UNO R4 WiFi arduino:renesas_uno:unor4wifi arduino:renesas_uno
 ```
 
-Knowing the port, board ID and sketch directory, the upload command looks like this:
+Knowing the port, board id and sketch directory, the upload command looks like this:
 ```
 arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi --verbose /home/kate/Arduino/MyBlink
 ```
@@ -265,7 +263,7 @@ Now, all generated files are stored in the `build/` directory within your projec
 4 directories, 8 files
 ```
 
-This layout makes it much easier to explore intermediate files, inspect compiler output, or integrate the build with external tools (like static analyzers).
+This layout makes it much easier to explore build files, inspect compilation issues, or integrate the build with external tools (like static analyzers).
 
 ### Customizing command
 
