@@ -267,14 +267,78 @@ This layout makes it much easier to explore build files, inspect compilation iss
 
 ### Customizing command
 
-The compile command can be extended with additional stuff, like extra compiler flags:
+The compile command can be extended with additional stuff, like extra compiler flags or custom defines.
+
+#### Custom defines
+Let’s go back to our old MyBlink sketch. Currently, the LED blinks with a hardcoded delay of 1000 ms.
+We can make this configurable at compile time by introducing a custom define called `BLINK_FREQUENCY`.
+
+First, update the MyBlink sketch to use the new frequency.
+If no value is provided from the command line, it will default to 1000 ms; otherwise, it will use the value you specify.
 
 ```
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/Arduino/MyBlink --build-property compiler.c.extra_flags="-Wall -O2"
+#ifndef BLINK_FREQUENCY
+#define BLINK_FREQUENCY 1000
+#endif
+
+void loop() {
+  Serial.write("Blinking");
+  digitalWrite(LED_BUILTIN, HIGH);      // turn the LED on (HIGH is the voltage level)
+  delay(BLINK_FREQUENCY);               // wait for a BLINK_FREQUENCY ms
+  digitalWrite(LED_BUILTIN, LOW);       // turn the LED off by making the voltage LOW
+  delay(BLINK_FREQUENCY);               // wait for a BLINK_FREQUENCY ms
+}
+```
+
+By adjusting the compile command, you can easily change how fast the LED blinks.
+For example, `build.extra_flags="-DBLINK_FREQUENCY=100"` part below sets the blink frequency to 100 ms:
+
+```
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose --build-property build.extra_flags="-DBLINK_FREQUENCY=100"
+```
+<!---
+#### Compilation flags
+Another thing we can easily change with CLI with `build.extra_flags` are compilation flags, like 
+creating debug or release version, change optimization level, etc. --->
+
+
+#### Optimize for debug
+The `--optimize-for-debug` flag adjusts compilation settings to make debugging easier.
+
+You can review or modify its behavior in the `platform.txt` file.
+When `--optimize-for-debug` is enabled,
+the *debug* version of the optimization flags is applied; 
+otherwise, the *release* version is used by default.
+You can edit these flags in `platform.txt` to customize how each mode behaves.
+```
+compiler.optimization_flags.release=-Os
+compiler.optimization_flags.debug=-Og -g
+```
+
+<!--- 
+##### Example for debug version
+For example, for debugging we
+can turn off any optimization and include debug symbols, with `--build-property compiler.c.extra_flags="-g -O0"`,
+and store the binary in `output/debug` folder.
+
+```
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  \
+  /home/kate/Arduino/MyBlink \
+  --build-property build.extra_flags="-g -O0" \
+  --build-path /home/kate/Arduino/MyBlink/build/debug
+```
+
+##### Example for release version
+
+For release, we can enable size (`-Os`) or speed optimizations (`-O2`) and optionally enable Link Time Optimization (`-flto`) [[1]](https://developer.arm.com/documentation/101458/2404/Optimize/Link-Time-Optimization--LTO-/What-is-Link-Time-Optimization--LTO-).
+
+```
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/Arduino/MyBlink --build-property compiler.c.extra_flags="-O2 -flto" --build-path /home/kate/Arduino/MyBlink/build/release
 ```
 
 Full documentation of Arduino CLI commands is here: [https://arduino.github.io/arduino-cli/1.3/commands](https://arduino.github.io/arduino-cli/1.3/commands/arduino-cli_compile/)
 
+--->
 [//]: # (Give more examples)
 
 ### Permanent CLI settings
@@ -298,7 +362,8 @@ Settings added globally to this file will affect all builds done with Arduino CL
 ## Bonus
 Do you feel somewhere in between IDE and CLI? Then you might like this cool tool — [Arduino CLI Manager on Github](https://github.com/abod8639/arduino-cli-manager).
 
-It's simple, retro looking GUI wrapper for using Arduino CLI, that allows you build and upload sketches easily.
+It's simple, retro looking GUI wrapper for using Arduino CLI, that allows you build and upload sketches easily,
+but unfortunately it's not exposing all customizations we discussed in this post.
 ```
                                                           
   ██████╗  █████╗ ██████╗  ██╗   ██╗██╗███╗   ██╗ ██████╗ 
