@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-10-01T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-11-08T18:06:45+01:00">
+    <meta property="article:modified_time" content="2025-11-12T13:47:12+01:00">
     <meta property="article:tag" content="Arduino Internals">
     <meta property="og:image" content="https://embeddedk8.com/arduino-cli-compilation/featured-image.png">
 
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  1754 ,
-        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-11-08T18:06:45+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  1976 ,
+        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-11-12T13:47:12+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
@@ -127,8 +127,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: building sketches with Arduino CLI</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1754 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1976 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;10 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -163,7 +163,12 @@
     <li><a href="#advanced-usage">Advanced usage</a>
       <ul>
         <li><a href="#specify-build-folder">Specify build folder</a></li>
-        <li><a href="#customizing-command">Customizing command</a></li>
+        <li><a href="#customizing-command">Customizing command</a>
+          <ul>
+            <li><a href="#custom-defines">Custom defines</a></li>
+            <li><a href="#optimize-for-debug">Optimize for debug</a></li>
+          </ul>
+        </li>
         <li><a href="#permanent-cli-settings">Permanent CLI settings</a></li>
       </ul>
     </li>
@@ -495,16 +500,95 @@ To keep your build outputs organized and easy to analyze, specify a custom build
 </div>
 </div><p>This layout makes it much easier to explore build files, inspect compilation issues, or integrate the build with external tools (like static analyzers).</p>
 <h3 id="customizing-command">Customizing command</h3>
-<p>The compile command can be extended with additional stuff, like extra compiler flags:</p>
+<p>The compile command can be extended with additional stuff, like extra compiler flags or custom defines.</p>
+<h4 id="custom-defines">Custom defines</h4>
+<p>Let’s go back to our old MyBlink sketch. Currently, the LED blinks with a hardcoded delay of 1000 ms.
+We can make this configurable at compile time by introducing a custom define called <code>BLINK_FREQUENCY</code>.</p>
+<p>First, update the MyBlink sketch to use the new frequency.
+If no value is provided from the command line, it will default to 1000 ms; otherwise, it will use the value you specify.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#ifndef BLINK_FREQUENCY
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define BLINK_FREQUENCY 1000
+</span></span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Serial</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="s">&#34;Blinking&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">digitalWrite</span><span class="p">(</span><span class="n">LED_BUILTIN</span><span class="p">,</span> <span class="n">HIGH</span><span class="p">);</span>      <span class="c1">// turn the LED on (HIGH is the voltage level)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nf">delay</span><span class="p">(</span><span class="n">BLINK_FREQUENCY</span><span class="p">);</span>               <span class="c1">// wait for a BLINK_FREQUENCY ms
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nf">digitalWrite</span><span class="p">(</span><span class="n">LED_BUILTIN</span><span class="p">,</span> <span class="n">LOW</span><span class="p">);</span>       <span class="c1">// turn the LED off by making the voltage LOW
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nf">delay</span><span class="p">(</span><span class="n">BLINK_FREQUENCY</span><span class="p">);</span>               <span class="c1">// wait for a BLINK_FREQUENCY ms
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>By adjusting the compile command, you can easily change how fast the LED blinks.
+For example, <code>build.extra_flags=&quot;-DBLINK_FREQUENCY=100&quot;</code> part below sets the blink frequency to 100 ms:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/Arduino/MyBlink --build-property compiler.c.extra_flags=&#34;-Wall -O2&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose --build-property build.extra_flags=&#34;-DBLINK_FREQUENCY=100&#34;
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Full documentation of Arduino CLI commands is here: <a href="https://arduino.github.io/arduino-cli/1.3/commands/arduino-cli_compile/" target="_blank" rel="noopener noreffer ">https://arduino.github.io/arduino-cli/1.3/commands</a></p>
+</div><!---
+#### Compilation flags
+Another thing we can easily change with CLI with `build.extra_flags` are compilation flags, like 
+creating debug or release version, change optimization level, etc. --->
+<h4 id="optimize-for-debug">Optimize for debug</h4>
+<p>The <code>--optimize-for-debug</code> flag adjusts compilation settings to make debugging easier.</p>
+<p>You can review or modify its behavior in the <code>platform.txt</code> file.
+When <code>--optimize-for-debug</code> is enabled,
+the <em>debug</em> version of the optimization flags is applied;
+otherwise, the <em>release</em> version is used by default.
+You can edit these flags in <code>platform.txt</code> to customize how each mode behaves.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">compiler.optimization_flags.release=-Os
+</span></span><span class="line"><span class="cl">compiler.optimization_flags.debug=-Og -g
+</span></span></code></pre></td></tr></table>
+</div>
+</div><!--- 
+##### Example for debug version
+For example, for debugging we
+can turn off any optimization and include debug symbols, with `--build-property compiler.c.extra_flags="-g -O0"`,
+and store the binary in `output/debug` folder.
+
+```
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  \
+  /home/kate/Arduino/MyBlink \
+  --build-property build.extra_flags="-g -O0" \
+  --build-path /home/kate/Arduino/MyBlink/build/debug
+```
+
+##### Example for release version
+
+For release, we can enable size (`-Os`) or speed optimizations (`-O2`) and optionally enable Link Time Optimization (`-flto`) [[1]](https://developer.arm.com/documentation/101458/2404/Optimize/Link-Time-Optimization--LTO-/What-is-Link-Time-Optimization--LTO-).
+
+```
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/Arduino/MyBlink --build-property compiler.c.extra_flags="-O2 -flto" --build-path /home/kate/Arduino/MyBlink/build/release
+```
+
+Full documentation of Arduino CLI commands is here: [https://arduino.github.io/arduino-cli/1.3/commands](https://arduino.github.io/arduino-cli/1.3/commands/arduino-cli_compile/)
+
+--->
 <h3 id="permanent-cli-settings">Permanent CLI settings</h3>
 <p>If you want to set permanent settings to your CLI, create a config file if you haven&rsquo;t:</p>
 <div class="highlight"><div class="chroma">
@@ -533,7 +617,8 @@ To keep your build outputs organized and easy to analyze, specify a custom build
 </div><p>Settings added globally to this file will affect all builds done with Arduino CLI. You can also set some options per-board.</p>
 <h2 id="bonus">Bonus</h2>
 <p>Do you feel somewhere in between IDE and CLI? Then you might like this cool tool — <a href="https://github.com/abod8639/arduino-cli-manager" target="_blank" rel="noopener noreffer ">Arduino CLI Manager on Github</a>.</p>
-<p>It&rsquo;s simple, retro looking GUI wrapper for using Arduino CLI, that allows you build and upload sketches easily.</p>
+<p>It&rsquo;s simple, retro looking GUI wrapper for using Arduino CLI, that allows you build and upload sketches easily,
+but unfortunately it&rsquo;s not exposing all customizations we discussed in this post.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -624,8 +709,8 @@ It’s perfect for automation, reproducibility, and integrating Arduino projects
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-11-08&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/4e40f1ac71e6871b2dc6c119996099b1d2a6df62" target="_blank" title="commit by Kate(embeddedkate@gmail.com) 4e40f1ac71e6871b2dc6c119996099b1d2a6df62: P2 tweaks">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>4e40f1a</a></span>
+                <span>Updated on 2025-11-12&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/9d4a0b3496fcb089b0e28bc0d29540e2478ffaa1" target="_blank" title="commit by Kate(embeddedkate@gmail.com) 9d4a0b3496fcb089b0e28bc0d29540e2478ffaa1: P2 development">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>9d4a0b3</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
