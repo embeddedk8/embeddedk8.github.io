@@ -41,7 +41,7 @@ Arduino IDE is great for getting started, but you can do much more if you switch
 
 [//]: # (The names of list items are not matching the sentence flow)
 
-- **you can use advanced configuration options**
+- **Use advanced configuration options**
 
     Some build or configuration options aren't exposed in the Arduino IDE. 
     It's possible to configure them with configuration files, but this approach 
@@ -50,25 +50,25 @@ Arduino IDE is great for getting started, but you can do much more if you switch
     With the CLI, you can fully control compiler flags, board settings, library versions from command line,
     for each project separately.
 
-- **you can automate your builds and create CI/CD pipelines**
+- **Automate your builds and create CI/CD pipelines**
 
   Using the CLI, you can easily implement the scripts for tasks like building, uploading, deploying and testing the project.
   These scripts can run on lightweight systems without graphical interface, such as Docker containers.
   This makes possible to integrate Arduino project into the CI/CD pipeline for automated builds and testing.
 
-- **you ensure reproducibility for your builds**
+- **Ensure reproducibility for your builds**
 
     When working in a team, using the Arduino CLI ensures that everyone builds the project with exactly the same setup and dependencies.
     This helps eliminate the classic “it works on my machine” problem and makes builds consistent across different environments.
 
-- **you can use your favourite IDE, not necessarily Arduino IDE**
+- **Use your favourite IDE, not necessarily Arduino IDE**
 
   You don’t have to rely on the Arduino IDE to develop your projects.
   With the CLI, you can use your favorite code editor 
   — whether it’s for better IntelliSense, built-in integrations like GitHub Copilot, 
  or simply because you’re more comfortable with its shortcuts, workflow or looks.
 
-- **you have full control over project dependencies**
+- **Have full control over project dependencies**
 
     In Arduino IDE, only one version of a library can be installed at the same time. This becomes a real problem when
     you work on multiple projects that require different versions of the same library. This issue is solved when 
