@@ -33,7 +33,7 @@ By working directly with the CLI, you remove the IDE as a middle layer and gain 
 
 If you were comfortable using IDE, you may not immediately see **why** would you use Arduino CLI instead.
 
-Someone even asked about this more than seven years ago, and got one response like:
+In Arduino Exchange forum you can find suggestion that
 > ["If you have to ask what the benefits are then the benefits most likely do not apply to or interest you."](https://arduino.stackexchange.com/questions/56767/what-are-the-benefits-or-advantages-of-arduino-cli). 
 
 That’s not entirely fair, though — it overlooks the fact that people want to learn new things. 
@@ -78,6 +78,9 @@ Hopefully, that was enough to convince you to give the Arduino CLI a try!
 Alright, it's time to get our hands dirty. We’ll install the Arduino CLI, set it up, and then build the project from the command line.
 
 ## Arduino CLI setup
+
+> If you already have `arduino-cli` installed and working, you can jump to [Basic usage](#basic-usage) chapter.
+
 
 In September 2024, Arduino released a [major update to Arduino CLI](https://blog.arduino.cc/2024/09/05/arduino-cli-1-0-is-out/).
 As of October 2025, the latest version is Arduino CLI 1.3.1, which I'll be using here.
@@ -227,6 +230,12 @@ arduino-cli monitor -p /dev/ttyACM0 --config 115200
 
 Using serial prints is one of the simplest ways to debug your Arduino applications.
 
+### Basic flow
+In summary, the basic `arduino-cli` workflow is as follows:
+
+[![Basic flow of using arduino-cli](/basic-flow.png "Basic flow of using arduino-cli")](/basic-flow.png)
+
+
 ## Advanced usage
 
 ### Specify build folder
@@ -265,11 +274,35 @@ Now, all generated files are stored in the `build/` directory within your projec
 
 This layout makes it much easier to explore build files, inspect compilation issues, or integrate the build with external tools (like static analyzers).
 
-### Customizing command
+### Optimize for debug
+The `--optimize-for-debug` flag adjusts compilation settings to make debugging easier.
 
-The compile command can be extended with additional stuff, like extra compiler flags or custom defines.
+You can review or modify its behavior in the `platform.txt` file.
+When `--optimize-for-debug` is enabled,
+the *debug* version of the optimization flags is applied;
+otherwise, the *release* version is used by default.
+You can edit these flags in `platform.txt` to customize how each mode behaves.
+```
+compiler.optimization_flags.release=-Os
+compiler.optimization_flags.debug=-Og -g
+```
 
-#### Custom defines
+It's good idea to store build files for `debug` and `release` version in separate build folders,
+using already discussed `--build-path`:
+
+```
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \
+  --verbose  /home/kate/Arduino/MyBlink \
+  --build-path /home/kate/Arduino/MyBlink/build/debug \
+  --optimize-for-debug
+  
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \
+  --verbose  /home/kate/Arduino/MyBlink \
+  --build-path /home/kate/Arduino/MyBlink/build/release
+```
+This way, you have debug optimized version in `MyBlink/build/debug`, and release version in `MyBlink/build/release`.
+
+### Custom defines
 Let’s go back to our old MyBlink sketch. Currently, the LED blinks with a hardcoded delay of 1000 ms.
 We can make this configurable at compile time by introducing a custom define called `BLINK_FREQUENCY`.
 
@@ -296,50 +329,42 @@ For example, `build.extra_flags="-DBLINK_FREQUENCY=100"` part below sets the bli
 ```
 arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose --build-property build.extra_flags="-DBLINK_FREQUENCY=100"
 ```
-<!---
-#### Compilation flags
-Another thing we can easily change with CLI with `build.extra_flags` are compilation flags, like 
-creating debug or release version, change optimization level, etc. --->
 
+### Customizing command
 
-#### Optimize for debug
-The `--optimize-for-debug` flag adjusts compilation settings to make debugging easier.
+The `platform.txt` file defines the build recipes that the Arduino ecosystem uses to compile, 
+link, and package a sketch. These recipes use variables that we can override when we need custom behavior.
 
-You can review or modify its behavior in the `platform.txt` file.
-When `--optimize-for-debug` is enabled,
-the *debug* version of the optimization flags is applied; 
-otherwise, the *release* version is used by default.
-You can edit these flags in `platform.txt` to customize how each mode behaves.
+Some of these editable variables are:
 ```
-compiler.optimization_flags.release=-Os
-compiler.optimization_flags.debug=-Og -g
-```
+# this can be overriden in boards.txt
+build.extra_flags=
+build.extra_ldflags=
 
-<!--- 
-##### Example for debug version
-For example, for debugging we
-can turn off any optimization and include debug symbols, with `--build-property compiler.c.extra_flags="-g -O0"`,
-and store the binary in `output/debug` folder.
-
-```
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  \
-  /home/kate/Arduino/MyBlink \
-  --build-property build.extra_flags="-g -O0" \
-  --build-path /home/kate/Arduino/MyBlink/build/debug
+# These can be overridden in platform.local.txt
+compiler.c.extra_flags=
+compiler.c.elf.extra_flags=
+compiler.S.extra_flags=
+compiler.cpp.extra_flags=
+compiler.ar.extra_flags=
+compiler.objcopy.eep.extra_flags=
+compiler.elf2hex.extra_flags=
 ```
 
-##### Example for release version
+These comments encourage us to override the variables in `platform.local.txt` or `boards.txt`, 
+but when using the CLI there is an easier and cleaner approach: 
+instead of modifying any files, we can override them directly from the command line using `--build-property`.
 
-For release, we can enable size (`-Os`) or speed optimizations (`-O2`) and optionally enable Link Time Optimization (`-flto`) [[1]](https://developer.arm.com/documentation/101458/2404/Optimize/Link-Time-Optimization--LTO-/What-is-Link-Time-Optimization--LTO-).
+This keeps your setup clean and allows you to change the settings for a specific build only.
+
+For example:
 
 ```
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose  /home/kate/Arduino/MyBlink --build-property compiler.c.extra_flags="-O2 -flto" --build-path /home/kate/Arduino/MyBlink/build/release
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \
+  --verbose \
+  --build-property build.extra_flags="-DBLINK_FREQUENCY=100" \
+  --build-property compiler.cpp.extra_flags="-pedantic -Werror"
 ```
-
-Full documentation of Arduino CLI commands is here: [https://arduino.github.io/arduino-cli/1.3/commands](https://arduino.github.io/arduino-cli/1.3/commands/arduino-cli_compile/)
-
---->
-[//]: # (Give more examples)
 
 ### Permanent CLI settings
 
@@ -356,8 +381,6 @@ additional_urls: []
 ```
 
 Settings added globally to this file will affect all builds done with Arduino CLI. You can also set some options per-board.
-
-[//]: # (## Serial monitor)
 
 ## Bonus
 Do you feel somewhere in between IDE and CLI? Then you might like this cool tool — [Arduino CLI Manager on Github](https://github.com/abod8639/arduino-cli-manager).
