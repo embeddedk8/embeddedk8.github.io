@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-10-01T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-11-14T14:44:21+01:00">
+    <meta property="article:modified_time" content="2025-11-14T15:06:04+01:00">
     <meta property="article:tag" content="Arduino Internals">
     <meta property="og:image" content="https://embeddedk8.com/arduino-cli-compilation/featured-image.png">
 
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  2190 ,
-        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-11-14T14:44:21+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  1912 ,
+        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-11-14T15:06:04+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
@@ -127,8 +127,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: building sketches with Arduino CLI</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2190 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;11 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1912 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -149,7 +149,6 @@
         <li><a href="#installing-arduino-cli">Installing Arduino CLI</a></li>
         <li><a href="#check-installation">Check installation</a></li>
         <li><a href="#setup-your-board-core">Setup your board core</a></li>
-        <li><a href="#initialize-configuration">Initialize configuration</a></li>
       </ul>
     </li>
     <li><a href="#basic-usage">Basic usage</a>
@@ -167,12 +166,10 @@
         <li><a href="#optimize-for-debug">Optimize for debug</a></li>
         <li><a href="#custom-defines">Custom defines</a></li>
         <li><a href="#customizing-command">Customizing command</a></li>
-        <li><a href="#permanent-cli-settings">Permanent CLI settings</a></li>
       </ul>
     </li>
-    <li><a href="#bonus">Bonus</a></li>
     <li><a href="#summary">Summary</a></li>
-    <li><a href="#more-reading">More reading</a></li>
+    <li><a href="#more-about-arduino-cli">More about Arduino CLI</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>Do you know that you don’t actually need the Arduino IDE to build and upload sketches?</p>
@@ -191,10 +188,9 @@ Arduino IDE is great for getting started, but you can do much more if you switch
 <li>
 <p><strong>Use advanced configuration options</strong></p>
 <p>Some build or configuration options aren&rsquo;t exposed in the Arduino IDE.
-It&rsquo;s possible to configure them with configuration files, but this approach
-can be complicated and harder to maintain —
-global configuration would affect all projects, per-board or per-sketch configuration would be tedious.
-With the CLI, you can fully control compiler flags, board settings, library versions from command line,
+It&rsquo;s possible to configure them with configuration files, but this way is more complicated and harder to maintain —
+global configuration would affect all projects, per-board or per-sketch configuration would be time-consuming.
+With the CLI, you can fully control compiler flags, custom defines and board settings from command line,
 for each project separately.</p>
 </li>
 <li>
@@ -210,10 +206,10 @@ This helps eliminate the classic “it works on my machine” problem and makes 
 </li>
 <li>
 <p><strong>Use your favourite IDE, not necessarily Arduino IDE</strong></p>
-<p>You don’t have to rely on the Arduino IDE to develop your projects.
+<p>You don’t have to use Arduino IDE to develop your projects.
 With the CLI, you can use your favorite code editor
 — whether it’s for better IntelliSense, built-in integrations like GitHub Copilot,
-or simply because you’re more comfortable with its shortcuts, workflow or looks.</p>
+or simply because you’re more comfortable with it.</p>
 </li>
 <li>
 <p><strong>Have full control over project dependencies</strong></p>
@@ -345,21 +341,7 @@ so let&rsquo;s see what we can choose:</p>
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli core install arduino:renesas_uno
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="initialize-configuration">Initialize configuration</h3>
-<p>Initialize Arduino CLI configuration file for later usage:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli config init
-</span></span><span class="line"><span class="cl">Config file written to: /home/kate/.arduino15/arduino-cli.yaml
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>The configuration options are described <a href="https://arduino.github.io/arduino-cli/1.3/configuration/" target="_blank" rel="noopener noreffer ">here</a>,
-but for now let&rsquo;s leave it empty.</p>
-<p>The preparations are done! It was easy, wasn&rsquo;t it?</p>
+</div><p>The preparations are done! It was easy, wasn&rsquo;t it?</p>
 <h2 id="basic-usage">Basic usage</h2>
 <p>To start using Arduino CLI, you actually just need to use three basic commands: create new sketch,
 build a sketch and upload the binary to the board.</p>
@@ -650,128 +632,32 @@ instead of modifying any files, we can override them directly from the command l
 </span></span><span class="line"><span class="cl">  --build-property compiler.cpp.extra_flags=&#34;-pedantic -Werror&#34;
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="permanent-cli-settings">Permanent CLI settings</h3>
-<p>If you want to set permanent settings to your CLI, create a config file if you haven&rsquo;t:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli config init
-</span></span><span class="line"><span class="cl">Config file written to: /home/kate/.arduino15/arduino-cli.yaml
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Take a look, if you&rsquo;ve just created it, it should be empty now:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli config dump
-</span></span><span class="line"><span class="cl">board_manager:
-</span></span><span class="line"><span class="cl">additional_urls: []
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Settings added globally to this file will affect all builds done with Arduino CLI. You can also set some options per-board.</p>
-<h2 id="bonus">Bonus</h2>
-<p>Do you feel somewhere in between IDE and CLI? Then you might like this cool tool — <a href="https://github.com/abod8639/arduino-cli-manager" target="_blank" rel="noopener noreffer ">Arduino CLI Manager on Github</a>.</p>
-<p>It&rsquo;s simple, retro looking GUI wrapper for using Arduino CLI, that allows you build and upload sketches easily,
-but unfortunately it&rsquo;s not exposing all customizations we discussed in this post.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">                                                          
-</span></span><span class="line"><span class="cl">  <span class="err">██████╗</span>  <span class="err">█████╗</span> <span class="err">██████╗</span>  <span class="err">██╗</span>   <span class="err">██╗██╗███╗</span>   <span class="err">██╗</span> <span class="err">██████╗</span> 
-</span></span><span class="line"><span class="cl">  <span class="err">██╔══██╗██╔══██╗██╔══██╗</span> <span class="err">██║</span>   <span class="err">██║██║████╗</span>  <span class="err">██║██╔═══██╗</span>
-</span></span><span class="line"><span class="cl">  <span class="err">██████╔╝███████║██║</span>  <span class="err">██║</span> <span class="err">██║</span>   <span class="err">██║██║██╔██╗</span> <span class="err">██║██║</span>   <span class="err">██║</span>
-</span></span><span class="line"><span class="cl">  <span class="err">██╔══██║██╔══██║██║</span>  <span class="err">██║</span> <span class="err">██║</span>   <span class="err">██║██║██║╚██╗██║██║</span>   <span class="err">██║</span>
-</span></span><span class="line"><span class="cl">  <span class="err">██████╔╝██║</span>  <span class="err">██║██████╔╝</span> <span class="err">╚██████╔╝██║██║</span> <span class="err">╚████║╚██████╔╝</span>
-</span></span><span class="line"><span class="cl">  <span class="err">╚═════╝</span> <span class="err">╚═╝</span>  <span class="err">╚═╝╚═════╝</span>   <span class="err">╚═════╝</span> <span class="err">╚═╝╚═╝</span>  <span class="err">╚═══╝</span> <span class="err">╚═════╝</span> 
-</span></span><span class="line"><span class="cl"> <span class="err">┌────────────────────────────────────────────────────────┐</span>
-</span></span><span class="line"><span class="cl"> <span class="err">│</span>                 <span class="n">ARDUINO</span> <span class="n">CLI</span> <span class="n">MANAGER</span>                    <span class="err">│</span>
-</span></span><span class="line"><span class="cl"> <span class="err">│</span>                                                        <span class="err">│</span>
-</span></span><span class="line"><span class="cl"> <span class="err">│</span> <span class="n">Select</span> <span class="n">board</span><span class="p">,</span> <span class="n">serial</span><span class="p">,</span> <span class="n">compile</span><span class="p">,</span> <span class="n">upload</span> <span class="o">&amp;</span> <span class="n">monitor</span> <span class="n">easily</span> <span class="err">│</span>
-</span></span><span class="line"><span class="cl"> <span class="err">└────────────────────────────────────────────────────────┘</span>
-</span></span><span class="line"><span class="cl">                           <span class="n">v1</span><span class="o">.</span><span class="mf">0.8</span>                           
-</span></span><span class="line"><span class="cl"><span class="err">────────────────────────────────────────────────────────────</span>
-</span></span><span class="line"><span class="cl"> <span class="n">Project</span><span class="p">:</span>     <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kate</span><span class="o">/</span><span class="n">Arduino</span><span class="o">/</span><span class="n">MyBlink</span>
-</span></span><span class="line"><span class="cl"> <span class="n">Board</span><span class="p">:</span>       <span class="n">arduino</span><span class="p">:</span><span class="n">renesas_uno</span><span class="p">:</span><span class="n">unor4wifi</span>
-</span></span><span class="line"><span class="cl"> <span class="n">Port</span><span class="p">:</span>           <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM1</span>
-</span></span><span class="line"><span class="cl"> <span class="n">Baud</span><span class="p">:</span>           <span class="mi">115200</span>
-</span></span><span class="line"><span class="cl"><span class="err">────────────────────────────────────────────────────────────</span>
-</span></span><span class="line"><span class="cl"> <span class="mi">1</span> <span class="p">(</span><span class="n">S</span><span class="p">)</span> <span class="n">Select</span><span class="o">/</span><span class="n">Create</span> <span class="n">Project</span>    
-</span></span><span class="line"><span class="cl"> <span class="mi">2</span> <span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="n">Select</span> <span class="n">Board</span> <span class="p">(</span><span class="n">FQBN</span><span class="p">)</span>      
-</span></span><span class="line"><span class="cl"> <span class="mi">3</span> <span class="p">(</span><span class="n">P</span><span class="p">)</span> <span class="n">Select</span> <span class="n">Port</span>              
-</span></span><span class="line"><span class="cl"> <span class="mi">5</span> <span class="p">(</span><span class="n">U</span><span class="p">)</span> <span class="n">Upload</span> <span class="n">Project</span>           
-</span></span><span class="line"><span class="cl"> <span class="mi">4</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="n">Compile</span> <span class="n">Project</span>          
-</span></span><span class="line"><span class="cl"> <span class="mi">6</span> <span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="n">List</span> <span class="n">Installed</span> <span class="n">Cores</span>     
-</span></span><span class="line"><span class="cl"> <span class="mi">7</span> <span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="n">List</span> <span class="n">All</span> <span class="n">Supported</span> <span class="n">Boards</span>
-</span></span><span class="line"><span class="cl"> <span class="mi">8</span> <span class="p">(</span><span class="n">I</span><span class="p">)</span> <span class="n">Install</span> <span class="n">Core</span>             
-</span></span><span class="line"><span class="cl"> <span class="mi">9</span> <span class="p">(</span><span class="n">M</span><span class="p">)</span> <span class="n">Open</span> <span class="n">Serial</span> <span class="n">Monitor</span>      
-</span></span><span class="line"><span class="cl"> <span class="mi">0</span> <span class="p">(</span><span class="n">E</span><span class="p">)</span> <span class="n">Edit</span> <span class="n">Project</span> <span class="p">(</span><span class="n">nvim</span><span class="p">)</span>      
-</span></span><span class="line"><span class="cl"><span class="err">────────────────────────────────────────────────────────────</span>
-</span></span><span class="line"><span class="cl"> <span class="p">(</span><span class="n">Q</span><span class="p">)</span> <span class="n">Quit</span>
-</span></span><span class="line"><span class="cl"><span class="err">────────────────────────────────────────────────────────────</span>
-</span></span><span class="line"><span class="cl"><span class="n">Enter</span> <span class="n">your</span> <span class="n">choice</span><span class="p">:</span> 
-</span></span></code></pre></td></tr></table>
-</div>
 </div><h2 id="summary">Summary</h2>
 <p>Using the Arduino CLI gives you full control over the build process,
 from compiling to uploading sketches, without relying on the Arduino IDE.
 It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.</p>
-<h2 id="more-reading">More reading</h2>
+<h2 id="more-about-arduino-cli">More about Arduino CLI</h2>
 <ul>
-<li><a href="https://docs.arduino.cc/arduino-cli/" target="_blank" rel="noopener noreffer ">https://docs.arduino.cc/arduino-cli/</a></li>
-<li><a href="https://arduino.github.io/arduino-cli/1.3/getting-started/" target="_blank" rel="noopener noreffer ">https://arduino.github.io/arduino-cli/1.3/getting-started/</a></li>
-<li><a href="https://evan.widloski.com/notes/arduino_cli.html" target="_blank" rel="noopener noreffer ">https://evan.widloski.com/notes/arduino_cli.html</a></li>
-<li><a href="https://dumblebots.com/blog/arduino-cli-getting-started" target="_blank" rel="noopener noreffer ">https://dumblebots.com/blog/arduino-cli-getting-started</a></li>
-<li><a href="https://www.pcbway.com/blog/Activities/Arduino_cli__compile__upload_and_manage_libraries__cores__and_boards.html" target="_blank" rel="noopener noreffer ">https://www.pcbway.com/blog/Activities/Arduino_cli__compile__upload_and_manage_libraries__cores__and_boards.html</a></li>
-<li><a href="https://www.youtube.com/watch?v=Uk5_RKMf2Dk&amp;t=356s" target="_blank" rel="noopener noreffer ">Arduino CLI - What and Why? | Breaking Out of Arduino IDE | Part 2 | Magpie Embedded</a></li>
-<li><a href="https://www.youtube.com/watch?v=cVod8k713_8" target="_blank" rel="noopener noreffer ">Arduino CLI and the art of command line</a></li>
+<li>
+<p>📚 <a href="https://docs.arduino.cc/arduino-cli/" target="_blank" rel="noopener noreffer ">Official documentation of Arduino CLI</a></p>
+</li>
+<li>
+<p>📚 <a href="https://dumblebots.com/blog/arduino-cli-getting-started" target="_blank" rel="noopener noreffer ">Detailed article showing how to install and integrate CLI with VSCode</a></p>
+</li>
+<li>
+<p>🎬 <a href="https://www.youtube.com/watch?v=Uk5_RKMf2Dk&amp;t=356s" target="_blank" rel="noopener noreffer ">Arduino CLI - What and Why? | Breaking Out of Arduino IDE | Part 2 | Magpie Embedded on YouTube</a></p>
+</li>
+<li>
+<p>🎬 <a href="https://www.youtube.com/watch?v=cVod8k713_8" target="_blank" rel="noopener noreffer ">Arduino CLI and the art of command line | Sayanee Basu on YouTube</a></p>
+</li>
 </ul>
+<p>🛠️ <a href="https://github.com/abod8639/arduino-cli-manager" target="_blank" rel="noopener noreffer ">Arduino CLI Manager | interactive shell wrapper for Arduino CLI </a></p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-11-14&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/89a151704cb1130626d8ba28e8b83ba73a01cc7f" target="_blank" title="commit by Kate(embeddedkate@gmail.com) 89a151704cb1130626d8ba28e8b83ba73a01cc7f: P2 dev">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>89a1517</a></span>
+                <span>Updated on 2025-11-14&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/ee14bebd4c6a8a4dbd80e961a1150b2afd10ced4" target="_blank" title="commit by Kate(embeddedkate@gmail.com) ee14bebd4c6a8a4dbd80e961a1150b2afd10ced4: P2 dev">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>ee14beb</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
