@@ -131,24 +131,6 @@ I will install it with following command:
 arduino-cli core install arduino:renesas_uno
 ```
 
-[//]: # (### Initialize configuration)
-
-[//]: # ()
-[//]: # (Initialize Arduino CLI configuration file for later usage:)
-
-[//]: # (```)
-
-[//]: # (arduino-cli config init)
-
-[//]: # (Config file written to: /home/kate/.arduino15/arduino-cli.yaml)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (The configuration options are described [here]&#40;https://arduino.github.io/arduino-cli/1.3/configuration/&#41;,)
-
-[//]: # (but for now let's leave it empty.)
-
 The preparations are done! It was easy, wasn't it?
 
 
@@ -429,118 +411,12 @@ make monitor
 make clean
 ```
 
-[//]: # (### Permanent CLI settings)
-
-[//]: # ()
-[//]: # (If you want to set permanent settings to your CLI, create a config file if you haven't:)
-
-[//]: # (```)
-
-[//]: # (arduino-cli config init)
-
-[//]: # (Config file written to: /home/kate/.arduino15/arduino-cli.yaml)
-
-[//]: # (```)
-
-[//]: # (Take a look, if you've just created it, it should be empty now:)
-
-[//]: # (```)
-
-[//]: # (arduino-cli config dump)
-
-[//]: # (board_manager:)
-
-[//]: # (additional_urls: [])
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (Settings added globally to this file will affect all builds done with Arduino CLI. You can also set some options per-board.)
-
-[//]: # ()
-
-[//]: # (## Bonus)
-
-[//]: # (Do you feel somewhere in between IDE and CLI? Then you might like this cool tool — [Arduino CLI Manager on Github]&#40;https://github.com/abod8639/arduino-cli-manager&#41;.)
-
-[//]: # ()
-[//]: # (It's simple, retro looking GUI wrapper for using Arduino CLI, that allows you build and upload sketches easily,)
-
-[//]: # (but unfortunately it's not exposing all customizations we discussed in this post.)
-
-[//]: # (```)
-
-[//]: # (                                                          )
-[//]: # (  ██████╗  █████╗ ██████╗  ██╗   ██╗██╗███╗   ██╗ ██████╗ )
-
-[//]: # (  ██╔══██╗██╔══██╗██╔══██╗ ██║   ██║██║████╗  ██║██╔═══██╗)
-
-[//]: # (  ██████╔╝███████║██║  ██║ ██║   ██║██║██╔██╗ ██║██║   ██║)
-
-[//]: # (  ██╔══██║██╔══██║██║  ██║ ██║   ██║██║██║╚██╗██║██║   ██║)
-
-[//]: # (  ██████╔╝██║  ██║██████╔╝ ╚██████╔╝██║██║ ╚████║╚██████╔╝)
-
-[//]: # (  ╚═════╝ ╚═╝  ╚═╝╚═════╝   ╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ )
-
-[//]: # ( ┌────────────────────────────────────────────────────────┐)
-
-[//]: # ( │                 ARDUINO CLI MANAGER                    │)
-
-[//]: # ( │                                                        │)
-
-[//]: # ( │ Select board, serial, compile, upload & monitor easily │)
-
-[//]: # ( └────────────────────────────────────────────────────────┘)
-
-[//]: # (                           v1.0.8                           )
-
-[//]: # (────────────────────────────────────────────────────────────)
-
-[//]: # ( Project:     /home/kate/Arduino/MyBlink)
-
-[//]: # ( Board:       arduino:renesas_uno:unor4wifi)
-
-[//]: # ( Port:           /dev/ttyACM1)
-
-[//]: # ( Baud:           115200)
-
-[//]: # (────────────────────────────────────────────────────────────)
-
-[//]: # ( 1 &#40;S&#41; Select/Create Project    )
-
-[//]: # ( 2 &#40;B&#41; Select Board &#40;FQBN&#41;      )
-
-[//]: # ( 3 &#40;P&#41; Select Port              )
-
-[//]: # ( 5 &#40;U&#41; Upload Project           )
-
-[//]: # ( 4 &#40;C&#41; Compile Project          )
-
-[//]: # ( 6 &#40;L&#41; List Installed Cores     )
-
-[//]: # ( 7 &#40;A&#41; List All Supported Boards)
-
-[//]: # ( 8 &#40;I&#41; Install Core             )
-
-[//]: # ( 9 &#40;M&#41; Open Serial Monitor      )
-
-[//]: # ( 0 &#40;E&#41; Edit Project &#40;nvim&#41;      )
-
-[//]: # (────────────────────────────────────────────────────────────)
-
-[//]: # ( &#40;Q&#41; Quit)
-
-[//]: # (────────────────────────────────────────────────────────────)
-
-[//]: # (Enter your choice: )
-
-[//]: # (```)
-
 ## Summary
 Using the Arduino CLI gives you full control over the build process, 
 from compiling to uploading sketches, without relying on the Arduino IDE. 
 It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.
+
+[![Benefits from using arduino-cli](/cli-benefits.png "Benefits from using arduino-cli")](/cli-benefits.png)
 
 ## More about Arduino CLI
 - 📚 [Official documentation of Arduino CLI](https://docs.arduino.cc/arduino-cli/)

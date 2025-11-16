@@ -2,9 +2,9 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://embeddedk8.com/arduino-cli-compilation/</loc><lastmod>2025-11-16T10:35:50&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.com/arduino-cli-compilation/</loc><lastmod>2025-11-16T11:12:38&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
             <loc>https://embeddedk8.com/arduino-ide-build-process/</loc><lastmod>2025-11-05T14:19:27&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://embeddedk8.com/</loc><lastmod>2025-11-16T10:35:50&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.com/</loc><lastmod>2025-11-16T11:12:38&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.com/pl/"
@@ -14,7 +14,7 @@
                     href="https://embeddedk8.com/"
                     /></url><url>
             <loc>https://embeddedk8.com/resources/</loc><lastmod>2025-11-08T18:06:45&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://embeddedk8.com/posts/</loc><lastmod>2025-11-16T10:35:50&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.com/posts/</loc><lastmod>2025-11-16T11:12:38&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.com/pl/posts/"
@@ -23,9 +23,9 @@
                     hreflang="en"
                     href="https://embeddedk8.com/posts/"
                     /></url><url>
-            <loc>https://embeddedk8.com/categories/arduino-internals/</loc><lastmod>2025-11-16T10:35:50&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.com/tags/arduino-internals/</loc><lastmod>2025-11-16T10:35:50&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://embeddedk8.com/categories/</loc><lastmod>2025-11-16T10:35:50&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://embeddedk8.com/categories/arduino-internals/</loc><lastmod>2025-11-16T11:12:38&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.com/tags/arduino-internals/</loc><lastmod>2025-11-16T11:12:38&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://embeddedk8.com/categories/</loc><lastmod>2025-11-16T11:12:38&#43;01:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
                         rel="alternate"
                         hreflang="pl"
                         href="https://embeddedk8.com/pl/categories/"
