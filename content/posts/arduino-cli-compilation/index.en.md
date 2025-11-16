@@ -372,6 +372,85 @@ arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \
   --build-property compiler.cpp.extra_flags="-pedantic -Werror"
 ```
 
+## Writing a simple Makefile
+As our build command becomes longer, it becomes harder to remember and type correctly each time.
+To make it easier, we can wrap these commands inside a script that lives in the root directory 
+of the project. This could be a bash script, but an even better option is a Makefile. 
+Creating a Makefile for our Arduino project is very simple.
+
+At the top of the Makefile, we define a few variables such as `FQBN` and `PORT`. 
+These values are hardcoded for simplicity, feel free to change them to match your board and serial port.
+
+```
+# FQBN for your board (change if needed)
+FQBN := arduino:renesas_uno:unor4wifi
+
+# Serial port (change if needed)
+PORT := /dev/ttyACM0
+
+# Build dirs
+BUILD_DEBUG := build/debug
+BUILD_RELEASE := build/release
+
+# Arduino CLI executable
+ARDUINO_CLI := arduino-cli
+
+# Default build release
+all: release
+
+debug:
+	$(ARDUINO_CLI) compile \
+		--fqbn $(FQBN) \
+		--build-path $(BUILD_DEBUG) \
+		--optimize-for-debug \
+		--verbose
+
+release:
+	$(ARDUINO_CLI) compile \
+		--fqbn $(FQBN) \
+		--build-path $(BUILD_RELEASE) \
+		--verbose
+
+upload-debug: debug
+	$(ARDUINO_CLI) upload \
+		-p $(PORT) \
+		--fqbn $(FQBN) \
+		--input-dir $(BUILD_DEBUG)
+
+upload-release: release
+	$(ARDUINO_CLI) upload \
+		-p $(PORT) \
+		--fqbn $(FQBN) \
+		--input-dir $(BUILD_RELEASE)
+
+monitor:
+	$(ARDUINO_CLI) monitor -p $(PORT)
+
+clean:
+	rm -rf build
+
+
+.PHONY: all debug release upload-debug upload-release clean monitor
+```
+
+Once the Makefile is in the project root, using it becomes extremely easy:
+
+```
+# Build and upload debug
+make debug
+make upload-debug
+
+# Build and upload release
+make release
+make upload-release
+
+# Open serial monitor
+make monitor
+
+# Clean builds
+make clean
+```
+
 [//]: # (### Permanent CLI settings)
 
 [//]: # ()
@@ -494,5 +573,5 @@ It’s perfect for automation, reproducibility, and integrating Arduino projects
 
 - 🎬 [Arduino CLI and the art of command line | Sayanee Basu on YouTube](https://www.youtube.com/watch?v=cVod8k713_8)
 
-🛠️ [Arduino CLI Manager | interactive shell wrapper for Arduino CLI ](https://github.com/abod8639/arduino-cli-manager)
+- 🛠️ [Arduino CLI Manager | interactive shell wrapper for Arduino CLI ](https://github.com/abod8639/arduino-cli-manager)
 
