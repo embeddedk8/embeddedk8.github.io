@@ -12,7 +12,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-10-01T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-11-14T15:06:04+01:00">
+    <meta property="article:modified_time" content="2025-11-16T10:35:50+01:00">
     <meta property="article:tag" content="Arduino Internals">
     <meta property="og:image" content="https://embeddedk8.com/arduino-cli-compilation/featured-image.png">
 
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  1912 ,
-        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-11-14T15:06:04+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  2224 ,
+        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-11-16T10:35:50+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
@@ -127,8 +127,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: building sketches with Arduino CLI</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1912 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2224 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;11 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -168,6 +168,7 @@
         <li><a href="#customizing-command">Customizing command</a></li>
       </ul>
     </li>
+    <li><a href="#writing-a-simple-makefile">Writing a simple Makefile</a></li>
     <li><a href="#summary">Summary</a></li>
     <li><a href="#more-about-arduino-cli">More about Arduino CLI</a></li>
   </ul>
@@ -632,6 +633,150 @@ instead of modifying any files, we can override them directly from the command l
 </span></span><span class="line"><span class="cl">  --build-property compiler.cpp.extra_flags=&#34;-pedantic -Werror&#34;
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="writing-a-simple-makefile">Writing a simple Makefile</h2>
+<p>As our build command becomes longer, it becomes harder to remember and type correctly each time.
+To make it easier, we can wrap these commands inside a script that lives in the root directory
+of the project. This could be a bash script, but an even better option is a Makefile.
+Creating a Makefile for our Arduino project is very simple.</p>
+<p>At the top of the Makefile, we define a few variables such as <code>FQBN</code> and <code>PORT</code>.
+These values are hardcoded for simplicity, feel free to change them to match your board and serial port.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># FQBN for your board (change if needed)</span>
+</span></span><span class="line"><span class="cl"><span class="n">FQBN</span> <span class="p">:</span><span class="o">=</span> <span class="n">arduino</span><span class="p">:</span><span class="n">renesas_uno</span><span class="p">:</span><span class="n">unor4wifi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Serial port (change if needed)</span>
+</span></span><span class="line"><span class="cl"><span class="n">PORT</span> <span class="p">:</span><span class="o">=</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Build dirs</span>
+</span></span><span class="line"><span class="cl"><span class="n">BUILD_DEBUG</span> <span class="p">:</span><span class="o">=</span> <span class="n">build</span><span class="o">/</span><span class="n">debug</span>
+</span></span><span class="line"><span class="cl"><span class="n">BUILD_RELEASE</span> <span class="p">:</span><span class="o">=</span> <span class="n">build</span><span class="o">/</span><span class="n">release</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Arduino CLI executable</span>
+</span></span><span class="line"><span class="cl"><span class="n">ARDUINO_CLI</span> <span class="p">:</span><span class="o">=</span> <span class="n">arduino</span><span class="o">-</span><span class="n">cli</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Default build release</span>
+</span></span><span class="line"><span class="cl"><span class="n">all</span><span class="p">:</span> <span class="n">release</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">debug</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="o">$</span><span class="p">(</span><span class="n">ARDUINO_CLI</span><span class="p">)</span> <span class="n">compile</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">fqbn</span> <span class="o">$</span><span class="p">(</span><span class="n">FQBN</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">build</span><span class="o">-</span><span class="n">path</span> <span class="o">$</span><span class="p">(</span><span class="n">BUILD_DEBUG</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">optimize</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">debug</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">verbose</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">release</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="o">$</span><span class="p">(</span><span class="n">ARDUINO_CLI</span><span class="p">)</span> <span class="n">compile</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">fqbn</span> <span class="o">$</span><span class="p">(</span><span class="n">FQBN</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">build</span><span class="o">-</span><span class="n">path</span> <span class="o">$</span><span class="p">(</span><span class="n">BUILD_RELEASE</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">verbose</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">upload</span><span class="o">-</span><span class="n">debug</span><span class="p">:</span> <span class="n">debug</span>
+</span></span><span class="line"><span class="cl">	<span class="o">$</span><span class="p">(</span><span class="n">ARDUINO_CLI</span><span class="p">)</span> <span class="n">upload</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">-</span><span class="n">p</span> <span class="o">$</span><span class="p">(</span><span class="n">PORT</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">fqbn</span> <span class="o">$</span><span class="p">(</span><span class="n">FQBN</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">input</span><span class="o">-</span><span class="n">dir</span> <span class="o">$</span><span class="p">(</span><span class="n">BUILD_DEBUG</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">upload</span><span class="o">-</span><span class="n">release</span><span class="p">:</span> <span class="n">release</span>
+</span></span><span class="line"><span class="cl">	<span class="o">$</span><span class="p">(</span><span class="n">ARDUINO_CLI</span><span class="p">)</span> <span class="n">upload</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">-</span><span class="n">p</span> <span class="o">$</span><span class="p">(</span><span class="n">PORT</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">fqbn</span> <span class="o">$</span><span class="p">(</span><span class="n">FQBN</span><span class="p">)</span> \
+</span></span><span class="line"><span class="cl">		<span class="o">--</span><span class="n">input</span><span class="o">-</span><span class="n">dir</span> <span class="o">$</span><span class="p">(</span><span class="n">BUILD_RELEASE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">monitor</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="o">$</span><span class="p">(</span><span class="n">ARDUINO_CLI</span><span class="p">)</span> <span class="n">monitor</span> <span class="o">-</span><span class="n">p</span> <span class="o">$</span><span class="p">(</span><span class="n">PORT</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">clean</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">	<span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">build</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">PHONY</span><span class="p">:</span> <span class="n">all</span> <span class="n">debug</span> <span class="n">release</span> <span class="n">upload</span><span class="o">-</span><span class="n">debug</span> <span class="n">upload</span><span class="o">-</span><span class="n">release</span> <span class="n">clean</span> <span class="n">monitor</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Once the Makefile is in the project root, using it becomes extremely easy:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Build and upload debug</span>
+</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">debug</span>
+</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">upload</span><span class="o">-</span><span class="n">debug</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Build and upload release</span>
+</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">release</span>
+</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">upload</span><span class="o">-</span><span class="n">release</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Open serial monitor</span>
+</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">monitor</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Clean builds</span>
+</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">clean</span>
+</span></span></code></pre></td></tr></table>
+</div>
 </div><h2 id="summary">Summary</h2>
 <p>Using the Arduino CLI gives you full control over the build process,
 from compiling to uploading sketches, without relying on the Arduino IDE.
@@ -658,8 +803,8 @@ It’s perfect for automation, reproducibility, and integrating Arduino projects
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-11-14&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/ee14bebd4c6a8a4dbd80e961a1150b2afd10ced4" target="_blank" title="commit by Kate(embeddedkate@gmail.com) ee14bebd4c6a8a4dbd80e961a1150b2afd10ced4: P2 dev">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>ee14beb</a></span>
+                <span>Updated on 2025-11-16&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/2f576370950eac27e915cbc6c3d2cbc0c73d8f8d" target="_blank" title="commit by Kate(embeddedkate@gmail.com) 2f576370950eac27e915cbc6c3d2cbc0c73d8f8d: Add Makefile chapter to P2">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>2f57637</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
