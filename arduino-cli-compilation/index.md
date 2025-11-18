@@ -199,8 +199,7 @@ Using serial prints is one of the simplest ways to debug your Arduino applicatio
 ### Basic flow
 In summary, the basic `arduino-cli` workflow is as follows:
 
-[![Basic flow of using arduino-cli](/basic-flow.png "Basic flow of using arduino-cli")](/basic-flow.png)
-
+<img src="basic-flow.png" alt="Basic flow of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
 
 ## Advanced usage
 
@@ -416,7 +415,7 @@ Using the Arduino CLI gives you full control over the build process,
 from compiling to uploading sketches, without relying on the Arduino IDE. 
 It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.
 
-[![Benefits from using arduino-cli](/cli-benefits.png "Benefits from using arduino-cli")](/cli-benefits.png)
+<img src="cli-benefits.png" title="Benefits of using arduino-cli" alt="Benefits of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
 
 ## More about Arduino CLI
 - 📚 [Official documentation of Arduino CLI](https://docs.arduino.cc/arduino-cli/)
