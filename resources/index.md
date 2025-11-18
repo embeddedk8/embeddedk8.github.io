@@ -59,6 +59,8 @@ It’s still small, but I’ll keep expanding it over time. 😄
 
 🎬 [Scott Meyers: Cpu Caches and Why You Care | code::dive conference 2014 | Youtube](https://www.youtube.com/watch?v=WDIkqP4JbkE)
 
+📖 [What Every Programmer Should Know About Memory, Ulrich Drepper](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
+
 
 
 
