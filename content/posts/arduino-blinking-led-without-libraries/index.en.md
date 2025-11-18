@@ -11,8 +11,8 @@ resources:
 - name: "featured-image"
   src: "featured-image.png"
 
-tags: ["Arduino IoT Cloud"]
-categories: ["Arduino"]
+tags: ["Arduino Internals"]
+categories: ["Arduino Internals"]
 
 lightgallery: true
 
@@ -21,6 +21,13 @@ toc:
 math:
     enable: true
 ---
+
+
+// Check datasheet
+// https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf
+// Our led is LED_BUILTIN P102
+// https://docs.arduino.cc/resources/datasheets/ra4m1-datasheet.pdf
+//https://docs.arduino.cc/resources/datasheets/ra4m1-datasheet.pdf
 
 
 https://kleinembedded.com/stm32-without-cubeide-part-1-the-bare-necessities/
