@@ -6,7 +6,7 @@ lastmod: 2025-10-01T15:58:26+08:00
 draft: false
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, automate and create CI/CD pipeline"
+description: "Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, create Makefile"
 images: []
 resources:
 - name: "featured-image"
@@ -25,77 +25,72 @@ math:
 Do you know that you don’t actually need the Arduino IDE to build and upload sketches?
 
 Arduino projects can be compiled and uploaded straight from the command line using the **Arduino Command Line Interface (CLI)**. 
-This process is identical to what happens when you build and upload from the IDE, because Arduino IDE 2.0 and later use `arduino-cli` under the hood.
+Underneath, this process is identical to what happens when you build and upload from the IDE, 
+because Arduino IDE 2.0 and later use `arduino-cli` under the hood.
+The only difference is how do you trigger build and upload — by command line instead of clicking inside IDE.
 
-By working directly with the CLI, you remove the IDE as a middle layer and gain more possibilities and control over your builds.
+Working directly with the CLI, without IDE as a middle layer, is actually better for many reasons, which we will discuss below.
 
 ## Reasons to use Arduino CLI
 
-If you were comfortable using IDE, you may not immediately see **why** would you use Arduino CLI instead.
+If you are comfortable using IDE, you may not immediately see why would you use Arduino CLI instead.
+At first, it may seem more complicated, right? Nothing is as easy as pressing a button.
+That's true — Arduino IDE is great for getting started. But as your project grows, and you want to make more complicated
+things with it, Arduino CLI will allow you to achieve much more.
 
-In Arduino Exchange forum you can find suggestion that
-> ["If you have to ask what the benefits are then the benefits most likely do not apply to or interest you."](https://arduino.stackexchange.com/questions/56767/what-are-the-benefits-or-advantages-of-arduino-cli). 
+Some of the benefits are:
 
-That’s not entirely fair, though — it overlooks the fact that people want to learn new things. 
-Arduino IDE is great for getting started, but you can do much more if you switch to Arduino CLI:
+- **Advanced configuration**
 
-[//]: # (The names of list items are not matching the sentence flow)
+    Using custom build or configuration options is not possible from the Arduino IDE. 
+    Setting things like custom defines, special compilation flags, or customizing where `build` artifacts are stored,
+    requires modifying configuration files that are outside the IDE. Global configuration files affect all projects,
+    while maintaining per-project config files would be time-consuming. That's why when your project starts requiring
+    any non-standard setup it's better to switch to Arduino CLI for simplicity and convenience.
 
-- **Use advanced configuration options**
+- **Automation and CI/CD**
 
-    Some build or configuration options aren't exposed in the Arduino IDE. 
-    It's possible to configure them with configuration files, but this way is more complicated and harder to maintain —
-    global configuration would affect all projects, per-board or per-sketch configuration would be time-consuming. 
-    With the CLI, you can fully control compiler flags, custom defines and board settings from command line,
-    for each project separately.
+  With command line interface, you can create CI/CD pipelines that will automatically build, deploy and test the project.
 
-- **Automate your builds and create CI/CD pipelines**
-
-  Using the CLI, you can easily implement the scripts for tasks like building, uploading, deploying and testing the project.
-  These scripts can run on lightweight systems without graphical interface, such as Docker containers.
-  This makes possible to integrate Arduino project into the CI/CD pipeline for automated builds and testing.
-
-- **Ensure reproducibility for your builds**
+- **Reproducibility**
 
     When working in a team, using the Arduino CLI ensures that everyone builds the project with exactly the same setup and dependencies.
     This helps eliminate the classic “it works on my machine” problem and makes builds consistent across different environments.
 
-- **Use your favourite IDE, not necessarily Arduino IDE**
+- **Independency from Arduino IDE**
 
-  You don’t have to use Arduino IDE to develop your projects.
-  With the CLI, you can use your favorite code editor 
-  — whether it’s for better IntelliSense, built-in integrations like GitHub Copilot, 
- or simply because you’re more comfortable with it.
+  You don’t have to use Arduino IDE to develop your projects. With the CLI, you can use your favorite code editor.
 
-- **Have full control over project dependencies**
+- **Dependency control**
 
     In Arduino IDE, only one version of a library can be installed at the same time. This becomes a real problem when
     you work on multiple projects that require different versions of the same library. This issue is solved when 
     using CLI — you can specify library versions directly from the command line, ensuring each one uses the correct dependencies.
 
-Hopefully, that was enough to convince you to give the Arduino CLI a try!
+<img src="cli-benefits.png" title="Benefits of using arduino-cli" alt="Benefits of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
+
+In summary, using Arduino CLI instead of Arduino IDE gives a lot of new potential to improve your workflow with the project.
+
 Alright, it's time to get our hands dirty. We’ll install the Arduino CLI, set it up, and then build the project from the command line.
 
 ## Arduino CLI setup
 
 > If you already have `arduino-cli` installed and working, you can jump to [Basic usage](#basic-usage) chapter.
 
-
-In September 2024, Arduino released a [major update to Arduino CLI](https://blog.arduino.cc/2024/09/05/arduino-cli-1-0-is-out/).
 As of October 2025, the latest version is Arduino CLI 1.3.1, which I'll be using here.
+
 Please refer to [official installation guide](https://docs.arduino.cc/arduino-cli/installation/) to install Arduino CLI on your system.
 
 ### Installing Arduino CLI
+On Ubuntu, I have installed Arduino CLI with one single command:
 
-{{< admonition note >}}
-The quickest way to install the **Arduino CLI** on Linux is with a single command (check for [updates here!](https://docs.arduino.cc/arduino-cli/installation/)):
 ```
 curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 ```
-
-Other way, or if you have issues with above command, you can download a prebuilt binary from the **Download** section,
+Other way, or if you have issues with above command, you can download a prebuilt binary from the [**Download**](https://docs.arduino.cc/arduino-cli/installation/#download) section,
 and manually add it to your PATH.
-{{</ admonition >}}
+
+
 {{< admonition warning >}}
 ⚠️ **Avoid installing arduino-cli with `snap`.**
 
@@ -157,19 +152,20 @@ The preparations are done! It was easy, wasn't it?
 
 
 ## Basic usage
-To start using Arduino CLI, you actually just need to use three basic commands: create new sketch, 
-build a sketch and upload the binary to the board.
+To start using Arduino CLI, you actually just need to use three basic commands: 
+- create new sketch, 
+- build a sketch,
+- upload the binary to the board.
 
 ### Creating a new sketch
 
-You can create new sketch with
+You can create new sketch with the `arduino-cli sketch new` command:
 ```
-$ cd Arduino
-$ arduino-cli sketch new MyFirstSketch
-Sketch created in: /home/kate/Arduino/MyFirstSketch
+$ arduino-cli sketch new MyBlink
+Sketch created in: /home/kate/Arduino/MyBlink
 ```
 
-By default, the sketches are created inside current working directory.
+By default, the sketches are created inside current working directory, so remember to change directory to where you want to store your sketch.
 
 ### Compile a sketch
 To compile a sketch, use `arduino-cli compile` command followed by:
@@ -185,8 +181,14 @@ arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose /home/kate/Ar
 ```
 
 ### Uploading a sketch
-Before we jump to upload command, we must now to which port is the board connected. How can we check it?
-Good news — no need to observe `ls /dev/tty*` and plug and unplug the board. There is a command for it too:
+The command for uploading a sketch looks as follows:
+
+```
+arduino-cli upload -p <port> --fqbn <id> --verbose <sketch_dir>
+```
+
+Board id and sketch dir are clear, but we need to know to which port is the board connected. How can we check it?
+Simply use `arduino-cli board list` command:
 
 ```
 $ arduino-cli board list
@@ -194,12 +196,14 @@ Port         Protocol Type              Board Name          FQBN                
 /dev/ttyACM0 serial   Serial Port (USB) Arduino UNO R4 WiFi arduino:renesas_uno:unor4wifi arduino:renesas_uno
 ```
 
-Knowing the port, board id and sketch directory, the upload command looks like this:
+There is only one board connected to the port `/dev/ttyACM0`. 
+
+So, the upload command looks like this:
 ```
 arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi --verbose /home/kate/Arduino/MyBlink
 ```
 
-So it was basically all needed to replace the usage of Arduino IDE **Verify/Compile** and **Upload** actions.
+It was basically all needed to replace the usage of Arduino IDE **Verify/Compile** and **Upload** actions.
 
 ### Serial monitor
 
@@ -225,9 +229,11 @@ In summary, the basic `arduino-cli` workflow is as follows:
 
 ## Advanced usage
 
+When you're comfortable with basic usage, we can try to do more with CLI.
+
 ### Specify build folder
 
-By default, Arduino CLI places build artifacts in a temporary, system-specific folder — which can make it hard to inspect.
+By default, Arduino CLI places build artifacts in a hidden, temporary folder — which can make it hard to inspect.
 To keep your build outputs organized and easy to analyze, specify a custom build folder using the `--build-path` flag:
 
 ```
@@ -264,7 +270,7 @@ This layout makes it much easier to explore build files, inspect compilation iss
 ### Optimize for debug
 The `--optimize-for-debug` flag adjusts compilation settings to make debugging easier.
 
-You can review or modify its behavior in the `platform.txt` file.
+You can check its behavior in the `platform.txt` file.
 When `--optimize-for-debug` is enabled,
 the *debug* version of the optimization flags is applied;
 otherwise, the *release* version is used by default.
@@ -290,7 +296,7 @@ arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \
 This way, you have debug optimized version in `MyBlink/build/debug`, and release version in `MyBlink/build/release`.
 
 ### Custom defines
-Let’s go back to our old MyBlink sketch. Currently, the LED blinks with a hardcoded delay of 1000 ms.
+Let’s take a look at the MyBlink sketch. Currently, the LED blinks with a hardcoded delay of 1000 ms.
 We can make this configurable at compile time by introducing a custom define called `BLINK_FREQUENCY`.
 
 First, update the MyBlink sketch to use the new frequency.
@@ -314,12 +320,14 @@ By adjusting the compile command, you can easily change how fast the LED blinks.
 For example, `build.extra_flags="-DBLINK_FREQUENCY=100"` part below sets the blink frequency to 100 ms:
 
 ```
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose --build-property build.extra_flags="-DBLINK_FREQUENCY=100"
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \
+  --build-property build.extra_flags="-DBLINK_FREQUENCY=100" \
+  --verbose 
 ```
 
 ### Customizing command
 
-The `platform.txt` file defines the build recipes that the Arduino ecosystem uses to compile, 
+The `platform.txt` file defines the build recipes that are used to compile, 
 link, and package a sketch. These recipes use variables that we can override when we need custom behavior.
 
 Some of these editable variables are:
@@ -342,32 +350,31 @@ These comments encourage us to override the variables in `platform.local.txt` or
 but when using the CLI there is an easier and cleaner approach: 
 instead of modifying any files, we can override them directly from the command line using `--build-property`.
 
-This keeps your setup clean and allows you to change the settings for a specific build only.
+This allows you to change the settings for a specific build only.
 
 For example:
 
 ```
 arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \
-  --verbose \
   --build-property build.extra_flags="-DBLINK_FREQUENCY=100" \
-  --build-property compiler.cpp.extra_flags="-pedantic -Werror"
+  --build-property compiler.cpp.extra_flags="-pedantic -Werror" \
+  --verbose 
 ```
 
 ## Writing a simple Makefile
 As our build command becomes longer, it becomes harder to remember and type correctly each time.
-To make it easier, we can wrap these commands inside a script that lives in the root directory 
-of the project. This could be a bash script, but an even better option is a Makefile. 
+To make it easier, we can wrap these commands inside a script. This could be a bash script, but an even better option is a Makefile. 
 Creating a Makefile for our Arduino project is very simple.
 
-At the top of the Makefile, we define a few variables such as `FQBN` and `PORT`. 
-These values are hardcoded for simplicity, feel free to change them to match your board and serial port.
+At the top of the Makefile, we define a few default variables such as `FQBN` and `PORT`. 
+The default values will be used unless you override them in Makefile call.
 
 ```
-# FQBN for your board (change if needed)
-FQBN := arduino:renesas_uno:unor4wifi
+# FQBN for your board (can be overriden)
+FQBN ?= arduino:renesas_uno:unor4wifi
 
-# Serial port (change if needed)
-PORT := /dev/ttyACM0
+# Serial port (can be overriden)
+PORT ?= /dev/ttyACM0
 
 # Build dirs
 BUILD_DEBUG := build/debug
@@ -414,19 +421,17 @@ clean:
 .PHONY: all debug release upload-debug upload-release clean monitor
 ```
 
-Once the Makefile is in the project root, using it becomes extremely easy:
+Once the Makefile is in the project root, using it becomes extremely easy. Note that passing `FQBN` and `PORT` is only needed if you want to change the default values.
 
 ```
 # Build and upload debug
-make debug
-make upload-debug
+make upload-debug FQBN=arduino:renesas_uno:unor4wifi PORT=/dev/ttyACM0
 
-# Build and upload release
-make release
+# Build and upload release (with default FQBN and PORT)
 make upload-release
 
 # Open serial monitor
-make monitor
+make monitor PORT=/dev/ttyACM0
 
 # Clean builds
 make clean
@@ -436,8 +441,10 @@ make clean
 Using the Arduino CLI gives you full control over the build process, 
 from compiling to uploading sketches, without relying on the Arduino IDE. 
 It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.
+In this post we saw how to use basic commands of Arduino IDE, add some customizations for build setup, and write a simple Makefile 
+using `arduino-cli` internally.
 
-<img src="cli-benefits.png" title="Benefits of using arduino-cli" alt="Benefits of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
+MyBlink sketch using Makefile is published [here](https://github.com/embeddedk8/MyBlink).
 
 ## More about Arduino CLI
 - 📚 [Official documentation of Arduino CLI](https://docs.arduino.cc/arduino-cli/)
