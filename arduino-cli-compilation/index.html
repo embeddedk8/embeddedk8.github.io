@@ -4,22 +4,22 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Arduino Internals: building sketches with Arduino CLI - Embedded Kate Blog</title><meta name="Description" content="Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, automate and create CI/CD pipeline"><meta property="og:url" content="https://embeddedk8.com/arduino-cli-compilation/">
+        <title>Arduino Internals: building sketches with Arduino CLI - Embedded Kate Blog</title><meta name="Description" content="Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, create Makefile"><meta property="og:url" content="https://embeddedk8.com/arduino-cli-compilation/">
   <meta property="og:site_name" content="Embedded Kate Blog">
   <meta property="og:title" content="Arduino Internals: building sketches with Arduino CLI">
-  <meta property="og:description" content="Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, automate and create CI/CD pipeline">
+  <meta property="og:description" content="Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, create Makefile">
   <meta property="og:locale" content="en">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-10-01T15:58:26+08:00">
-    <meta property="article:modified_time" content="2025-11-18T20:25:25+01:00">
+    <meta property="article:modified_time" content="2025-11-19T12:40:36+01:00">
     <meta property="article:tag" content="Arduino Internals">
     <meta property="og:image" content="https://embeddedk8.com/arduino-cli-compilation/featured-image.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://embeddedk8.com/arduino-cli-compilation/featured-image.png">
   <meta name="twitter:title" content="Arduino Internals: building sketches with Arduino CLI">
-  <meta name="twitter:description" content="Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, automate and create CI/CD pipeline">
+  <meta name="twitter:description" content="Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, create Makefile">
       <meta name="twitter:site" content="@EmbeddedKate">
 <meta name="application-name" content="embeddedk8">
 <meta name="apple-mobile-web-app-title" content="embeddedk8"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -40,8 +40,8 @@
                             "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/featured-image.png",
                             "width":  1366 ,
                             "height":  435 
-                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  2219 ,
-        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-11-18T20:25:25+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+                        }],"genre": "posts","keywords": "Arduino Internals","wordcount":  2225 ,
+        "url": "https:\/\/embeddedk8.com\/arduino-cli-compilation\/","datePublished": "2025-10-01T15:58:26+08:00","dateModified": "2025-11-19T12:40:36+01:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "Embedded Kate Blog","logo": {
                     "@type": "ImageObject",
@@ -51,7 +51,7 @@
                 }},"author": {
                 "@type": "Person",
                 "name": "embeddedk8"
-            },"description": "Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, automate and create CI/CD pipeline"
+            },"description": "Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, create Makefile"
     }
 
 
@@ -127,7 +127,7 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino Internals: building sketches with Arduino CLI</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://embeddedk8.com" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>embeddedk8</a></span>&nbsp;<span class="post-category">included in <a href="/categories/arduino-internals/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino Internals</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2219 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-10-01">2025-10-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2225 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;11 minutes&nbsp;</div>
         </div><div class="featured-image"><img
         class="lazyload"
@@ -136,7 +136,7 @@
         data-srcset="/arduino-cli-compilation/featured-image.png, /arduino-cli-compilation/featured-image.png 1.5x, /arduino-cli-compilation/featured-image.png 2x"
         data-sizes="auto"
         alt="/arduino-cli-compilation/featured-image.png"
-        title="Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, automate and create CI/CD pipeline" /></div><div class="details toc" id="toc-static"  data-kept="">
+        title="Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, create Makefile" /></div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
                     <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
@@ -175,66 +175,56 @@
 </nav></div>
             </div><div class="content" id="content"><p>Do you know that you don’t actually need the Arduino IDE to build and upload sketches?</p>
 <p>Arduino projects can be compiled and uploaded straight from the command line using the <strong>Arduino Command Line Interface (CLI)</strong>.
-This process is identical to what happens when you build and upload from the IDE, because Arduino IDE 2.0 and later use <code>arduino-cli</code> under the hood.</p>
-<p>By working directly with the CLI, you remove the IDE as a middle layer and gain more possibilities and control over your builds.</p>
+Underneath, this process is identical to what happens when you build and upload from the IDE,
+because Arduino IDE 2.0 and later use <code>arduino-cli</code> under the hood.
+The only difference is how do you trigger build and upload — by command line instead of clicking inside IDE.</p>
+<p>Working directly with the CLI, without IDE as a middle layer, is actually better for many reasons, which we will discuss below.</p>
 <h2 id="reasons-to-use-arduino-cli">Reasons to use Arduino CLI</h2>
-<p>If you were comfortable using IDE, you may not immediately see <strong>why</strong> would you use Arduino CLI instead.</p>
-<p>In Arduino Exchange forum you can find suggestion that</p>
-<blockquote>
-<p><a href="https://arduino.stackexchange.com/questions/56767/what-are-the-benefits-or-advantages-of-arduino-cli" target="_blank" rel="noopener noreffer ">&ldquo;If you have to ask what the benefits are then the benefits most likely do not apply to or interest you.&rdquo;</a>.</p>
-</blockquote>
-<p>That’s not entirely fair, though — it overlooks the fact that people want to learn new things.
-Arduino IDE is great for getting started, but you can do much more if you switch to Arduino CLI:</p>
+<p>If you are comfortable using IDE, you may not immediately see why would you use Arduino CLI instead.
+At first, it may seem more complicated, right? Nothing is as easy as pressing a button.
+That&rsquo;s true — Arduino IDE is great for getting started. But as your project grows, and you want to make more complicated
+things with it, Arduino CLI will allow you to achieve much more.</p>
+<p>Some of the benefits are:</p>
 <ul>
 <li>
-<p><strong>Use advanced configuration options</strong></p>
-<p>Some build or configuration options aren&rsquo;t exposed in the Arduino IDE.
-It&rsquo;s possible to configure them with configuration files, but this way is more complicated and harder to maintain —
-global configuration would affect all projects, per-board or per-sketch configuration would be time-consuming.
-With the CLI, you can fully control compiler flags, custom defines and board settings from command line,
-for each project separately.</p>
+<p><strong>Advanced configuration</strong></p>
+<p>Using custom build or configuration options is not possible from the Arduino IDE.
+Setting things like custom defines, special compilation flags, or customizing where <code>build</code> artifacts are stored,
+requires modifying configuration files that are outside the IDE. Global configuration files affect all projects,
+while maintaining per-project config files would be time-consuming. That&rsquo;s why when your project starts requiring
+any non-standard setup it&rsquo;s better to switch to Arduino CLI for simplicity and convenience.</p>
 </li>
 <li>
-<p><strong>Automate your builds and create CI/CD pipelines</strong></p>
-<p>Using the CLI, you can easily implement the scripts for tasks like building, uploading, deploying and testing the project.
-These scripts can run on lightweight systems without graphical interface, such as Docker containers.
-This makes possible to integrate Arduino project into the CI/CD pipeline for automated builds and testing.</p>
+<p><strong>Automation and CI/CD</strong></p>
+<p>With command line interface, you can create CI/CD pipelines that will automatically build, deploy and test the project.</p>
 </li>
 <li>
-<p><strong>Ensure reproducibility for your builds</strong></p>
+<p><strong>Reproducibility</strong></p>
 <p>When working in a team, using the Arduino CLI ensures that everyone builds the project with exactly the same setup and dependencies.
 This helps eliminate the classic “it works on my machine” problem and makes builds consistent across different environments.</p>
 </li>
 <li>
-<p><strong>Use your favourite IDE, not necessarily Arduino IDE</strong></p>
-<p>You don’t have to use Arduino IDE to develop your projects.
-With the CLI, you can use your favorite code editor
-— whether it’s for better IntelliSense, built-in integrations like GitHub Copilot,
-or simply because you’re more comfortable with it.</p>
+<p><strong>Independency from Arduino IDE</strong></p>
+<p>You don’t have to use Arduino IDE to develop your projects. With the CLI, you can use your favorite code editor.</p>
 </li>
 <li>
-<p><strong>Have full control over project dependencies</strong></p>
+<p><strong>Dependency control</strong></p>
 <p>In Arduino IDE, only one version of a library can be installed at the same time. This becomes a real problem when
 you work on multiple projects that require different versions of the same library. This issue is solved when
 using CLI — you can specify library versions directly from the command line, ensuring each one uses the correct dependencies.</p>
 </li>
 </ul>
-<p>Hopefully, that was enough to convince you to give the Arduino CLI a try!
-Alright, it&rsquo;s time to get our hands dirty. We’ll install the Arduino CLI, set it up, and then build the project from the command line.</p>
+<img src="cli-benefits.png" title="Benefits of using arduino-cli" alt="Benefits of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
+<p>In summary, using Arduino CLI instead of Arduino IDE gives a lot of new potential to improve your workflow with the project.</p>
+<p>Alright, it&rsquo;s time to get our hands dirty. We’ll install the Arduino CLI, set it up, and then build the project from the command line.</p>
 <h2 id="arduino-cli-setup">Arduino CLI setup</h2>
 <blockquote>
 <p>If you already have <code>arduino-cli</code> installed and working, you can jump to <a href="#basic-usage" rel="">Basic usage</a> chapter.</p>
 </blockquote>
-<p>In September 2024, Arduino released a <a href="https://blog.arduino.cc/2024/09/05/arduino-cli-1-0-is-out/" target="_blank" rel="noopener noreffer ">major update to Arduino CLI</a>.
-As of October 2025, the latest version is Arduino CLI 1.3.1, which I&rsquo;ll be using here.
-Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" target="_blank" rel="noopener noreffer ">official installation guide</a> to install Arduino CLI on your system.</p>
+<p>As of October 2025, the latest version is Arduino CLI 1.3.1, which I&rsquo;ll be using here.</p>
+<p>Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" target="_blank" rel="noopener noreffer ">official installation guide</a> to install Arduino CLI on your system.</p>
 <h3 id="installing-arduino-cli">Installing Arduino CLI</h3>
-<p><div class="details admonition note open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content"><p>The quickest way to install the <strong>Arduino CLI</strong> on Linux is with a single command (check for <a href="https://docs.arduino.cc/arduino-cli/installation/" target="_blank" rel="noopener noreffer ">updates here!</a>):</p>
+<p>On Ubuntu, I have installed Arduino CLI with one single command:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -243,11 +233,8 @@ Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" targ
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Other way, or if you have issues with above command, you can download a prebuilt binary from the <strong>Download</strong> section,
+</div><p>Other way, or if you have issues with above command, you can download a prebuilt binary from the <a href="https://docs.arduino.cc/arduino-cli/installation/#download" target="_blank" rel="noopener noreffer "><strong>Download</strong></a> section,
 and manually add it to your PATH.</p>
-</div>
-        </div>
-    </div>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -259,7 +246,7 @@ and manually add it to your PATH.</p>
 If you’ve already installed it with <code>snap</code> and it&rsquo;s not working, remove it and reinstall using one of the methods above.</p>
 </div>
         </div>
-    </div></p>
+    </div>
 <h3 id="check-installation">Check installation</h3>
 <p>After installing, type <code>arduino-cli</code> in your terminal, to confirm that the tool was installed successfully.</p>
 <div class="highlight"><div class="chroma">
@@ -344,23 +331,25 @@ so let&rsquo;s see what we can choose:</p>
 </div>
 </div><p>The preparations are done! It was easy, wasn&rsquo;t it?</p>
 <h2 id="basic-usage">Basic usage</h2>
-<p>To start using Arduino CLI, you actually just need to use three basic commands: create new sketch,
-build a sketch and upload the binary to the board.</p>
+<p>To start using Arduino CLI, you actually just need to use three basic commands:</p>
+<ul>
+<li>create new sketch,</li>
+<li>build a sketch,</li>
+<li>upload the binary to the board.</li>
+</ul>
 <h3 id="creating-a-new-sketch">Creating a new sketch</h3>
-<p>You can create new sketch with</p>
+<p>You can create new sketch with the <code>arduino-cli sketch new</code> command:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ cd Arduino
-</span></span><span class="line"><span class="cl">$ arduino-cli sketch new MyFirstSketch
-</span></span><span class="line"><span class="cl">Sketch created in: /home/kate/Arduino/MyFirstSketch
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ arduino-cli sketch new MyBlink
+</span></span><span class="line"><span class="cl">Sketch created in: /home/kate/Arduino/MyBlink
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>By default, the sketches are created inside current working directory.</p>
+</div><p>By default, the sketches are created inside current working directory, so remember to change directory to where you want to store your sketch.</p>
 <h3 id="compile-a-sketch">Compile a sketch</h3>
 <p>To compile a sketch, use <code>arduino-cli compile</code> command followed by:</p>
 <ul>
@@ -378,8 +367,17 @@ build a sketch and upload the binary to the board.</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="uploading-a-sketch">Uploading a sketch</h3>
-<p>Before we jump to upload command, we must now to which port is the board connected. How can we check it?
-Good news — no need to observe <code>ls /dev/tty*</code> and plug and unplug the board. There is a command for it too:</p>
+<p>The command for uploading a sketch looks as follows:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">arduino</span><span class="o">-</span><span class="n">cli</span> <span class="n">upload</span> <span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">port</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">fqbn</span> <span class="o">&lt;</span><span class="n">id</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">&lt;</span><span class="n">sketch_dir</span><span class="o">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Board id and sketch dir are clear, but we need to know to which port is the board connected. How can we check it?
+Simply use <code>arduino-cli board list</code> command:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -392,7 +390,8 @@ Good news — no need to observe <code>ls /dev/tty*</code> and plug and unplug t
 </span></span><span class="line"><span class="cl">/dev/ttyACM0 serial   Serial Port (USB) Arduino UNO R4 WiFi arduino:renesas_uno:unor4wifi arduino:renesas_uno
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Knowing the port, board id and sketch directory, the upload command looks like this:</p>
+</div><p>There is only one board connected to the port <code>/dev/ttyACM0</code>.</p>
+<p>So, the upload command looks like this:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -401,7 +400,7 @@ Good news — no need to observe <code>ls /dev/tty*</code> and plug and unplug t
 <pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">arduino</span><span class="o">-</span><span class="n">cli</span> <span class="n">upload</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM0</span> <span class="o">--</span><span class="n">fqbn</span> <span class="n">arduino</span><span class="p">:</span><span class="n">renesas_uno</span><span class="p">:</span><span class="n">unor4wifi</span> <span class="o">--</span><span class="n">verbose</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kate</span><span class="o">/</span><span class="n">Arduino</span><span class="o">/</span><span class="n">MyBlink</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>So it was basically all needed to replace the usage of Arduino IDE <strong>Verify/Compile</strong> and <strong>Upload</strong> actions.</p>
+</div><p>It was basically all needed to replace the usage of Arduino IDE <strong>Verify/Compile</strong> and <strong>Upload</strong> actions.</p>
 <h3 id="serial-monitor">Serial monitor</h3>
 <p>If your application sends data using <code>Serial.write()</code> or <code>Serial.print()</code>,
 you can view it using the <code>monitor</code> command in the Arduino CLI.</p>
@@ -429,8 +428,9 @@ For example, if your code includes:</p>
 <p>In summary, the basic <code>arduino-cli</code> workflow is as follows:</p>
 <img src="basic-flow.png" alt="Basic flow of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
 <h2 id="advanced-usage">Advanced usage</h2>
+<p>When you&rsquo;re comfortable with basic usage, we can try to do more with CLI.</p>
 <h3 id="specify-build-folder">Specify build folder</h3>
-<p>By default, Arduino CLI places build artifacts in a temporary, system-specific folder — which can make it hard to inspect.
+<p>By default, Arduino CLI places build artifacts in a hidden, temporary folder — which can make it hard to inspect.
 To keep your build outputs organized and easy to analyze, specify a custom build folder using the <code>--build-path</code> flag:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -488,7 +488,7 @@ To keep your build outputs organized and easy to analyze, specify a custom build
 </div><p>This layout makes it much easier to explore build files, inspect compilation issues, or integrate the build with external tools (like static analyzers).</p>
 <h3 id="optimize-for-debug">Optimize for debug</h3>
 <p>The <code>--optimize-for-debug</code> flag adjusts compilation settings to make debugging easier.</p>
-<p>You can review or modify its behavior in the <code>platform.txt</code> file.
+<p>You can check its behavior in the <code>platform.txt</code> file.
 When <code>--optimize-for-debug</code> is enabled,
 the <em>debug</em> version of the optimization flags is applied;
 otherwise, the <em>release</em> version is used by default.
@@ -529,7 +529,7 @@ using already discussed <code>--build-path</code>:</p>
 </div>
 </div><p>This way, you have debug optimized version in <code>MyBlink/build/debug</code>, and release version in <code>MyBlink/build/release</code>.</p>
 <h3 id="custom-defines">Custom defines</h3>
-<p>Let’s go back to our old MyBlink sketch. Currently, the LED blinks with a hardcoded delay of 1000 ms.
+<p>Let’s take a look at the MyBlink sketch. Currently, the LED blinks with a hardcoded delay of 1000 ms.
 We can make this configurable at compile time by introducing a custom define called <code>BLINK_FREQUENCY</code>.</p>
 <p>First, update the MyBlink sketch to use the new frequency.
 If no value is provided from the command line, it will default to 1000 ms; otherwise, it will use the value you specify.</p>
@@ -566,13 +566,17 @@ For example, <code>build.extra_flags=&quot;-DBLINK_FREQUENCY=100&quot;</code> pa
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi --verbose --build-property build.extra_flags=&#34;-DBLINK_FREQUENCY=100&#34;
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \
+</span></span><span class="line"><span class="cl">  --build-property build.extra_flags=&#34;-DBLINK_FREQUENCY=100&#34; \
+</span></span><span class="line"><span class="cl">  --verbose 
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="customizing-command">Customizing command</h3>
-<p>The <code>platform.txt</code> file defines the build recipes that the Arduino ecosystem uses to compile,
+<p>The <code>platform.txt</code> file defines the build recipes that are used to compile,
 link, and package a sketch. These recipes use variables that we can override when we need custom behavior.</p>
 <p>Some of these editable variables are:</p>
 <div class="highlight"><div class="chroma">
@@ -608,7 +612,7 @@ link, and package a sketch. These recipes use variables that we can override whe
 </div><p>These comments encourage us to override the variables in <code>platform.local.txt</code> or <code>boards.txt</code>,
 but when using the CLI there is an easier and cleaner approach:
 instead of modifying any files, we can override them directly from the command line using <code>--build-property</code>.</p>
-<p>This keeps your setup clean and allows you to change the settings for a specific build only.</p>
+<p>This allows you to change the settings for a specific build only.</p>
 <p>For example:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -619,18 +623,17 @@ instead of modifying any files, we can override them directly from the command l
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \
-</span></span><span class="line"><span class="cl">  --verbose \
 </span></span><span class="line"><span class="cl">  --build-property build.extra_flags=&#34;-DBLINK_FREQUENCY=100&#34; \
-</span></span><span class="line"><span class="cl">  --build-property compiler.cpp.extra_flags=&#34;-pedantic -Werror&#34;
+</span></span><span class="line"><span class="cl">  --build-property compiler.cpp.extra_flags=&#34;-pedantic -Werror&#34; \
+</span></span><span class="line"><span class="cl">  --verbose 
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="writing-a-simple-makefile">Writing a simple Makefile</h2>
 <p>As our build command becomes longer, it becomes harder to remember and type correctly each time.
-To make it easier, we can wrap these commands inside a script that lives in the root directory
-of the project. This could be a bash script, but an even better option is a Makefile.
+To make it easier, we can wrap these commands inside a script. This could be a bash script, but an even better option is a Makefile.
 Creating a Makefile for our Arduino project is very simple.</p>
-<p>At the top of the Makefile, we define a few variables such as <code>FQBN</code> and <code>PORT</code>.
-These values are hardcoded for simplicity, feel free to change them to match your board and serial port.</p>
+<p>At the top of the Makefile, we define a few default variables such as <code>FQBN</code> and <code>PORT</code>.
+The default values will be used unless you override them in Makefile call.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -684,11 +687,11 @@ These values are hardcoded for simplicity, feel free to change them to match you
 </span><span class="lnt">49
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># FQBN for your board (change if needed)</span>
-</span></span><span class="line"><span class="cl"><span class="n">FQBN</span> <span class="p">:</span><span class="o">=</span> <span class="n">arduino</span><span class="p">:</span><span class="n">renesas_uno</span><span class="p">:</span><span class="n">unor4wifi</span>
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># FQBN for your board (can be overriden)</span>
+</span></span><span class="line"><span class="cl"><span class="n">FQBN</span> <span class="err">?</span><span class="o">=</span> <span class="n">arduino</span><span class="p">:</span><span class="n">renesas_uno</span><span class="p">:</span><span class="n">unor4wifi</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Serial port (change if needed)</span>
-</span></span><span class="line"><span class="cl"><span class="n">PORT</span> <span class="p">:</span><span class="o">=</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM0</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Serial port (can be overriden)</span>
+</span></span><span class="line"><span class="cl"><span class="n">PORT</span> <span class="err">?</span><span class="o">=</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM0</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Build dirs</span>
 </span></span><span class="line"><span class="cl"><span class="n">BUILD_DEBUG</span> <span class="p">:</span><span class="o">=</span> <span class="n">build</span><span class="o">/</span><span class="n">debug</span>
@@ -735,7 +738,7 @@ These values are hardcoded for simplicity, feel free to change them to match you
 </span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">PHONY</span><span class="p">:</span> <span class="n">all</span> <span class="n">debug</span> <span class="n">release</span> <span class="n">upload</span><span class="o">-</span><span class="n">debug</span> <span class="n">upload</span><span class="o">-</span><span class="n">release</span> <span class="n">clean</span> <span class="n">monitor</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Once the Makefile is in the project root, using it becomes extremely easy:</p>
+</div><p>Once the Makefile is in the project root, using it becomes extremely easy. Note that passing <code>FQBN</code> and <code>PORT</code> is only needed if you want to change the default values.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -749,20 +752,16 @@ These values are hardcoded for simplicity, feel free to change them to match you
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Build and upload debug</span>
-</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">debug</span>
-</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">upload</span><span class="o">-</span><span class="n">debug</span>
+</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">upload</span><span class="o">-</span><span class="n">debug</span> <span class="n">FQBN</span><span class="o">=</span><span class="n">arduino</span><span class="p">:</span><span class="n">renesas_uno</span><span class="p">:</span><span class="n">unor4wifi</span> <span class="n">PORT</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM0</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># Build and upload release</span>
-</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">release</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Build and upload release (with default FQBN and PORT)</span>
 </span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">upload</span><span class="o">-</span><span class="n">release</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Open serial monitor</span>
-</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">monitor</span>
+</span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">monitor</span> <span class="n">PORT</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyACM0</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Clean builds</span>
 </span></span><span class="line"><span class="cl"><span class="n">make</span> <span class="n">clean</span>
@@ -771,8 +770,10 @@ These values are hardcoded for simplicity, feel free to change them to match you
 </div><h2 id="summary">Summary</h2>
 <p>Using the Arduino CLI gives you full control over the build process,
 from compiling to uploading sketches, without relying on the Arduino IDE.
-It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.</p>
-<img src="cli-benefits.png" title="Benefits of using arduino-cli" alt="Benefits of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
+It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.
+In this post we saw how to use basic commands of Arduino IDE, add some customizations for build setup, and write a simple Makefile
+using <code>arduino-cli</code> internally.</p>
+<p>MyBlink sketch using Makefile is published <a href="https://github.com/embeddedk8/MyBlink" target="_blank" rel="noopener noreffer ">here</a>.</p>
 <h2 id="more-about-arduino-cli">More about Arduino CLI</h2>
 <ul>
 <li>
@@ -795,8 +796,8 @@ It’s perfect for automation, reproducibility, and integrating Arduino projects
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-11-18&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/31c2cde54dd0d76d6485d7e0f3158ca836b1f9f2" target="_blank" title="commit by Kate(embeddedkate@gmail.com) 31c2cde54dd0d76d6485d7e0f3158ca836b1f9f2: Update imgs resizing">
-                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>31c2cde</a></span>
+                <span>Updated on 2025-11-19&nbsp;<a class="git-hash" href="https://github.com/embeddedk8/embeddedk8.github.io/commit/933bdb6d4198b4855f0d22a1767e7a7fd874cd4d" target="_blank" title="commit by Kate(embeddedkate@gmail.com) 933bdb6d4198b4855f0d22a1767e7a7fd874cd4d: Tweaks P2">
+                                    <i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>933bdb6</a></span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"><span>
