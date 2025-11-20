@@ -415,6 +415,18 @@ make monitor PORT=/dev/ttyACM0
 make clean
 ```
 
+[//]: # (## Dependency control)
+
+[//]: # ()
+[//]: # (As I've already mentioned, in Arduino IDE you can have just one version of a library installed, and this particular version will be linked to )
+
+[//]: # (all projects that use this library. It's not possible to maintain two projects that require different library versions &#40;without manually reinstalling)
+
+[//]: # (the library on each project switch&#41;.)
+
+[//]: # ()
+[//]: # (Arduino CLI is solving this issue. Let's analyze it)
+
 ## Summary
 Using the Arduino CLI gives you full control over the build process, 
 from compiling to uploading sketches, without relying on the Arduino IDE. 

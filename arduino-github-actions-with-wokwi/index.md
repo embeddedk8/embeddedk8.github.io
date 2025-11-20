@@ -232,4 +232,7 @@ The Wokwi simulation job will reuse artifact from build job.
 
 Now, on each push, your Arduino application is built and tested.
 
+## Example project
+
+The described jobs are executed on simple [MyBlink project](https://github.com/embeddedk8/MyBlink).
 
