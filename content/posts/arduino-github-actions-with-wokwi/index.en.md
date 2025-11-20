@@ -1,12 +1,12 @@
 ---
 weight: 2
-title: "Arduino Internals: running simulation on CI/CD"
+title: "Arduino Internals: running wokwi simulation on CI/CD"
 date: 2025-11-18T15:58:26+08:00
 lastmod: 2025-10-01T15:58:26+08:00
-draft: true
+draft: false
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Creating CI/CD pipeline with github actions and wokwi simulation"
+description: "Creating CI/CD pipeline for Arduino with github actions and wokwi simulation"
 images: []
 resources:
 - name: "featured-image"
@@ -23,42 +23,107 @@ math:
     enable: true
 ---
 
-Creating a simple CI/CD pipeline on github action with Wokwi simulation is very easy for Arduino.
-First we will take a look on how to add building to github actions, then we will add wokwi simulation.
 
-## Adding Arduino build to github actions
+Testing projects is one of the major challenges in embedded devices field. 
+Many existing projects still rely on manual building by developers and
+exclusive manual tests on the real hardware. In such case, pushing the change that breaks the compilation, 
+or breaks the functionality of device, could go unnoticed for some time. 
+An additional issue is that testing each change and iteration on real hardware is time-consuming for developers.
 
-You can build your arduino project on github actions easily, because of existing actions `arduino/setup-arduino-cli@v2`,
-which will install `arduino-cli` to your github workflow.
+While nothing really can fully replace the end tests on the real hardware, we can (and should) introduce 
+multiple layers of testing that can be done automatically, without effort from the developers side.
 
-The minimal example is presented below:
+## Tools needed
+In this post I will present one possible way of automating builds and tests for Arduino project. It will use:
+- Arduino command line interface ([Arduino CLI](https://arduino.github.io/arduino-cli/1.3/)),
+- automated builds with [Github Actions](https://github.com/features/actions),
+- automated simulation with [Wokwi simulator](https://wokwi.com/) for simple testing.
 
-```
+With such approach, on each push to Github repository we will test on CI/CD that project builds and runs correctly.
+
+### Arduino CLI
+To build and simulate Arduino projects from the scripts in CI/CD jobs we need to use Arduino command line interface. 
+If you're not familiar with it, you
+can read my introduction: [Arduino Internals: building sketches with Arduino CLI](https://www.embeddedk8.com/arduino-cli-compilation/).
+
+### Wokwi
+
+**Wokwi** is a simulation platform that allows to run embedded project without using the real hardware.
+
+It supports many [Arduino boards](https://wokwi.com/arduino), including:
+- Arduino Uno (AVR),
+- Arduino Mega,
+- Arduino Nano.
+
+With Wokwi, you can simulate the execution of an Arduino project and implement simple test cases based on 
+the project’s serial output. In other words, you can build test cases that pass or fail depending on what the simulated device prints.
+
+Wokwi is free to use, but it requires creating a free account.
+
+### Github Actions
+GitHub Actions is a GitHub feature that allows you to run CI/CD jobs directly on GitHub repositories. 
+It is free for open-source projects and easy to set up.
+
+Many important templates and actions are already implemented and ready to use. 
+To work with Arduino projects, we need to install `arduino-cli` within GitHub Actions. 
+For this, we can use the [setup-arduino-cli action](https://github.com/arduino/setup-arduino-cli) — we only need to include it in our workflow.
+
+## Building our CI/CD pipeline 
+
+Let's create a CI/CD pipeline that will build our project automatically (validate compilation) and
+run and check for serial output (validate execution).
+
+### Build Arduino sketch
+
+The minimal example of Github Actions job that will build Arduino project is presented below:
+
+```yaml
   build:
     runs-on: ubuntu-latest
-    outputs:
-      firmware-path: ${{ steps.build.outputs.firmware_path }}
       
     steps:
+      # --- STEP 1: Checkout the repository ----------------------------------
+      # This downloads your GitHub repository code (your Arduino project) into 
+      # the virtual machine that runs this workflow. 
       - name: Checkout
         uses: actions/checkout@v5
 
+      # --- STEP 2: Install Arduino CLI --------------------------------------
+      # Arduino CLI is needed to build sketch from command line.
+      # This action automatically installs the specified Arduino CLI version
+      # on the GitHub Actions runner.
       - name: Install Arduino CLI
         uses: arduino/setup-arduino-cli@v2
         with:
+          # You can also use "latest" instead of a fixed version.
           version: "1.3.1"
 
+      # --- STEP 3: Install the required board core ---------------------------
+      # Before compiling anything, Arduino CLI must know which board family
+      # you want to build for.
+      #
+      # "arduino:avr" contains support for Arduino Uno, Nano, Mega, etc.
+      # Wokwi (the simulator used later) also supports this family, so we
+      # install it here.
       - name: Setup Arduino CLI
         run: |
           arduino-cli core update-index
           arduino-cli core install arduino:avr
 
+      # --- STEP 4: Compile the sketch ----------------------------------------
+      # This calls your Makefile to build the firmware.
+      # FQBN (Fully Qualified Board Name) tells Arduino CLI which board
+      # the code should be compiled for — here we use arduino:avr:uno.
       - name: Compile Sketch (arduino:avr:uno for Wokwi)
         id: build
         run: |
           make release FQBN=arduino:avr:uno
-          echo "firmware_path=./build/release/MyBlink.ino.hex" >> $GITHUB_OUTPUT
-  
+
+      # --- STEP 5: Upload compiled firmware as artifacts ---------------------
+      # Since the next job cannot access this job's filesystem directly,
+      # we upload the compiled firmware files (.hex and .elf) as artifacts.
+      # GitHub stores them temporarily and makes them available to any
+      # following jobs in the same workflow.
       - name: Upload firmware artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -68,46 +133,47 @@ The minimal example is presented below:
             ./build/release/MyBlink.ino.elf
 ```
 
-Steps:
-1. Checkout - standard first step, to checkout the tested repository to github workflow. After this step, your repository is downloaded on github action job runner.
-2. Install Arduino CLI - `uses: arduino/setup-arduino-cli@v2` ensures that `arduino-cli` is installed on your runner. You can specify specific version
-with `version` option. I have chosen latest, `1.3.1` version.
-3. Setup Arduino CLI - standard `arduino-cli` setup steps, that will download the core needed to build your application for selected board. 
-Here, I have chosen `arduino:avr` because I plan to test/simulate it with wokwi, and `arduino:avr` is supported by wokwi (and Arduino Uno R4 Wifi is not, unfortunately).
-4. Compile your application for selected board. I use the Makefile that I created. You can see Makefile [here](https://github.com/embeddedk8/MyBlink/blob/main/Makefile).
-Because wokwi simulation is separate job, I export compiled binary (`.hex` and `.elf`), so next job can access it.
+This job builds the Arduino Uno firmware using Makefile and exports the compiled artifacts 
+so the next job can use them for simulation or deployment.
 
-So summarizing: first job has built the binary for `arduino:avr:uno` with the use of Makefile, and uploads artifacts for next job.
+### Simulate execution with Wokwi
 
-## Run simulation with wokwi
+First, we need to create an account to use Wokwi. 
 
-Wokwi is free simulator for Arduino, ESP32, STM32 and Pi Pico for open source project, but you need to create an account to use it.
-The commercial or private projects require paid plan, and for free we get 50 minutes of simulation time per month.
+#### Create an account in Wokwi
 
-### Create an account in wokwi
+Open [wokwi](https://wokwi.com/) to create an account. For personal project Wokwi is free so choose the Free plan.
+In Free plan, we get 50 minutes of CI/CD simulation execution per month.
 
-First, create an account in [wokwi](https://wokwi.com/). You can choose free plan.
+#### Create new Wokwi token
 
-### Install wokwi-cli locally
+For using Wokwi, either locally or from Github Actions, we need to have the access token.
 
-Install wokwi-cli to test your setup locally, according to [this instruction](https://docs.wokwi.com/wokwi-ci/cli-installation).
-To use `wokwi-cli` locally you need to create and export TOKEN from your account.
+Go to [https://wokwi.com/dashboard/ci](https://wokwi.com/dashboard/ci) and create a new token. 
 
-Go to [https://wokwi.com/dashboard/ci](https://wokwi.com/dashboard/ci) and create a new token. Then export it in your environment.
-In Linux, you can add to .bashrc
-
+To use Wokwi from your PC (which will be helpful for debugging the setup) you need to export the token inside your
+local envirnoment. For example, in Linux you can add the token to `.bashrc`:
 ```
 export WOKWI_CLI_TOKEN=<xxx>
 ```
 
-### Initialize wokwi project
+Reopen the terminal so changes are applied.
+
+#### Install wokwi-cli locally
+
+`wokwi-cli` is the Wokwi command line interface that is used to run the simulation from CI/CD jobs.
+But it's also useful to have it locally for validating the simulation on host.
+
+Install `wokwi-cli` locally, according to [this instruction](https://docs.wokwi.com/wokwi-ci/cli-installation).
+
+#### Initialize Wokwi project
 
 To use wokwi, your project needs to contain two files:
 
-#### wokwi.toml
+**wokwi.toml**
 
-Basic file describing version, board, elf and firmware location.
-elf and firmware location must be relative to wokwi.toml file.
+This is a basic file describing version, board, `elf` and `firmware` location.
+`elf` and `firmware` paths must be relative to `wokwi.toml` file. Ensure they match your project layout.
 ```
 [wokwi]
 version = 1
@@ -116,9 +182,9 @@ elf = "build/release/MyBlink.ino.elf"
 firmware = "build/release/MyBlink.ino.hex"
 ```
 
-#### diagram.json
+**diagram.json**
 
-File describing connections. Following file describes no connections:
+File describing connections. My simple project contains no connections, so the `diagram.json` looks like this:
 ```
 {
 "version": 1,
@@ -130,41 +196,53 @@ File describing connections. Following file describes no connections:
 }
 ```
 
-You can use online creator to add new elements, like LEDs, buttons, etc. to your simulated board, and copy diagram.json from web.
+You can use [online creator](https://wokwi.com/projects/new/arduino-uno) to add new elements, like LEDs, buttons, etc. to your simulated board, 
+and copy generated `diagram.json` from web.
 
-### Run wokwi sim locally
-To test that your wokwi setup works correctly, when you already have exported TOKEN and created two files, run
+#### Run Wokwi sim locally
+To test that your Wokwi setup works correctly, run:
 ```
 wokwi-cli --timeout 10000  --expect-text "Success"
 ```
 
-Your app should print (write to Serial port) some text/data, and based on this data, your test case will succeed or fail.
+This test runs the simulation and will succeed if application prints `"Success"`. (Obviuosly, you need to add such print to your application).
+This is the simplest simulation test for Arduino app. If it's succeeding, you're ready to add Wokwi test case to Github Actions.
 
-This is the simplest simulation test for Arduino app. If it's suceeding, you're ready to add wokwi test case to github actions.
+#### Add wokwi simulation to github actions
 
-### Add wokwi simulation to github actions
+First, add `WOKWI_CLI_TOKEN` as a secret to your Github repository settings. You can reuse the same TOKEN as you have locally or create new token.
+Choose `Settings -> Secrets and variables -> Actions -> New secret` and name your token WOKWI_CLI_TOKEN.
 
-First, add WOKWI_CLI_TOKEN as secret to your github repository settings. You can reuse the same TOKEN as you have locally or create new token.
-Choose Settings -> Secrets and variables -> Actions -> New secret and name your token WOKWI_CLI_TOKEN.
+[![Adding a secret to Github repository](/github-secret.png "Adding a secret to Github repository")](/github-secret.png)
 
-### Add wokwi simulation job
+### Wokwi simulation
 
-The wokwi simulation job will reuse artifact from build job. 
+The Wokwi simulation job will reuse artifact from build job. 
 
-test:
-runs-on: ubuntu-latest
-needs: build
-```
+```yaml
+    test:
+    runs-on: ubuntu-latest
+    # This job will run after job `build` is finished.
+    needs: build 
+    
     steps:
+      # --- STEP 1: Checkout the repository ----------------------------------
       - name: Checkout
         uses: actions/checkout@v5
 
+      # --- STEP 2: Download firmware artifact --------------------------------
+      # Download the compiled firmware files (.hex/.elf) produced in the 'build' job.
+      # These artifacts are needed to run tests in the Wokwi simulator.
       - name: Download firmware artifact
         uses: actions/download-artifact@v4
         with:
           name: firmware
           path: ./build/release
 
+      # --- STEP 3: Run tests using Wokwi simulator ---------------------------
+      # This step runs the Arduino project in the Wokwi simulator.
+      # It checks the serial output for the expected text to determine if the
+      # test passes or fails.
       - name: Test with Wokwi
         uses: wokwi/wokwi-ci-action@v1
         with:
@@ -173,9 +251,5 @@ needs: build
           expect_text: Success
           timeout: 30000
 ```
-
-1 - Checkout - checkout the repository content.
-2 - Download the build artifacts from `build` job (or, you can just build in the same job if you want).
-3 - Run the test simulation - the same as you tested locally.
 
 Now, on each push, your Arduino application is built and tested.
