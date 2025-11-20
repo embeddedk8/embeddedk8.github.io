@@ -5,6 +5,20 @@
         <description>All Posts | Embedded Kate Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>embeddedkate@gmail.com (embeddedk8)</managingEditor>
             <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 18 Nov 2025 15:58:26 &#43;0800</lastBuildDate><atom:link href="https://embeddedk8.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Arduino Internals: running wokwi simulation on CI/CD</title>
+    <link>https://embeddedk8.com/arduino-github-actions-with-wokwi/</link>
+    <pubDate>Tue, 18 Nov 2025 15:58:26 &#43;0800</pubDate>
+    <author>embeddedk8</author>
+    <guid>https://embeddedk8.com/arduino-github-actions-with-wokwi/</guid>
+    <description><![CDATA[<p>Testing projects is one of the major challenges in embedded devices field.
+Many existing projects still rely on manual building by developers and
+exclusive manual tests on the real hardware. In such case, pushing the change that breaks the compilation,
+or breaks the functionality of device, could go unnoticed for some time.
+An additional issue is that testing each change and iteration on real hardware is time-consuming for developers.</p>
+<p>While nothing really can fully replace the end tests on the real hardware, we can (and should) introduce
+multiple layers of testing that can be done automatically, without effort from the developers side.</p>]]></description>
+</item>
+<item>
     <title>Arduino Internals: building sketches with Arduino CLI</title>
     <link>https://embeddedk8.com/arduino-cli-compilation/</link>
     <pubDate>Wed, 01 Oct 2025 15:58:26 &#43;0800</pubDate>
