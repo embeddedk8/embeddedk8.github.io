@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Wszystkie Posty - Embedded Kate Blog</title>
+        <title>Wszystkie Posty - Embedded Kate | Embedded Systems, Microcontrollers and Programming</title>
         <link>https://embeddedk8.com/pl/posts/</link>
-        <description>Wszystkie Posty | Embedded Kate Blog</description>
+        <description>Wszystkie Posty | Embedded Kate | Embedded Systems, Microcontrollers and Programming</description>
         <generator>Hugo -- gohugo.io</generator><language>pl</language><managingEditor>embeddedkate@gmail.com (embeddedk8)</managingEditor>
             <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 13 Sep 2025 15:58:26 &#43;0800</lastBuildDate><atom:link href="https://embeddedk8.com/pl/posts/" rel="self" type="application/rss+xml" /></channel>
 </rss>
