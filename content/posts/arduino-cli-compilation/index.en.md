@@ -1,6 +1,6 @@
 ---
 weight: 2
-title: "Arduino Internals: building sketches with Arduino CLI"
+title: "How to build Arduino sketches with Arduino CLI?"
 date: 2025-10-01T15:58:26+08:00
 lastmod: 2025-10-01T15:58:26+08:00
 draft: false
@@ -9,8 +9,7 @@ authorLink: "https://embeddedk8.com"
 description: "Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, create Makefile"
 images: []
 resources:
-- name: "featured-image"
-  src: "featured-image.png"
+
 
 tags: ["Arduino Internals"]
 categories: ["Arduino Internals"]

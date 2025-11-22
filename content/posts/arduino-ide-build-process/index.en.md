@@ -1,15 +1,14 @@
 ---
 weight: 2
-title: "Arduino Internals: how Arduino builds your code"
+title: "How Arduino builds a sketch?"
 date: 2025-09-13T15:58:26+08:00
 draft: false
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Step by step guide to how the Arduino builds the code — preprocessing, compiling, and linking explained simply"
+description: "How the Arduino builds the sketch — preprocessing, compiling, and linking explained simply"
 images: []
 resources:
-- name: "featured-image"
-  src: "featured-image.png"
+
 
 tags: ["Arduino Internals"]
 categories: ["Arduino Internals"]

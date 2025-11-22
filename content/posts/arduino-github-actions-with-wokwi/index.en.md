@@ -1,6 +1,6 @@
 ---
 weight: 2
-title: "Arduino Internals: running wokwi simulation on CI/CD"
+title: "Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation"
 date: 2025-11-18T15:58:26+08:00
 lastmod: 2025-10-01T15:58:26+08:00
 draft: false
@@ -9,8 +9,7 @@ authorLink: "https://embeddedk8.com"
 description: "Creating CI/CD pipeline for Arduino with github actions and wokwi simulation"
 images: []
 resources:
-- name: "featured-image"
-  src: "featured-image.png"
+
 
 tags: ["Arduino Internals"]
 categories: ["Arduino Internals"]
