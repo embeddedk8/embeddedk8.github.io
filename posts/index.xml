@@ -5,7 +5,7 @@
         <description>All Posts | Embedded Kate | Embedded Systems, Microcontrollers and Programming</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>embeddedkate@gmail.com (embeddedk8)</managingEditor>
             <webMaster>embeddedkate@gmail.com (embeddedk8)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 18 Nov 2025 15:58:26 &#43;0800</lastBuildDate><atom:link href="https://embeddedk8.com/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>Arduino Internals: running wokwi simulation on CI/CD</title>
+    <title>Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation</title>
     <link>https://embeddedk8.com/arduino-github-actions-with-wokwi/</link>
     <pubDate>Tue, 18 Nov 2025 15:58:26 &#43;0800</pubDate>
     <author>embeddedk8</author>
@@ -19,7 +19,7 @@ An additional issue is that testing each change and iteration on real hardware i
 multiple layers of testing that can be done automatically, without effort from the developers side.</p>]]></description>
 </item>
 <item>
-    <title>Arduino Internals: building sketches with Arduino CLI</title>
+    <title>How to build Arduino sketches with Arduino CLI?</title>
     <link>https://embeddedk8.com/arduino-cli-compilation/</link>
     <pubDate>Wed, 01 Oct 2025 15:58:26 &#43;0800</pubDate>
     <author>embeddedk8</author>
@@ -31,7 +31,7 @@ because Arduino IDE 2.0 and later use <code>arduino-cli</code> under the hood.
 The only difference is how do you trigger build and upload — by command line instead of clicking inside IDE.</p>]]></description>
 </item>
 <item>
-    <title>Arduino Internals: how Arduino builds your code</title>
+    <title>How Arduino builds a sketch?</title>
     <link>https://embeddedk8.com/arduino-ide-build-process/</link>
     <pubDate>Sat, 13 Sep 2025 15:58:26 &#43;0800</pubDate>
     <author>embeddedk8</author>

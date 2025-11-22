@@ -1,4 +1,4 @@
-# Arduino Internals: building sketches with Arduino CLI
+# How to build Arduino sketches with Arduino CLI?
 
 Do you know that you don’t actually need the Arduino IDE to build and upload sketches?
 

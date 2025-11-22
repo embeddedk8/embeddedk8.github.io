@@ -1,4 +1,4 @@
-# Arduino Internals: running wokwi simulation on CI/CD
+# Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation
 
 
 
