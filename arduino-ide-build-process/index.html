@@ -1,0 +1,544 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/_astro/favicon.DFJnwFRY.png"><meta name="generator" content="Astro v5.16.2"><!-- Canonical URL --><link rel="canonical" href="https://devolio.devaradise.com/arduino-ide-build-process/"><!-- Primary Meta Tags --><title>How Arduino builds a sketch?</title><meta name="title" content="How Arduino builds a sketch?"><meta name="description" content="How the Arduino builds the sketch — preprocessing, compiling, and linking explained simply"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://devolio.devaradise.com/arduino-ide-build-process/"><meta property="og:title" content="How Arduino builds a sketch?"><meta property="og:description" content="How the Arduino builds the sketch — preprocessing, compiling, and linking explained simply"><meta property="og:image" content="https://devolio.devaradise.com/syakir.webp"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://devolio.devaradise.com/arduino-ide-build-process/"><meta property="twitter:title" content="How Arduino builds a sketch?"><meta property="twitter:description" content="How the Arduino builds the sketch — preprocessing, compiling, and linking explained simply"><meta property="twitter:image" content="https://devolio.devaradise.com/syakir.webp"><link rel="stylesheet" href="/_astro/_slug_.DG66gn-4.css">
+<style>.toc-list[data-astro-cid-awg4b4gg]::-webkit-scrollbar{width:5px}.toc-list[data-astro-cid-awg4b4gg]::-webkit-scrollbar-track{background:transparent}.toc-list[data-astro-cid-awg4b4gg]::-webkit-scrollbar-thumb{background:#eee;border-radius:5px}.dark .toc-list[data-astro-cid-awg4b4gg]::-webkit-scrollbar-thumb{background:#2e2e2e;border-radius:5px}
+</style><script>!(function(w,p,f,c){if(!window.crossOriginIsolated && !navigator.serviceWorker) return;c=w[p]=Object.assign(w[p]||{},{"lib":"/~partytown/","debug":false});c[f]=(c[f]||[])})(window,'partytown','forward');/* Partytown 0.11.0 - MIT QwikDev */
+const t={preserveBehavior:!1},e=e=>{if("string"==typeof e)return[e,t];const[n,r=t]=e;return[n,{...t,...r}]},n=Object.freeze((t=>{const e=new Set;let n=[];do{Object.getOwnPropertyNames(n).forEach((t=>{"function"==typeof n[t]&&e.add(t)}))}while((n=Object.getPrototypeOf(n))!==Object.prototype);return Array.from(e)})());!function(t,r,o,i,a,s,c,l,d,p,u=t,f){function h(){f||(f=1,"/"==(c=(s.lib||"/~partytown/")+(s.debug?"debug/":""))[0]&&(d=r.querySelectorAll('script[type="text/partytown"]'),i!=t?i.dispatchEvent(new CustomEvent("pt1",{detail:t})):(l=setTimeout(v,(null==s?void 0:s.fallbackTimeout)||1e4),r.addEventListener("pt0",w),a?y(1):o.serviceWorker?o.serviceWorker.register(c+(s.swPath||"partytown-sw.js"),{scope:c}).then((function(t){t.active?y():t.installing&&t.installing.addEventListener("statechange",(function(t){"activated"==t.target.state&&y()}))}),console.error):v())))}function y(e){p=r.createElement(e?"script":"iframe"),t._pttab=Date.now(),e||(p.style.display="block",p.style.width="0",p.style.height="0",p.style.border="0",p.style.visibility="hidden",p.setAttribute("aria-hidden",!0)),p.src=c+"partytown-"+(e?"atomics.js?v=0.11.0":"sandbox-sw.html?"+t._pttab),r.querySelector(s.sandboxParent||"body").appendChild(p)}function v(n,o){for(w(),i==t&&(s.forward||[]).map((function(n){const[r]=e(n);delete t[r.split(".")[0]]})),n=0;n<d.length;n++)(o=r.createElement("script")).innerHTML=d[n].innerHTML,o.nonce=s.nonce,r.head.appendChild(o);p&&p.parentNode.removeChild(p)}function w(){clearTimeout(l)}s=t.partytown||{},i==t&&(s.forward||[]).map((function(r){const[o,{preserveBehavior:i}]=e(r);u=t,o.split(".").map((function(e,r,o){var a;u=u[o[r]]=r+1<o.length?u[o[r]]||(a=o[r+1],n.includes(a)?[]:{}):(()=>{let e=null;if(i){const{methodOrProperty:n,thisObject:r}=((t,e)=>{let n=t;for(let t=0;t<e.length-1;t+=1)n=n[e[t]];return{thisObject:n,methodOrProperty:e.length>0?n[e[e.length-1]]:void 0}})(t,o);"function"==typeof n&&(e=(...t)=>n.apply(r,...t))}return function(){let n;return e&&(n=e(arguments)),(t._ptf=t._ptf||[]).push(o,arguments),n}})()}))})),"complete"==r.readyState?h():(t.addEventListener("DOMContentLoaded",h),t.addEventListener("load",h))}(window,document,navigator,top,window.crossOriginIsolated);;(e=>{e.addEventListener("astro:before-swap",e=>{let r=document.body.querySelector("iframe[src*='/~partytown/']");if(r)e.newDocument.body.append(r)})})(document);</script></head> <body class="bg-white dark:bg-zinc-900 dark:text-zinc-100 pt-16 sm:pt-0"> <header id="site-header" class="flex items-center w-full transition duration-300 z-[999] border-[var(--soft-border-color)]"> <div class="container"> <nav class="flex gap-4 items-center justify-between py-3"> <h2 class="m-0"> <a href="/" class="flex gap-4 items-center text-xl font-black uppercase"> <!-- You can use your site logo, rounded ava or simply your site name here--> <img src="/_astro/small-ava.C0VIhyLh_Z2cpigC.webp" alt="Your site name" loading="lazy" decoding="async" fetchpriority="auto" width="192" height="192" class="rounded-full w-11 border-white border-2 shadow-lg"> <!-- {SITE_TITLE} --> </a> </h2> <div class="flex"> <a class="p-3 dark:hidden" href="https://github.com/devaradise/devolio" target="_blank"><img src="/_astro/github-mark.BwyJR_2w_68cTD.svg" alt="Github logo" loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24"></a> <a class="p-3 hidden dark:block" href="https://github.com/devaradise/devolio" target="_blank"><img src="/_astro/github-mark-white.S2fJVXLq_68cTD.svg" alt="Github logo" loading="lazy" decoding="async" fetchpriority="auto" width="24" height="24"></a> <button class="p-3" id="themeToggle" aria-label="Theme mode"> <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg> <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon"> <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg> </button> </div> </nav> <div class="fixed top-3 w-auto max-w-full px-3 left-1/2 -translate-x-1/2 z-[999]"> <div class="flex px-2.5 bg-white/90 dark:bg-zinc-900/75 backdrop-blur-md leading-tight rounded-full border dark:border-zinc-700"> <div class="px-2.5 text-sm"> <a href="/" class="py-3 flex items-center text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50" aria-label="Home">  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>  </a> </div> <div class="px-2.5 text-sm"> <a href="/about/" class="py-3 flex items-center text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> About </a> </div><div class="px-2.5 text-sm"> <a href="/posts/" class="py-3 flex items-center text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Posts </a> </div><div class="px-2.5 text-sm"> <a href="/projects/" class="py-3 flex items-center text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Projects </a> </div><div class="px-2.5 text-sm"> <a href="/tags/" class="py-3 flex items-center text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Tags </a> </div> </div> </div> </div>  <script>
+		const theme = (() => {
+			if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				return 'dark';
+			}
+			if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+				return localStorage.getItem('theme');
+			}
+			return 'light';
+		})();
+
+		if (theme === 'light') {
+			document.documentElement.classList.remove('dark');
+		} else {
+			document.documentElement.classList.add('dark');
+		}
+
+		window.localStorage.setItem('theme', theme || '');
+
+		function sendMessage(message) {
+			const iframe = document.querySelector('iframe.giscus-frame');
+			if (!iframe) return;
+			iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+		}
+
+		const handleToggleClick = () => {
+			const element = document.documentElement;
+			element.classList.toggle('dark');
+
+			const isDark = element.classList.contains('dark');
+			if (isDark) {
+				sendMessage({
+					setConfig: {
+						theme: 'dark_dimmed'
+					}
+				});
+			} else {
+				sendMessage({
+					setConfig: {
+						theme: 'light'
+					}
+				});
+			}
+			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		};
+		document.getElementById('themeToggle')?.addEventListener('click', handleToggleClick);
+	</script> </header> <div class="py-8 min-h-[calc(100vh-160px)]">  <div class="container lg:flex gap-10"> <main class="overflow-hidden grow"> <article> <div class="prose dark:prose-invert
+  prose-h1:font-[900] prose-h1:my-4 prose-h1:text-2xl sm:prose-h1:text-[2rem]/[1.3]
+  prose-h2:mt-6 prose-h2:mb-3 prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:font-extrabold
+  prose-h3:mt-5 prose-h3:mb-2 prose-h3:text-xl sm:prose-h3:text-2xl
+  prose-h4:mt-3 prose-h4:mb-0 prose-img:rounded-xl prose-h3:target:pt-20">  <div> <h1 class="!my-1 leading-tight">How Arduino builds a sketch?</h1> <div class="text-sm font-[500] mt-2 sm:mt-0 py-1 md:text-right flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center"> <div class="flex gap-2"> <a class="border border-zinc-300 dark:border-zinc-700 rounded-2xl
+                          text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
+                          transition-all duration-700
+                        hover:border-zinc-700 dark:hover:border-zinc-300" href="/tags/arduino-internals"> Arduino Internals </a> </div> <div> Published on <strong><time datetime="2025-09-12T22:00:00.000Z"> Sep 12, 2025 </time></strong> </div> </div> </div> <div class="py-3 overflow-hidden">  </div> <p>Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online
+about whether Arduino is a good choice for that (like “<em>Is there anything wrong with Arduino?</em>”,
+“<em>Why engineers hate Arduino?</em>”
+<a href="https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/" target="_blank" rel="noopener">[1]</a>,
+<a href="https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/" target="_blank" rel="noopener">[2]</a> ).</p>
+<p>While the list of arguments from Arduino “opponents” is quite long — and some of their points are completely reasonable
+— I want to prove that you can learn just as much with Arduino as with any other embedded platform,
+as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.
+That’s why I am creating the Arduino Internals series.</p>
+<p><strong>As a starting point, let’s take a closer look at what happens when you build a sketch in the Arduino IDE.</strong></p>
+<!--more-->
+<p>{{&#x3C; admonition note “Assumed knowledge” true >}}
+I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.
+{{&#x3C; /admonition >}}</p>
+<p>{{&#x3C; admonition note “My setup” true >}}</p>
+<ul>
+<li>Arduino UNO R4 WiFi board</li>
+<li>Arduino IDE  2.3.6</li>
+<li>Ubuntu 24.04</li>
+</ul>
+<p>If you’re using a different board, IDE version, or operating system — don’t worry! You can still follow along. Some details may just look a little different on your setup.
+{{&#x3C; /admonition >}}</p>
+<h1 id="understanding-arduino-build-process">Understanding Arduino build process</h1>
+<p>Building an Arduino sketch in the IDE seems as simple as clicking one button, but
+under the hood it performs several important steps — some common to nearly every embedded development environment,
+and others unique to Arduino.</p>
+<p>This simplicity is great for beginners, but if you want to take embedded systems seriously,
+it’s worth understanding what really happens behind the scenes.
+Once you move beyond Arduino’s friendly abstraction layer,
+you’ll need to know how the build process works — because without it, things may not behave as you expect.</p>
+<h2 id="what-you-will-learn">What you will learn?</h2>
+<p>After reading this article, you will:</p>
+<ul>
+<li>understand the standard build flow in embedded software development,</li>
+<li>learn about the additional steps performed during the Arduino build process,</li>
+<li>know where to find the build files, caches, and linked libraries,</li>
+<li>discover what language Arduino sketches are actually written in.</li>
+</ul>
+<h2 id="lets-get-started">Let’s get started!</h2>
+<p>Let’s build a sketch together and go step through the build process.
+We’ll pretend we know nothing and analyze the build output to see what the Arduino IDE actually did.</p>
+<h3 id="opening-an-example-sketch">Opening an example sketch</h3>
+<p>Open the Arduino IDE and select the correct board from <strong>Select Board</strong> menu.
+In my case it’s <strong>Arduino UNO R4 WiFi</strong>.
+Load the Blink example and save the sketch in your sketchbook.</p>
+<p>This example consists of a single file: <code>Blink.ino</code>.
+Files with the <code>.ino</code> extension contain code written in the Arduino language <a href="https://docs.arduino.cc/arduino-cli/sketch-specification/" target="_blank" rel="noopener">[1]</a>.
+You may notice there is no <code>main</code> function in this code, yet it still compiles.</p>
+<h3 id="what-exactly-is-arduino-language">What exactly is Arduino language?</h3>
+<p>According to the <a href="https://docs.arduino.cc/language-reference/#functions" target="_blank" rel="noopener">official documentation</a>
+the Arduino language consists of:</p>
+<ul>
+<li>set of functions like <code>digitalRead</code>, <code>digitalWrite</code> etc,</li>
+<li>predefined constants such as <code>HIGH</code> and <code>LOW</code>,</li>
+<li>basic data types like <code>array</code>, <code>bool</code>, <code>int</code>,</li>
+<li>special sketch functions such as <code>loop</code>, <code>setup</code>…</li>
+</ul>
+<p>And so on. You can just read the full list on the official page.
+There’s also a brief note mentioning that Arduino is based on C++.
+Well — we’ll see at the end of our investigation, if Arduino language is actually a language…
+or just a C++ in a disguise.</p>
+<h3 id="triggering-the-build">Triggering the build</h3>
+<p>We are ready to build this sketch. Click <strong>Verify/Compile</strong> and observe the <strong>Output</strong> window.</p>
+<p><a href="/arduino-ide-default-output.png"><img src="/arduino-ide-default-output.png" alt="Arduino IDE doesn&#x27;t say much about compilation steps by default" title="Arduino IDE - default build output"></a></p>
+<p>It looks like the sketch has been built successfully and is ready to upload to the board.
+You only see two lines of output because the Arduino IDE hides most of the build details by default.</p>
+<h3 id="enabling-verbose-output">Enabling verbose output</h3>
+<p>To understand the build process better we need to enable the <strong>verbose output</strong> in IDE.
+To do so, go to <strong>File → Preferences</strong> and check <strong>Show verbose output</strong> setting for both compiling and upload. When you compile again,
+the output will be complete.
+Let’s read it line by line.
+<br></p>
+<p><a href="/arduino-ide-verbose-output.png"><img src="/arduino-ide-verbose-output.png" alt="Verbose compilation output in Arduino IDE" title="Arduino IDE - verbose build output"></a></p>
+<h2 id="board-and-package-identification">Board and package identification</h2>
+<p>In embedded software development, the compilation process is always target-dependent.
+Each hardware architecture — such as ARM or AVR — requires its own dedicated <a href="https://en.wikipedia.org/wiki/Cross_compiler" target="_blank" rel="noopener">cross-compilation</a> toolchain.
+In addition, the appropriate version of the hardware libraries must be selected and linked.
+Therefore, the target board must be identified before the build begins.</p>
+<p>Arduino handles this step automatically.
+It looks at the board you’ve chosen in the <strong>Select Board</strong> menu and configures the build accordingly.
+This ensures that the compiled code will match the board’s architecture, hardware, pin mapping etc.</p>
+<p>This board identity is called <strong>FQBN (Fully Qualified Board Name)</strong> and looks as follows:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">FQBN:</span><span style="color:#9ECBFF"> arduino:renesas_uno:unor4wifi</span></span></code></pre>
+<p><strong>FQBN</strong> is unique for each board. It consists of three segments:</p>
+<ul>
+<li>Vendor: <code>arduino</code> (<em>it’s official Arduino package</em>)</li>
+<li>Architecture: <code>renesas_uno</code> (<em>Renesas-based boards family</em>)</li>
+<li>Board: <code>unor4wifi</code> (<em>exact model: Arduino Uno R4 WiFi</em>).</li>
+</ul>
+<p>If you choose wrong board, the code may compile but fail at runtime, or compilation may fail.</p>
+<p>{{&#x3C; admonition tip >}}
+Error <code>Compilation error: Missing FQBN (Fully Qualified Board Name)</code> means you have not selected any board from menu.
+{{&#x3C;/ admonition>}}</p>
+<h2 id="arduino-specific-directories">Arduino specific directories</h2>
+<p>In a typical embedded development environment, the build process produces various artifacts
+(object files, binaries, maps, etc.), which are stored in a user-defined or default build directory.
+Knowing where these artifacts are located allows developers to:</p>
+<ul>
+<li>see which source files are compiled,</li>
+<li>inspect intermediate and output files (e.g., <code>.o</code> or <code>.elf</code>) to diagnose build or linking issues,</li>
+<li>analyze additional information from <code>.map</code> file.</li>
+</ul>
+<p>In most embedded IDEs, the user also knows and can control where all linked libraries come from.</p>
+<p>In Arduino, location of build artifacts and used libraries is not immediately obvious, since these files are
+placed in several hidden directories. However, their locations can be found
+in the build log. Let’s take a quick look at these directories.</p>
+<h3 id="arduino15-directory">Arduino15 directory</h3>
+<p><strong>Arduino15</strong> contains, among others:</p>
+<ul>
+<li>installed board packages (cores, board definitions, hardware specific libraries),</li>
+<li>global libraries that Arduino automatically installs,</li>
+<li>tools needed for development with Arduino (like toolchains and flashing tools),</li>
+<li>user preferences, customized settings, etc.</li>
+</ul>
+<p>The exact location depends on your operating system <a href="https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder" target="_blank" rel="noopener">[1]</a>.</p>
+<h4 id="board-packages">Board packages</h4>
+<p>The build log shows the directory where the target board’s related files are located, for example:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Using board 'unor4wifi' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1</span></span>
+<span class="line"><span>Using core 'arduino' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1</span></span></code></pre>
+<p>Inside this directory, two files deserve special attention: <strong>boards.txt</strong> and <strong>platform.txt</strong>.</p>
+<h5 id="boardstxt">boards.txt</h5>
+<p>The <a href="https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt" target="_blank" rel="noopener">boards.txt</a> file lists all boards supported by this platform.
+Each board has its own section with key-value pairs that define how to compile, upload, and debug for that target.</p>
+<p>Here’s the entry for the <strong>Arduino UNO R4 WiFi</strong>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>##############################################################</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>unor4wifi.name=Arduino UNO R4 WiFi</span></span>
+<span class="line"><span>unor4wifi.build.core=arduino</span></span>
+<span class="line"><span>unor4wifi.build.crossprefix=arm-none-eabi-</span></span>
+<span class="line"><span>unor4wifi.build.compiler_path={runtime.tools.arm-none-eabi-gcc-7-2017q4.path}/bin/</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>unor4wifi.build.variant=UNOWIFIR4</span></span>
+<span class="line"><span>unor4wifi.build.mcu=cortex-m4</span></span>
+<span class="line"><span>unor4wifi.build.architecture=cortex-m4</span></span>
+<span class="line"><span>unor4wifi.build.fpu=-mfpu=fpv4-sp-d16</span></span>
+<span class="line"><span>unor4wifi.build.float-abi=-mfloat-abi=hard</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>unor4wifi.upload.tool=bossac</span></span>
+<span class="line"><span>...</span></span></code></pre>
+<p>These settings ensure that once you select your board from the <strong>Select Board</strong> menu,
+the correct toolchain, compiler flags (such as MCU type and clock speed) and upload tool are selected automatically.</p>
+<p>Advanced users may feel need to modify the <em>boards.txt</em> contents, to i.e. add new board or customize some build options.
+Just remember that such changes will be lost after Arduino IDE update!</p>
+<h5 id="platformtxt">platform.txt</h5>
+<p>Another important file is <a href="https://arduino.github.io/arduino-cli/1.3/platform-specification/#platformtxt" target="_blank" rel="noopener">platform.txt</a>.
+This file defines the command patterns (recipes) that tell Arduino exactly how to compile,
+link, and package a sketch for a specific platform.</p>
+<p>It defines:</p>
+<ul>
+<li>the commands used for compiling and linking,</li>
+<li>how archives and output files are created,</li>
+<li>the flags and options passed to the compiler,</li>
+<li>and the commands used to calculate the size of the final program.</li>
+</ul>
+<p>Basically, this is the most important file telling us <strong>how Arduino builds a program</strong>.
+Unlike traditional C/C++ projects, there is no Makefile in the Arduino build system —
+instead, <em>platform.txt</em> provides all the recipes that define each step of the build process.</p>
+<p>Behind the scenes, the Arduino IDE uses <strong>arduino-cli</strong> to build sketches according to these recipes.
+The arduino-cli tool expands and executes the command patterns defined in <em>platform.txt</em>.
+For example, the recipe for compiling a C source file is as follows:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>## Compile c files</span></span>
+<span class="line"><span>recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_RENESAS -DARDUINO_FSP -D_XOPEN_SOURCE=700 {compiler.fsp.cflags} {compiler.tinyusb.cflags} {compiler.c.extra_flags} {build.extra_flags} {tinyusb.includes} "-I{build.core.path}/api/deprecated" "-I{build.core.path}/api/deprecated-avr-comp" {includes} "-iprefix{runtime.platform.path}" "@{compiler.fsp.includes}" -o "{object_file}" "{source_file}"</span></span></code></pre>
+<h4 id="toolchains">Toolchains</h4>
+<p>Inside the <strong>Arduino15</strong>’s tools directory, you will also find the cross-compilation toolchains
+used to build sketches for different microcontroller architectures.</p>
+<p>In my setup, two toolchains are installed:</p>
+<ul>
+<li><code>.arduino15/packages/arduino/tools/arm-none-eabi-gcc</code>, for ARM based boards, like Arduino UNO R4 WiFi,</li>
+<li><code>.arduino15/packages/arduino/tools/avr-gcc</code>, for AVR/Atmega based boards.</li>
+</ul>
+<p>The main components of toolchain are compiler, asembler and linker. Everything
+that is required to build for a specific architecture.</p>
+<p>{{&#x3C; admonition type=info title=“Why we need cross compilation toolchains?” open=true  >}}
+When building application for embedded devices, the compilation happens on the <strong>host</strong>
+— your development computer running the Arduino IDE — not on the <strong>target device</strong> itself.</p>
+<p>The host (PC) typically uses an x86_64 processor with its own instruction set and operating system.
+The target device (like an Arduino board) uses a completely different architecture
+— for example ARM or AVR.</p>
+<p>To generate code that runs correctly on the target,
+we need a cross-compilation toolchain:
+compiler tools that are able to produce binaries for a
+different architecture than the one running the compiler.</p>
+<p>Most Arduino boards use either ARM or AVR architectures, which is why you’ll find these two toolchains installed in the Arduino15 directory.
+{{&#x3C; /admonition >}}</p>
+<h4 id="arduino-core">Arduino core</h4>
+<p>The <strong>Arduino core</strong> directory provides the hardware-specific implementation of core Arduino functions.</p>
+<p>It is located in the <code>cores</code> subdirectory of your board package, for example:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores/</span></span></code></pre>
+<p>Each board family, or platform, has its own core,
+tailored to the hardware and peripherals.</p>
+<p>The <strong>Arduino core</strong> contains, among other files:</p>
+<ul>
+<li><code>main.cpp</code> — defines the startup code that runs before your <code>setup()</code> function and repeatedly calls your <code>loop()</code> function,</li>
+<li><code>Arduino.h</code> header — the main header file included by all sketches,</li>
+<li>implementation of interrupts, UART communication, timing functions like <code>delay</code> and other low-level routines.</li>
+</ul>
+<p>Open the <code>main.cpp</code> and browse the logic that Arduino is adding around the code you implemented in the sketch.</p>
+<h3 id="build-directory">Build directory</h3>
+<p>When you compile a sketch, the build artifacts (i.e. intermediate object files) are not stored
+in the same directory as your source code. It would make a mess inside your sketch folder,
+or even made conflicts when building the same sketch for different boards.</p>
+<p>That’s why build files are always stored in separate build directory.</p>
+<p>In case of Arduino IDE, the build directory is a per-sketch cache, created in a hidden folder.</p>
+<p>You can find the path to this build directory in the build log. My sketch was built here:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/`.</span></span></code></pre>
+<p>If you open this folder, you’ll see the build artifacts, including:</p>
+<ul>
+<li>object files (<code>.o</code>),</li>
+<li>preprocessed sources (<code>.cpp</code>),</li>
+<li>final binaries (<code>.bin</code>, <code>.hex</code>, <code>.elf</code>).</li>
+</ul>
+<p>{{&#x3C; admonition tip <code>Exporting Compiled Binary</code>>}}
+If you want to have the compiled binaries in your sketch folder, click <strong>Sketch → Export Compiled Binary</strong> option from Arduino IDE menu.
+This will build your sketch and place a copy of the <code>.hex</code>, <code>.bin</code>, <code>.elf</code> and <code>.map</code> inside the sketch sources
+folder so it’s easy to find later.
+{{&#x3C;/ admonition >}}</p>
+<p>{{&#x3C; admonition type=tip title=“Do you want to move Arduino15 folder?” open=true  >}}
+In some cases, you may want to move the <strong>Arduino15 folder</strong> —  for example, to free up space on your primary drive.</p>
+<p>To do this:</p>
+<ol>
+<li>
+<p>Copy the <strong>Arduino15</strong> directory to your desired location.</p>
+</li>
+<li>
+<p>Open the file <code>~/.arduinoIDE/arduino-cli.yaml</code> and update the <code>directories:data</code> path, for example:</p>
+</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>board_manager:</span></span>
+<span class="line"><span>    additional_urls: []</span></span>
+<span class="line"><span>directories:</span></span>
+<span class="line"><span>    data: /home/kate/new-location-arduino15</span></span></code></pre>
+<ol start="3">
+<li>
+<p>Restart the Arduino IDE. It will now use the new <strong>Arduino15</strong> location. Verify the build output to ensure everything is working correctly.</p>
+</li>
+<li>
+<p>Once you’ve confirmed everything works correctly, you can safely delete the old folder.
+{{&#x3C; /admonition >}}</p>
+</li>
+</ol>
+<p>We already discussed board identification and the Arduino specific directories. Let’s move to actual build process.</p>
+<h2 id="general-embedded-software-build-process">General embedded software build process</h2>
+<p>At a high level, the Arduino build process is essentially a C++ build process adapted
+for embedded targets, and with some Arduino specific features. The general C/C++ build pipeline is presented below:
+<a href="/general-c-build-process.png"><img src="/general-c-build-process.png" alt="General C/C++ build process" title="General C/C++ build process"></a></p>
+<p>Now, let’s go through each stage and see how Arduino adapts the standard C/C++ build process for embedded targets.</p>
+<h2 id="preprocessing">Preprocessing</h2>
+<p>The first phase of every C/C++ program build is preprocessing.
+In general, preprocessor expands macros like <code>#include</code>, <code>#define</code>, and conditional compilation (<code>#if</code>, <code>#ifdef</code>, etc.).
+The output is an expanded source file.
+In Arduino, some additional steps are added around preprocessing stage.</p>
+<h3 id="concatenating-ino-files">Concatenating .ino files</h3>
+<p>If the sketch contains of multiple <code>.ino</code> files, they are first concatenated into a single <code>.cpp</code> file.</p>
+<h3 id="detecting-libraries-used">Detecting libraries used</h3>
+<p>Arduino uses a special build recipe (<code>recipe.preproc.macros</code> <a href="https://docs.arduino.cc/arduino-cli/platform-specification/" target="_blank" rel="noopener">[1]</a>)
+to detect which libraries are required by your sketch.
+During this step, the preprocessor scans the sketch for <code>#include</code> directives that reference library header files.
+If a matching header is found, the corresponding library is automatically marked as required and included in the build process
+— in other words, that library will be compiled and then linked in next stages of build process.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Detecting libraries used...</span></span>
+<span class="line"><span>/home/kate/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/arm-none-eabi-g++ (...) -E \</span></span>
+<span class="line"><span>/home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/MyBlink.ino.cpp -o /dev/null</span></span></code></pre>
+<p><em>The <code>-E</code> flag tells GCC to perform only the preprocessing step —
+it expands all macros and headers, then stops before compiling or assembling anything.</em></p>
+<p>For a simple sketch like Blink, this stage isn’t very exciting — it doesn’t detect in any additional libraries.
+That’s why the build output doesn’t show anything under <em>Detecting libraries used…</em>.
+But if you open other example sketches, such as those from <strong>WiFiS3</strong> or <strong>EEPROM</strong>,
+you’ll see how more complex projects trigger detection of multiple libraries.</p>
+<h3 id="generating-function-prototypes">Generating function prototypes</h3>
+<p>The next stage in the build process is automatic function prototype generation. In C or C++, each function must be
+either defined or declared before it’s called. In Arduino, you don’t need to worry about that — you can write functions
+in any order, without adding their prototypes. How does it work? Arduino generates these prototypes for you!</p>
+<p>Here’s what the build log shows:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Generating function prototypes...</span></span>
+<span class="line"><span>arm-none-eabi-g++ (...) -E /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/MyBlink.ino.cpp -o /tmp/1121713208/sketch_merged.cpp</span></span>
+<span class="line"><span>ctags (...) /tmp/1121713208/sketch_merged.cpp</span></span></code></pre>
+<p>Again, the compiler is invoked with the <code>-E</code> flag, meaning only the preprocessor runs.
+This is what happens now:</p>
+<ol>
+<li>
+<p><strong>Preprocessing</strong></p>
+<p>The <code>MyBlink.ino.cpp</code> (file concatenated of all <code>.ino</code> files) is input for the preprocessor: <code>#include</code>s are expanded and macros replaces.
+The expanded file is stored as <code>/tmp/1121713208/sketch_merged.cpp</code>.</p>
+</li>
+<li>
+<p><strong>Scanning functions</strong></p>
+<p>Tool <code>ctags</code> is running over expanded <code>sketch_merged.cpp</code>, to extract function symbols.</p>
+</li>
+<li>
+<p><strong>Generating prototypes</strong></p>
+<p>Based on the <code>ctags</code> result, Arduino environment inserts forward declarations for you. This way, you don’t need to worry
+about undeclared functions, functions order, etc.</p>
+</li>
+<li>
+<p><strong>Store prototypes into .ino.cpp</strong></p>
+<p>The resulting version is stored into <code>MyBlink.ino.cpp</code>. This is what the compiler will actually use later on.</p>
+</li>
+</ol>
+<p>Your simple sketch (<code>MyBlink.ino</code>):</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cpp"><code><span class="line"><span style="color:#F97583">void</span><span style="color:#B392F0"> setup</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    pinMode</span><span style="color:#E1E4E8">(LED_BUILTIN, OUTPUT);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">void</span><span style="color:#B392F0"> loop</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    digitalWrite</span><span style="color:#E1E4E8">(LED_BUILTIN, HIGH);</span></span>
+<span class="line"><span style="color:#B392F0">    delay</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">6000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#B392F0">    digitalWrite</span><span style="color:#E1E4E8">(LED_BUILTIN, LOW);</span></span>
+<span class="line"><span style="color:#B392F0">    delay</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>gets transformed into (<code>MyBlink.ino.cpp</code>):</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cpp"><code><span class="line"><span style="color:#F97583">#include</span><span style="color:#9ECBFF"> &#x3C;Arduino.h></span></span>
+<span class="line"><span style="color:#F97583">#line</span><span style="color:#E1E4E8"> 1 </span><span style="color:#9ECBFF">"/home/kate/Arduino/MyBlink/MyBlink.ino"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">#line</span><span style="color:#E1E4E8"> 26 </span><span style="color:#9ECBFF">"/home/kate/Arduino/MyBlink/MyBlink.ino"</span></span>
+<span class="line"><span style="color:#F97583">void</span><span style="color:#B392F0"> setup</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">#line</span><span style="color:#E1E4E8"> 32 </span><span style="color:#9ECBFF">"/home/kate/Arduino/MyBlink/MyBlink.ino"</span></span>
+<span class="line"><span style="color:#F97583">void</span><span style="color:#B392F0"> loop</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">#line</span><span style="color:#E1E4E8"> 26 </span><span style="color:#9ECBFF">"/home/kate/Arduino/MyBlink/MyBlink.ino"</span></span>
+<span class="line"><span style="color:#F97583">void</span><span style="color:#B392F0"> setup</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    pinMode</span><span style="color:#E1E4E8">(LED_BUILTIN, OUTPUT);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">void</span><span style="color:#B392F0"> loop</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    digitalWrite</span><span style="color:#E1E4E8">(LED_BUILTIN, HIGH); </span></span>
+<span class="line"><span style="color:#B392F0">    delay</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">6000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#B392F0">    digitalWrite</span><span style="color:#E1E4E8">(LED_BUILTIN, LOW);</span></span>
+<span class="line"><span style="color:#B392F0">    delay</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>The key differences can be summarized as follows:</p>
+<ul>
+<li><code>#include &#x3C;Arduino.h></code> is added,</li>
+<li>function prototypes are added,</li>
+<li><code>#line</code> macros are added — they keep compiler error messages pointing to the right lines in your <code>.ino</code> file.
+Without them, errors would show up with the line numbers of the generated <code>.cpp</code>, which would be super confusing.</li>
+</ul>
+<p>This is the first preprocessing step, unique to Arduino.
+Now, <code>sketch/MyBlink.ino.cpp</code> is <strong>not yet</strong> fully expanded —
+you can see this file inside your sketch’s hidden cache.</p>
+<p>After that, the <strong>standard C/C++ preprocessing</strong> takes place when compiler is invoked again in next step —
+all <code>#include</code> directives are replaced with the contents of the included files,
+all <code>#defines</code> macros are expanded, and the result
+is one fully expanded source file ready for compilation.</p>
+<h2 id="compilation">Compilation</h2>
+<p>Compilation is where your code is translated into the low-level machine instructions that
+the microcontroller can actually execute.
+In other words, your human-readable program becomes something the hardware understands.</p>
+<h3 id="sketch-compilation">Sketch compilation</h3>
+<p>During this step, the compiler finalizes preprocessing (the standard C/C++ preprocessing that
+was not yet performed), checks your code for syntax errors and converts it
+into the object code that can be linked with libraries later.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Compiling sketch...</span></span>
+<span class="line"><span>arm-none-eabi-g++ (...) -c sketch/MyBlink.ino.cpp -o sketch/MyBlink.ino.cpp.o</span></span></code></pre>
+<p><em>Compiler is invoked with <code>-c</code> flag, which means <strong>compile and assemble</strong> (don’t link yet).
+It also performs the <strong>standard preprocessing</strong> phase as part of this step.</em></p>
+<p><strong>Input:</strong> <code>MyBlink.ino.cpp</code> — the auto-generated sketch with prototypes, includes, and line directives.</p>
+<p><strong>Output:</strong> <code>MyBlink.ino.cpp.o</code> — machine-code object file, ready to be linked later.</p>
+<p>I shortened the compilation command, so it’s not in the snippet above, but in IDE we can observe a lots of compilation flags that were used.
+Some highlights:</p>
+<ul>
+<li><code>-Os</code> → optimize for size <a href="https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-Os" target="_blank" rel="noopener">[1]</a>.</li>
+<li><code>-g3</code> → include debug info at max level <a href="https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html" target="_blank" rel="noopener">[1]</a>.</li>
+<li><code>-fno-rtti</code>, <code>-fno-exceptions</code> → strip C++ runtime features to save space <a href="https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html#index-fno-rtti" target="_blank" rel="noopener">[1]</a>, .</li>
+<li><code>-nostdlib</code> → don’t link against standard system libraries <a href="https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html" target="_blank" rel="noopener">[1]</a>.</li>
+<li><code>-mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16</code> → target an ARM Cortex-M4 with hardware floating point.</li>
+<li><code>-I</code> and <code>@.../includes.txt</code> → add search paths for Arduino core and variant headers.</li>
+<li>Many <code>-D...</code> → defines for board, CPU frequency, Arduino version, etc.</li>
+</ul>
+<p>{{&#x3C; admonition >}}
+Most advanced IDEs let you change compiler settings like optimization level, debug info, or extra flags right from a project menu.<br>
+Arduino IDE is so simple that it doesn’t offer this option: you don’t get a button or menu for that.</p>
+<p>If you want to change some settings, you’ve got several ways:</p>
+<ul>
+<li><strong>Edit build recipes</strong>: you can change files like <code>platform.txt</code> or <code>boards.local.txt</code> to change or add your own compilation flags,</li>
+<li><strong>modify <code>arduino-cli.yaml</code></strong> from <strong>ArduinoIDE</strong> folder,</li>
+<li><strong>use Arduino CLI</strong> directly: the command-line tool gives you more flexibility and can build your sketch with whatever options you like.</li>
+</ul>
+<p>{{&#x3C;/ admonition >}}</p>
+<p>At this point, your sketch has been turned into machine code, stored in <code>MyBlink.ino.cpp.o</code>.
+This file contains your <code>setup()</code> and <code>loop()</code> code, ready to be linked with the Arduino core and libraries in the next step.</p>
+<h3 id="compiling-libraries">Compiling libraries</h3>
+<p>All libraries, that were marked as required, are compiled now.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="cpp"><code><span class="line"><span style="color:#E1E4E8">Compiling libraries...</span></span></code></pre>
+<p>For the Blink sketch this step is empty. In the previous phase (<em>Detecting libraries used</em>) no additional libraries were found.
+Blink only relies on core Arduino functions such as <code>pinMode</code>, <code>digitalWrite</code>, and <code>delay</code>, which are part of the board core, not separate libraries.</p>
+<p>In more advanced sketches the output looks different.
+For example, in <strong>WiFiS3/ConnectWithWPA</strong> the <strong>WiFiS3</strong> library is detected and its source files are compiled here.</p>
+<h3 id="compiling-core">Compiling core</h3>
+<p>All needed core objects are compiled.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">Compiling</span><span style="color:#9ECBFF"> core...</span></span>
+<span class="line"><span style="color:#B392F0">Using</span><span style="color:#9ECBFF"> previously</span><span style="color:#9ECBFF"> compiled</span><span style="color:#9ECBFF"> file:</span><span style="color:#9ECBFF"> /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/core/tmp_gen_c_files/pin_data.c.o</span></span>
+<span class="line"><span style="color:#B392F0">Using</span><span style="color:#9ECBFF"> previously</span><span style="color:#9ECBFF"> compiled</span><span style="color:#9ECBFF"> file:</span><span style="color:#9ECBFF"> /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/core/tmp_gen_c_files/main.c.o</span></span>
+<span class="line"><span style="color:#B392F0">Using</span><span style="color:#9ECBFF"> previously</span><span style="color:#9ECBFF"> compiled</span><span style="color:#9ECBFF"> file:</span><span style="color:#9ECBFF"> /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/core/tmp_gen_c_files/common_data.c.o</span></span>
+<span class="line"><span style="color:#B392F0">Using</span><span style="color:#9ECBFF"> previously</span><span style="color:#9ECBFF"> compiled</span><span style="color:#9ECBFF"> file:</span><span style="color:#9ECBFF"> /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/core/variant.cpp.o</span></span>
+<span class="line"><span style="color:#B392F0">Using</span><span style="color:#9ECBFF"> precompiled</span><span style="color:#9ECBFF"> core:</span><span style="color:#9ECBFF"> /home/kate/.cache/arduino/cores/arduino_renesas_uno_unor4wifi_4e1bf6711f2b98688d9a4a386931d6dc/core.a</span></span></code></pre>
+<p>The core is the foundation of every Arduino program (we discussed it in <a href="#arduino-core">Arduino core</a> chapter).
+Instead of recompiling the same core files every time you build,
+the Arduino IDE uses precompiled objects from a cache to speed up the compilation.</p>
+<h2 id="linking">Linking</h2>
+<p>Once all the individual files are compiled, the Arduino build system needs to link them into a single program.
+I shortened the link command to present only the most important stuff:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">arm-none-eabi-g++</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -mcpu=cortex-m4</span><span style="color:#79B8FF"> -mfloat-abi=hard</span><span style="color:#79B8FF"> -mfpu=fpv4-sp-d16</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -o</span><span style="color:#9ECBFF"> MyBlink.ino.elf</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">  MyBlink.ino.cpp.o</span><span style="color:#9ECBFF"> common_data.c.o</span><span style="color:#9ECBFF"> main.c.o</span><span style="color:#9ECBFF"> pin_data.c.o</span><span style="color:#9ECBFF"> variant.cpp.o</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">  libfsp.a</span><span style="color:#9ECBFF"> core.a</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -lstdc++</span><span style="color:#79B8FF"> -lsupc++</span><span style="color:#79B8FF"> -lm</span><span style="color:#79B8FF"> -lc</span><span style="color:#79B8FF"> -lgcc</span><span style="color:#79B8FF"> -lnosys</span></span></code></pre>
+<p>After this step, the final binary will be <code>MyBlink.ino.elf</code>.</p>
+<p>Take a look at libraries that are linked into the build:</p>
+<ul>
+<li><code>libfsp.a</code> → the Renesas Flexible Software Package, providing hardware drivers and low-level functions for peripherals.</li>
+<li><code>core.a</code> → the Arduino core for this board.
+Libraries above are board support libraries. These are part of the Arduino board package (for the Uno R4 in this case).
+They are not optional user libraries, so they don’t appear in the detection phase.</li>
+</ul>
+<p>Toolchain standard libraries:</p>
+<ul>
+<li><code>-lstdc++</code> → the C++ standard library,</li>
+<li><code>-lsupc++</code> → low-level C++ runtime support,</li>
+<li><code>-lm</code> → the math library,</li>
+<li><code>-lc</code> → the standard C library,</li>
+<li><code>-lgcc</code> → helper routines from GCC itself,</li>
+<li><code>-lnosys</code> → stubs for system calls.</li>
+</ul>
+<h2 id="finalizing-build">Finalizing build</h2>
+<p>Build is ready! Arduino will perform two more steps before finishing the process.</p>
+<h3 id="creating-binary-and-hex-files">Creating binary and hex files</h3>
+<p>After the ELF file (<code>MyBlink.ino.elf</code>) is created, the build system uses <code>objcopy</code> to generate <code>hex</code> and <code>bin</code> formats:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">arm-none-eabi-objcopy</span><span style="color:#79B8FF"> -O</span><span style="color:#9ECBFF"> binary</span><span style="color:#79B8FF"> -j</span><span style="color:#9ECBFF"> .text</span><span style="color:#79B8FF"> -j</span><span style="color:#9ECBFF"> .data</span><span style="color:#9ECBFF"> MyBlink.ino.elf</span><span style="color:#9ECBFF"> MyBlink.ino.bin</span></span>
+<span class="line"><span style="color:#B392F0">arm-none-eabi-objcopy</span><span style="color:#79B8FF"> -O</span><span style="color:#9ECBFF"> ihex</span><span style="color:#79B8FF">   -j</span><span style="color:#9ECBFF"> .text</span><span style="color:#79B8FF"> -j</span><span style="color:#9ECBFF"> .data</span><span style="color:#9ECBFF"> MyBlink.ino.elf</span><span style="color:#9ECBFF"> MyBlink.ino.hex</span></span></code></pre>
+<p>Both formats contain the same program, just encoded differently for different flashing tools.</p>
+<h3 id="measuring-the-program-size">Measuring the program size</h3>
+<p>Finally, the build system reports memory usage with <code>arm-none-eabi-size</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">arm-none-eabi-size</span><span style="color:#79B8FF"> -A</span><span style="color:#9ECBFF"> MyBlink.ino.elf</span></span></code></pre>
+<h3 id="cleaning-the-build">Cleaning the build</h3>
+<p>Unfortunately, Arduino IDE does not offer the <code>Clean build</code> or <code>Force rebuild</code> option (<a href="https://forum.arduino.cc/t/feature-request-clean-build-option/1291789" target="_blank" rel="noopener">[1]</a>,
+<a href="https://forum.arduino.cc/t/can-i-force-the-arduino-ide-to-recompile-everything/866547" target="_blank" rel="noopener">[2]</a>,
+<a href="https://github.com/arduino/arduino-ide/issues/419" target="_blank" rel="noopener">[3]</a>). The workaround for it is to manually delete the cached build directories we mentioned earlier.</p>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>While it’s often called the Arduino language, <code>.ino</code> files are actually written in C++.
+They simply receive some automatic handling from the Arduino build system,
+and the <code>main()</code> function is predefined and hidden within a library.</li>
+<li>Arduino build process follows standard C/C++ build steps, but adds some additions: automatically
+detects libraries that need to be linked, includes main header, generates function prototypes if they are
+not included.</li>
+<li>Arduino doesn’t use <code>Make</code> or any other common build system. Instead, it uses <code>arduino-cli</code> which constructs
+build commands based on recipies from <code>platform.txt</code> and <code>boards.txt</code>.</li>
+</ul>
+<h2 id="more-reading">More reading</h2>
+<ol>
+<li><a href="https://docs.arduino.cc/arduino-cli/sketch-build-process/" target="_blank" rel="noopener">Build Sketch Process from docs.arduino.cc</a></li>
+<li><a href="https://support.arduino.cc/hc/en-us/articles/4415103213714-Find-sketches-libraries-board-cores-and-other-files-on-your-computer" target="_blank" rel="noopener">Find sketches, libraries, board cores and other files on your computer from support.arduino.cc</a></li>
+<li><a href="https://www.youtube.com/watch?v=7vLjK9t-uZY" target="_blank" rel="noopener">De-Mystifying Libraries - How Arduino IDE Finds and Uses Your Files - OhioIoT</a></li>
+</ol>  </div>  </article> </main> <div class="shrink-0 w-[280px] hidden md:block"> <div class="mb-4"> <div class="about-the-author py-4 border-b"> <h3 class="font-extrabold uppercase mb-4 text-sm">About the Author</h3> <div class="flex gap-4 items-center leading-tight not-prose"> <a href="https://github.com/embeddedk8" target="_blank" rel="noopener noreferrer" class="rounded-full overflow-hidden shrink-0 w-[70px] h-[70px]"> <img src="/_astro/ava.BLfHfOuK_23JO5m.webp" alt="Kate" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080"> </a> <div> <div> <a href="https://github.com/embeddedk8" class="block font-bold text-inherit hover:text-[var(--link-color)]" target="_blank" rel="noopener noreferrer">
+Kate
+</a> </div> <small class="avatar__subtitle">Embedded Engineer</small> </div> </div> <div class="author-desc text-[.825rem] my-4"> <p class="mb-3">
+Kate is an Embedded Engineer with RTOS and Linux experience.
+</p></div> </div> </div> <nav class="toc sticky top-4 py-2 lg:-ml-3" data-astro-cid-awg4b4gg> <h3 class="font-extrabold uppercase mb-1 px-3 text-sm" data-astro-cid-awg4b4gg>On This Page</h3> <ul class="toc-list max-h-[calc(100vh-70px)] overflow-auto text-[.825rem] text-[var(--color-content-secondary)]" data-astro-cid-awg4b4gg> <li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#what-you-will-learn" data-astro-cid-awg4b4gg> What you will learn? </a>  </li><li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#lets-get-started" data-astro-cid-awg4b4gg> Let’s get started! </a> <ul data-astro-cid-awg4b4gg> <li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#opening-an-example-sketch" data-astro-cid-awg4b4gg> Opening an example sketch </a> </li><li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#what-exactly-is-arduino-language" data-astro-cid-awg4b4gg> What exactly is Arduino language? </a> </li><li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#triggering-the-build" data-astro-cid-awg4b4gg> Triggering the build </a> </li><li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#enabling-verbose-output" data-astro-cid-awg4b4gg> Enabling verbose output </a> </li> </ul> </li><li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#board-and-package-identification" data-astro-cid-awg4b4gg> Board and package identification </a>  </li><li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#arduino-specific-directories" data-astro-cid-awg4b4gg> Arduino specific directories </a> <ul data-astro-cid-awg4b4gg> <li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#arduino15-directory" data-astro-cid-awg4b4gg> Arduino15 directory </a> </li><li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#build-directory" data-astro-cid-awg4b4gg> Build directory </a> </li> </ul> </li><li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#general-embedded-software-build-process" data-astro-cid-awg4b4gg> General embedded software build process </a>  </li><li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#preprocessing" data-astro-cid-awg4b4gg> Preprocessing </a> <ul data-astro-cid-awg4b4gg> <li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#concatenating-ino-files" data-astro-cid-awg4b4gg> Concatenating .ino files </a> </li><li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#detecting-libraries-used" data-astro-cid-awg4b4gg> Detecting libraries used </a> </li><li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#generating-function-prototypes" data-astro-cid-awg4b4gg> Generating function prototypes </a> </li> </ul> </li><li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#compilation" data-astro-cid-awg4b4gg> Compilation </a> <ul data-astro-cid-awg4b4gg> <li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#sketch-compilation" data-astro-cid-awg4b4gg> Sketch compilation </a> </li><li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#compiling-libraries" data-astro-cid-awg4b4gg> Compiling libraries </a> </li><li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#compiling-core" data-astro-cid-awg4b4gg> Compiling core </a> </li> </ul> </li><li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#linking" data-astro-cid-awg4b4gg> Linking </a>  </li><li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#finalizing-build" data-astro-cid-awg4b4gg> Finalizing build </a> <ul data-astro-cid-awg4b4gg> <li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#creating-binary-and-hex-files" data-astro-cid-awg4b4gg> Creating binary and hex files </a> </li><li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#measuring-the-program-size" data-astro-cid-awg4b4gg> Measuring the program size </a> </li><li data-astro-cid-awg4b4gg> <a class="block py-1.5 pl-6 pr-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#cleaning-the-build" data-astro-cid-awg4b4gg> Cleaning the build </a> </li> </ul> </li><li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#summary" data-astro-cid-awg4b4gg> Summary </a>  </li><li data-astro-cid-awg4b4gg> <a class="block font-bold py-1.5 px-3 border-l border-transparent text-inherit leading-tight text-zinc-700 dark:text-zinc-300" href="#more-reading" data-astro-cid-awg4b4gg> More reading </a>  </li> </ul> </nav>  </div> </div>  </div> <footer class="container mt-8"> <div class="justify-center flex gap-4 py-8 prose dark:prose-invert text-sm"> <a href="#">Newsletter</a> <a href="#">RSS</a> </div> <div class="py-4 border-t dark:border-t-zinc-700"> <div class="md:flex text-sm text-zinc-500 dark:text-zinc-300 prose dark:prose-invert justify-between"> <div>Copyright © 2025 Devolio.</div> <!-- Please leave the credit if you dont make a significant changes to the template. It's just a nofollow link :)  --> <div>Template created by <a href="https://devaradise.com" target="_blank" rel="nofollow noopener">Syakir @ Devaradise</a></div> </div> </div> </footer> <!-- Google tag (gtag.js) -->  </body> </html> <script async>
+	const anchors = document.querySelectorAll('.prose h2[id], .prose h3[id]');
+	const links = document.querySelectorAll('nav.toc ul li a');
+
+	function observeToc() {
+		if (typeof anchors != 'undefined' && anchors != null && typeof links != 'undefined' && links != null) {
+			let scrollTop = window.scrollY;
+
+			// highlight the last scrolled-to: set everything inactive first
+			for (const link of links) {
+				link.classList.add('border-transparent', 'text-inherit');
+				link.classList.remove('bg-[var(--background-surface-color)]', 'border-[var(--soft-border-color)]', 'text-[var(--link-color)]');
+			}
+			// then iterate backwards, on the first match highlight it and break
+			for (var i = anchors.length - 1; i >= 0; i--) {
+				if (scrollTop > anchors[i].offsetTop - 80) {
+					links[i].classList.remove('border-transparent', 'text-inherit');
+					links[i].classList.add('bg-[var(--background-surface-color)]', 'border-[var(--soft-border-color)]', 'text-[var(--link-color)]');
+					break;
+				}
+			}
+		}
+	}
+
+	window.addEventListener('scroll', (event) => {
+		observeToc(event);
+	});
+	window.addEventListener('hashchange', (event) => {
+		observeToc(event);
+	});
+</script>
