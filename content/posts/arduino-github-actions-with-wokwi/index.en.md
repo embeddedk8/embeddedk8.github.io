@@ -8,8 +8,9 @@ author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
 description: "Creating CI/CD pipeline for Arduino with github actions and wokwi simulation"
 images: []
-resources:
-
+#resources:
+#  - name: "featured-image"
+#    src: "featured-image.png"
 
 tags: ["Arduino Internals"]
 categories: ["Arduino Internals"]
