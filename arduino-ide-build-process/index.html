@@ -63,19 +63,16 @@ about whether Arduino is a good choice for that (like “<em>Is there anything w
 — I want to prove that you can learn just as much with Arduino as with any other embedded platform,
 as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.
 That’s why I am creating the Arduino Internals series.</p>
-<p><strong>As a starting point, let’s take a closer look at what happens when you build a sketch in the Arduino IDE.</strong></p>
-<!--more-->
-<p>{{&#x3C; admonition note “Assumed knowledge” true >}}
-I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.
-{{&#x3C; /admonition >}}</p>
-<p>{{&#x3C; admonition note “My setup” true >}}</p>
+<p>As a starting point, let’s take a closer look at what happens when you build a sketch in the Arduino IDE.</p>
+<p><strong>Assumed knowledge</strong></p>
+<p>I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.</p>
+<p><strong>My setup</strong></p>
 <ul>
 <li>Arduino UNO R4 WiFi board</li>
 <li>Arduino IDE  2.3.6</li>
 <li>Ubuntu 24.04</li>
 </ul>
-<p>If you’re using a different board, IDE version, or operating system — don’t worry! You can still follow along. Some details may just look a little different on your setup.
-{{&#x3C; /admonition >}}</p>
+<p>If you’re using a different board, IDE version, or operating system — don’t worry! You can still follow along. Some details may just look a little different on your setup.</p>
 <h1 id="understanding-arduino-build-process">Understanding Arduino build process</h1>
 <p>Building an Arduino sketch in the IDE seems as simple as clicking one button, but
 under the hood it performs several important steps — some common to nearly every embedded development environment,
@@ -117,7 +114,7 @@ Well — we’ll see at the end of our investigation, if Arduino language is act
 or just a C++ in a disguise.</p>
 <h3 id="triggering-the-build">Triggering the build</h3>
 <p>We are ready to build this sketch. Click <strong>Verify/Compile</strong> and observe the <strong>Output</strong> window.</p>
-<p><a href="/arduino-ide-default-output.png"><img src="/arduino-ide-default-output.png" alt="Arduino IDE doesn&#x27;t say much about compilation steps by default" title="Arduino IDE - default build output"></a></p>
+<p><a href="arduino-ide-default-output.png"><img alt="Arduino IDE doesn&amp;#x27;t say much about compilation steps by default" title="Arduino IDE - default build output" loading="lazy" decoding="async" fetchpriority="auto" width="1284" height="748" src="/_astro/arduino-ide-default-output.CwC7N-ZM_Z1UYHLu.webp" ></a></p>
 <p>It looks like the sketch has been built successfully and is ready to upload to the board.
 You only see two lines of output because the Arduino IDE hides most of the build details by default.</p>
 <h3 id="enabling-verbose-output">Enabling verbose output</h3>
