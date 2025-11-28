@@ -209,7 +209,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       disclaimer = ""
     # Home page posts
     [params.home.posts]
-      enable = false
+      enable = true
       # special amount of posts in each home posts page
       paginate = 6
   # Social config in home page
@@ -721,7 +721,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
           gravatarEmail = ""
           avatarURL = "/images/avatar.png"
           title = "Embedded Kate"
-          subtitle = "My blog about embedded systems, microcontrollers and programming"
+          subtitle = "Blog about embedded systems"
           typeit = false
           social = true
           disclaimer = ""

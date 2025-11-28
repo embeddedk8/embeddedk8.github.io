@@ -14,36 +14,12 @@
     </div>
     {{- end }}
 
-    {{- /* Title */ -}}
-    <h1 class="single-title" itemprop="name headline">
+    {{- /* Title with date on same line */ -}}
+    <h4 class="single-title" itemprop="name headline">
         <a href="{{ .RelPermalink }}">{{ .Title | emojify }}</a>
-    </h1>
-
-    {{- /* META — ONE SINGLE LINE */ -}}
-    <div class="post-meta">
-        {{- /* Author */ -}}
-        {{- $author := $params.author | default .Site.Params.Author.name -}}
-        {{- with $author -}}
-        <span class="meta-author">👤 {{ . }}</span>
-        {{- end }}
-
-        &nbsp;•&nbsp;
-
-        {{- /* Date */ -}}
-        <span class="meta-date">
+        <span class="meta-date" style="font-size:0.6em; color:#666; margin-left:0.5em;">
             {{ .Date.Format "2006-01-02" }}
         </span>
-
-        {{- /* Categories */ -}}
-        {{- if .Params.categories }}
-        &nbsp;•&nbsp;
-        <span class="meta-categories">
-                {{- range $i, $c := .Params.categories -}}
-                    {{- if $i }}, {{ end -}}
-                    <a href="{{ (printf "/categories/%s" $c) | relURL }}">{{ $c }}</a>
-            {{- end -}}
-            </span>
-        {{- end }}
-    </div>
+    </h4>
 
 </article>
