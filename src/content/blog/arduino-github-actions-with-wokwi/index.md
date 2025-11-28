@@ -13,8 +13,8 @@ images: []
 #  - name: "featured-image"
 #    src: "featured-image.png"
 
-tags: ["Arduino Internals"]
-categories: ["Arduino Internals"]
+tags: ["Arduino"]
+categories: ["Arduino"]
 
 lightgallery: true
 
@@ -214,7 +214,7 @@ This is the simplest simulation test for Arduino app. If it's succeeding, you're
 First, add `WOKWI_CLI_TOKEN` as a secret to your Github repository settings. You can reuse the same TOKEN as you have locally or create new token.
 Choose `Settings -> Secrets and variables -> Actions -> New secret` and name your token WOKWI_CLI_TOKEN.
 
-[![Adding a secret to Github repository](/github-secret.png "Adding a secret to Github repository")](/github-secret.png)
+[![Adding a secret to Github repository](/arduino-github-actions-with-wokwi/github-secret.png "Adding a secret to Github repository")](/arduino-github-actions-with-wokwi/github-secret.png)
 
 ### Wokwi simulation
 

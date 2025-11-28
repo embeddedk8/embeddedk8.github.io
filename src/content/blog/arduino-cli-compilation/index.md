@@ -13,8 +13,8 @@ images: []
 resources:
 
 
-tags: ["Arduino Internals"]
-categories: ["Arduino Internals"]
+tags: ["Arduino"]
+categories: ["Arduino"]
 
 lightgallery: true
 
@@ -69,7 +69,7 @@ Some of the benefits are:
     you work on multiple projects that require different versions of the same library. This issue is solved when 
     using CLI — you can specify library versions directly from the command line, ensuring each one uses the correct dependencies.
 
-<img src="cli-benefits.png" title="Benefits of using arduino-cli" alt="Benefits of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
+<img src="/arduino-cli-compilation/cli-benefits.png" title="Benefits of using arduino-cli" alt="Benefits of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
 
 In summary, using Arduino CLI instead of Arduino IDE gives a lot of new potential to improve your workflow with the project.
 
@@ -93,13 +93,11 @@ Other way, or if you have issues with above command, you can download a prebuilt
 and manually add it to your PATH.
 
 
-{{< admonition warning >}}
 ⚠️ **Avoid installing arduino-cli with `snap`.**
 
 The Snap package is not officially supported. It often causes permission and path issues (for example, [this one](https://github.com/arduino/arduino-cli/issues/1543)
 — it happened to me when I used snap on Ubuntu 24.04).
 If you’ve already installed it with `snap` and it's not working, remove it and reinstall using one of the methods above.
-{{</ admonition >}}
 
 ### Check installation
 After installing, type `arduino-cli` in your terminal, to confirm that the tool was installed successfully.
@@ -227,7 +225,7 @@ Using serial prints is one of the simplest ways to debug your Arduino applicatio
 ### Basic flow
 In summary, the basic `arduino-cli` workflow is as follows:
 
-<img src="basic-flow.png" alt="Basic flow of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
+<img src="/arduino-cli-compilation/basic-flow.png" alt="Basic flow of using arduino-cli" style="width:auto; max-width:100%; height:auto;" />
 
 ## Advanced usage
 
@@ -462,12 +460,8 @@ MyBlink sketch using Makefile is published [here](https://github.com/embeddedk8/
 
 ## More about Arduino CLI
 - 📚 [Official documentation of Arduino CLI](https://docs.arduino.cc/arduino-cli/)
-
 - 📚 [Detailed article showing how to install and integrate CLI with VSCode](https://dumblebots.com/blog/arduino-cli-getting-started)
-
 - 🎬 [Arduino CLI - What and Why? | Breaking Out of Arduino IDE | Part 2 | Magpie Embedded on YouTube](https://www.youtube.com/watch?v=Uk5_RKMf2Dk&t=356s)
-
 - 🎬 [Arduino CLI and the art of command line | Sayanee Basu on YouTube](https://www.youtube.com/watch?v=cVod8k713_8)
-
 - 🛠️ [Arduino CLI Manager | interactive shell wrapper for Arduino CLI ](https://github.com/abod8639/arduino-cli-manager)
 
