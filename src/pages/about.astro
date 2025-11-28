@@ -1,0 +1,34 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Ava from '@src/assets/img/ava.jpg';
+import Prose from '../components/Prose.astro';
+
+---
+
+<BaseLayout
+	title="About Me"
+	description="Lorem ipsum dolor sit amet"
+>
+  <div class='container'>
+		<main class='prose text-lg dark:prose-invert'>
+      <article>
+        <div class='w-full md:flex md:items-center gap-16 mb-10'>
+          <div class="text-pretty leading-9">
+            <h1 class="text-4xl font-bold mb-4">Hi There 👋, I'm Kate! </h1>
+            <Prose>
+              <div class="text-lg">
+                <p>I am an Embedded Engineer from Poland. I love sharing what i know on <a href="https://embeddedk8.com" target="_blank">embeddedk8.com</a>.
+              </div>
+            </Prose>
+          </div>
+          <Image src={Ava} alt="Kate" width={300}  class="rounded-3xl rotate-3 mx-4 md:mx-0"/>
+        </div>     
+        <div>
+
+        </div>
+        </article>
+      </article>
+    </main>
+  </div>
+</BaseLayout>
