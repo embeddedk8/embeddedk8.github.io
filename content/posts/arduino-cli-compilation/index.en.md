@@ -89,14 +89,12 @@ curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.
 Other way, or if you have issues with above command, you can download a prebuilt binary from the [**Download**](https://docs.arduino.cc/arduino-cli/installation/#download) section,
 and manually add it to your PATH.
 
-
-{{< admonition warning >}}
 ⚠️ **Avoid installing arduino-cli with `snap`.**
 
 The Snap package is not officially supported. It often causes permission and path issues (for example, [this one](https://github.com/arduino/arduino-cli/issues/1543)
 — it happened to me when I used snap on Ubuntu 24.04).
 If you’ve already installed it with `snap` and it's not working, remove it and reinstall using one of the methods above.
-{{</ admonition >}}
+
 
 ### Check installation
 After installing, type `arduino-cli` in your terminal, to confirm that the tool was installed successfully.

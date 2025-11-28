@@ -8,7 +8,7 @@ authorLink: "https://embeddedk8.com"
 description: "How the Arduino builds the sketch — preprocessing, compiling, and linking explained simply"
 images: []
 resources:
-
+summary: "."
 
 tags: ["Arduino Internals"]
 categories: ["Arduino Internals"]
@@ -34,19 +34,15 @@ as long as you avoid blindly relying on the Arduino API and stay curious to expl
 That's why I am creating the Arduino Internals series.
 
 **As a starting point, let’s take a closer look at what happens when you build a sketch in the Arduino IDE.**
-<!--more-->
 
-{{< admonition note "Assumed knowledge" true >}}
+
 I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.
-{{< /admonition >}}
-
-{{< admonition note "My setup" true >}}
 - Arduino UNO R4 WiFi board
 - Arduino IDE  2.3.6
 - Ubuntu 24.04
 
 If you’re using a different board, IDE version, or operating system — don’t worry! You can still follow along. Some details may just look a little different on your setup.
-{{< /admonition >}}
+
 
 # Understanding Arduino build process
 Building an Arduino sketch in the IDE seems as simple as clicking one button, but
@@ -133,9 +129,7 @@ FQBN: arduino:renesas_uno:unor4wifi
 
 If you choose wrong board, the code may compile but fail at runtime, or compilation may fail.
 
-{{< admonition tip >}}
 Error `Compilation error: Missing FQBN (Fully Qualified Board Name)` means you have not selected any board from menu.
-{{</ admonition>}}
 
 ## Arduino specific directories
 In a typical embedded development environment, the build process produces various artifacts 
@@ -237,7 +231,7 @@ In my setup, two toolchains are installed:
 The main components of toolchain are compiler, asembler and linker. Everything
 that is required to build for a specific architecture.
 
-{{< admonition type=info title="Why we need cross compilation toolchains?" open=true  >}}
+Why we need cross compilation toolchains?
 When building application for embedded devices, the compilation happens on the **host**
 — your development computer running the Arduino IDE — not on the **target device** itself.
 
@@ -251,7 +245,7 @@ compiler tools that are able to produce binaries for a
 different architecture than the one running the compiler.
 
 Most Arduino boards use either ARM or AVR architectures, which is why you’ll find these two toolchains installed in the Arduino15 directory.
-{{< /admonition >}}
+
 
 #### Arduino core
 The **Arduino core** directory provides the hardware-specific implementation of core Arduino functions. 
@@ -291,13 +285,13 @@ If you open this folder, you’ll see the build artifacts, including:
 - final binaries (`.bin`, `.hex`, `.elf`).
 
 
-{{< admonition tip `Exporting Compiled Binary`>}}
+Exporting Compiled Binary
 If you want to have the compiled binaries in your sketch folder, click **Sketch → Export Compiled Binary** option from Arduino IDE menu. 
 This will build your sketch and place a copy of the `.hex`, `.bin`, `.elf` and `.map` inside the sketch sources 
 folder so it’s easy to find later.
-{{</ admonition >}}
 
-{{< admonition type=tip title="Do you want to move Arduino15 folder?" open=true  >}}
+
+Do you want to move Arduino15 folder?
 In some cases, you may want to move the **Arduino15 folder** —  for example, to free up space on your primary drive.
 
 To do this:
@@ -316,7 +310,7 @@ directories:
 3. Restart the Arduino IDE. It will now use the new **Arduino15** location. Verify the build output to ensure everything is working correctly.
 
 4. Once you’ve confirmed everything works correctly, you can safely delete the old folder.
-   {{< /admonition >}}
+
 
 
 We already discussed board identification and the Arduino specific directories. Let's move to actual build process.
@@ -474,7 +468,7 @@ Some highlights:
 - `-I` and `@.../includes.txt` → add search paths for Arduino core and variant headers.
 - Many `-D...` → defines for board, CPU frequency, Arduino version, etc.
 
-{{< admonition >}}
+
 Most advanced IDEs let you change compiler settings like optimization level, debug info, or extra flags right from a project menu.  
 Arduino IDE is so simple that it doesn't offer this option: you don’t get a button or menu for that.
 
@@ -484,7 +478,7 @@ If you want to change some settings, you’ve got several ways:
 - **modify `arduino-cli.yaml`** from **ArduinoIDE** folder,
 - **use Arduino CLI** directly: the command-line tool gives you more flexibility and can build your sketch with whatever options you like.
 
-{{</ admonition >}}
+
 
 At this point, your sketch has been turned into machine code, stored in `MyBlink.ino.cpp.o`. 
 This file contains your `setup()` and `loop()` code, ready to be linked with the Arduino core and libraries in the next step.

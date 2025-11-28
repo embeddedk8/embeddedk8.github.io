@@ -39,19 +39,19 @@ którego pierwszą część właśnie czytasz.
 **Zacznijmy od tego, co dokładnie dzieje się, kiedy budujesz sketch w Arduino IDE.**
 
 
-{{< admonition note "Co zakładam, że wiesz" true >}}
+Co zakładam, że wiesz
 Zakładam, że masz zainstalowane środowisko Arduino IDE, umiesz skompilować program i wgrać go na płytkę, ale nie znasz szczegółów dotyczących 
 procesu kompilacji i flashowania.
-{{< /admonition >}}
 
-{{< admonition note "Czego użyłam" true >}}
+
+Czego użyłam
 - płytka Arduino UNO R4 WiFi
 - płytka Arduino IDE  2.3.6
 - Ubuntu 24.04
 
 Jeśli masz inną płytkę, inną wersję IDE czy inny system operacyjny, to wizualnie wszystko u Ciebie może wyglądać inaczej, ale 
 pod spodem powinno być z grubsza to samo! 
-{{< /admonition >}}
+
 
 ## Proces budowania w Arduino
 Proces budowania w Arduino, zwłaszcza z IDE, z wydaje się ekstremalnie prosty — trzeba tylko nacisnąć **Verify/Compile**, 
@@ -119,9 +119,7 @@ FQBN: arduino:renesas_uno:unor4wifi
 
 Jeśli wybrałbyś niewłaściwą płytkę, to albo program Ci się w ogóle nie skompiluje, albo nie będzie działało po wgraniu.
 
-{{< admonition tip >}}
 Błąd `Compilation error: Missing FQBN (Fully Qualified Board Name)` znaczy, że nie ustawiłeś swojej płytki w menu.
-{{</ admonition>}}
 
 ## Foldery w środowisku Arduino
 Na pewno warto wiedzieć, gdzie na dysku są artefakty budowania, a gdzie paczki i biblioteki, dostarczane 
@@ -171,7 +169,7 @@ właściwą płytkę z menu **Select Board**.
 W folderze **Arduino15** znajduje się też toolchain:`.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/`.
 Poza kompilatorem, są tam też inne przydatne narzedzia, np. `objdump`, którego można użyć do analizowania zbudowanych binarek.
 
-{{< admonition type=tip title="A może chciałbyś przenieść folder Arduino15 w inne miejsce?" open=true  >}}
+A może chciałbyś przenieść folder Arduino15 w inne miejsce?
 W niektórych przypadkach możesz chcieć przenieść folder Arduino15 w inne miejsce na dysku —
 na przykład, gdy na głównym dysku kończy Ci się miejsce. Możesz to zrobić:
 
@@ -190,7 +188,7 @@ directories:
 Sprawdź w logach budowania, czy zmiana się powiodła.
 
 4. Jak potwierdzisz, że Arduino IDE używa już przeniesionego folderu, to oryginalny folder **Arduino15** możesz usunąć.
-   {{< /admonition >}}
+
 
 ### Arduino core
 **Arduino code** to kolejny ważny folder w środowisku Arduino. Zawiera on implementację funkcji używanych przez
@@ -228,11 +226,11 @@ If you open this folder, you’ll see the build artifacts, including:
 - final binaries (`.bin`, `.hex`, `.elf`).
 
 
-{{< admonition tip `Exporting Compiled Binary`>}}
+Exporting Compiled Binary
 If you want to have the compiled binaries in your sketch folder, click **Sketch → Export Compiled Binary** option from Arduino IDE menu.
 This will build your sketch and place a copy of the `.hex`, `.bin`, `.elf` and `.map` inside the sketch sources
 folder so it’s easy to find later.
-{{</ admonition >}}
+
 
 We already discussed board identification and the Arduino specific directories. Let's move to actual build process.
 
@@ -379,7 +377,7 @@ Some highlights:
 - `-I` and `@.../includes.txt` → add search paths for Arduino core and variant headers.
 - Many `-D...` → defines for board, CPU frequency, Arduino version, etc.
 
-{{< admonition >}}
+
 Most advanced IDEs let you change compiler settings like optimization level, debug info, or extra flags right from a project menu.  
 Arduino IDE is so simple that it doesn't offer this option: you don’t get a button or menu for that.
 
@@ -389,7 +387,6 @@ If you want to change some settings, you’ve got several ways:
 - **modify `arduino-cli.yaml`** from **ArduinoIDE** folder,
 - **use Arduino CLI** directly: the command-line tool gives you more flexibility and can build your sketch with whatever options you like.
 
-{{</ admonition >}}
 
 At this point, your sketch has been turned into machine code, stored in `MyBlink.ino.cpp.o`.
 This file contains your `setup()` and `loop()` code, ready to be linked with the Arduino core and libraries in the next step.

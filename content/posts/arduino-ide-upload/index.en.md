@@ -26,10 +26,10 @@ math:
 
 Pressing the **Sketch Upload** will always trigger compilation first, to make sure that the latest version of the program will be flashed to the board.
 
-{{< admonition note >}}
+
 In previous post I described the Arduino IDE compilation process.
 If you haven't seen it, it's recommended to start there!
-{{</ admonition >}}
+
 
 
 

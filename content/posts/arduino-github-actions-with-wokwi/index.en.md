@@ -9,19 +9,14 @@ authorLink: "https://embeddedk8.com"
 description: "Creating CI/CD pipeline for Arduino with github actions and wokwi simulation"
 images: []
 resources:
-
-
 tags: ["Arduino Internals"]
 categories: ["Arduino Internals"]
-
 lightgallery: true
-
 toc:
     auto: false
 math:
     enable: true
 ---
-
 
 Testing projects is one of the major challenges in embedded devices field. 
 Many existing projects still rely on manual building by developers and
