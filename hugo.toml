@@ -105,9 +105,9 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       # URL of the LOGO
       logo = ""
       # title name
-      name = "Embedded Kate Blog"
+      name = "embeddedk8.com"
       # you can add extra information before the name (HTML format is supported), such as icons
-      pre = "<i class='fa-solid fa-microchip fa-fw' aria-hidden='true'></i>"
+      pre = ""
       # you can add extra information after the name (HTML format is supported), such as icons
       post = ""
       # whether to use typeit animation for title name
@@ -209,7 +209,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       disclaimer = ""
     # Home page posts
     [params.home.posts]
-      enable = true
+      enable = false
       # special amount of posts in each home posts page
       paginate = 6
   # Social config in home page
@@ -684,14 +684,14 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         name = "About"
         url = "/about/"
         title = ""
-      [[languages.en.menu.main]]
-        weight = 5
-        identifier = "resources"
-        pre = ""
-        post = ""
-        name = "Resources"
-        url = "/resources/"
-        title = ""
+#      [[languages.en.menu.main]]
+#        weight = 5
+#        identifier = "resources"
+#        pre = ""
+#        post = ""
+#        name = "Resources"
+#        url = "/resources/"
+#        title = ""
       [[languages.en.menu.main]]
         weight = 6
         identifier = "github"
@@ -720,9 +720,9 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
           enable = true
           gravatarEmail = ""
           avatarURL = "/images/avatar.png"
-          title = "Embedded Kate Blog"
-          subtitle = "Exploring embedded systems, microcontrollers, and programming"
-          typeit = true
+          title = "Embedded Kate"
+          subtitle = "My blog about embedded systems, microcontrollers and programming"
+          typeit = false
           social = true
           disclaimer = ""
       [languages.en.params.social]
