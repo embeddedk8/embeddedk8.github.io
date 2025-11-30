@@ -1,1 +1,3 @@
-I am an Embedded Engineer from Poland. I love sharing what I know on [embeddedk8.com](embeddedk8.com).
+I am an Embedded Engineer from Poland. This is my place where I share my learnings, insights or tutorials
+related to my interests: **operating systems**, **microcontrollers** and **programming**.
+
