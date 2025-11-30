@@ -1,1 +1,1 @@
-I am an Embedded Engineer from Poland. I love sharing what i know on [embeddedk8.com](embeddedk8.com).
+I am an Embedded Engineer from Poland. I love sharing what I know on [embeddedk8.com](embeddedk8.com).
