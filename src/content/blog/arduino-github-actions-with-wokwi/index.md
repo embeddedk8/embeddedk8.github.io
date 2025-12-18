@@ -7,7 +7,7 @@ pubDate: 'Nov 11 2025'
 draft: false
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Creating CI/CD pipeline for Arduino with github actions and wokwi simulation"
+description: "Learn how to create an Arduino CI/CD pipeline with GitHub Actions and Wokwi for automated builds and simulation."
 images: []
 #resources:
 #  - name: "featured-image"

@@ -6,7 +6,7 @@ draft: false
 pubDate: 'Sep 13 2025'
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "How the Arduino builds the sketch — preprocessing, compiling, and linking explained simply"
+description: "Ever wondered how Arduino builds a sketch? This guide explains preprocessing, compiling, and linking in simple terms."
 images: []
 resources:
 

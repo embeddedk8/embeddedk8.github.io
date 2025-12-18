@@ -8,7 +8,7 @@ lastmod: 2025-10-01T15:58:26+08:00
 draft: false
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Build and upload sketches using Arduino CLI. Benefits, how to setup, upload sketches, configure, create Makefile"
+description: "Learn how to build and upload Arduino sketches with Arduino CLI, including setup, configuration, uploads, and Makefile creation."
 images: []
 resources:
 
