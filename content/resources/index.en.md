@@ -77,3 +77,10 @@ It’s still small, but I’ll keep expanding it over time. 😄
 - 📝 [Memory Management Reference](https://www.memorymanagement.org/index.html)
 - 🎬 [Scott Meyers: Cpu Caches and Why You Care | code::dive conference 2014 | Youtube](https://www.youtube.com/watch?v=WDIkqP4JbkE)
 - 📖 [What Every Programmer Should Know About Memory, Ulrich Drepper](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)
+
+
+https://github.com/friendlyanon/cmake-init
+
+https://www.youtube.com/watch?v=lLv1s7rKeCM
+https://www.youtube.com/watch?v=ivl84xCeVFs
+https://www.youtube.com/watch?v=ZxxYcAkNCCA
