@@ -30,7 +30,8 @@ const { Content, headings } = await render(post);
 ---
 
 <BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined}>
-	<div class='container lg:flex gap-10'>
+	<div class='mx-auto max-w-none lg:max-w-[90rem] px-4 lg:flex gap-10'>
+
 		<main
 			class='overflow-hidden grow'
 		>
