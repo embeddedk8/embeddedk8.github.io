@@ -12,6 +12,8 @@ import { render } from 'astro:content';
 
 const { GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
 
+const SHOW_AUTHOR = false;
+
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post: any) => ({
@@ -91,12 +93,13 @@ const { Content, headings } = await render(post);
 
 			</article>
 		</main>
-    <div class='shrink-0 w-[280px] hidden md:block'>
-      <div class='mb-4'>
-				<AboutTheAuthor />
-			</div>
-			<TableOfContent headings={headings} />
-		</div>
+        <div class='shrink-0 w-[280px] hidden md:block'>
+          <div class='mb-4'>
+            {SHOW_AUTHOR && <AboutTheAuthor />}
+          </div>
+          <TableOfContent headings={headings} />
+        </div>
+
 	</div>
 </BaseLayout>
 
