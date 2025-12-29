@@ -108,6 +108,109 @@ of making this project until the finish, I am choosing Cortex-M0 processor.
 4. Armv6 architecture reference
 2. 
 
+"Cortex-M0 The smallest ARMÒ processordonly approximately 12000a logic gates at minimum
+configuration. It is very low power and energy efficient."
+The Definitive Guide to ARM Cortex M0
+
+Smallest instruction set.
+
+In general, the ARM Cortex-M0 and Cortex-M0þ processors are both very suitable for
+ultra-low power applications, and because the instruction set and programmer’s model are
+relatively simple, and the architecture is very C-friendly, they are also very suitable for
+beginners.
+
+The Cortex-M0 and Cortex-M0þ Processors:
+•
+•
+•
+•
+•
+Are 32-bit Reduced Instruction Set Computing (RISC) processor, based on an architec-
+ture specification called ARMv6-M Architecture. The bus interface and internal data
+paths are 32-bit width.
+Have 16 32-bit registers in the register bank (r0 to r15). However, some of these regis-
+ters have special purposes (e.g., R15 is the Program Counter, R14 is a register called
+Link Register, and R13 is the Stack Pointer).
+The instruction set is a subset of the Thumb Instruction Set Architecture. Most of the
+instructions are 16 bit to provide very high code density.
+Support up to 4 GB of address space. The address space is architecturally divided into a
+number of regions.
+Based on Von Neumann bus architecture (although arguably the Cortex-M0þ processor
+have a hybrid bus architecture because of an optional separate bus interface for fast
+peripheral register accesses, see section 4.3.2 Single Cycle I/O Interface in Chapter 4).Introduction 13
+•
+•
+•
+•
+•
+•
+•
+Designed for low-power applications, including architectural support for sleep modes
+and have various low power features at the design/implementation level.
+Includes an interrupt controller called NVIC. The NVIC provides very flexible and
+powerful interrupt management.
+The system bus interface is pipelined, based on a bus protocol called Advanced High-
+performance Bus (AHBÔ ) Lite. The bus interface supports transfers of 8-bit, 16-bit, and
+32-bit data, and also allows wait states to be inserted. The Cortex-M0þ processor also
+have an optional bus interface (Single Cycle I/O interface, see section 4.3.2) for high-
+speed peripheral registers, which is separated from the main system bus.
+Support various features for the OS (Operating System) implementation such as a
+system tick timer, shadowed stack pointer, and dedicated exceptions for OS operations.
+Includes various debug features to enable software developers to create applications
+efficiently.
+Designed to be very easy to use. Almost everything can be programmed in C and in
+most cases no need for special C language extension for data types or interrupt handling
+support.
+Provide good performance in most general data processing and I/O control applications.
+The Cortex-M0 and Cortex-M0þ processors do not include any memory and have only
+got one built-in timer which is primarily for OS operations. Therefore a chip designer
+needs to add additional components in the chip design themselves.
+
+
+
+
+ItemDescriptions
+ROM
+Flash
+memory
+SRAM
+PLLRead Only MemorydNonvolatile memory storage for program code.
+A special type of ROM, which can be reprogrammed many times, typically for storing
+program code.
+Static Random Access Memorydfor data storage (volatile)
+Phase Lock Loopda device to generate programmable clock frequency based on a
+reference clock.
+Real Time Clockda low power timer for counting seconds (typically runs on a low power
+oscillator), and in some cases also for minutes, hours and calendar functions.
+General Purpose Input/Outputda peripheral with parallel data interface to control
+external devices and to read back external signals status.
+Universal Asynchronous Receiver/Transmitterda peripheral to handle data transfers in a
+simple serial data protocol.
+Inter-Integrated Circuitda peripheral to handle data transfers in a serial data protocol.
+Unlike UART, a clock signal is required and can provide higher data rate.
+Serial Peripheral Interfacedanother serial communication interface for off-chip
+peripherals.
+Inter-IC Soundda serial data communication interface specifically for audio information.
+Pulse Width Modulatorda peripheral to output waveform with programmable duty cycle.
+Analog to Digital Converterda peripheral to convert analog signal-level information into
+digital form.
+Digital to Analog Converterda peripheral to convert data values into analog signal level.
+A programmable timer device for ensuring the processor is running program. When
+enabled, the program running needs to update the watchdog timer within a certain time
+gap. If the program crashed, the watchdog timed out and this can be used to trigger a
+reset or a critical interrupt event.
+RTC
+GPIO
+UART
+I2C
+SPI
+I2S
+PWM
+ADC
+DAC
+Watchdog
+timer
+
 
 4. 
 5. https://floooh.github.io/2017/01/02/yakc-overview.html
