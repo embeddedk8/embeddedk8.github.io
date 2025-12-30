@@ -1,17 +1,18 @@
 ---
-title: "Embedded Systems Learning Resources"
+title: "Resources for learning embedded systems"
 date: 2025-10-25T11:04:49+08:00
+pubDate: 'Dec 30 2025'
 draft: false
+author: "embeddedk8"
+authorLink: "https://embeddedk8.com"
 description: "Learning resources about embedded systems, ARM microcontrollers, C and C++ programming"
 images: []
-
+tags: ["Embedded", "Resources"]
 lightgallery: true
 
 math:
   enable: false
 ---
-
-# Resources for learning Embedded Systems
 This is my personal collection of resources that I find useful, insightful, or simply interesting while learning embedded systems.
 It’s still small, but I’ll keep expanding it over time. 😄
 
@@ -31,8 +32,9 @@ It’s still small, but I’ll keep expanding it over time. 😄
 **Compilers**  
 📝 [A Compiler Writing Journey](https://github.com/DoctorWkt/acwj/tree/master)
 
-**Arduino**  
-📝 [Don't use Arduino for professional work](https://embedded.fm/blog/2017/8/12/dont-use-arduino-for-professional-work)
+**Embedded**  
+📝 [Don't use Arduino for professional work](https://embedded.fm/blog/2017/8/12/dont-use-arduino-for-professional-work)  
+📝 [Bare metal programming guide](https://github.com/cpq/bare-metal-programming-guide)
 
 **Computer Architecture**  
 📝 [Memory Management Reference](https://www.memorymanagement.org/index.html)  

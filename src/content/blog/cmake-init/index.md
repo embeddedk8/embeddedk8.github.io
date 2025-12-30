@@ -1,6 +1,6 @@
 ---
 weight: 2
-title: "The ideal C/C++ project template doesn’t exist… until you see this"
+title: "Perfect C/C++ project template doesn’t exist"
 date: 2025-12-20T15:58:26+08:00
 draft: true
 pubDate: 'Dec 20 2025'
@@ -19,10 +19,13 @@ toc:
 math:
   enable: true
 ---
+*... or you just didn't discover it yet :)*
+
+## How to get the perfect C/C++ project template?
+
 When I was starting new C or C++ projects, my usual approach was either googling for a 
 “C project template”, digging through my old templates saved on my PC (because I stored them, didn't I?) 
 or just building a fresh project from scratch: like set up directories, add initial source files and write a simple CMake.
-
 After that, the project structure would evolve naturally as I added tests, CI/CD, and other features.
 
 I won’t lie — this setup used to take a large chunk of my time, 
@@ -31,7 +34,7 @@ Yet, I had never heard of any real shortcuts beyond reusing my old templates.
 
 Does it sound like you? If yes, I have something that will literally change how you kick off a new project.
 
-## How to get an ideal C/C++ project template?
+### Just use the CMake project initializer
 
 It turns out the ideal solution has been around for four years, but I somehow didn't know about it, and I only just discovered it now.
 
