@@ -1,12 +1,12 @@
 ---
 weight: 2
-title: "How Arduino builds a sketch?"
+title: "How Arduino really builds a sketch?"
 date: 2025-09-13T15:58:26+08:00
 draft: false
 pubDate: 'Sep 13 2025'
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Ever wondered how Arduino builds a sketch? This guide explains preprocessing, compiling, and linking in simple terms."
+description: "This guide explains how Arduino builds a sketch, adding Arduino-specific steps to preprocessing, compiling, and linking."
 images: []
 resources:
 

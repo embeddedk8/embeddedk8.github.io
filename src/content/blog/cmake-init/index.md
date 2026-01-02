@@ -6,7 +6,7 @@ draft: true
 pubDate: 'Dec 20 2025'
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Learn how cmake-init helps you quickly create modern CMake projects with a clean structure, test templates, linters, and CI/CD jobs."
+description: "Start modern CMake projects faster with cmake-init - an open-source tool for clean structure, test templates, linters, and CI/CD."
 images: []
 resources:
 

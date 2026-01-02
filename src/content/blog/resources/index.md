@@ -5,7 +5,7 @@ pubDate: 'Dec 30 2025'
 draft: false
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Learning resources about embedded systems, ARM microcontrollers, C and C++ programming"
+description: "Learning resources covering embedded systems, ARM microcontrollers, and C and C++ programming topics."
 images: []
 tags: ["Embedded", "Resources"]
 lightgallery: true
@@ -22,6 +22,10 @@ It’s still small, but I’ll keep expanding it over time. 😄
 **Programming basics**  
 📖 [Competitive Programmer’s Handbook, Antti Laaksonen](https://cses.fi/book/book.pdf)  
 🧩 [Exercism](https://exercism.org) *My favorite platform for programming exercises across many languages, with free mentor reviews.*
+
+
+**Rust**  
+📖 [Rust Book](https://doc.rust-lang.org/book/title-page.html)
 
 **Assembly and reverse engineering**  
 📝 [ARM Reverse Engineering Notes](https://github.com/microbuilder/armreveng/)  
