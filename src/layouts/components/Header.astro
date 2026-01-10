@@ -1,9 +1,8 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { Image } from 'astro:assets';
+import SocialIcons from '../../components/widgets/SocialIcons.astro';
 import AvaLogo from '@src/assets/img/small-ava.jpg';
-import GithubWhite from '@src/assets/img/github-mark-white.svg';
-import GithubBlack from '@src/assets/img/github-mark.svg';
 
 
 const menu = [
@@ -41,13 +40,11 @@ const menu = [
 					<!-- {SITE_TITLE} -->
 				</a>
 			</h2>
+
 			<div class='flex'>
-				<a class='p-3 dark:hidden' href='https://github.com/embeddedk8' target='_blank'
-					><Image src={GithubBlack} width={24} height={24} alt='Github logo' /></a
-				>
-				<a class='p-3 hidden dark:block' href='https://github.com/embeddedk8/' target='_blank'
-					><Image src={GithubWhite} width={24} height={24} alt='Github logo' /></a
-				>
+
+			    <SocialIcons />
+
 				<button class='p-3' id='themeToggle' aria-label='Theme mode'>
 					<svg
 						class='sun'

@@ -1,0 +1,37 @@
+---
+import Github from '@src/assets/img/github-mark.svg';
+import Twitter from '@src/assets/img/x-logo-black.svg';
+
+const icons = [
+  {
+    href: "https://github.com/embeddedk8",
+    src: Github,
+    size: 24
+  },
+  {
+    href: "https://x.com/KateZlv",
+    src: Twitter,
+    size: 20,
+    adjustY: 0.5
+  }
+];
+---
+<div class="flex items-center gap-1">
+  {icons.map(icon => (
+    <a
+      href={icon.href}
+      target="_blank"
+      rel="noopener"
+      class="p-3 inline-flex items-center justify-center relative"
+      style={`top:${icon.adjustY || 0}px`}
+    >
+      <img
+        src={icon.src.src}
+        width={icon.size}
+        height={icon.size}
+        class="transition-opacity hover:opacity-70 dark:invert"
+        alt=""
+      />
+    </a>
+  ))}
+</div>
