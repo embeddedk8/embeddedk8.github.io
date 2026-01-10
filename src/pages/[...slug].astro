@@ -34,32 +34,28 @@ const { Content, headings } = await render(post);
 				<Prose>
 					<div>
 						<h1 class='!my-1 leading-tight'>{title}</h1>
-						<div class='text-sm font-[500] mt-2 sm:mt-0 py-1 md:text-right flex flex-col sm:flex-row gap-3 sm:justify-between sm:items-center'>
-							{
-								<div class='flex gap-2'>
-									{
-										(tags || [])?.map((tag: string) => (
-											<a
-												class='border border-zinc-300 dark:border-zinc-700 rounded-2xl
-													text-sm text-zinc-700 dark:text-zinc-300 no-underline px-2 py-0.5
-													transition-all duration-700
-													hover:border-zinc-700 dark:hover:border-zinc-300'
-												href={`/tags/${slugify(tag)}`}>
-												{tag}
-											</a>
-										))
-									}
-								</div>
-							}
-							<div>
-								{
-									updatedDate ?
-										<>Updated on <strong><FormattedDate date={updatedDate} /></strong></>
-										:
-										<>Published on <strong><FormattedDate date={pubDate} /></strong></>
-								}
-							</div>
-						</div>
+                        <div class="flex flex-wrap items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 mt-2">
+                          {
+                            (tags || []).map((tag: string) => (
+                              <a
+                                href={`/tags/${slugify(tag)}`}
+                                class="px-2 py-0.5 rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-zinc-700 dark:hover:border-zinc-300 transition-colors no-underline"
+                              >
+                                {tag}
+                              </a>
+                            ))
+                          }
+
+                          <span class="mx-1">•</span>
+
+                          <span>
+                            {
+                              updatedDate
+                                ? <><strong><FormattedDate date={updatedDate} /></strong></>
+                                : <><strong><FormattedDate date={pubDate} /></strong></>
+                            }
+                          </span>
+                        </div>
 					</div>
 
 					<div class='py-3 overflow-hidden'>
