@@ -27,8 +27,7 @@ const { Content, headings } = await render(post);
 ---
 
 <BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined}>
-	<div class='mx-auto max-w-[90ch] px-4'>
-
+    <div class='mx-auto max-w-full px-4 sm:max-w-[90ch]'>
 		<main class='overflow-hidden grow'>
 			<article>
 				<Prose>
