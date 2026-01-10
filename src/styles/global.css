@@ -7,3 +7,8 @@
 		font-size: 0.875rem;
 	}
 }
+
+.prose p {
+	font-size: 17px;
+	line-height: 1.45;
+}
