@@ -32,6 +32,8 @@ It’s still small, but I’ll keep expanding it over time. 😄
 📖 [Compiling to Assembly from Scratch, Vladimir Keleshev (ARM)](https://keleshev.com/compiling-to-assembly-from-scratch/)  
 📝 [FFmpeg School of Assembly Language (x86)](https://github.com/FFmpeg/asm-lessons)
 
+**Operating systems**  
+📖 [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/) *Best intro to operating systems*
 
 **Compilers**  
 📝 [A Compiler Writing Journey](https://github.com/DoctorWkt/acwj/tree/master)
