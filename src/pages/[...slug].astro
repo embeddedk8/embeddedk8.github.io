@@ -4,8 +4,6 @@ import Prose from '../components/Prose.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import FormattedDate from '../components/FormattedDate.astro';
-import AboutTheAuthor from '../components/widgets/AboutTheAuthor.astro';
-import TableOfContent from '../components/widgets/TableOfContent.astro';
 import { slugify } from '../utils';
 import { loadEnv } from 'vite';
 import { render } from 'astro:content';
@@ -95,12 +93,6 @@ const { Content, headings } = await render(post);
 
 			</article>
 		</main>
-            <div class='shrink-0 w-[280px] hidden md:block'>
-              <div class='mb-4'>
-                {SHOW_AUTHOR && <AboutTheAuthor />}
-              </div>
-              {SHOW_TOC && <TableOfContent headings={headings} />}
-            </div>
 	</div>
 </BaseLayout>
 
