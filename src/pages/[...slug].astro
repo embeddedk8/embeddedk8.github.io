@@ -13,6 +13,7 @@ import { render } from 'astro:content';
 const { GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
 
 const SHOW_AUTHOR = false;
+const SHOW_TOC = false;
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -30,7 +31,7 @@ const { Content, headings } = await render(post);
 ---
 
 <BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined}>
-	<div class='mx-auto max-w-none lg:max-w-[90rem] px-4 lg:flex gap-10'>
+	<div class='container lg:flex gap-10'>
 
 		<main
 			class='overflow-hidden grow'
@@ -94,13 +95,12 @@ const { Content, headings } = await render(post);
 
 			</article>
 		</main>
-        <div class='shrink-0 w-[280px] hidden md:block'>
-          <div class='mb-4'>
-            {SHOW_AUTHOR && <AboutTheAuthor />}
-          </div>
-          <TableOfContent headings={headings} />
-        </div>
-
+            <div class='shrink-0 w-[280px] hidden md:block'>
+              <div class='mb-4'>
+                {SHOW_AUTHOR && <AboutTheAuthor />}
+              </div>
+              {SHOW_TOC && <TableOfContent headings={headings} />}
+            </div>
 	</div>
 </BaseLayout>
 
