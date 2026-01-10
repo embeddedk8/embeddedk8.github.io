@@ -13,3 +13,9 @@
 	line-height: 1.45;
 }
 
+@media (max-width: 768px) {
+	.prose {
+		max-width: 100% !important;
+		width: 100%;
+	}
+}
