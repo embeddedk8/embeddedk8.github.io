@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/_astro/favicon.D8CUuP2m.png"><meta name="generator" content="Astro v5.16.8"><!-- Canonical URL --><link rel="canonical" href="https://embeddedk8.com/arduino-github-actions-with-wokwi/"><!-- Primary Meta Tags --><title>Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation</title><meta name="title" content="Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation"><meta name="description" content="Learn how to create an Arduino CI/CD pipeline with GitHub Actions and Wokwi for automated builds and simulation."><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://embeddedk8.com/arduino-github-actions-with-wokwi/"><meta property="og:title" content="Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation"><meta property="og:description" content="Learn how to create an Arduino CI/CD pipeline with GitHub Actions and Wokwi for automated builds and simulation."><meta property="og:image" content="https://embeddedk8.com/syakir.webp"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://embeddedk8.com/arduino-github-actions-with-wokwi/"><meta property="twitter:title" content="Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation"><meta property="twitter:description" content="Learn how to create an Arduino CI/CD pipeline with GitHub Actions and Wokwi for automated builds and simulation."><meta property="twitter:image" content="https://embeddedk8.com/syakir.webp"><link rel="stylesheet" href="/_astro/_slug_.CN5xwa51.css"><script>!(function(w,p,f,c){if(!window.crossOriginIsolated && !navigator.serviceWorker) return;c=w[p]=Object.assign(w[p]||{},{"lib":"/~partytown/","debug":false});c[f]=(c[f]||[])})(window,'partytown','forward');/* Partytown 0.11.2 - MIT QwikDev */
+const t={preserveBehavior:!1},e=e=>{if("string"==typeof e)return[e,t];const[n,r=t]=e;return[n,{...t,...r}]},n=Object.freeze((t=>{const e=new Set;let n=[];do{Object.getOwnPropertyNames(n).forEach((t=>{"function"==typeof n[t]&&e.add(t)}))}while((n=Object.getPrototypeOf(n))!==Object.prototype);return Array.from(e)})());!function(t,r,o,i,a,s,c,l,d,p,u=t,f){function h(){f||(f=1,"/"==(c=(s.lib||"/~partytown/")+(s.debug?"debug/":""))[0]&&(d=r.querySelectorAll('script[type="text/partytown"]'),i!=t?i.dispatchEvent(new CustomEvent("pt1",{detail:t})):(l=setTimeout(v,(null==s?void 0:s.fallbackTimeout)||1e4),r.addEventListener("pt0",w),a?y(1):o.serviceWorker?o.serviceWorker.register(c+(s.swPath||"partytown-sw.js"),{scope:c}).then((function(t){t.active?y():t.installing&&t.installing.addEventListener("statechange",(function(t){"activated"==t.target.state&&y()}))}),console.error):v())))}function y(e){p=r.createElement(e?"script":"iframe"),t._pttab=Date.now(),e||(p.style.display="block",p.style.width="0",p.style.height="0",p.style.border="0",p.style.visibility="hidden",p.setAttribute("aria-hidden",!0)),p.src=c+"partytown-"+(e?"atomics.js?v=0.11.2":"sandbox-sw.html?"+t._pttab),r.querySelector(s.sandboxParent||"body").appendChild(p)}function v(n,o){for(w(),i==t&&(s.forward||[]).map((function(n){const[r]=e(n);delete t[r.split(".")[0]]})),n=0;n<d.length;n++)(o=r.createElement("script")).innerHTML=d[n].innerHTML,o.nonce=s.nonce,r.head.appendChild(o);p&&p.parentNode.removeChild(p)}function w(){clearTimeout(l)}s=t.partytown||{},i==t&&(s.forward||[]).map((function(r){const[o,{preserveBehavior:i}]=e(r);u=t,o.split(".").map((function(e,r,o){var a;u=u[o[r]]=r+1<o.length?u[o[r]]||(a=o[r+1],n.includes(a)?[]:{}):(()=>{let e=null;if(i){const{methodOrProperty:n,thisObject:r}=((t,e)=>{let n=t;for(let t=0;t<e.length-1;t+=1)n=n[e[t]];return{thisObject:n,methodOrProperty:e.length>0?n[e[e.length-1]]:void 0}})(t,o);"function"==typeof n&&(e=(...t)=>n.apply(r,...t))}return function(){let n;return e&&(n=e(arguments)),(t._ptf=t._ptf||[]).push(o,arguments),n}})()}))})),"complete"==r.readyState?h():(t.addEventListener("DOMContentLoaded",h),t.addEventListener("load",h))}(window,document,navigator,top,window.crossOriginIsolated);;(e=>{e.addEventListener("astro:before-swap",e=>{let r=document.body.querySelector("iframe[src*='/~partytown/']");if(r)e.newDocument.body.append(r)})})(document);</script></head> <body class="bg-white dark:bg-zinc-900 dark:text-zinc-100 mx-0 overflow-x-hidden"> <!-- Decorative color bar (yellow + green + blue) --> <div class="w-full h-3 flex select-none pointer-events-none mb-4"> <div class="flex-grow" style="background:#FDD848;"></div> <!-- YELLOW --> <div class="flex-grow" style="background:#AAD59E;"></div> <!-- GREEN --> <div class="flex-grow" style="background:#9AB2D4;"></div> <!-- BLUE --> </div> <!-- STATIC header below stripe (scrolls away) --> <header id="site-header" class="w-full py-3"> <div class="container flex items-center justify-between gap-6"> <!-- Left: avatar --> <a href="/" class="flex items-center"> <img src="/_astro/small-ava.BJck6dlA_1TvRi9.webp" alt="Avatar" loading="lazy" decoding="async" fetchpriority="auto" width="192" height="192" class="rounded-full w-10 h-10 border-white border-2 shadow-lg"> </a> <!-- Middle: nav menu --> <nav class="flex items-center gap-4 text-sm"> <a href="/" class="py-1 text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Home </a> <a href="/about/" class="py-1 text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> About </a><a href="/posts/" class="py-1 text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Posts </a><a href="/projects/" class="py-1 text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Projects </a><a href="/tags/" class="py-1 text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Tags </a> </nav> <!-- Right: socials (only) --> <div class="flex items-center gap-2"> <div class="flex items-center gap-1"> <a href="https://github.com/embeddedk8" target="_blank" rel="noopener" class="p-3 inline-flex items-center justify-center relative" style="top:0px"> <img src="/_astro/github-mark.BwyJR_2w.svg" width="24" height="24" class="transition-opacity hover:opacity-70 dark:invert" alt=""> </a><a href="https://x.com/KateZlv" target="_blank" rel="noopener" class="p-3 inline-flex items-center justify-center relative" style="top:0.5px"> <img src="/_astro/x-logo-black.C9k8kt-p.svg" width="20" height="20" class="transition-opacity hover:opacity-70 dark:invert" alt=""> </a> </div> </div> </div> </header> <!-- Main content --> <div class="pb-8">  <div class="mx-auto max-w-full px-4 sm:max-w-[90ch]"> <main class="overflow-hidden grow"> <article> <div class="prose dark:prose-invert
+    prose-h1:font-[900] prose-h1:my-4 prose-h1:text-2xl sm:prose-h1:text-[2rem]/[1.3]
+    prose-h2:mt-6 prose-h2:mb-3 prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:font-extrabold
+    prose-h3:mt-5 prose-h3:mb-2 prose-h3:text-xl sm:prose-h3:text-2xl
+    prose-h4:mt-3 prose-h4:mb-0 prose-img:rounded-xl prose-h3:target:pt-20">   <div> <h1 class="mt-4 !mb-1 leading-tight">Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation</h1> <div class="flex flex-wrap items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 mt-2"> <a href="/tags/arduino" class="px-2 py-0.5 rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-zinc-700 dark:hover:border-zinc-300 transition-colors no-underline"> Arduino </a> <span class="mx-1">•</span> <span> <strong><time datetime="2025-11-10T23:00:00.000Z"> Nov 10, 2025 </time></strong> </span> </div> </div>  <div class="py-3 overflow-hidden">  </div> <p>Testing projects is one of the major challenges in embedded devices field.
+Many existing projects still rely on manual building by developers and
+exclusive manual tests on the real hardware. In such case, pushing the change that breaks the compilation,
+or breaks the functionality of device, could go unnoticed for some time.
+An additional issue is that testing each change and iteration on real hardware is time-consuming for developers.</p>
+<p>While nothing really can fully replace the end tests on the real hardware, we can (and should) introduce
+multiple layers of testing that can be done automatically, without effort from the developers side.</p>
+<h2 id="tools-needed">Tools needed</h2>
+<p>In this post I will present one possible way of automating builds and tests for Arduino project. It will use:</p>
+<ul>
+<li>Arduino command line interface (<a href="https://arduino.github.io/arduino-cli/1.3/" target="_blank" rel="noopener">Arduino CLI</a>),</li>
+<li>automated builds with <a href="https://github.com/features/actions" target="_blank" rel="noopener">Github Actions</a>,</li>
+<li>automated simulation with <a href="https://wokwi.com/" target="_blank" rel="noopener">Wokwi simulator</a> for simple testing.</li>
+</ul>
+<p>With such approach, on each push to Github repository we will test on CI/CD that project builds and runs correctly.</p>
+<h3 id="arduino-cli">Arduino CLI</h3>
+<p>To build and simulate Arduino projects from the scripts in CI/CD jobs we need to use Arduino command line interface.
+If you’re not familiar with it, you
+can read my introduction: <a href="https://www.embeddedk8.com/arduino-cli-compilation/" target="_blank" rel="noopener">Arduino Internals: building sketches with Arduino CLI</a>.</p>
+<h3 id="wokwi">Wokwi</h3>
+<p><strong>Wokwi</strong> is a simulation platform that allows to run embedded project without using the real hardware.</p>
+<p>It supports many <a href="https://wokwi.com/arduino" target="_blank" rel="noopener">Arduino boards</a>, including:</p>
+<ul>
+<li>Arduino Uno (AVR),</li>
+<li>Arduino Mega,</li>
+<li>Arduino Nano.</li>
+</ul>
+<p>With Wokwi, you can simulate the execution of an Arduino project and implement simple test cases based on
+the project’s serial output. In other words, you can build test cases that pass or fail depending on what the simulated device prints.</p>
+<p>Wokwi is free to use, but it requires creating a free account.</p>
+<h3 id="github-actions">Github Actions</h3>
+<p>GitHub Actions is a GitHub feature that allows you to run CI/CD jobs directly on GitHub repositories.
+It is free for open-source projects and easy to set up.</p>
+<p>Many important templates and actions are already implemented and ready to use.
+To work with Arduino projects, we need to install <code>arduino-cli</code> within GitHub Actions.
+For this, we can use the <a href="https://github.com/arduino/setup-arduino-cli" target="_blank" rel="noopener">setup-arduino-cli action</a> — we only need to include it in our workflow.</p>
+<h2 id="building-our-cicd-pipeline">Building our CI/CD pipeline</h2>
+<p>Let’s create a CI/CD pipeline that will build our project automatically (validate compilation) and
+run and check for serial output (validate execution).</p>
+<h3 id="build-arduino-sketch">Build Arduino sketch</h3>
+<p>The minimal example of Github Actions job that will build Arduino project is presented below:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">  build</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    runs-on</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ubuntu-latest</span></span>
+<span class="line"><span style="color:#E1E4E8">      </span></span>
+<span class="line"><span style="color:#85E89D">    steps</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">      # --- STEP 1: Checkout the repository ----------------------------------</span></span>
+<span class="line"><span style="color:#6A737D">      # This downloads your GitHub repository code (your Arduino project) into </span></span>
+<span class="line"><span style="color:#6A737D">      # the virtual machine that runs this workflow. </span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Checkout</span></span>
+<span class="line"><span style="color:#85E89D">        uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/checkout@v5</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">      # --- STEP 2: Install Arduino CLI --------------------------------------</span></span>
+<span class="line"><span style="color:#6A737D">      # Arduino CLI is needed to build sketch from command line.</span></span>
+<span class="line"><span style="color:#6A737D">      # This action automatically installs the specified Arduino CLI version</span></span>
+<span class="line"><span style="color:#6A737D">      # on the GitHub Actions runner.</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Install Arduino CLI</span></span>
+<span class="line"><span style="color:#85E89D">        uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">arduino/setup-arduino-cli@v2</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">          # You can also use "latest" instead of a fixed version.</span></span>
+<span class="line"><span style="color:#85E89D">          version</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"1.3.1"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">      # --- STEP 3: Install the required board core ---------------------------</span></span>
+<span class="line"><span style="color:#6A737D">      # Before compiling anything, Arduino CLI must know which board family</span></span>
+<span class="line"><span style="color:#6A737D">      # you want to build for.</span></span>
+<span class="line"><span style="color:#6A737D">      #</span></span>
+<span class="line"><span style="color:#6A737D">      # "arduino:avr" contains support for Arduino Uno, Nano, Mega, etc.</span></span>
+<span class="line"><span style="color:#6A737D">      # Wokwi (the simulator used later) also supports this family, so we</span></span>
+<span class="line"><span style="color:#6A737D">      # install it here.</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Setup Arduino CLI</span></span>
+<span class="line"><span style="color:#85E89D">        run</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|</span></span>
+<span class="line"><span style="color:#9ECBFF">          arduino-cli core update-index</span></span>
+<span class="line"><span style="color:#9ECBFF">          arduino-cli core install arduino:avr</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">      # --- STEP 4: Compile the sketch ----------------------------------------</span></span>
+<span class="line"><span style="color:#6A737D">      # This calls your Makefile to build the firmware.</span></span>
+<span class="line"><span style="color:#6A737D">      # FQBN (Fully Qualified Board Name) tells Arduino CLI which board</span></span>
+<span class="line"><span style="color:#6A737D">      # the code should be compiled for — here we use arduino:avr:uno.</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Compile Sketch (arduino:avr:uno for Wokwi)</span></span>
+<span class="line"><span style="color:#85E89D">        id</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">build</span></span>
+<span class="line"><span style="color:#85E89D">        run</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|</span></span>
+<span class="line"><span style="color:#9ECBFF">          make release FQBN=arduino:avr:uno</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">      # --- STEP 5: Upload compiled firmware as artifacts ---------------------</span></span>
+<span class="line"><span style="color:#6A737D">      # Since the next job cannot access this job's filesystem directly,</span></span>
+<span class="line"><span style="color:#6A737D">      # we upload the compiled firmware files (.hex and .elf) as artifacts.</span></span>
+<span class="line"><span style="color:#6A737D">      # GitHub stores them temporarily and makes them available to any</span></span>
+<span class="line"><span style="color:#6A737D">      # following jobs in the same workflow.</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Upload firmware artifacts</span></span>
+<span class="line"><span style="color:#85E89D">        uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/upload-artifact@v4</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">firmware</span></span>
+<span class="line"><span style="color:#85E89D">          path</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">|</span></span>
+<span class="line"><span style="color:#9ECBFF">            ./build/release/MyBlink.ino.hex</span></span>
+<span class="line"><span style="color:#9ECBFF">            ./build/release/MyBlink.ino.elf</span></span></code></pre>
+<p>This job builds the Arduino Uno firmware using Makefile and exports the compiled artifacts
+so the next job can use them for simulation or deployment.</p>
+<h3 id="simulate-execution-with-wokwi">Simulate execution with Wokwi</h3>
+<p>First, we need to create an account to use Wokwi.</p>
+<h4 id="create-an-account-in-wokwi">Create an account in Wokwi</h4>
+<p>Open <a href="https://wokwi.com/" target="_blank" rel="noopener">wokwi</a> to create an account. For personal project Wokwi is free so choose the Free plan.
+In Free plan, we get 50 minutes of CI/CD simulation execution per month.</p>
+<h4 id="create-new-wokwi-token">Create new Wokwi token</h4>
+<p>For using Wokwi, either locally or from Github Actions, we need to have the access token.</p>
+<p>Go to <a href="https://wokwi.com/dashboard/ci" target="_blank" rel="noopener">https://wokwi.com/dashboard/ci</a> and create a new token.</p>
+<p>To use Wokwi from your PC (which will be helpful for debugging the setup) you need to export the token inside your
+local envirnoment. For example, in Linux you can add the token to <code>.bashrc</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>export WOKWI_CLI_TOKEN=&#x3C;xxx></span></span></code></pre>
+<p>Reopen the terminal so changes are applied.</p>
+<h4 id="install-wokwi-cli-locally">Install wokwi-cli locally</h4>
+<p><code>wokwi-cli</code> is the Wokwi command line interface that is used to run the simulation from CI/CD jobs.
+But it’s also useful to have it locally for validating the simulation on host.</p>
+<p>Install <code>wokwi-cli</code> locally, according to <a href="https://docs.wokwi.com/wokwi-ci/cli-installation" target="_blank" rel="noopener">this instruction</a>.</p>
+<h4 id="initialize-wokwi-project">Initialize Wokwi project</h4>
+<p>To use wokwi, your project needs to contain two files:</p>
+<p><strong>wokwi.toml</strong></p>
+<p>This is a basic file describing version, board, <code>elf</code> and <code>firmware</code> location.
+<code>elf</code> and <code>firmware</code> paths must be relative to <code>wokwi.toml</code> file. Ensure they match your project layout.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>[wokwi]</span></span>
+<span class="line"><span>version = 1</span></span>
+<span class="line"><span>board = "arduino-uno"</span></span>
+<span class="line"><span>elf = "build/release/MyBlink.ino.elf"</span></span>
+<span class="line"><span>firmware = "build/release/MyBlink.ino.hex"</span></span></code></pre>
+<p><strong>diagram.json</strong></p>
+<p>File describing connections. My simple project contains no connections, so the <code>diagram.json</code> looks like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>{</span></span>
+<span class="line"><span>"version": 1,</span></span>
+<span class="line"><span>"author": "Anonymous maker",</span></span>
+<span class="line"><span>"editor": "wokwi",</span></span>
+<span class="line"><span>"parts": [ { "id": "uno", "type": "wokwi-arduino-uno" } ],</span></span>
+<span class="line"><span>"connections": [],</span></span>
+<span class="line"><span>"serialMonitor": { "display": "always" }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>You can use <a href="https://wokwi.com/projects/new/arduino-uno" target="_blank" rel="noopener">online creator</a> to add new elements, like LEDs, buttons, etc. to your simulated board,
+and copy generated <code>diagram.json</code> from web.</p>
+<h4 id="run-wokwi-sim-locally">Run Wokwi sim locally</h4>
+<p>To test that your Wokwi setup works correctly, run:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>wokwi-cli --timeout 10000  --expect-text "Success"</span></span></code></pre>
+<p>This test runs the simulation and will succeed if application prints <code>"Success"</code>. (Obviuosly, you need to add such print to your application).
+This is the simplest simulation test for Arduino app. If it’s succeeding, you’re ready to add Wokwi test case to Github Actions.</p>
+<h4 id="add-wokwi-simulation-to-github-actions">Add wokwi simulation to github actions</h4>
+<p>First, add <code>WOKWI_CLI_TOKEN</code> as a secret to your Github repository settings. You can reuse the same TOKEN as you have locally or create new token.
+Choose <code>Settings -> Secrets and variables -> Actions -> New secret</code> and name your token WOKWI_CLI_TOKEN.</p>
+<p><a href="/arduino-github-actions-with-wokwi/github-secret.png"><img src="/arduino-github-actions-with-wokwi/github-secret.png" alt="Adding a secret to Github repository" title="Adding a secret to Github repository"></a></p>
+<h3 id="wokwi-simulation">Wokwi simulation</h3>
+<p>The Wokwi simulation job will reuse artifact from build job.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">    test</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">    runs-on</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ubuntu-latest</span></span>
+<span class="line"><span style="color:#6A737D">    # This job will run after job `build` is finished.</span></span>
+<span class="line"><span style="color:#85E89D">    needs</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">build</span><span style="color:#E1E4E8"> </span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#85E89D">    steps</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">      # --- STEP 1: Checkout the repository ----------------------------------</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Checkout</span></span>
+<span class="line"><span style="color:#85E89D">        uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/checkout@v5</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">      # --- STEP 2: Download firmware artifact --------------------------------</span></span>
+<span class="line"><span style="color:#6A737D">      # Download the compiled firmware files (.hex/.elf) produced in the 'build' job.</span></span>
+<span class="line"><span style="color:#6A737D">      # These artifacts are needed to run tests in the Wokwi simulator.</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Download firmware artifact</span></span>
+<span class="line"><span style="color:#85E89D">        uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">actions/download-artifact@v4</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">firmware</span></span>
+<span class="line"><span style="color:#85E89D">          path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">./build/release</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">      # --- STEP 3: Run tests using Wokwi simulator ---------------------------</span></span>
+<span class="line"><span style="color:#6A737D">      # This step runs the Arduino project in the Wokwi simulator.</span></span>
+<span class="line"><span style="color:#6A737D">      # It checks the serial output for the expected text to determine if the</span></span>
+<span class="line"><span style="color:#6A737D">      # test passes or fails.</span></span>
+<span class="line"><span style="color:#E1E4E8">      - </span><span style="color:#85E89D">name</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Test with Wokwi</span></span>
+<span class="line"><span style="color:#85E89D">        uses</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">wokwi/wokwi-ci-action@v1</span></span>
+<span class="line"><span style="color:#85E89D">        with</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">          token</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">${{ secrets.WOKWI_CLI_TOKEN }}</span></span>
+<span class="line"><span style="color:#85E89D">          path</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">./</span><span style="color:#6A737D"> # directory with wokwi.toml, relative to repo's root</span></span>
+<span class="line"><span style="color:#85E89D">          expect_text</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">Success</span></span>
+<span class="line"><span style="color:#85E89D">          timeout</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">30000</span></span></code></pre>
+<p>Now, on each push, your Arduino application is built and tested.</p>
+<h2 id="example-project">Example project</h2>
+<p>The described jobs are executed on simple <a href="https://github.com/embeddedk8/MyBlink" target="_blank" rel="noopener">MyBlink project</a>.</p>  </div>  </article> </main> </div>  </div> <footer class="container mt-8"> <div class="justify-center flex gap-4 py-8 prose dark:prose-invert text-sm"> <a href="#">Newsletter</a> <a href="#">RSS</a> </div> <div class="py-4 border-t dark:border-t-zinc-700"> <div class="md:flex text-sm text-zinc-500 dark:text-zinc-300 prose dark:prose-invert justify-between"> <div>Copyright © 2026 embeddedk8</div> <!-- Please leave the credit if you dont make a significant changes to the template. It's just a nofollow link :)  --> <div>Template created by <a href="https://devaradise.com" target="_blank" rel="nofollow noopener">Syakir @ Devaradise</a></div> </div> </div> </footer>  <!-- Default Statcounter code for embeddedk8 --> <script type="text/javascript">
+      var sc_project=13166912;
+      var sc_invisible=1;
+      var sc_security="b5be05e2";
+    </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics
+      Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"> <img class="statcounter" src="https://c.statcounter.com/13166912/0/b5be05e2/1/" alt="Web Analytics Made Easy - Statcounter" referrerpolicy="no-referrer-when-downgrade"> </a></div></noscript> <!-- End of Statcounter Code --> <!-- 100% privacy-first analytics --> <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script> </body> </html> <script async>
+	const anchors = document.querySelectorAll('.prose h2[id], .prose h3[id]');
+	const links = document.querySelectorAll('nav.toc ul li a');
+</script>

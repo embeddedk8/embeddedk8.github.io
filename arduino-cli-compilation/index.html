@@ -1,0 +1,324 @@
+<!DOCTYPE html><html lang="en"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/_astro/favicon.D8CUuP2m.png"><meta name="generator" content="Astro v5.16.8"><!-- Canonical URL --><link rel="canonical" href="https://embeddedk8.com/arduino-cli-compilation/"><!-- Primary Meta Tags --><title>How to build Arduino sketches with Arduino CLI?</title><meta name="title" content="How to build Arduino sketches with Arduino CLI?"><meta name="description" content="Learn how to build and upload Arduino sketches with Arduino CLI, including setup, configuration, uploads, and Makefile creation."><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://embeddedk8.com/arduino-cli-compilation/"><meta property="og:title" content="How to build Arduino sketches with Arduino CLI?"><meta property="og:description" content="Learn how to build and upload Arduino sketches with Arduino CLI, including setup, configuration, uploads, and Makefile creation."><meta property="og:image" content="https://embeddedk8.com/syakir.webp"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://embeddedk8.com/arduino-cli-compilation/"><meta property="twitter:title" content="How to build Arduino sketches with Arduino CLI?"><meta property="twitter:description" content="Learn how to build and upload Arduino sketches with Arduino CLI, including setup, configuration, uploads, and Makefile creation."><meta property="twitter:image" content="https://embeddedk8.com/syakir.webp"><link rel="stylesheet" href="/_astro/_slug_.CN5xwa51.css"><script>!(function(w,p,f,c){if(!window.crossOriginIsolated && !navigator.serviceWorker) return;c=w[p]=Object.assign(w[p]||{},{"lib":"/~partytown/","debug":false});c[f]=(c[f]||[])})(window,'partytown','forward');/* Partytown 0.11.2 - MIT QwikDev */
+const t={preserveBehavior:!1},e=e=>{if("string"==typeof e)return[e,t];const[n,r=t]=e;return[n,{...t,...r}]},n=Object.freeze((t=>{const e=new Set;let n=[];do{Object.getOwnPropertyNames(n).forEach((t=>{"function"==typeof n[t]&&e.add(t)}))}while((n=Object.getPrototypeOf(n))!==Object.prototype);return Array.from(e)})());!function(t,r,o,i,a,s,c,l,d,p,u=t,f){function h(){f||(f=1,"/"==(c=(s.lib||"/~partytown/")+(s.debug?"debug/":""))[0]&&(d=r.querySelectorAll('script[type="text/partytown"]'),i!=t?i.dispatchEvent(new CustomEvent("pt1",{detail:t})):(l=setTimeout(v,(null==s?void 0:s.fallbackTimeout)||1e4),r.addEventListener("pt0",w),a?y(1):o.serviceWorker?o.serviceWorker.register(c+(s.swPath||"partytown-sw.js"),{scope:c}).then((function(t){t.active?y():t.installing&&t.installing.addEventListener("statechange",(function(t){"activated"==t.target.state&&y()}))}),console.error):v())))}function y(e){p=r.createElement(e?"script":"iframe"),t._pttab=Date.now(),e||(p.style.display="block",p.style.width="0",p.style.height="0",p.style.border="0",p.style.visibility="hidden",p.setAttribute("aria-hidden",!0)),p.src=c+"partytown-"+(e?"atomics.js?v=0.11.2":"sandbox-sw.html?"+t._pttab),r.querySelector(s.sandboxParent||"body").appendChild(p)}function v(n,o){for(w(),i==t&&(s.forward||[]).map((function(n){const[r]=e(n);delete t[r.split(".")[0]]})),n=0;n<d.length;n++)(o=r.createElement("script")).innerHTML=d[n].innerHTML,o.nonce=s.nonce,r.head.appendChild(o);p&&p.parentNode.removeChild(p)}function w(){clearTimeout(l)}s=t.partytown||{},i==t&&(s.forward||[]).map((function(r){const[o,{preserveBehavior:i}]=e(r);u=t,o.split(".").map((function(e,r,o){var a;u=u[o[r]]=r+1<o.length?u[o[r]]||(a=o[r+1],n.includes(a)?[]:{}):(()=>{let e=null;if(i){const{methodOrProperty:n,thisObject:r}=((t,e)=>{let n=t;for(let t=0;t<e.length-1;t+=1)n=n[e[t]];return{thisObject:n,methodOrProperty:e.length>0?n[e[e.length-1]]:void 0}})(t,o);"function"==typeof n&&(e=(...t)=>n.apply(r,...t))}return function(){let n;return e&&(n=e(arguments)),(t._ptf=t._ptf||[]).push(o,arguments),n}})()}))})),"complete"==r.readyState?h():(t.addEventListener("DOMContentLoaded",h),t.addEventListener("load",h))}(window,document,navigator,top,window.crossOriginIsolated);;(e=>{e.addEventListener("astro:before-swap",e=>{let r=document.body.querySelector("iframe[src*='/~partytown/']");if(r)e.newDocument.body.append(r)})})(document);</script></head> <body class="bg-white dark:bg-zinc-900 dark:text-zinc-100 mx-0 overflow-x-hidden"> <!-- Decorative color bar (yellow + green + blue) --> <div class="w-full h-3 flex select-none pointer-events-none mb-4"> <div class="flex-grow" style="background:#FDD848;"></div> <!-- YELLOW --> <div class="flex-grow" style="background:#AAD59E;"></div> <!-- GREEN --> <div class="flex-grow" style="background:#9AB2D4;"></div> <!-- BLUE --> </div> <!-- STATIC header below stripe (scrolls away) --> <header id="site-header" class="w-full py-3"> <div class="container flex items-center justify-between gap-6"> <!-- Left: avatar --> <a href="/" class="flex items-center"> <img src="/_astro/small-ava.BJck6dlA_1TvRi9.webp" alt="Avatar" loading="lazy" decoding="async" fetchpriority="auto" width="192" height="192" class="rounded-full w-10 h-10 border-white border-2 shadow-lg"> </a> <!-- Middle: nav menu --> <nav class="flex items-center gap-4 text-sm"> <a href="/" class="py-1 text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Home </a> <a href="/about/" class="py-1 text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> About </a><a href="/posts/" class="py-1 text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Posts </a><a href="/projects/" class="py-1 text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Projects </a><a href="/tags/" class="py-1 text-zinc-600 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-50"> Tags </a> </nav> <!-- Right: socials (only) --> <div class="flex items-center gap-2"> <div class="flex items-center gap-1"> <a href="https://github.com/embeddedk8" target="_blank" rel="noopener" class="p-3 inline-flex items-center justify-center relative" style="top:0px"> <img src="/_astro/github-mark.BwyJR_2w.svg" width="24" height="24" class="transition-opacity hover:opacity-70 dark:invert" alt=""> </a><a href="https://x.com/KateZlv" target="_blank" rel="noopener" class="p-3 inline-flex items-center justify-center relative" style="top:0.5px"> <img src="/_astro/x-logo-black.C9k8kt-p.svg" width="20" height="20" class="transition-opacity hover:opacity-70 dark:invert" alt=""> </a> </div> </div> </div> </header> <!-- Main content --> <div class="pb-8">  <div class="mx-auto max-w-full px-4 sm:max-w-[90ch]"> <main class="overflow-hidden grow"> <article> <div class="prose dark:prose-invert
+    prose-h1:font-[900] prose-h1:my-4 prose-h1:text-2xl sm:prose-h1:text-[2rem]/[1.3]
+    prose-h2:mt-6 prose-h2:mb-3 prose-h2:text-2xl sm:prose-h2:text-3xl prose-h2:font-extrabold
+    prose-h3:mt-5 prose-h3:mb-2 prose-h3:text-xl sm:prose-h3:text-2xl
+    prose-h4:mt-3 prose-h4:mb-0 prose-img:rounded-xl prose-h3:target:pt-20">   <div> <h1 class="mt-4 !mb-1 leading-tight">How to build Arduino sketches with Arduino CLI?</h1> <div class="flex flex-wrap items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 mt-2"> <a href="/tags/arduino" class="px-2 py-0.5 rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-zinc-700 dark:hover:border-zinc-300 transition-colors no-underline"> Arduino </a> <span class="mx-1">•</span> <span> <strong><time datetime="2025-09-30T22:00:00.000Z"> Sep 30, 2025 </time></strong> </span> </div> </div>  <div class="py-3 overflow-hidden">  </div> <p>Do you know that you don’t actually need the Arduino IDE to build and upload sketches?</p>
+<p>Arduino projects can be compiled and uploaded straight from the command line using the <strong>Arduino Command Line Interface (CLI)</strong>.
+Underneath, this process is identical to what happens when you build and upload from the IDE,
+because Arduino IDE 2.0 and later use <code>arduino-cli</code> under the hood.
+The only difference is how do you trigger build and upload — by command line instead of clicking inside IDE.</p>
+<p>Working directly with the CLI, without IDE as a middle layer, is actually better for many reasons, which we will discuss below.</p>
+<h2 id="reasons-to-use-arduino-cli">Reasons to use Arduino CLI</h2>
+<p>If you are comfortable using IDE, you may not immediately see why would you use Arduino CLI instead.
+At first, it may seem more complicated, right? Nothing is as easy as pressing a button.
+That’s true — Arduino IDE is great for getting started. But as your project grows, and you want to make more complicated
+things with it, Arduino CLI will allow you to achieve much more.</p>
+<p>Some of the benefits are:</p>
+<ul>
+<li>
+<p><strong>Advanced configuration</strong></p>
+<p>Using custom build or configuration options is not possible from the Arduino IDE.
+Setting things like custom defines, special compilation flags, or customizing where <code>build</code> artifacts are stored,
+requires modifying configuration files that are outside the IDE. Global configuration files affect all projects,
+while maintaining per-project config files would be time-consuming. That’s why when your project starts requiring
+any non-standard setup it’s better to switch to Arduino CLI for simplicity and convenience.</p>
+</li>
+<li>
+<p><strong>Automation and CI/CD</strong></p>
+<p>With command line interface, you can create CI/CD pipelines that will automatically build, deploy and test the project.</p>
+</li>
+<li>
+<p><strong>Reproducibility</strong></p>
+<p>When working in a team, using the Arduino CLI ensures that everyone builds the project with exactly the same setup and dependencies.
+This helps eliminate the classic “it works on my machine” problem and makes builds consistent across different environments.</p>
+</li>
+<li>
+<p><strong>Independency from Arduino IDE</strong></p>
+<p>You don’t have to use Arduino IDE to develop your projects. With the CLI, you can use your favorite code editor.</p>
+</li>
+<li>
+<p><strong>Dependency control</strong></p>
+<p>In Arduino IDE, only one version of a library can be installed at the same time. This becomes a real problem when
+you work on multiple projects that require different versions of the same library. This issue is solved when
+using CLI — you can specify library versions directly from the command line, ensuring each one uses the correct dependencies.</p>
+</li>
+</ul>
+<img src="/arduino-cli-compilation/cli-benefits.png" title="Benefits of using arduino-cli" alt="Benefits of using arduino-cli" style="width:auto; max-width:100%; height:auto;">
+<p>In summary, using Arduino CLI instead of Arduino IDE gives a lot of new potential to improve your workflow with the project.</p>
+<p>Alright, it’s time to get our hands dirty. We’ll install the Arduino CLI, set it up, and then build the project from the command line.</p>
+<h2 id="arduino-cli-setup">Arduino CLI setup</h2>
+<blockquote>
+<p>If you already have <code>arduino-cli</code> installed and working, you can jump to <a href="#basic-usage">Basic usage</a> chapter.</p>
+</blockquote>
+<p>As of October 2025, the latest version is Arduino CLI 1.3.1, which I’ll be using here.</p>
+<p>Please refer to <a href="https://docs.arduino.cc/arduino-cli/installation/" target="_blank" rel="noopener">official installation guide</a> to install Arduino CLI on your system.</p>
+<h3 id="installing-arduino-cli">Installing Arduino CLI</h3>
+<p>On Ubuntu, I have installed Arduino CLI with one single command:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh</span></span></code></pre>
+<p>Other way, or if you have issues with above command, you can download a prebuilt binary from the <a href="https://docs.arduino.cc/arduino-cli/installation/#download" target="_blank" rel="noopener"><strong>Download</strong></a> section,
+and manually add it to your PATH.</p>
+<p>⚠️ <strong>Avoid installing arduino-cli with <code>snap</code>.</strong></p>
+<p>The Snap package is not officially supported. It often causes permission and path issues (for example, <a href="https://github.com/arduino/arduino-cli/issues/1543" target="_blank" rel="noopener">this one</a>
+— it happened to me when I used snap on Ubuntu 24.04).
+If you’ve already installed it with <code>snap</code> and it’s not working, remove it and reinstall using one of the methods above.</p>
+<h3 id="check-installation">Check installation</h3>
+<p>After installing, type <code>arduino-cli</code> in your terminal, to confirm that the tool was installed successfully.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">$</span><span style="color:#9ECBFF"> arduino-cli</span></span>
+<span class="line"><span style="color:#B392F0">Arduino</span><span style="color:#9ECBFF"> Command</span><span style="color:#9ECBFF"> Line</span><span style="color:#9ECBFF"> Interface</span><span style="color:#E1E4E8"> (arduino-cli).</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">Usage:</span></span>
+<span class="line"><span style="color:#B392F0">  arduino-cli</span><span style="color:#E1E4E8"> [command]</span></span>
+<span class="line"><span style="color:#79B8FF">  ...</span></span></code></pre>
+<p>Additionally, check if boards discovery works well:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">$</span><span style="color:#9ECBFF"> arduino-cli</span><span style="color:#9ECBFF"> board</span><span style="color:#9ECBFF"> list</span></span>
+<span class="line"><span style="color:#B392F0">Port</span><span style="color:#9ECBFF">       Protocol</span><span style="color:#9ECBFF"> Type</span><span style="color:#9ECBFF">        Board</span><span style="color:#9ECBFF"> Name</span><span style="color:#9ECBFF"> FQBN</span><span style="color:#9ECBFF"> Core</span></span>
+<span class="line"><span style="color:#B392F0">/dev/ttyS4</span><span style="color:#9ECBFF"> serial</span><span style="color:#9ECBFF">   Serial</span><span style="color:#9ECBFF"> Port</span><span style="color:#9ECBFF"> Unknown</span></span></code></pre>
+<p>All good on my side!</p>
+<h3 id="setup-your-board-core">Setup your board core</h3>
+<p>After Arduino CLI is installed, you need to install needed boards definitions <a href="https://docs.arduino.cc/arduino-cli/getting-started/" target="_blank" rel="noopener">[1]</a>. First, let’s update the board index:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>arduino-cli core update-index</span></span></code></pre>
+<p>Then you need to install the core relevant for your board. Right now, we don’t know which core id we need,
+so let’s see what we can choose:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>$ arduino-cli core search</span></span>
+<span class="line"><span>Downloading index: package_index.tar.bz2 downloaded                                                                                                                                                                                                                                                                           </span></span>
+<span class="line"><span>ID                       Version          Name</span></span>
+<span class="line"><span>arduino:avr              1.8.6            Arduino AVR Boards</span></span>
+<span class="line"><span>arduino:esp32            2.0.18-arduino.5 Arduino ESP32 Boards</span></span>
+<span class="line"><span>arduino:megaavr          1.8.8            Arduino megaAVR Boards</span></span>
+<span class="line"><span>arduino:nrf52            1.0.2            Arduino nRF52 Boards</span></span>
+<span class="line"><span>arduino:renesas_uno      1.5.1            Arduino UNO R4 Boards</span></span>
+<span class="line"><span>arduino:sam              1.6.12           Arduino SAM Boards (32-bits ARM Cortex-M3)</span></span>
+<span class="line"><span>...</span></span></code></pre>
+<p>I have <strong>Arduino Uno R4 WiFi</strong>, so I need to use <code>arduino:renesas_uno</code> id.</p>
+<p>I will install it with following command:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>arduino-cli core install arduino:renesas_uno</span></span></code></pre>
+<p>The preparations are done! It was easy, wasn’t it?</p>
+<h2 id="basic-usage">Basic usage</h2>
+<p>To start using Arduino CLI, you actually just need to use three basic commands:</p>
+<ul>
+<li>create new sketch,</li>
+<li>build a sketch,</li>
+<li>upload the binary to the board.</li>
+</ul>
+<h3 id="creating-a-new-sketch">Creating a new sketch</h3>
+<p>You can create new sketch with the <code>arduino-cli sketch new</code> command:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>$ arduino-cli sketch new MyBlink</span></span>
+<span class="line"><span>Sketch created in: /home/kate/Arduino/MyBlink</span></span></code></pre>
+<p>By default, the sketches are created inside current working directory, so remember to change directory to where you want to store your sketch.</p>
+<h3 id="compile-a-sketch">Compile a sketch</h3>
+<p>To compile a sketch, use <code>arduino-cli compile</code> command followed by:</p>
+<ul>
+<li><code>--fqbn &#x3C;id></code> — your board id <em>(mandatory)</em>,</li>
+<li><code>&#x3C;sketch root dir></code> — the path to root directory of the sketch to compile <em>(mandatory, unless you’re inside the sketches root dir)</em>,</li>
+<li><code>--verbose</code> — verbose flag to print all build logs to console <em>(if you want it)</em>.</li>
+</ul>
+<p>I can compile MyBlink sketch with following command:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">arduino-cli</span><span style="color:#9ECBFF"> compile</span><span style="color:#79B8FF"> --fqbn</span><span style="color:#9ECBFF"> arduino:renesas_uno:unor4wifi</span><span style="color:#79B8FF"> --verbose</span><span style="color:#9ECBFF"> /home/kate/Arduino/MyBlink</span></span></code></pre>
+<h3 id="uploading-a-sketch">Uploading a sketch</h3>
+<p>The command for uploading a sketch looks as follows:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>arduino-cli upload -p &#x3C;port> --fqbn &#x3C;id> --verbose &#x3C;sketch_dir></span></span></code></pre>
+<p>Board id and sketch dir are clear, but we need to know to which port is the board connected. How can we check it?
+Simply use <code>arduino-cli board list</code> command:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>$ arduino-cli board list</span></span>
+<span class="line"><span>Port         Protocol Type              Board Name          FQBN                          Core</span></span>
+<span class="line"><span>/dev/ttyACM0 serial   Serial Port (USB) Arduino UNO R4 WiFi arduino:renesas_uno:unor4wifi arduino:renesas_uno</span></span></code></pre>
+<p>There is only one board connected to the port <code>/dev/ttyACM0</code>.</p>
+<p>So, the upload command looks like this:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:renesas_uno:unor4wifi --verbose /home/kate/Arduino/MyBlink</span></span></code></pre>
+<p>It was basically all needed to replace the usage of Arduino IDE <strong>Verify/Compile</strong> and <strong>Upload</strong> actions.</p>
+<h3 id="serial-monitor">Serial monitor</h3>
+<p>If your application sends data using <code>Serial.write()</code> or <code>Serial.print()</code>,
+you can view it using the <code>monitor</code> command in the Arduino CLI.</p>
+<p>Make sure the baud rate in your monitor command matches the one you set in your sketch.
+For example, if your code includes:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Serial.begin(115200);</span></span></code></pre>
+<p>then you should start the <code>monitor</code> with the same baud rate:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>arduino-cli monitor -p /dev/ttyACM0 --config 115200</span></span></code></pre>
+<p>Using serial prints is one of the simplest ways to debug your Arduino applications.</p>
+<h3 id="basic-flow">Basic flow</h3>
+<p>In summary, the basic <code>arduino-cli</code> workflow is as follows:</p>
+<img src="/arduino-cli-compilation/basic-flow.png" alt="Basic flow of using arduino-cli" style="width:auto; max-width:100%; height:auto;">
+<h2 id="advanced-usage">Advanced usage</h2>
+<p>When you’re comfortable with basic usage, we can try to do more with CLI.</p>
+<h3 id="specify-build-folder">Specify build folder</h3>
+<p>By default, Arduino CLI places build artifacts in a hidden, temporary folder — which can make it hard to inspect.
+To keep your build outputs organized and easy to analyze, specify a custom build folder using the <code>--build-path</code> flag:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>$ arduino-cli compile \</span></span>
+<span class="line"><span>  /home/kate/Arduino/MyBlink \</span></span>
+<span class="line"><span>  --fqbn arduino:renesas_uno:unor4wifi \</span></span>
+<span class="line"><span>  --verbose  \</span></span>
+<span class="line"><span>  --build-path /home/kate/Arduino/MyBlink/build</span></span></code></pre>
+<p>Now, all generated files are stored in the <code>build/</code> directory within your project:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>~/Arduino/MyBlink/build$ tree -L 1</span></span>
+<span class="line"><span>.</span></span>
+<span class="line"><span>├── build.options.json</span></span>
+<span class="line"><span>├── compile_commands.json</span></span>
+<span class="line"><span>├── core</span></span>
+<span class="line"><span>├── includes.cache</span></span>
+<span class="line"><span>├── libraries</span></span>
+<span class="line"><span>├── libraries.cache</span></span>
+<span class="line"><span>├── MyBlink.ino.bin</span></span>
+<span class="line"><span>├── MyBlink.ino.elf</span></span>
+<span class="line"><span>├── MyBlink.ino.hex</span></span>
+<span class="line"><span>├── MyBlink.ino.map</span></span>
+<span class="line"><span>└── sketch</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>4 directories, 8 files</span></span></code></pre>
+<p>This layout makes it much easier to explore build files, inspect compilation issues, or integrate the build with external tools (like static analyzers).</p>
+<h3 id="optimize-for-debug">Optimize for debug</h3>
+<p>The <code>--optimize-for-debug</code> flag adjusts compilation settings to make debugging easier.</p>
+<p>You can check its behavior in the <code>platform.txt</code> file.
+When <code>--optimize-for-debug</code> is enabled,
+the <em>debug</em> version of the optimization flags is applied;
+otherwise, the <em>release</em> version is used by default.
+You can edit these flags in <code>platform.txt</code> to customize how each mode behaves.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>compiler.optimization_flags.release=-Os</span></span>
+<span class="line"><span>compiler.optimization_flags.debug=-Og -g</span></span></code></pre>
+<p>It’s good idea to store build files for <code>debug</code> and <code>release</code> version in separate build folders,
+using already discussed <code>--build-path</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \</span></span>
+<span class="line"><span>  --verbose  /home/kate/Arduino/MyBlink \</span></span>
+<span class="line"><span>  --build-path /home/kate/Arduino/MyBlink/build/debug \</span></span>
+<span class="line"><span>  --optimize-for-debug</span></span>
+<span class="line"><span>  </span></span>
+<span class="line"><span>arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \</span></span>
+<span class="line"><span>  --verbose  /home/kate/Arduino/MyBlink \</span></span>
+<span class="line"><span>  --build-path /home/kate/Arduino/MyBlink/build/release</span></span></code></pre>
+<p>This way, you have debug optimized version in <code>MyBlink/build/debug</code>, and release version in <code>MyBlink/build/release</code>.</p>
+<h3 id="custom-defines">Custom defines</h3>
+<p>Let’s take a look at the MyBlink sketch. Currently, the LED blinks with a hardcoded delay of 1000 ms.
+We can make this configurable at compile time by introducing a custom define called <code>BLINK_FREQUENCY</code>.</p>
+<p>First, update the MyBlink sketch to use the new frequency.
+If no value is provided from the command line, it will default to 1000 ms; otherwise, it will use the value you specify.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#ifndef BLINK_FREQUENCY</span></span>
+<span class="line"><span>#define BLINK_FREQUENCY 1000</span></span>
+<span class="line"><span>#endif</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>void loop() {</span></span>
+<span class="line"><span>  Serial.write("Blinking");</span></span>
+<span class="line"><span>  digitalWrite(LED_BUILTIN, HIGH);      // turn the LED on (HIGH is the voltage level)</span></span>
+<span class="line"><span>  delay(BLINK_FREQUENCY);               // wait for a BLINK_FREQUENCY ms</span></span>
+<span class="line"><span>  digitalWrite(LED_BUILTIN, LOW);       // turn the LED off by making the voltage LOW</span></span>
+<span class="line"><span>  delay(BLINK_FREQUENCY);               // wait for a BLINK_FREQUENCY ms</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>By adjusting the compile command, you can easily change how fast the LED blinks.
+For example, <code>build.extra_flags="-DBLINK_FREQUENCY=100"</code> part below sets the blink frequency to 100 ms:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \</span></span>
+<span class="line"><span>  --build-property build.extra_flags="-DBLINK_FREQUENCY=100" \</span></span>
+<span class="line"><span>  --verbose </span></span></code></pre>
+<h3 id="customizing-command">Customizing command</h3>
+<p>The <code>platform.txt</code> file defines the build recipes that are used to compile,
+link, and package a sketch. These recipes use variables that we can override when we need custom behavior.</p>
+<p>Some of these editable variables are:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># this can be overriden in boards.txt</span></span>
+<span class="line"><span>build.extra_flags=</span></span>
+<span class="line"><span>build.extra_ldflags=</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># These can be overridden in platform.local.txt</span></span>
+<span class="line"><span>compiler.c.extra_flags=</span></span>
+<span class="line"><span>compiler.c.elf.extra_flags=</span></span>
+<span class="line"><span>compiler.S.extra_flags=</span></span>
+<span class="line"><span>compiler.cpp.extra_flags=</span></span>
+<span class="line"><span>compiler.ar.extra_flags=</span></span>
+<span class="line"><span>compiler.objcopy.eep.extra_flags=</span></span>
+<span class="line"><span>compiler.elf2hex.extra_flags=</span></span></code></pre>
+<p>These comments encourage us to override the variables in <code>platform.local.txt</code> or <code>boards.txt</code>,
+but when using the CLI there is an easier and cleaner approach:
+instead of modifying any files, we can override them directly from the command line using <code>--build-property</code>.</p>
+<p>This allows you to change the settings for a specific build only.</p>
+<p>For example:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi \</span></span>
+<span class="line"><span>  --build-property build.extra_flags="-DBLINK_FREQUENCY=100" \</span></span>
+<span class="line"><span>  --build-property compiler.cpp.extra_flags="-pedantic -Werror" \</span></span>
+<span class="line"><span>  --verbose </span></span></code></pre>
+<h2 id="writing-a-simple-makefile">Writing a simple Makefile</h2>
+<p>As our build command becomes longer, it becomes harder to remember and type correctly each time.
+To make it easier, we can wrap these commands inside a script. This could be a bash script, but an even better option is a Makefile.
+Creating a Makefile for our Arduino project is very simple.</p>
+<p>At the top of the Makefile, we define a few default variables such as <code>FQBN</code> and <code>PORT</code>.
+The default values will be used unless you override them in Makefile call.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># FQBN for your board (can be overriden)</span></span>
+<span class="line"><span>FQBN ?= arduino:renesas_uno:unor4wifi</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Serial port (can be overriden)</span></span>
+<span class="line"><span>PORT ?= /dev/ttyACM0</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Build dirs</span></span>
+<span class="line"><span>BUILD_DEBUG := build/debug</span></span>
+<span class="line"><span>BUILD_RELEASE := build/release</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Arduino CLI executable</span></span>
+<span class="line"><span>ARDUINO_CLI := arduino-cli</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Default build release</span></span>
+<span class="line"><span>all: release</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>debug:</span></span>
+<span class="line"><span>	$(ARDUINO_CLI) compile \</span></span>
+<span class="line"><span>		--fqbn $(FQBN) \</span></span>
+<span class="line"><span>		--build-path $(BUILD_DEBUG) \</span></span>
+<span class="line"><span>		--optimize-for-debug \</span></span>
+<span class="line"><span>		--verbose</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>release:</span></span>
+<span class="line"><span>	$(ARDUINO_CLI) compile \</span></span>
+<span class="line"><span>		--fqbn $(FQBN) \</span></span>
+<span class="line"><span>		--build-path $(BUILD_RELEASE) \</span></span>
+<span class="line"><span>		--verbose</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>upload-debug: debug</span></span>
+<span class="line"><span>	$(ARDUINO_CLI) upload \</span></span>
+<span class="line"><span>		-p $(PORT) \</span></span>
+<span class="line"><span>		--fqbn $(FQBN) \</span></span>
+<span class="line"><span>		--input-dir $(BUILD_DEBUG)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>upload-release: release</span></span>
+<span class="line"><span>	$(ARDUINO_CLI) upload \</span></span>
+<span class="line"><span>		-p $(PORT) \</span></span>
+<span class="line"><span>		--fqbn $(FQBN) \</span></span>
+<span class="line"><span>		--input-dir $(BUILD_RELEASE)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>monitor:</span></span>
+<span class="line"><span>	$(ARDUINO_CLI) monitor -p $(PORT)</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>clean:</span></span>
+<span class="line"><span>	rm -rf build</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>.PHONY: all debug release upload-debug upload-release clean monitor</span></span></code></pre>
+<p>Once the Makefile is in the project root, using it becomes extremely easy. Note that passing <code>FQBN</code> and <code>PORT</code> is only needed if you want to change the default values.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span># Build and upload debug</span></span>
+<span class="line"><span>make upload-debug FQBN=arduino:renesas_uno:unor4wifi PORT=/dev/ttyACM0</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Build and upload release (with default FQBN and PORT)</span></span>
+<span class="line"><span>make upload-release</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Open serial monitor</span></span>
+<span class="line"><span>make monitor PORT=/dev/ttyACM0</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Clean builds</span></span>
+<span class="line"><span>make clean</span></span></code></pre>
+<h2 id="summary">Summary</h2>
+<p>Using the Arduino CLI gives you full control over the build process,
+from compiling to uploading sketches, without relying on the Arduino IDE.
+It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.
+In this post we saw how to use basic commands of Arduino IDE, add some customizations for build setup, and write a simple Makefile
+using <code>arduino-cli</code> internally.</p>
+<p>MyBlink sketch using Makefile is published <a href="https://github.com/embeddedk8/MyBlink" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="more-about-arduino-cli">More about Arduino CLI</h2>
+<ul>
+<li>📚 <a href="https://docs.arduino.cc/arduino-cli/" target="_blank" rel="noopener">Official documentation of Arduino CLI</a></li>
+<li>📚 <a href="https://dumblebots.com/blog/arduino-cli-getting-started" target="_blank" rel="noopener">Detailed article showing how to install and integrate CLI with VSCode</a></li>
+<li>🎬 <a href="https://www.youtube.com/watch?v=Uk5_RKMf2Dk&#x26;t=356s" target="_blank" rel="noopener">Arduino CLI - What and Why? | Breaking Out of Arduino IDE | Part 2 | Magpie Embedded on YouTube</a></li>
+<li>🎬 <a href="https://www.youtube.com/watch?v=cVod8k713_8" target="_blank" rel="noopener">Arduino CLI and the art of command line | Sayanee Basu on YouTube</a></li>
+<li>🛠️ <a href="https://github.com/abod8639/arduino-cli-manager" target="_blank" rel="noopener">Arduino CLI Manager | interactive shell wrapper for Arduino CLI </a></li>
+</ul>  </div>  </article> </main> </div>  </div> <footer class="container mt-8"> <div class="justify-center flex gap-4 py-8 prose dark:prose-invert text-sm"> <a href="#">Newsletter</a> <a href="#">RSS</a> </div> <div class="py-4 border-t dark:border-t-zinc-700"> <div class="md:flex text-sm text-zinc-500 dark:text-zinc-300 prose dark:prose-invert justify-between"> <div>Copyright © 2026 embeddedk8</div> <!-- Please leave the credit if you dont make a significant changes to the template. It's just a nofollow link :)  --> <div>Template created by <a href="https://devaradise.com" target="_blank" rel="nofollow noopener">Syakir @ Devaradise</a></div> </div> </div> </footer>  <!-- Default Statcounter code for embeddedk8 --> <script type="text/javascript">
+      var sc_project=13166912;
+      var sc_invisible=1;
+      var sc_security="b5be05e2";
+    </script> <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics
+      Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"> <img class="statcounter" src="https://c.statcounter.com/13166912/0/b5be05e2/1/" alt="Web Analytics Made Easy - Statcounter" referrerpolicy="no-referrer-when-downgrade"> </a></div></noscript> <!-- End of Statcounter Code --> <!-- 100% privacy-first analytics --> <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script> </body> </html> <script async>
+	const anchors = document.querySelectorAll('.prose h2[id], .prose h3[id]');
+	const links = document.querySelectorAll('nav.toc ul li a');
+</script>
