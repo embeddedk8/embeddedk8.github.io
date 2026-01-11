@@ -1,5 +1,6 @@
 ---
 import BaseHead from './components/BaseHead.astro';
+import Header from './components/Header.astro';
 import Footer from './components/Footer.astro';
 
 import { loadEnv } from 'vite';
@@ -23,7 +24,11 @@ const { title, description, image } = Astro.props;
       <div class="flex-1" style="background:#9AB2D4;"></div> <!-- BLUE -->
     </div>
 
-    <div class='py-8 min-h-[calc(100vh-160px)]'>
+    <!-- STATIC header below stripe (scrolls away) -->
+    <Header />
+
+    <!-- Main content -->
+    <div class='pb-8'>
       <slot />
     </div>
 
@@ -44,8 +49,7 @@ const { title, description, image } = Astro.props;
       </>
     }
 
-    <!-- Default Statcounter code for embeddedk8
-    https://embeddedk8.github.io/ -->
+    <!-- Default Statcounter code for embeddedk8 -->
     <script type="text/javascript">
       var sc_project=13166912;
       var sc_invisible=1;
@@ -58,9 +62,9 @@ const { title, description, image } = Astro.props;
       Made Easy - Statcounter" href="https://statcounter.com/"
       target="_blank">
       <img class="statcounter"
-           src="https://c.statcounter.com/13166912/0/b5be05e2/1/"
-           alt="Web Analytics Made Easy - Statcounter"
-           referrerpolicy="no-referrer-when-downgrade">
+          src="https://c.statcounter.com/13166912/0/b5be05e2/1/"
+          alt="Web Analytics Made Easy - Statcounter"
+          referrerpolicy="no-referrer-when-downgrade">
       </a></div></noscript>
       <!-- End of Statcounter Code -->
 
