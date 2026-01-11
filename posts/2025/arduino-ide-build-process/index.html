@@ -1,0 +1,729 @@
+<!DOCTYPE html><html dir="ltr" lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.png"><link rel="canonical" href="https://embeddedk8.com/posts/2025/arduino-ide-build-process/"><meta name="generator" content="Astro v5.16.8"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-04a186ad63205992","Google Sans Code-04a186ad63205992 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>How Arduino really builds a sketch? | Kate Zalevska</title><meta name="title" content="How Arduino really builds a sketch? | Kate Zalevska"><meta name="description" content="This guide explains how Arduino builds a sketch, adding Arduino-specific steps to preprocessing, compiling, and linking."><meta name="author" content="embeddedk8"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:title" content="How Arduino really builds a sketch? | Kate Zalevska"><meta property="og:description" content="This guide explains how Arduino builds a sketch, adding Arduino-specific steps to preprocessing, compiling, and linking."><meta property="og:url" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/"><meta property="og:image" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2025-09-13T07:58:26.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/"><meta property="twitter:title" content="How Arduino really builds a sketch? | Kate Zalevska"><meta property="twitter:description" content="This guide explains how Arduino builds a sketch, adding Arduino-specific steps to preprocessing, compiling, and linking."><meta property="twitter:image" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How Arduino really builds a sketch? | Kate Zalevska","image":"https://embeddedk8.com/posts/2025/arduino-ide-build-process/index.png","datePublished":"2025-09-13T07:58:26.000Z","author":[{"@type":"Person","name":"embeddedk8","url":"https://embeddedk8.com/"}]}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="Kate Zalevska" href="https://embeddedk8.com/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+      (function () {
+        const initialColorScheme = ""; // "light" | "dark"
+        const currentTheme = localStorage.getItem("theme");
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script><style>:where([data-astro-image]){object-fit:var(--fit);object-position:var(--pos);height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}
+</style>
+<link rel="stylesheet" href="/_astro/about.t40b7YuC.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-fam6wyqg-1"] { view-transition-name: how-arduino-really-builds-a-sketch; }@layer astro { ::view-transition-old(how-arduino-really-builds-a-sketch) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(how-arduino-really-builds-a-sketch) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(how-arduino-really-builds-a-sketch) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(how-arduino-really-builds-a-sketch) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: arduino; }@layer astro { ::view-transition-old(arduino) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(arduino) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(arduino) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(arduino) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body> <div class="color-stripe"></div>  <a id="skip-to-content" href="#main-content" class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="py-4 sm:py-6 border-b border-border relative w-full bg-background flex items-baseline justify-between sm:items-center"> <a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Kate Zalevska </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/posts" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/tags">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/about">
+About
+</a> </li>  <li class="col-span-1 flex items-center justify-center"> <a href="/search" title="Search" aria-label="search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function s(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const c=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",c?"false":"true"),e.setAttribute("aria-label",c?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}s();document.addEventListener("astro:after-swap",s);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout pb-12" data-pagefind-body> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-transition-scope="astro-fam6wyqg-1"> How Arduino really builds a sketch? </h1> <div class="my-2 flex items-center gap-2"> <div class="flex items-center gap-x-2 opacity-80"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 min-w-5.5"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2025-09-13T07:58:26.000Z">13 Sep, 2025</time> </div> <span aria-hidden="true" class="max-sm:hidden hidden">|</span>  </div> <article id="article" class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <p>Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online
+about whether Arduino is a good choice for that (like “<em>Is there anything wrong with Arduino?</em>”,
+“<em>Why engineers hate Arduino?</em>”
+<a href="https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/">[1]</a>,
+<a href="https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/">[2]</a> ).</p>
+<p>While the list of arguments from Arduino “opponents” is quite long — and some of their points are completely reasonable
+— I want to prove that you can learn just as much with Arduino as with any other embedded platform,
+as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.
+That’s why I am creating the Arduino Internals series.</p>
+<p>As a starting point, let’s take a closer look at what happens when you build a sketch in the Arduino IDE.</p>
+<p><strong>Assumed knowledge</strong></p>
+<p>I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.</p>
+<p><strong>My setup</strong></p>
+<ul>
+<li>Arduino UNO R4 WiFi board</li>
+<li>Arduino IDE  2.3.6</li>
+<li>Ubuntu 24.04</li>
+</ul>
+<p>If you’re using a different board, IDE version, or operating system — don’t worry! You can still follow along. Some details may just look a little different on your setup.</p>
+<h1 id="understanding-arduino-build-process">Understanding Arduino build process</h1>
+<p>Building an Arduino sketch in the IDE seems as simple as clicking one button, but
+under the hood it performs several important steps — some common to nearly every embedded development environment,
+and others unique to Arduino.</p>
+<p>This simplicity is great for beginners, but if you want to take embedded systems seriously,
+it’s worth understanding what really happens behind the scenes.
+Once you move beyond Arduino’s friendly abstraction layer,
+you’ll need to know how the build process works — because without it, things may not behave as you expect.</p>
+<h2 id="what-you-will-learn">What you will learn?</h2>
+<p>After reading this article, you will:</p>
+<ul>
+<li>understand the standard build flow in embedded software development,</li>
+<li>learn about the additional steps performed during the Arduino build process,</li>
+<li>know where to find the build files, caches, and linked libraries,</li>
+<li>discover what language Arduino sketches are actually written in.</li>
+</ul>
+<h2 id="lets-get-started">Let’s get started!</h2>
+<p>Let’s build a sketch together and go step through the build process.
+We’ll pretend we know nothing and analyze the build output to see what the Arduino IDE actually did.</p>
+<h3 id="opening-an-example-sketch">Opening an example sketch</h3>
+<p>Open the Arduino IDE and select the correct board from <strong>Select Board</strong> menu.
+In my case it’s <strong>Arduino UNO R4 WiFi</strong>.
+Load the Blink example and save the sketch in your sketchbook.</p>
+<p>This example consists of a single file: <code>Blink.ino</code>.
+Files with the <code>.ino</code> extension contain code written in the Arduino language <a href="https://docs.arduino.cc/arduino-cli/sketch-specification/">[1]</a>.
+You may notice there is no <code>main</code> function in this code, yet it still compiles.</p>
+<h3 id="what-exactly-is-arduino-language">What exactly is Arduino language?</h3>
+<p>According to the <a href="https://docs.arduino.cc/language-reference/#functions">official documentation</a>
+the Arduino language consists of:</p>
+<ul>
+<li>set of functions like <code>digitalRead</code>, <code>digitalWrite</code> etc,</li>
+<li>predefined constants such as <code>HIGH</code> and <code>LOW</code>,</li>
+<li>basic data types like <code>array</code>, <code>bool</code>, <code>int</code>,</li>
+<li>special sketch functions such as <code>loop</code>, <code>setup</code>…</li>
+</ul>
+<p>And so on. You can just read the full list on the official page.
+There’s also a brief note mentioning that Arduino is based on C++.
+Well — we’ll see at the end of our investigation, if Arduino language is actually a language…
+or just a C++ in a disguise.</p>
+<h3 id="triggering-the-build">Triggering the build</h3>
+<p>We are ready to build this sketch. Click <strong>Verify/Compile</strong> and observe the <strong>Output</strong> window.</p>
+<p><img alt="Arduino IDE doesn&amp;#x27;t say much about compilation steps by default" title="Arduino IDE - default build output" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 1284px) 1284px, 100vw"  data-astro-image="constrained" width="1284" height="748" src="/_astro/arduino-ide-default-output.CwC7N-ZM_Z1UYHLu.webp" srcset="/_astro/arduino-ide-default-output.CwC7N-ZM_ZsLM70.webp 640w, /_astro/arduino-ide-default-output.CwC7N-ZM_qF7OB.webp 750w, /_astro/arduino-ide-default-output.CwC7N-ZM_PsPC3.webp 828w, /_astro/arduino-ide-default-output.CwC7N-ZM_Zd4jAp.webp 1080w, /_astro/arduino-ide-default-output.CwC7N-ZM_1Bipxr.webp 1280w, /_astro/arduino-ide-default-output.CwC7N-ZM_Z1UYHLu.webp 1284w"></p>
+<p>It looks like the sketch has been built successfully and is ready to upload to the board.
+You only see two lines of output because the Arduino IDE hides most of the build details by default.</p>
+<h3 id="enabling-verbose-output">Enabling verbose output</h3>
+<p>To understand the build process better we need to enable the <strong>verbose output</strong> in IDE.
+To do so, go to <strong>File → Preferences</strong> and check <strong>Show verbose output</strong> setting for both compiling and upload. When you compile again,
+the output will be complete.
+Let’s read it line by line.
+<br></p>
+<p><img alt="Verbose compilation output in Arduino IDE" title="Arduino IDE - verbose build output" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 1280px) 1280px, 100vw"  data-astro-image="constrained" width="1280" height="749" src="/_astro/arduino-ide-verbose-output.CXQb6WJY_Zjt9XI.webp" srcset="/_astro/arduino-ide-verbose-output.CXQb6WJY_1IYNqA.webp 640w, /_astro/arduino-ide-verbose-output.CXQb6WJY_Z2qJpqJ.webp 750w, /_astro/arduino-ide-verbose-output.CXQb6WJY_Z2aqWUU.webp 828w, /_astro/arduino-ide-verbose-output.CXQb6WJY_Z1hh8si.webp 1080w, /_astro/arduino-ide-verbose-output.CXQb6WJY_Zjt9XI.webp 1280w"></p>
+<h2 id="board-and-package-identification">Board and package identification</h2>
+<p>In embedded software development, the compilation process is always target-dependent.
+Each hardware architecture — such as ARM or AVR — requires its own dedicated <a href="https://en.wikipedia.org/wiki/Cross_compiler">cross-compilation</a> toolchain.
+In addition, the appropriate version of the hardware libraries must be selected and linked.
+Therefore, the target board must be identified before the build begins.</p>
+<p>Arduino handles this step automatically.
+It looks at the board you’ve chosen in the <strong>Select Board</strong> menu and configures the build accordingly.
+This ensures that the compiled code will match the board’s architecture, hardware, pin mapping etc.</p>
+<p>This board identity is called <strong>FQBN (Fully Qualified Board Name)</strong> and looks as follows:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">FQBN:</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> arduino:renesas_uno:unor4wifi</span></span></code></pre>
+<p><strong>FQBN</strong> is unique for each board. It consists of three segments:</p>
+<ul>
+<li>Vendor: <code>arduino</code> (<em>it’s official Arduino package</em>)</li>
+<li>Architecture: <code>renesas_uno</code> (<em>Renesas-based boards family</em>)</li>
+<li>Board: <code>unor4wifi</code> (<em>exact model: Arduino Uno R4 WiFi</em>).</li>
+</ul>
+<p>If you choose wrong board, the code may compile but fail at runtime, or compilation may fail.</p>
+<p>Error <code>Compilation error: Missing FQBN (Fully Qualified Board Name)</code> means you have not selected any board from menu.</p>
+<h2 id="arduino-specific-directories">Arduino specific directories</h2>
+<p>In a typical embedded development environment, the build process produces various artifacts
+(object files, binaries, maps, etc.), which are stored in a user-defined or default build directory.
+Knowing where these artifacts are located allows developers to:</p>
+<ul>
+<li>see which source files are compiled,</li>
+<li>inspect intermediate and output files (e.g., <code>.o</code> or <code>.elf</code>) to diagnose build or linking issues,</li>
+<li>analyze additional information from <code>.map</code> file.</li>
+</ul>
+<p>In most embedded IDEs, the user also knows and can control where all linked libraries come from.</p>
+<p>In Arduino, location of build artifacts and used libraries is not immediately obvious, since these files are
+placed in several hidden directories. However, their locations can be found
+in the build log. Let’s take a quick look at these directories.</p>
+<h3 id="arduino15-directory">Arduino15 directory</h3>
+<p><strong>Arduino15</strong> contains, among others:</p>
+<ul>
+<li>installed board packages (cores, board definitions, hardware specific libraries),</li>
+<li>global libraries that Arduino automatically installs,</li>
+<li>tools needed for development with Arduino (like toolchains and flashing tools),</li>
+<li>user preferences, customized settings, etc.</li>
+</ul>
+<p>The exact location depends on your operating system <a href="https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder">[1]</a>.</p>
+<h4 id="board-packages">Board packages</h4>
+<p>The build log shows the directory where the target board’s related files are located, for example:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Using board 'unor4wifi' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1</span></span>
+<span class="line"><span>Using core 'arduino' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1</span></span></code></pre>
+<p>Inside this directory, two files deserve special attention: <strong>boards.txt</strong> and <strong>platform.txt</strong>.</p>
+<h5 id="boardstxt">boards.txt</h5>
+<p>The <a href="https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt">boards.txt</a> file lists all boards supported by this platform.
+Each board has its own section with key-value pairs that define how to compile, upload, and debug for that target.</p>
+<p>Here’s the entry for the <strong>Arduino UNO R4 WiFi</strong>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>##############################################################</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>unor4wifi.name=Arduino UNO R4 WiFi</span></span>
+<span class="line"><span>unor4wifi.build.core=arduino</span></span>
+<span class="line"><span>unor4wifi.build.crossprefix=arm-none-eabi-</span></span>
+<span class="line"><span>unor4wifi.build.compiler_path={runtime.tools.arm-none-eabi-gcc-7-2017q4.path}/bin/</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>unor4wifi.build.variant=UNOWIFIR4</span></span>
+<span class="line"><span>unor4wifi.build.mcu=cortex-m4</span></span>
+<span class="line"><span>unor4wifi.build.architecture=cortex-m4</span></span>
+<span class="line"><span>unor4wifi.build.fpu=-mfpu=fpv4-sp-d16</span></span>
+<span class="line"><span>unor4wifi.build.float-abi=-mfloat-abi=hard</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>unor4wifi.upload.tool=bossac</span></span>
+<span class="line"><span>...</span></span></code></pre>
+<p>These settings ensure that once you select your board from the <strong>Select Board</strong> menu,
+the correct toolchain, compiler flags (such as MCU type and clock speed) and upload tool are selected automatically.</p>
+<p>Advanced users may feel need to modify the <em>boards.txt</em> contents, to i.e. add new board or customize some build options.
+Just remember that such changes will be lost after Arduino IDE update!</p>
+<h5 id="platformtxt">platform.txt</h5>
+<p>Another important file is <a href="https://arduino.github.io/arduino-cli/1.3/platform-specification/#platformtxt">platform.txt</a>.
+This file defines the command patterns (recipes) that tell Arduino exactly how to compile,
+link, and package a sketch for a specific platform.</p>
+<p>It defines:</p>
+<ul>
+<li>the commands used for compiling and linking,</li>
+<li>how archives and output files are created,</li>
+<li>the flags and options passed to the compiler,</li>
+<li>and the commands used to calculate the size of the final program.</li>
+</ul>
+<p>Basically, this is the most important file telling us <strong>how Arduino builds a program</strong>.
+Unlike traditional C/C++ projects, there is no Makefile in the Arduino build system —
+instead, <em>platform.txt</em> provides all the recipes that define each step of the build process.</p>
+<p>Behind the scenes, the Arduino IDE uses <strong>arduino-cli</strong> to build sketches according to these recipes.
+The arduino-cli tool expands and executes the command patterns defined in <em>platform.txt</em>.
+For example, the recipe for compiling a C source file is as follows:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>## Compile c files</span></span>
+<span class="line"><span>recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_RENESAS -DARDUINO_FSP -D_XOPEN_SOURCE=700 {compiler.fsp.cflags} {compiler.tinyusb.cflags} {compiler.c.extra_flags} {build.extra_flags} {tinyusb.includes} "-I{build.core.path}/api/deprecated" "-I{build.core.path}/api/deprecated-avr-comp" {includes} "-iprefix{runtime.platform.path}" "@{compiler.fsp.includes}" -o "{object_file}" "{source_file}"</span></span></code></pre>
+<h4 id="toolchains">Toolchains</h4>
+<p>Inside the <strong>Arduino15</strong>’s tools directory, you will also find the cross-compilation toolchains
+used to build sketches for different microcontroller architectures.</p>
+<p>In my setup, two toolchains are installed:</p>
+<ul>
+<li><code>.arduino15/packages/arduino/tools/arm-none-eabi-gcc</code>, for ARM based boards, like Arduino UNO R4 WiFi,</li>
+<li><code>.arduino15/packages/arduino/tools/avr-gcc</code>, for AVR/Atmega based boards.</li>
+</ul>
+<p>The main components of toolchain are compiler, asembler and linker. Everything
+that is required to build for a specific architecture.</p>
+<p>Why we need cross compilation toolchains?
+When building application for embedded devices, the compilation happens on the <strong>host</strong>
+— your development computer running the Arduino IDE — not on the <strong>target device</strong> itself.</p>
+<p>The host (PC) typically uses an x86_64 processor with its own instruction set and operating system.
+The target device (like an Arduino board) uses a completely different architecture
+— for example ARM or AVR.</p>
+<p>To generate code that runs correctly on the target,
+we need a cross-compilation toolchain:
+compiler tools that are able to produce binaries for a
+different architecture than the one running the compiler.</p>
+<p>Most Arduino boards use either ARM or AVR architectures, which is why you’ll find these two toolchains installed in the Arduino15 directory.</p>
+<h4 id="arduino-core">Arduino core</h4>
+<p>The <strong>Arduino core</strong> directory provides the hardware-specific implementation of core Arduino functions.</p>
+<p>It is located in the <code>cores</code> subdirectory of your board package, for example:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores/</span></span></code></pre>
+<p>Each board family, or platform, has its own core,
+tailored to the hardware and peripherals.</p>
+<p>The <strong>Arduino core</strong> contains, among other files:</p>
+<ul>
+<li><code>main.cpp</code> — defines the startup code that runs before your <code>setup()</code> function and repeatedly calls your <code>loop()</code> function,</li>
+<li><code>Arduino.h</code> header — the main header file included by all sketches,</li>
+<li>implementation of interrupts, UART communication, timing functions like <code>delay</code> and other low-level routines.</li>
+</ul>
+<p>Open the <code>main.cpp</code> and browse the logic that Arduino is adding around the code you implemented in the sketch.</p>
+<h3 id="build-directory">Build directory</h3>
+<p>When you compile a sketch, the build artifacts (i.e. intermediate object files) are not stored
+in the same directory as your source code. It would make a mess inside your sketch folder,
+or even made conflicts when building the same sketch for different boards.</p>
+<p>That’s why build files are always stored in separate build directory.</p>
+<p>In case of Arduino IDE, the build directory is a per-sketch cache, created in a hidden folder.</p>
+<p>You can find the path to this build directory in the build log. My sketch was built here:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>/home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/`.</span></span></code></pre>
+<p>If you open this folder, you’ll see the build artifacts, including:</p>
+<ul>
+<li>object files (<code>.o</code>),</li>
+<li>preprocessed sources (<code>.cpp</code>),</li>
+<li>final binaries (<code>.bin</code>, <code>.hex</code>, <code>.elf</code>).</li>
+</ul>
+<p>Exporting Compiled Binary
+If you want to have the compiled binaries in your sketch folder, click <strong>Sketch → Export Compiled Binary</strong> option from Arduino IDE menu.
+This will build your sketch and place a copy of the <code>.hex</code>, <code>.bin</code>, <code>.elf</code> and <code>.map</code> inside the sketch sources
+folder so it’s easy to find later.</p>
+<p>Do you want to move Arduino15 folder?
+In some cases, you may want to move the <strong>Arduino15 folder</strong> —  for example, to free up space on your primary drive.</p>
+<p>To do this:</p>
+<ol>
+<li>
+<p>Copy the <strong>Arduino15</strong> directory to your desired location.</p>
+</li>
+<li>
+<p>Open the file <code>~/.arduinoIDE/arduino-cli.yaml</code> and update the <code>directories:data</code> path, for example:</p>
+</li>
+</ol>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>board_manager:</span></span>
+<span class="line"><span>    additional_urls: []</span></span>
+<span class="line"><span>directories:</span></span>
+<span class="line"><span>    data: /home/kate/new-location-arduino15</span></span></code></pre>
+<ol start="3">
+<li>
+<p>Restart the Arduino IDE. It will now use the new <strong>Arduino15</strong> location. Verify the build output to ensure everything is working correctly.</p>
+</li>
+<li>
+<p>Once you’ve confirmed everything works correctly, you can safely delete the old folder.</p>
+</li>
+</ol>
+<p>We already discussed board identification and the Arduino specific directories. Let’s move to actual build process.</p>
+<h2 id="general-embedded-software-build-process">General embedded software build process</h2>
+<p>At a high level, the Arduino build process is essentially a C++ build process adapted
+for embedded targets, and with some Arduino specific features. The general C/C++ build pipeline is presented below:</p>
+<p><img alt="General C/C++ build process" title="General C/C++ build process" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 1092px) 1092px, 100vw"  data-astro-image="constrained" width="1092" height="542" src="/_astro/general-c-build-process.DZU2a6vk_PzQ39.webp" srcset="/_astro/general-c-build-process.DZU2a6vk_1UpnwU.webp 640w, /_astro/general-c-build-process.DZU2a6vk_Z1AG40Y.webp 750w, /_astro/general-c-build-process.DZU2a6vk_1T8Nuk.webp 828w, /_astro/general-c-build-process.DZU2a6vk_SsulL.webp 1080w, /_astro/general-c-build-process.DZU2a6vk_PzQ39.webp 1092w"></p>
+<p>Now, let’s go through each stage and see how Arduino adapts the standard C/C++ build process for embedded targets.</p>
+<h2 id="preprocessing">Preprocessing</h2>
+<p>The first phase of every C/C++ program build is preprocessing.
+In general, preprocessor expands macros like <code>#include</code>, <code>#define</code>, and conditional compilation (<code>#if</code>, <code>#ifdef</code>, etc.).
+The output is an expanded source file.
+In Arduino, some additional steps are added around preprocessing stage.</p>
+<h3 id="concatenating-ino-files">Concatenating .ino files</h3>
+<p>If the sketch contains of multiple <code>.ino</code> files, they are first concatenated into a single <code>.cpp</code> file.</p>
+<h3 id="detecting-libraries-used">Detecting libraries used</h3>
+<p>Arduino uses a special build recipe (<code>recipe.preproc.macros</code> <a href="https://docs.arduino.cc/arduino-cli/platform-specification/">[1]</a>)
+to detect which libraries are required by your sketch.
+During this step, the preprocessor scans the sketch for <code>#include</code> directives that reference library header files.
+If a matching header is found, the corresponding library is automatically marked as required and included in the build process
+— in other words, that library will be compiled and then linked in next stages of build process.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Detecting libraries used...</span></span>
+<span class="line"><span>/home/kate/.arduino15/packages/arduino/tools/arm-none-eabi-gcc/7-2017q4/bin/arm-none-eabi-g++ (...) -E \</span></span>
+<span class="line"><span>/home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/MyBlink.ino.cpp -o /dev/null</span></span></code></pre>
+<p><em>The <code>-E</code> flag tells GCC to perform only the preprocessing step —
+it expands all macros and headers, then stops before compiling or assembling anything.</em></p>
+<p>For a simple sketch like Blink, this stage isn’t very exciting — it doesn’t detect in any additional libraries.
+That’s why the build output doesn’t show anything under <em>Detecting libraries used…</em>.
+But if you open other example sketches, such as those from <strong>WiFiS3</strong> or <strong>EEPROM</strong>,
+you’ll see how more complex projects trigger detection of multiple libraries.</p>
+<h3 id="generating-function-prototypes">Generating function prototypes</h3>
+<p>The next stage in the build process is automatic function prototype generation. In C or C++, each function must be
+either defined or declared before it’s called. In Arduino, you don’t need to worry about that — you can write functions
+in any order, without adding their prototypes. How does it work? Arduino generates these prototypes for you!</p>
+<p>Here’s what the build log shows:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Generating function prototypes...</span></span>
+<span class="line"><span>arm-none-eabi-g++ (...) -E /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/sketch/MyBlink.ino.cpp -o /tmp/1121713208/sketch_merged.cpp</span></span>
+<span class="line"><span>ctags (...) /tmp/1121713208/sketch_merged.cpp</span></span></code></pre>
+<p>Again, the compiler is invoked with the <code>-E</code> flag, meaning only the preprocessor runs.
+This is what happens now:</p>
+<ol>
+<li>
+<p><strong>Preprocessing</strong></p>
+<p>The <code>MyBlink.ino.cpp</code> (file concatenated of all <code>.ino</code> files) is input for the preprocessor: <code>#include</code>s are expanded and macros replaces.
+The expanded file is stored as <code>/tmp/1121713208/sketch_merged.cpp</code>.</p>
+</li>
+<li>
+<p><strong>Scanning functions</strong></p>
+<p>Tool <code>ctags</code> is running over expanded <code>sketch_merged.cpp</code>, to extract function symbols.</p>
+</li>
+<li>
+<p><strong>Generating prototypes</strong></p>
+<p>Based on the <code>ctags</code> result, Arduino environment inserts forward declarations for you. This way, you don’t need to worry
+about undeclared functions, functions order, etc.</p>
+</li>
+<li>
+<p><strong>Store prototypes into .ino.cpp</strong></p>
+<p>The resulting version is stored into <code>MyBlink.ino.cpp</code>. This is what the compiler will actually use later on.</p>
+</li>
+</ol>
+<p>Your simple sketch (<code>MyBlink.ino</code>):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="cpp"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> setup</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    pinMode</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> OUTPUT);</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> loop</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    digitalWrite</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> HIGH);</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    delay</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">6000</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    digitalWrite</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> LOW);</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    delay</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1000</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>gets transformed into (<code>MyBlink.ino.cpp</code>):</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="cpp"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">#</span><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">include</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD"> &#x3C;</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Arduino.h</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">></span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">#</span><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">line</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 1 </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">/home/kate/Arduino/MyBlink/MyBlink.ino</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">#</span><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">line</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 26 </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">/home/kate/Arduino/MyBlink/MyBlink.ino</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> setup</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">();</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">#</span><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">line</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 32 </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">/home/kate/Arduino/MyBlink/MyBlink.ino</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> loop</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">();</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">#</span><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">line</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 26 </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">/home/kate/Arduino/MyBlink/MyBlink.ino</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> setup</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    pinMode</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> OUTPUT);</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> loop</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    digitalWrite</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> HIGH); </span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    delay</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">6000</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    digitalWrite</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> LOW);</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    delay</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1000</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>The key differences can be summarized as follows:</p>
+<ul>
+<li><code>#include &#x3C;Arduino.h></code> is added,</li>
+<li>function prototypes are added,</li>
+<li><code>#line</code> macros are added — they keep compiler error messages pointing to the right lines in your <code>.ino</code> file.
+Without them, errors would show up with the line numbers of the generated <code>.cpp</code>, which would be super confusing.</li>
+</ul>
+<p>This is the first preprocessing step, unique to Arduino.
+Now, <code>sketch/MyBlink.ino.cpp</code> is <strong>not yet</strong> fully expanded —
+you can see this file inside your sketch’s hidden cache.</p>
+<p>After that, the <strong>standard C/C++ preprocessing</strong> takes place when compiler is invoked again in next step —
+all <code>#include</code> directives are replaced with the contents of the included files,
+all <code>#defines</code> macros are expanded, and the result
+is one fully expanded source file ready for compilation.</p>
+<h2 id="compilation">Compilation</h2>
+<p>Compilation is where your code is translated into the low-level machine instructions that
+the microcontroller can actually execute.
+In other words, your human-readable program becomes something the hardware understands.</p>
+<h3 id="sketch-compilation">Sketch compilation</h3>
+<p>During this step, the compiler finalizes preprocessing (the standard C/C++ preprocessing that
+was not yet performed), checks your code for syntax errors and converts it
+into the object code that can be linked with libraries later.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Compiling sketch...</span></span>
+<span class="line"><span>arm-none-eabi-g++ (...) -c sketch/MyBlink.ino.cpp -o sketch/MyBlink.ino.cpp.o</span></span></code></pre>
+<p><em>Compiler is invoked with <code>-c</code> flag, which means <strong>compile and assemble</strong> (don’t link yet).
+It also performs the <strong>standard preprocessing</strong> phase as part of this step.</em></p>
+<p><strong>Input:</strong> <code>MyBlink.ino.cpp</code> — the auto-generated sketch with prototypes, includes, and line directives.</p>
+<p><strong>Output:</strong> <code>MyBlink.ino.cpp.o</code> — machine-code object file, ready to be linked later.</p>
+<p>I shortened the compilation command, so it’s not in the snippet above, but in IDE we can observe a lots of compilation flags that were used.
+Some highlights:</p>
+<ul>
+<li><code>-Os</code> → optimize for size <a href="https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html#index-Os">[1]</a>.</li>
+<li><code>-g3</code> → include debug info at max level <a href="https://gcc.gnu.org/onlinedocs/gcc/Debugging-Options.html">[1]</a>.</li>
+<li><code>-fno-rtti</code>, <code>-fno-exceptions</code> → strip C++ runtime features to save space <a href="https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html#index-fno-rtti">[1]</a>, .</li>
+<li><code>-nostdlib</code> → don’t link against standard system libraries <a href="https://gcc.gnu.org/onlinedocs/gcc/Link-Options.html">[1]</a>.</li>
+<li><code>-mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16</code> → target an ARM Cortex-M4 with hardware floating point.</li>
+<li><code>-I</code> and <code>@.../includes.txt</code> → add search paths for Arduino core and variant headers.</li>
+<li>Many <code>-D...</code> → defines for board, CPU frequency, Arduino version, etc.</li>
+</ul>
+<p>Most advanced IDEs let you change compiler settings like optimization level, debug info, or extra flags right from a project menu.<br>
+Arduino IDE is so simple that it doesn’t offer this option: you don’t get a button or menu for that.</p>
+<p>If you want to change some settings, you’ve got several ways:</p>
+<ul>
+<li><strong>Edit build recipes</strong>: you can change files like <code>platform.txt</code> or <code>boards.local.txt</code> to change or add your own compilation flags,</li>
+<li><strong>modify <code>arduino-cli.yaml</code></strong> from <strong>ArduinoIDE</strong> folder,</li>
+<li><strong>use Arduino CLI</strong> directly: the command-line tool gives you more flexibility and can build your sketch with whatever options you like.</li>
+</ul>
+<p>At this point, your sketch has been turned into machine code, stored in <code>MyBlink.ino.cpp.o</code>.
+This file contains your <code>setup()</code> and <code>loop()</code> code, ready to be linked with the Arduino core and libraries in the next step.</p>
+<h3 id="compiling-libraries">Compiling libraries</h3>
+<p>All libraries, that were marked as required, are compiled now.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="cpp"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">Compiling libraries...</span></span></code></pre>
+<p>For the Blink sketch this step is empty. In the previous phase (<em>Detecting libraries used</em>) no additional libraries were found.
+Blink only relies on core Arduino functions such as <code>pinMode</code>, <code>digitalWrite</code>, and <code>delay</code>, which are part of the board core, not separate libraries.</p>
+<p>In more advanced sketches the output looks different.
+For example, in <strong>WiFiS3/ConnectWithWPA</strong> the <strong>WiFiS3</strong> library is detected and its source files are compiled here.</p>
+<h3 id="compiling-core">Compiling core</h3>
+<p>All needed core objects are compiled.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">Compiling</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> core...</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">Using</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> previously</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> compiled</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> file:</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/core/tmp_gen_c_files/pin_data.c.o</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">Using</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> previously</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> compiled</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> file:</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/core/tmp_gen_c_files/main.c.o</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">Using</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> previously</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> compiled</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> file:</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/core/tmp_gen_c_files/common_data.c.o</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">Using</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> previously</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> compiled</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> file:</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/core/variant.cpp.o</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">Using</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> precompiled</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> core:</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /home/kate/.cache/arduino/cores/arduino_renesas_uno_unor4wifi_4e1bf6711f2b98688d9a4a386931d6dc/core.a</span></span></code></pre>
+<p>The core is the foundation of every Arduino program (we discussed it in <a href="#arduino-core">Arduino core</a> chapter).
+Instead of recompiling the same core files every time you build,
+the Arduino IDE uses precompiled objects from a cache to speed up the compilation.</p>
+<h2 id="linking">Linking</h2>
+<p>Once all the individual files are compiled, the Arduino build system needs to link them into a single program.
+I shortened the link command to present only the most important stuff:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">arm-none-eabi-g++</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  -mcpu=cortex-m4</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -mfloat-abi=hard</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -mfpu=fpv4-sp-d16</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  -o</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.elf</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">  MyBlink.ino.cpp.o</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> common_data.c.o</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> main.c.o</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> pin_data.c.o</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> variant.cpp.o</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D">  libfsp.a</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> core.a</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
+<span class="line"><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">  -lstdc++</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -lsupc++</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -lm</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -lc</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -lgcc</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -lnosys</span></span></code></pre>
+<p>After this step, the final binary will be <code>MyBlink.ino.elf</code>.</p>
+<p>Take a look at libraries that are linked into the build:</p>
+<ul>
+<li><code>libfsp.a</code> → the Renesas Flexible Software Package, providing hardware drivers and low-level functions for peripherals.</li>
+<li><code>core.a</code> → the Arduino core for this board.
+Libraries above are board support libraries. These are part of the Arduino board package (for the Uno R4 in this case).
+They are not optional user libraries, so they don’t appear in the detection phase.</li>
+</ul>
+<p>Toolchain standard libraries:</p>
+<ul>
+<li><code>-lstdc++</code> → the C++ standard library,</li>
+<li><code>-lsupc++</code> → low-level C++ runtime support,</li>
+<li><code>-lm</code> → the math library,</li>
+<li><code>-lc</code> → the standard C library,</li>
+<li><code>-lgcc</code> → helper routines from GCC itself,</li>
+<li><code>-lnosys</code> → stubs for system calls.</li>
+</ul>
+<h2 id="finalizing-build">Finalizing build</h2>
+<p>Build is ready! Arduino will perform two more steps before finishing the process.</p>
+<h3 id="creating-binary-and-hex-files">Creating binary and hex files</h3>
+<p>After the ELF file (<code>MyBlink.ino.elf</code>) is created, the build system uses <code>objcopy</code> to generate <code>hex</code> and <code>bin</code> formats:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">arm-none-eabi-objcopy</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -O</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> binary</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -j</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> .text</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -j</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> .data</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.elf</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.bin</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">arm-none-eabi-objcopy</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -O</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ihex</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">   -j</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> .text</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -j</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> .data</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.elf</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.hex</span></span></code></pre>
+<p>Both formats contain the same program, just encoded differently for different flashing tools.</p>
+<h3 id="measuring-the-program-size">Measuring the program size</h3>
+<p>Finally, the build system reports memory usage with <code>arm-none-eabi-size</code>:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">arm-none-eabi-size</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -A</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.elf</span></span></code></pre>
+<h3 id="cleaning-the-build">Cleaning the build</h3>
+<p>Unfortunately, Arduino IDE does not offer the <code>Clean build</code> or <code>Force rebuild</code> option (<a href="https://forum.arduino.cc/t/feature-request-clean-build-option/1291789">[1]</a>,
+<a href="https://forum.arduino.cc/t/can-i-force-the-arduino-ide-to-recompile-everything/866547">[2]</a>,
+<a href="https://github.com/arduino/arduino-ide/issues/419">[3]</a>). The workaround for it is to manually delete the cached build directories we mentioned earlier.</p>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>While it’s often called the Arduino language, <code>.ino</code> files are actually written in C++.
+They simply receive some automatic handling from the Arduino build system,
+and the <code>main()</code> function is predefined and hidden within a library.</li>
+<li>Arduino build process follows standard C/C++ build steps, but adds some additions: automatically
+detects libraries that need to be linked, includes main header, generates function prototypes if they are
+not included.</li>
+<li>Arduino doesn’t use <code>Make</code> or any other common build system. Instead, it uses <code>arduino-cli</code> which constructs
+build commands based on recipies from <code>platform.txt</code> and <code>boards.txt</code>.</li>
+</ul>
+<h2 id="more-reading">More reading</h2>
+<ol>
+<li><a href="https://docs.arduino.cc/arduino-cli/sketch-build-process/">Build Sketch Process from docs.arduino.cc</a></li>
+<li><a href="https://support.arduino.cc/hc/en-us/articles/4415103213714-Find-sketches-libraries-board-cores-and-other-files-on-your-computer">Find sketches, libraries, board cores and other files on your computer from support.arduino.cc</a></li>
+<li><a href="https://www.youtube.com/watch?v=7vLjK9t-uZY">De-Mystifying Libraries - How Arduino IDE Finds and Uses Your Files - OhioIoT</a></li>
+</ol> </article> <hr class="my-8 border-dashed">  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"> <li> <a href="/tags/arduino/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Arduino </a> </li> </ul> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+Back To Top
+</span> </button> </div> <script data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post on:</span><div class="text-center"><a href="https://wa.me/?text=https://embeddedk8.com/posts/2025/arduino-ide-build-process/" title="Share this post via WhatsApp" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://embeddedk8.com/posts/2025/arduino-ide-build-process/" title="Share this post on Facebook" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://embeddedk8.com/posts/2025/arduino-ide-build-process/" title="Share this post on X" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://embeddedk8.com/posts/2025/arduino-ide-build-process/" title="Share this post via Telegram" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg><span class="sr-only">Share this post via Telegram</span> </a><a href="https://pinterest.com/pin/create/button/?url=https://embeddedk8.com/posts/2025/arduino-ide-build-process/" title="Share this post on Pinterest" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M8 20l4 -9" /><path d="M10.7 14c.437 1.263 1.43 2 2.55 2c2.071 0 3.75 -1.554 3.75 -4a5 5 0 1 0 -9.7 1.7" /><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /></svg><span class="sr-only">Share this post on Pinterest</span> </a><a href="mailto:?subject=See%20this%20post&#38;body=https://embeddedk8.com/posts/2025/arduino-ide-build-process/" title="Share this post via email" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg><span class="sr-only">Share this post via email</span> </a></div></div> <hr class="my-6 border-dashed"> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2"> <a href="/posts/2025/arduino-cli-compilation" class="flex w-full gap-1 hover:opacity-75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <div> <span>Previous Post</span> <div class="text-sm text-accent/85">How to build Arduino sketches with Arduino CLI?</div> </div> </a>  </div> </main> <footer class="app-layout mt-auto"> <div class="py-6 sm:py-4 border-t border-border flex flex-col items-center justify-between sm:flex-row-reverse"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/embeddedk8" title="Kate Zalevska on GitHub" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only">Kate Zalevska on GitHub</span>  </a><a href="https://x.com/KateZlv" title="Kate Zalevska on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg> <span class="sr-only">Kate Zalevska on X</span>  </a><a href="mailto:embeddedkate@gmail.com" title="Send an email to Kate Zalevska" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to Kate Zalevska</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> </div> </div> </footer>  <!-- Load full theme logic --> <script type="module">const d="theme",r="light",m="dark";function i(){const e=localStorage.getItem(d);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?m:r)}let t=window.theme?.themeValue??i();function c(){localStorage.setItem(d,t),o()}function o(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=document.body;if(e){const n=window.getComputedStyle(e).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",n)}}window.theme?(window.theme.setPreference=c,window.theme.reflectPreference=o):window.theme={themeValue:t,setPreference:c,reflectPreference:o,getTheme:()=>t,setTheme:e=>{t=e}};o();function s(){o(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?m:r,window.theme?.setTheme(t),c()})}s();document.addEventListener("astro:after-swap",s);document.addEventListener("astro:before-swap",e=>{const a=e,n=document.querySelector("meta[name='theme-color']")?.getAttribute("content");n&&a.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",n)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?m:r,window.theme?.setTheme(t),c()});</script> </body> </html> <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      // Check if --file-name-offset custom property exists
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      // Determine the top positioning class
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>
