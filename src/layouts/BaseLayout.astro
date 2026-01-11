@@ -1,9 +1,6 @@
 ---
 import BaseHead from './components/BaseHead.astro';
-import Header from './components/Header.astro';
 import Footer from './components/Footer.astro';
-
-
 
 import { loadEnv } from 'vite';
 
@@ -13,19 +10,25 @@ const { title, description, image } = Astro.props;
 
 <!doctype html>
 <html lang='en'>
-	<head>
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+  </head>
 
-		<BaseHead title={title} description={description} image={image} />
-	</head>
-	<body
-		class="bg-white dark:bg-zinc-900 dark:text-zinc-100 pt-16 sm:pt-0"
-	>
-		<Header/>
-		<div class='py-8 min-h-[calc(100vh-160px)]'>
-			<slot />
-		</div>
-		<Footer />
-		<!-- Google tag (gtag.js) -->
+  <body class="bg-white dark:bg-zinc-900 dark:text-zinc-100">
+
+    <!-- Decorative color bar (yellow + green + blue) -->
+    <div class="w-full h-3 flex select-none pointer-events-none mb-4">
+      <div class="flex-1" style="background:#FDD848;"></div> <!-- YELLOW -->
+      <div class="flex-1" style="background:#AAD59E;"></div> <!-- GREEN -->
+      <div class="flex-1" style="background:#9AB2D4;"></div> <!-- BLUE -->
+    </div>
+
+    <div class='py-8 min-h-[calc(100vh-160px)]'>
+      <slot />
+    </div>
+
+    <Footer />
+
     {
       PUBLIC_GTAG_MEASUREMENT_ID &&
       <>
@@ -36,7 +39,6 @@ const { title, description, image } = Astro.props;
             dataLayer.push(arguments);
           }
           gtag('js', new Date());
-
           gtag('config', PUBLIC_GTAG_MEASUREMENT_ID);
         </script>
       </>
@@ -45,27 +47,25 @@ const { title, description, image } = Astro.props;
     <!-- Default Statcounter code for embeddedk8
     https://embeddedk8.github.io/ -->
     <script type="text/javascript">
-    var sc_project=13166912;
-    var sc_invisible=1;
-    var sc_security="b5be05e2";
+      var sc_project=13166912;
+      var sc_invisible=1;
+      var sc_security="b5be05e2";
     </script>
     <script type="text/javascript"
-    src="https://www.statcounter.com/counter/counter.js"
-    async></script>
+      src="https://www.statcounter.com/counter/counter.js"
+      async></script>
     <noscript><div class="statcounter"><a title="Web Analytics
-    Made Easy - Statcounter" href="https://statcounter.com/"
-    target="_blank">
-    <img class="statcounter"
-         src="https://c.statcounter.com/13166912/0/b5be05e2/1/"
-         alt="Web Analytics Made Easy - Statcounter"
-         referrerpolicy="no-referrer-when-downgrade">
-
-    </a></div></noscript>
-    <!-- End of Statcounter Code -->
+      Made Easy - Statcounter" href="https://statcounter.com/"
+      target="_blank">
+      <img class="statcounter"
+           src="https://c.statcounter.com/13166912/0/b5be05e2/1/"
+           alt="Web Analytics Made Easy - Statcounter"
+           referrerpolicy="no-referrer-when-downgrade">
+      </a></div></noscript>
+      <!-- End of Statcounter Code -->
 
     <!-- 100% privacy-first analytics -->
     <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
 
-
-	</body>
+  </body>
 </html>

@@ -8,6 +8,9 @@ import { slugify } from '../utils';
 import { loadEnv } from 'vite';
 import { render } from 'astro:content';
 
+// import favicon logo
+import favicon from '../assets/img/favicon.png';
+
 const { GISCUS_REPO, GISCUS_REPO_ID, GISCUS_CATEGORY, GISCUS_CATEGORY_ID } = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
 
 export async function getStaticPaths() {
@@ -23,40 +26,50 @@ const post = Astro.props;
 const {
 	data: { title, seoTitle, description, coverImage, pubDate, updatedDate, tags }
 } = post;
-const { Content, headings } = await render(post);
+const { Content } = await render(post);
 ---
 
 <BaseLayout title={seoTitle || title} description={description} image={coverImage?.src || undefined}>
-    <div class='mx-auto max-w-full px-4 sm:max-w-[90ch]'>
+	<div class='mx-auto max-w-full px-4 sm:max-w-[90ch]'>
 		<main class='overflow-hidden grow'>
 			<article>
 				<Prose>
-					<div>
-						<h1 class='mt-10 !mb-1 leading-tight'>{title}</h1>
-                        <div class="flex flex-wrap items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 mt-2">
-                          {
-                            (tags || []).map((tag: string) => (
-                              <a
-                                href={`/tags/${slugify(tag)}`}
-                                class="px-2 py-0.5 rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-zinc-700 dark:hover:border-zinc-300 transition-colors no-underline"
-                              >
-                                {tag}
-                              </a>
-                            ))
-                          }
-
-                          <span class="mx-1">•</span>
-
-                          <span>
-                            {
-                              updatedDate
-                                ? <><strong><FormattedDate date={updatedDate} /></strong></>
-                                : <><strong><FormattedDate date={pubDate} /></strong></>
-                            }
-                          </span>
-                        </div>
+					<!-- Logo centered -->
+					<div class="text-center mb-4">
+						<a href="/" class="inline-block">
+							<img src={favicon.src} alt="Logo" class="inline-block h-12 w-auto" />
+						</a>
 					</div>
 
+					<!-- Title + tags left aligned -->
+					<div>
+						<h1 class='mt-4 !mb-1 leading-tight'>{title}</h1>
+
+						<div class="flex flex-wrap items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 mt-2">
+							{
+								(tags || []).map((tag: string) => (
+									<a
+										href={`/tags/${slugify(tag)}`}
+										class="px-2 py-0.5 rounded-full border border-zinc-300 dark:border-zinc-700 hover:border-zinc-700 dark:hover:border-zinc-300 transition-colors no-underline"
+									>
+										{tag}
+									</a>
+								))
+							}
+
+							<span class="mx-1">•</span>
+
+							<span>
+								{
+									updatedDate
+										? <><strong><FormattedDate date={updatedDate} /></strong></>
+										: <><strong><FormattedDate date={pubDate} /></strong></>
+								}
+							</span>
+						</div>
+					</div>
+
+					<!-- Cover image -->
 					<div class='py-3 overflow-hidden'>
 						{coverImage && <Image class='rounded-3xl w-full m-0 lg:mb-2' src={coverImage} alt={title} loading='eager' />}
 					</div>
