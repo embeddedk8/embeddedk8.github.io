@@ -15,13 +15,13 @@ const { title, description, image } = Astro.props;
     <BaseHead title={title} description={description} image={image} />
   </head>
 
-  <body class="bg-white dark:bg-zinc-900 dark:text-zinc-100">
+  <body class="bg-white dark:bg-zinc-900 dark:text-zinc-100 mx-0 overflow-x-hidden">
 
     <!-- Decorative color bar (yellow + green + blue) -->
     <div class="w-full h-3 flex select-none pointer-events-none mb-4">
-      <div class="flex-1" style="background:#FDD848;"></div> <!-- YELLOW -->
-      <div class="flex-1" style="background:#AAD59E;"></div> <!-- GREEN -->
-      <div class="flex-1" style="background:#9AB2D4;"></div> <!-- BLUE -->
+      <div class="flex-grow" style="background:#FDD848;"></div> <!-- YELLOW -->
+      <div class="flex-grow" style="background:#AAD59E;"></div> <!-- GREEN -->
+      <div class="flex-grow" style="background:#9AB2D4;"></div> <!-- BLUE -->
     </div>
 
     <!-- STATIC header below stripe (scrolls away) -->
