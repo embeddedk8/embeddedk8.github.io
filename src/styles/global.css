@@ -75,8 +75,9 @@ html[data-theme="dark"] {
   height: 6px;
   background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #8447ff);
 }
-html.dark .color-stripe {
-  filter: brightness(0.75);
+
+html[data-theme="dark"] .color-stripe {
+  background: #b45309; /* dark orange for dark mode */
 }
 
 .about-row {
