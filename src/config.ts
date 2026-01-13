@@ -4,7 +4,7 @@ export const SITE = {
   profile: "https://embeddedk8.com/",
   desc: "My blog about embedded systems. Personal thoughts, experiments, and notes on RTOS, ARM microcontrollers, and programming",
   title: "Kate Zalevska",
-  ogImage: "astropaper-og.jpg",
+  ogImage: "ov.png",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,
