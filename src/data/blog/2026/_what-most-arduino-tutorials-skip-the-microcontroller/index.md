@@ -1,7 +1,7 @@
 ---
 weight: 2
 title: "What most Arduino tutorials skip: The microcontroller"
-date: 2026-12-20T15:58:26+08:00
+pubDatetime: 2026-12-20T15:58:26+08:00
 draft: true
 pubDate: 'Dec 20 2025'
 author: "embeddedk8"
