@@ -6,11 +6,11 @@ draft: false
 pubDate: 'Dec 20 2025'
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Start modern CMake projects faster with cmake-init - an open-source tool for clean structure, test templates, linters, and CI/CD."
+description: "An introduction to cmake-init, an open-source tool for generating modern CMake projects with built-in support for tests, linters, and CI/CD pipelines."
 images: []
 resources:
-
-tags: ["CMake", "C", "CPlusPlus", "Tools"]
+slug: 'cmake-init'
+tags: ["CMake", "C", "CPP", "Tools"]
 
 lightgallery: true
 
