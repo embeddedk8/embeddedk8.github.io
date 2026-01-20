@@ -1,4 +1,4 @@
-<!DOCTYPE html><html dir="ltr" lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.png"><link rel="canonical" href="https://embeddedk8.com/posts/2025/arduino-ide-build-process/"><meta name="generator" content="Astro v5.16.8"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-04a186ad63205992","Google Sans Code-04a186ad63205992 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>How Arduino really builds a sketch? | Kate Zalevska</title><meta name="title" content="How Arduino really builds a sketch? | Kate Zalevska"><meta name="description" content="This guide explains how Arduino builds a sketch, adding Arduino-specific steps to preprocessing, compiling, and linking."><meta name="author" content="embeddedk8"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:title" content="How Arduino really builds a sketch? | Kate Zalevska"><meta property="og:description" content="This guide explains how Arduino builds a sketch, adding Arduino-specific steps to preprocessing, compiling, and linking."><meta property="og:url" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/"><meta property="og:image" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2025-09-13T07:58:26.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/"><meta property="twitter:title" content="How Arduino really builds a sketch? | Kate Zalevska"><meta property="twitter:description" content="This guide explains how Arduino builds a sketch, adding Arduino-specific steps to preprocessing, compiling, and linking."><meta property="twitter:image" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How Arduino really builds a sketch? | Kate Zalevska","image":"https://embeddedk8.com/posts/2025/arduino-ide-build-process/index.png","datePublished":"2025-09-13T07:58:26.000Z","author":[{"@type":"Person","name":"embeddedk8","url":"https://embeddedk8.com/"}]}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="Kate Zalevska" href="https://embeddedk8.com/rss.xml"><meta name="theme-color" content=""><meta name="google-site-verification" content="xxx"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+<!DOCTYPE html><html dir="ltr" lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.png"><link rel="canonical" href="https://embeddedk8.com/posts/2025/arduino-ide-build-process/"><meta name="generator" content="Astro v5.16.8"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-04a186ad63205992","Google Sans Code-04a186ad63205992 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>How Arduino really builds a sketch? | Kate Zalevska</title><meta name="title" content="How Arduino really builds a sketch? | Kate Zalevska"><meta name="description" content="Understand how Arduino builds a sketch. This guide breaks down the process of preprocessing, compiling, and linking in a easy-to-understand way."><meta name="author" content="embeddedk8"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:title" content="How Arduino really builds a sketch? | Kate Zalevska"><meta property="og:description" content="Understand how Arduino builds a sketch. This guide breaks down the process of preprocessing, compiling, and linking in a easy-to-understand way."><meta property="og:url" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/"><meta property="og:image" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2025-09-13T07:58:26.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/"><meta property="twitter:title" content="How Arduino really builds a sketch? | Kate Zalevska"><meta property="twitter:description" content="Understand how Arduino builds a sketch. This guide breaks down the process of preprocessing, compiling, and linking in a easy-to-understand way."><meta property="twitter:image" content="https://embeddedk8.com/posts/2025/arduino-ide-build-process/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How Arduino really builds a sketch? | Kate Zalevska","image":"https://embeddedk8.com/posts/2025/arduino-ide-build-process/index.png","datePublished":"2025-09-13T07:58:26.000Z","author":[{"@type":"Person","name":"embeddedk8","url":"https://embeddedk8.com/"}]}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="Kate Zalevska" href="https://embeddedk8.com/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
       (function () {
         const initialColorScheme = ""; // "light" | "dark"
         const currentTheme = localStorage.getItem("theme");
@@ -128,7 +128,7 @@ That’s why I am creating the Arduino Internals series.</p>
 <li>Ubuntu 24.04</li>
 </ul>
 <p>If you’re using a different board, IDE version, or operating system — don’t worry! You can still follow along. Some details may just look a little different on your setup.</p>
-<h1 id="understanding-arduino-build-process">Understanding Arduino build process</h1>
+<h2 id="understanding-arduino-build-process">Understanding Arduino build process</h2>
 <p>Building an Arduino sketch in the IDE seems as simple as clicking one button, but
 under the hood it performs several important steps — some common to nearly every embedded development environment,
 and others unique to Arduino.</p>
@@ -136,7 +136,7 @@ and others unique to Arduino.</p>
 it’s worth understanding what really happens behind the scenes.
 Once you move beyond Arduino’s friendly abstraction layer,
 you’ll need to know how the build process works — because without it, things may not behave as you expect.</p>
-<h2 id="what-you-will-learn">What you will learn?</h2>
+<h3 id="what-you-will-learn">What you will learn?</h3>
 <p>After reading this article, you will:</p>
 <ul>
 <li>understand the standard build flow in embedded software development,</li>
@@ -144,17 +144,17 @@ you’ll need to know how the build process works — because without it, things
 <li>know where to find the build files, caches, and linked libraries,</li>
 <li>discover what language Arduino sketches are actually written in.</li>
 </ul>
-<h2 id="lets-get-started">Let’s get started!</h2>
+<h3 id="lets-get-started">Let’s get started!</h3>
 <p>Let’s build a sketch together and go step through the build process.
 We’ll pretend we know nothing and analyze the build output to see what the Arduino IDE actually did.</p>
-<h3 id="opening-an-example-sketch">Opening an example sketch</h3>
+<h4 id="opening-an-example-sketch">Opening an example sketch</h4>
 <p>Open the Arduino IDE and select the correct board from <strong>Select Board</strong> menu.
 In my case it’s <strong>Arduino UNO R4 WiFi</strong>.
 Load the Blink example and save the sketch in your sketchbook.</p>
 <p>This example consists of a single file: <code>Blink.ino</code>.
 Files with the <code>.ino</code> extension contain code written in the Arduino language <a href="https://docs.arduino.cc/arduino-cli/sketch-specification/">[1]</a>.
 You may notice there is no <code>main</code> function in this code, yet it still compiles.</p>
-<h3 id="what-exactly-is-arduino-language">What exactly is Arduino language?</h3>
+<h4 id="what-exactly-is-arduino-language">What exactly is Arduino language?</h4>
 <p>According to the <a href="https://docs.arduino.cc/language-reference/#functions">official documentation</a>
 the Arduino language consists of:</p>
 <ul>
@@ -167,19 +167,19 @@ the Arduino language consists of:</p>
 There’s also a brief note mentioning that Arduino is based on C++.
 Well — we’ll see at the end of our investigation, if Arduino language is actually a language…
 or just a C++ in a disguise.</p>
-<h3 id="triggering-the-build">Triggering the build</h3>
+<h4 id="triggering-the-build">Triggering the build</h4>
 <p>We are ready to build this sketch. Click <strong>Verify/Compile</strong> and observe the <strong>Output</strong> window.</p>
 <p><img alt="Arduino IDE doesn&amp;#x27;t say much about compilation steps by default" title="Arduino IDE - default build output" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 1284px) 1284px, 100vw"  data-astro-image="constrained" width="1284" height="748" src="/_astro/arduino-ide-default-output.CwC7N-ZM_Z1UYHLu.webp" srcset="/_astro/arduino-ide-default-output.CwC7N-ZM_ZsLM70.webp 640w, /_astro/arduino-ide-default-output.CwC7N-ZM_qF7OB.webp 750w, /_astro/arduino-ide-default-output.CwC7N-ZM_PsPC3.webp 828w, /_astro/arduino-ide-default-output.CwC7N-ZM_Zd4jAp.webp 1080w, /_astro/arduino-ide-default-output.CwC7N-ZM_1Bipxr.webp 1280w, /_astro/arduino-ide-default-output.CwC7N-ZM_Z1UYHLu.webp 1284w"></p>
 <p>It looks like the sketch has been built successfully and is ready to upload to the board.
 You only see two lines of output because the Arduino IDE hides most of the build details by default.</p>
-<h3 id="enabling-verbose-output">Enabling verbose output</h3>
+<h4 id="enabling-verbose-output">Enabling verbose output</h4>
 <p>To understand the build process better we need to enable the <strong>verbose output</strong> in IDE.
 To do so, go to <strong>File → Preferences</strong> and check <strong>Show verbose output</strong> setting for both compiling and upload. When you compile again,
 the output will be complete.
 Let’s read it line by line.
 <br></p>
 <p><img alt="Verbose compilation output in Arduino IDE" title="Arduino IDE - verbose build output" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 1280px) 1280px, 100vw"  data-astro-image="constrained" width="1280" height="749" src="/_astro/arduino-ide-verbose-output.CXQb6WJY_Zjt9XI.webp" srcset="/_astro/arduino-ide-verbose-output.CXQb6WJY_1IYNqA.webp 640w, /_astro/arduino-ide-verbose-output.CXQb6WJY_Z2qJpqJ.webp 750w, /_astro/arduino-ide-verbose-output.CXQb6WJY_Z2aqWUU.webp 828w, /_astro/arduino-ide-verbose-output.CXQb6WJY_Z1hh8si.webp 1080w, /_astro/arduino-ide-verbose-output.CXQb6WJY_Zjt9XI.webp 1280w"></p>
-<h2 id="board-and-package-identification">Board and package identification</h2>
+<h3 id="board-and-package-identification">Board and package identification</h3>
 <p>In embedded software development, the compilation process is always target-dependent.
 Each hardware architecture — such as ARM or AVR — requires its own dedicated <a href="https://en.wikipedia.org/wiki/Cross_compiler">cross-compilation</a> toolchain.
 In addition, the appropriate version of the hardware libraries must be selected and linked.
@@ -197,7 +197,7 @@ This ensures that the compiled code will match the board’s architecture, hardw
 </ul>
 <p>If you choose wrong board, the code may compile but fail at runtime, or compilation may fail.</p>
 <p>Error <code>Compilation error: Missing FQBN (Fully Qualified Board Name)</code> means you have not selected any board from menu.</p>
-<h2 id="arduino-specific-directories">Arduino specific directories</h2>
+<h3 id="arduino-specific-directories">Arduino specific directories</h3>
 <p>In a typical embedded development environment, the build process produces various artifacts
 (object files, binaries, maps, etc.), which are stored in a user-defined or default build directory.
 Knowing where these artifacts are located allows developers to:</p>
@@ -210,7 +210,7 @@ Knowing where these artifacts are located allows developers to:</p>
 <p>In Arduino, location of build artifacts and used libraries is not immediately obvious, since these files are
 placed in several hidden directories. However, their locations can be found
 in the build log. Let’s take a quick look at these directories.</p>
-<h3 id="arduino15-directory">Arduino15 directory</h3>
+<h4 id="arduino15-directory">Arduino15 directory</h4>
 <p><strong>Arduino15</strong> contains, among others:</p>
 <ul>
 <li>installed board packages (cores, board definitions, hardware specific libraries),</li>
@@ -219,12 +219,12 @@ in the build log. Let’s take a quick look at these directories.</p>
 <li>user preferences, customized settings, etc.</li>
 </ul>
 <p>The exact location depends on your operating system <a href="https://support.arduino.cc/hc/en-us/articles/360018448279-Open-the-Arduino15-folder">[1]</a>.</p>
-<h4 id="board-packages">Board packages</h4>
+<h5 id="board-packages">Board packages</h5>
 <p>The build log shows the directory where the target board’s related files are located, for example:</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Using board 'unor4wifi' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1</span></span>
 <span class="line"><span>Using core 'arduino' from platform in folder: /home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.4.1</span></span></code></pre>
 <p>Inside this directory, two files deserve special attention: <strong>boards.txt</strong> and <strong>platform.txt</strong>.</p>
-<h5 id="boardstxt">boards.txt</h5>
+<h6 id="boardstxt">boards.txt</h6>
 <p>The <a href="https://arduino.github.io/arduino-cli/1.3/platform-specification/#boardstxt">boards.txt</a> file lists all boards supported by this platform.
 Each board has its own section with key-value pairs that define how to compile, upload, and debug for that target.</p>
 <p>Here’s the entry for the <strong>Arduino UNO R4 WiFi</strong>:</p>
@@ -247,7 +247,7 @@ Each board has its own section with key-value pairs that define how to compile, 
 the correct toolchain, compiler flags (such as MCU type and clock speed) and upload tool are selected automatically.</p>
 <p>Advanced users may feel need to modify the <em>boards.txt</em> contents, to i.e. add new board or customize some build options.
 Just remember that such changes will be lost after Arduino IDE update!</p>
-<h5 id="platformtxt">platform.txt</h5>
+<h6 id="platformtxt">platform.txt</h6>
 <p>Another important file is <a href="https://arduino.github.io/arduino-cli/1.3/platform-specification/#platformtxt">platform.txt</a>.
 This file defines the command patterns (recipes) that tell Arduino exactly how to compile,
 link, and package a sketch for a specific platform.</p>
@@ -266,7 +266,7 @@ The arduino-cli tool expands and executes the command patterns defined in <em>pl
 For example, the recipe for compiling a C source file is as follows:</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>## Compile c files</span></span>
 <span class="line"><span>recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DARDUINO_ARCH_RENESAS -DARDUINO_FSP -D_XOPEN_SOURCE=700 {compiler.fsp.cflags} {compiler.tinyusb.cflags} {compiler.c.extra_flags} {build.extra_flags} {tinyusb.includes} "-I{build.core.path}/api/deprecated" "-I{build.core.path}/api/deprecated-avr-comp" {includes} "-iprefix{runtime.platform.path}" "@{compiler.fsp.includes}" -o "{object_file}" "{source_file}"</span></span></code></pre>
-<h4 id="toolchains">Toolchains</h4>
+<h5 id="toolchains">Toolchains</h5>
 <p>Inside the <strong>Arduino15</strong>’s tools directory, you will also find the cross-compilation toolchains
 used to build sketches for different microcontroller architectures.</p>
 <p>In my setup, two toolchains are installed:</p>
@@ -287,7 +287,7 @@ we need a cross-compilation toolchain:
 compiler tools that are able to produce binaries for a
 different architecture than the one running the compiler.</p>
 <p>Most Arduino boards use either ARM or AVR architectures, which is why you’ll find these two toolchains installed in the Arduino15 directory.</p>
-<h4 id="arduino-core">Arduino core</h4>
+<h5 id="arduino-core">Arduino core</h5>
 <p>The <strong>Arduino core</strong> directory provides the hardware-specific implementation of core Arduino functions.</p>
 <p>It is located in the <code>cores</code> subdirectory of your board package, for example:</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>.arduino15/packages/arduino/hardware/renesas_uno/1.4.1/cores/</span></span></code></pre>
@@ -300,7 +300,7 @@ tailored to the hardware and peripherals.</p>
 <li>implementation of interrupts, UART communication, timing functions like <code>delay</code> and other low-level routines.</li>
 </ul>
 <p>Open the <code>main.cpp</code> and browse the logic that Arduino is adding around the code you implemented in the sketch.</p>
-<h3 id="build-directory">Build directory</h3>
+<h4 id="build-directory">Build directory</h4>
 <p>When you compile a sketch, the build artifacts (i.e. intermediate object files) are not stored
 in the same directory as your source code. It would make a mess inside your sketch folder,
 or even made conflicts when building the same sketch for different boards.</p>
@@ -342,19 +342,19 @@ In some cases, you may want to move the <strong>Arduino15 folder</strong> —  f
 </li>
 </ol>
 <p>We already discussed board identification and the Arduino specific directories. Let’s move to actual build process.</p>
-<h2 id="general-embedded-software-build-process">General embedded software build process</h2>
+<h3 id="general-embedded-software-build-process">General embedded software build process</h3>
 <p>At a high level, the Arduino build process is essentially a C++ build process adapted
 for embedded targets, and with some Arduino specific features. The general C/C++ build pipeline is presented below:</p>
 <p><img alt="General C/C++ build process" title="General C/C++ build process" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 1092px) 1092px, 100vw"  data-astro-image="constrained" width="1092" height="542" src="/_astro/general-c-build-process.DZU2a6vk_PzQ39.webp" srcset="/_astro/general-c-build-process.DZU2a6vk_1UpnwU.webp 640w, /_astro/general-c-build-process.DZU2a6vk_Z1AG40Y.webp 750w, /_astro/general-c-build-process.DZU2a6vk_1T8Nuk.webp 828w, /_astro/general-c-build-process.DZU2a6vk_SsulL.webp 1080w, /_astro/general-c-build-process.DZU2a6vk_PzQ39.webp 1092w"></p>
 <p>Now, let’s go through each stage and see how Arduino adapts the standard C/C++ build process for embedded targets.</p>
-<h2 id="preprocessing">Preprocessing</h2>
+<h3 id="preprocessing">Preprocessing</h3>
 <p>The first phase of every C/C++ program build is preprocessing.
 In general, preprocessor expands macros like <code>#include</code>, <code>#define</code>, and conditional compilation (<code>#if</code>, <code>#ifdef</code>, etc.).
 The output is an expanded source file.
 In Arduino, some additional steps are added around preprocessing stage.</p>
-<h3 id="concatenating-ino-files">Concatenating .ino files</h3>
+<h4 id="concatenating-ino-files">Concatenating .ino files</h4>
 <p>If the sketch contains of multiple <code>.ino</code> files, they are first concatenated into a single <code>.cpp</code> file.</p>
-<h3 id="detecting-libraries-used">Detecting libraries used</h3>
+<h4 id="detecting-libraries-used">Detecting libraries used</h4>
 <p>Arduino uses a special build recipe (<code>recipe.preproc.macros</code> <a href="https://docs.arduino.cc/arduino-cli/platform-specification/">[1]</a>)
 to detect which libraries are required by your sketch.
 During this step, the preprocessor scans the sketch for <code>#include</code> directives that reference library header files.
@@ -369,7 +369,7 @@ it expands all macros and headers, then stops before compiling or assembling any
 That’s why the build output doesn’t show anything under <em>Detecting libraries used…</em>.
 But if you open other example sketches, such as those from <strong>WiFiS3</strong> or <strong>EEPROM</strong>,
 you’ll see how more complex projects trigger detection of multiple libraries.</p>
-<h3 id="generating-function-prototypes">Generating function prototypes</h3>
+<h4 id="generating-function-prototypes">Generating function prototypes</h4>
 <p>The next stage in the build process is automatic function prototype generation. In C or C++, each function must be
 either defined or declared before it’s called. In Arduino, you don’t need to worry about that — you can write functions
 in any order, without adding their prototypes. How does it work? Arduino generates these prototypes for you!</p>
@@ -443,11 +443,11 @@ you can see this file inside your sketch’s hidden cache.</p>
 all <code>#include</code> directives are replaced with the contents of the included files,
 all <code>#defines</code> macros are expanded, and the result
 is one fully expanded source file ready for compilation.</p>
-<h2 id="compilation">Compilation</h2>
+<h3 id="compilation">Compilation</h3>
 <p>Compilation is where your code is translated into the low-level machine instructions that
 the microcontroller can actually execute.
 In other words, your human-readable program becomes something the hardware understands.</p>
-<h3 id="sketch-compilation">Sketch compilation</h3>
+<h4 id="sketch-compilation">Sketch compilation</h4>
 <p>During this step, the compiler finalizes preprocessing (the standard C/C++ preprocessing that
 was not yet performed), checks your code for syntax errors and converts it
 into the object code that can be linked with libraries later.</p>
@@ -478,14 +478,14 @@ Arduino IDE is so simple that it doesn’t offer this option: you don’t get a 
 </ul>
 <p>At this point, your sketch has been turned into machine code, stored in <code>MyBlink.ino.cpp.o</code>.
 This file contains your <code>setup()</code> and <code>loop()</code> code, ready to be linked with the Arduino core and libraries in the next step.</p>
-<h3 id="compiling-libraries">Compiling libraries</h3>
+<h4 id="compiling-libraries">Compiling libraries</h4>
 <p>All libraries, that were marked as required, are compiled now.</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="cpp"><code><span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">Compiling libraries...</span></span></code></pre>
 <p>For the Blink sketch this step is empty. In the previous phase (<em>Detecting libraries used</em>) no additional libraries were found.
 Blink only relies on core Arduino functions such as <code>pinMode</code>, <code>digitalWrite</code>, and <code>delay</code>, which are part of the board core, not separate libraries.</p>
 <p>In more advanced sketches the output looks different.
 For example, in <strong>WiFiS3/ConnectWithWPA</strong> the <strong>WiFiS3</strong> library is detected and its source files are compiled here.</p>
-<h3 id="compiling-core">Compiling core</h3>
+<h4 id="compiling-core">Compiling core</h4>
 <p>All needed core objects are compiled.</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">Compiling</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> core...</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">Using</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> previously</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> compiled</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> file:</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> /home/kate/.cache/arduino/sketches/D7CC1D7CA645BCFE67207C07A05B3A2A/core/tmp_gen_c_files/pin_data.c.o</span></span>
@@ -496,7 +496,7 @@ For example, in <strong>WiFiS3/ConnectWithWPA</strong> the <strong>WiFiS3</stron
 <p>The core is the foundation of every Arduino program (we discussed it in <a href="#arduino-core">Arduino core</a> chapter).
 Instead of recompiling the same core files every time you build,
 the Arduino IDE uses precompiled objects from a cache to speed up the compilation.</p>
-<h2 id="linking">Linking</h2>
+<h3 id="linking">Linking</h3>
 <p>Once all the individual files are compiled, the Arduino build system needs to link them into a single program.
 I shortened the link command to present only the most important stuff:</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">arm-none-eabi-g++</span><span style="--shiki-light:#24292EFF;--shiki-dark:#F78C6C"> \</span></span>
@@ -522,17 +522,17 @@ They are not optional user libraries, so they don’t appear in the detection ph
 <li><code>-lgcc</code> → helper routines from GCC itself,</li>
 <li><code>-lnosys</code> → stubs for system calls.</li>
 </ul>
-<h2 id="finalizing-build">Finalizing build</h2>
+<h3 id="finalizing-build">Finalizing build</h3>
 <p>Build is ready! Arduino will perform two more steps before finishing the process.</p>
-<h3 id="creating-binary-and-hex-files">Creating binary and hex files</h3>
+<h4 id="creating-binary-and-hex-files">Creating binary and hex files</h4>
 <p>After the ELF file (<code>MyBlink.ino.elf</code>) is created, the build system uses <code>objcopy</code> to generate <code>hex</code> and <code>bin</code> formats:</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">arm-none-eabi-objcopy</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -O</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> binary</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -j</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> .text</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -j</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> .data</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.elf</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.bin</span></span>
 <span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">arm-none-eabi-objcopy</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -O</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> ihex</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF">   -j</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> .text</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -j</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> .data</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.elf</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.hex</span></span></code></pre>
 <p>Both formats contain the same program, just encoded differently for different flashing tools.</p>
-<h3 id="measuring-the-program-size">Measuring the program size</h3>
+<h4 id="measuring-the-program-size">Measuring the program size</h4>
 <p>Finally, the build system reports memory usage with <code>arm-none-eabi-size</code>:</p>
 <pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="bash"><code><span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">arm-none-eabi-size</span><span style="--shiki-light:#2B5581;--shiki-dark:#82AAFF"> -A</span><span style="--shiki-light:#2B5581;--shiki-dark:#ECC48D"> MyBlink.ino.elf</span></span></code></pre>
-<h3 id="cleaning-the-build">Cleaning the build</h3>
+<h4 id="cleaning-the-build">Cleaning the build</h4>
 <p>Unfortunately, Arduino IDE does not offer the <code>Clean build</code> or <code>Force rebuild</code> option (<a href="https://forum.arduino.cc/t/feature-request-clean-build-option/1291789">[1]</a>,
 <a href="https://forum.arduino.cc/t/can-i-force-the-arduino-ide-to-recompile-everything/866547">[2]</a>,
 <a href="https://github.com/arduino/arduino-ide/issues/419">[3]</a>). The workaround for it is to manually delete the cached build directories we mentioned earlier.</p>
@@ -611,13 +611,13 @@ Back To Top
   var sc_project = 13166912;
   var sc_invisible = 1;
   var sc_security = "b5be05e2";
-</script> <script src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13166912/0/b5be05e2/1/" alt="Web Analytics" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-WMKZ5G9QL5"></script><script>
+</script> <script src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13166912/0/b5be05e2/1/" alt="Web Analytics" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript><!-- Google tag (gtag.js) --><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-WMKZ5G9QL5');
-</script><!-- 100% privacy-first analytics --><script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script> </body></html> <script data-astro-rerun>
+</script> </body></html> <script data-astro-rerun>
   /** Create a progress indicator
    *  at the top */
   function createProgressBar() {
