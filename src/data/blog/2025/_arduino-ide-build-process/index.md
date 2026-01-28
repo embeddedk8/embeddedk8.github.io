@@ -293,7 +293,7 @@ If you open this folder, you’ll see the build artifacts, including:
 - final binaries (`.bin`, `.hex`, `.elf`).
 
 
-Exporting Compiled Binary
+#### Exporting Compiled Binary
 If you want to have the compiled binaries in your sketch folder, click **Sketch → Export Compiled Binary** option from Arduino IDE menu. 
 This will build your sketch and place a copy of the `.hex`, `.bin`, `.elf` and `.map` inside the sketch sources 
 folder so it’s easy to find later.
