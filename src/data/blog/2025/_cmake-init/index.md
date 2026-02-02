@@ -1,6 +1,6 @@
 ---
 weight: 2
-title: "Perfect C/C++ project template doesn’t exist"
+title: "cmake-init: the best way to initialize C and C++ projects"
 pubDatetime: 2025-12-20T15:58:26+08:00
 draft: false
 pubDate: 'Dec 20 2025'
