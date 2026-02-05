@@ -8,7 +8,9 @@ slug: 'first-bazel-build'
 ---
 
 I've heard a lot about Bazel build system recently and wanted to see how hard it is to use it without any prior experience.
-Bazel is said to be totally different from CMake and Make, both of which I've used before. Some things that look interesting for me are:
+Bazel is said to be totally different from CMake and Make, both of which I've used before for C and C++ project (mostly for embedded devices). 
+
+Some things that look interesting for me are:
 
 - **Hermeticity**
 
@@ -16,14 +18,15 @@ Bazel promises that the builds are [hermetic](https://bazel.build/basics/hermeti
 regardless of host environment,
 because it will not use any libraries or other software installed on compiling machine.
 I've personally experienced issues of non-hermetic builds when using CMake or Make -- for example when newer GCC failed compilation,
-while older one passed, or when linked GLIBC differed across hosts.
+while older one passed, or when linked GLIBC differed across hosts. 
 
 
 Complaints:
 
 - I saw many rants saying Bazel is too complicated and hard to use (like [Bazel is ruining my life](https://www.reddit.com/r/devops/comments/1c2g3s4/bazel_is_ruining_my_life/))
-ore quite misterious to me [I hate Bazel. A build system for C/C++ should not require a Java JVM. Please keep Java out of microcontroller ecosystem please.](https://news.ycombinator.com/item?id=41196123)
+or [I hate Bazel. A build system for C/C++ should not require a Java JVM. Please keep Java out of microcontroller ecosystem please.](https://news.ycombinator.com/item?id=41196123)
   (Of course I agree to this one! Does C++ Bazel really requires JVM?)
+- Starting basic new project took ~1 day with troubleshooting, while it would take a minute when using Make
 
 ## First look on bazel.build
 
@@ -281,3 +284,6 @@ Ok, it will be it for now. It was not too hard to start without any AI usage. Ac
 
 
 
+## Further reading
+[Tools for embedded/bare-metal development using bazel](https://github.com/bazelembedded/bazel-embedded)
+[Bazel Build System for Embedded Projects | Interrupt by Memfault](https://interrupt.memfault.com/blog/bazel-build-system-for-embedded-projects)

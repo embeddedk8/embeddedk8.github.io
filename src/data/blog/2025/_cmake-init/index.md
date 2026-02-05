@@ -1,6 +1,6 @@
 ---
 weight: 2
-title: "cmake-init: the best way to initialize C and C++ projects"
+title: "Cmake-init as a best way to initialize C and C++ projects"
 pubDatetime: 2025-12-20T15:58:26+08:00
 draft: false
 pubDate: 'Dec 20 2025'
