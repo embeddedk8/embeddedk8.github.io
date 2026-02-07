@@ -1,12 +1,12 @@
 ---
 weight: 2
-title: "How Arduino really builds a sketch?"
+title: "Unmasking Arduino: what happens when Arduino builds a sketch"
 pubDatetime: 2025-09-13T15:58:26+08:00
 draft: false
 pubDate: 'Sep 13 2025'
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Understand how Arduino builds a sketch. This guide breaks down the process of preprocessing, compiling, and linking in a easy-to-understand way."
+description: "Stop treating Arduino as a black box and understand how Arduino builds a sketch. This guide breaks down the process of preprocessing, compiling, and linking with the Arduino-specific steps."
 images: []
 slug: "arduino-ide-build-process"
 resources:
@@ -30,8 +30,8 @@ about whether Arduino is a good choice for that (like "*Is there anything wrong 
 [[1]](https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/), 
 [[2]](https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/) ). 
 
-While the list of arguments from Arduino "opponents" is quite long — and some of their points are completely reasonable 
-— I want to prove that you can learn just as much with Arduino as with any other embedded platform,
+While the list of arguments from Arduino "opponents" is quite long -- and some of their points are completely reasonable 
+-- I want to prove that you can learn just as much with Arduino as with any other embedded platform,
 as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.
 That's why I am creating the Arduino Internals series.
 
@@ -47,12 +47,13 @@ I assume you already know how to compile and flash an Arduino board with the Ard
 - Arduino IDE  2.3.6
 - Ubuntu 24.04
 
-If you’re using a different board, IDE version, or operating system — don’t worry! You can still follow along. Some details may just look a little different on your setup.
+If you’re using a different board, IDE version, or operating system -- don’t worry! 
+You can still follow along. Some details may just look a little different on your setup.
 
 
 ## Understanding Arduino build process
-Building an Arduino sketch in the IDE seems as simple as clicking one button, but
-under the hood it performs several important steps — some common to nearly every embedded development environment,
+Building an Arduino sketch in the IDE is as simple as clicking one button, but
+under the hood it performs several important steps. Some are common to nearly every embedded development environment,
 and others unique to Arduino.
 
 This simplicity is great for beginners, but if you want to take embedded systems seriously, 

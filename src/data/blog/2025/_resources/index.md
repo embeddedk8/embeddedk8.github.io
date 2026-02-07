@@ -40,6 +40,7 @@ It’s still small, but I’ll keep expanding it over time. 😄
 📝 [A Compiler Writing Journey](https://github.com/DoctorWkt/acwj/tree/master)
 
 **Embedded**  
+🎬 [Embedded System Project Series | Artful Bytes](https://www.youtube.com/watch?v=g9KbXJydf8I&list=PLS_iNJJVTtiRV0DZRDcTHnvAuDrKGPN40)  
 📝 [Don't use Arduino for professional work](https://embedded.fm/blog/2017/8/12/dont-use-arduino-for-professional-work)  
 📝 [Bare metal programming guide](https://github.com/cpq/bare-metal-programming-guide)
 
