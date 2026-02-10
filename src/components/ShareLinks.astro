@@ -9,17 +9,30 @@ const URL = Astro.url;
   SHARE_LINKS.length > 0 && (
     <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start">
       <span class="italic">Share this post on:</span>
-      <div class="text-center">
-        {SHARE_LINKS.map(social => (
-          <LinkButton
-            href={`${social.href + URL}`}
-            class="scale-90 p-2 hover:rotate-6 sm:p-1"
-            title={social.linkTitle}
-          >
-            <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
-            <span class="sr-only">{social.linkTitle}</span>
-          </LinkButton>
-        ))}
+      <div class="flex flex-wrap items-center justify-center gap-2 md:justify-start">
+        <div class="text-center">
+          {SHARE_LINKS.map(social => (
+            <LinkButton
+              href={`${social.href + URL}`}
+              class="scale-90 p-2 hover:rotate-6 sm:p-1"
+              title={social.linkTitle}
+            >
+              <social.icon class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110" />
+              <span class="sr-only">{social.linkTitle}</span>
+            </LinkButton>
+          ))}
+        </div>
+        <div class="hidden h-6 w-px bg-skin-line sm:block" />
+        <LinkButton
+          href="https://disassembled.substack.com/subscribe"
+          class="rounded-md border border-skin-line px-3 py-1.5 text-sm hover:bg-skin-accent hover:text-skin-inverted"
+          title="Subscribe to Newsletter"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="inline-block size-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Newsletter
+        </LinkButton>
       </div>
     </div>
   )

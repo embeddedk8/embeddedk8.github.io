@@ -10,14 +10,10 @@ I believe that writing about stuff leads to better understanding of the topic an
 encourages to fill the knowledge gaps. I also hope that you will find here something useful for you.
 
 Some facts about me:
+- I work as Embedded Software Engineer since 2013,
 - I completed my Master's in Electronics Engineering in 2014,
-- I work since 2013 as Embedded Software Engineer,
 - I have worked on wide variety of products: automotive infotainment systems,
-3G cellular base stations, smart home appliances and IoT security products.
+telco base stations, smart home appliances and IoT security products.
 
-If you want to connect, use the social icons from the footer.
-
-
-
-
+If you want to connect, use the social icons from the footer, or join my [Newsletter](https://disassembled.substack.com/subscribe).
 
