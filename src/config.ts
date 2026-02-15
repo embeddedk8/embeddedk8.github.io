@@ -1,9 +1,9 @@
 export const SITE = {
   website: "https://www.embeddedk8.com/", // replace this with your deployed domain
-  author: "Kate Zalevska",
+  author: "Kasia Zalewska",
   profile: "https://www.embeddedk8.com/",
   desc: "My blog about embedded systems. Personal thoughts, experiments, and notes on RTOS, ARM microcontrollers, and programming",
-  title: "Kate Zalevska",
+  title: "Kasia Zalewska",
   ogImage: "ov.png",
   lightAndDarkMode: true,
   postPerIndex: 4,

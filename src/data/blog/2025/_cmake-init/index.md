@@ -24,7 +24,7 @@ When I was starting new C or C++ projects, my usual approach was either googling
 or just building a fresh project from scratch: like set up directories, add initial source files and write a simple CMake.
 After that, the project structure would evolve naturally as I added tests, CI/CD, and other features.
 
-I won’t lie — this setup used to take a large chunk of my time, 
+This setup used to take a large chunk of my time, 
 and sometimes configuring additional quality tools felt like a real challenge. 
 Yet, I had never heard of any real shortcuts beyond reusing my old templates.
 
@@ -89,9 +89,54 @@ install `cmake-init` inside it. My project didn't need python virtual environmen
 you only need to run `cmake-init` once, so it's not a big cost for what you get.
 
 ```
-pip install cmake-init
+python -m venv myenv
 source myenv/bin/activate
 pip install cmake-init
 ```
 
+Then, to initialize project, simply call:
+```
+cmake-init <root path of your project>
+```
+
+If you want to migrate existing project to a new structure, add `--overwrite` (it won't migrate your code, 
+but new directories and CMakeLists.txt file will be created.
+You need to move your sources and update CMakeLists.txt yourself):
+```
+cmake-init <path> --overwrite
+```
+
+After the project is initialized, check the created `BUILDING.md` for build instructions.
+
+## Formatter failures
+
+Now, your project is tested on CI/CD automatically. If you enabled linter, and linter finds some files are wrongly formatted, you need to fix it locally.
+For this purpose, you need to install the proper `clang-format`. In failure message, in my project I see:
+```
+Run cmake -D FORMAT_COMMAND=clang-format-18 -P cmake/lint.cmake
+cmake -D FORMAT_COMMAND=clang-format-18 -P cmake/lint.cmake
+The following files are badly formatted:
+...
+
+CMake Error at cmake/lint.cmake:50 (message):
+Run again with FIX=YES to fix these files.
+```
+
+If you don't have it installed yet, first install proper formatter:
+```
+sudo apt install clang-format-18
+```
+
+and run it locally with suggested flag `-D FIX=YES` (check YOUR original command in CI/CD, as it may differ among versions):
+
+```
+cmake -D FORMAT_COMMAND=clang-format-18 -D FIX=YES -P cmake/lint.cmake
+```
+Now, files are automatically reformatted. You can review the changes and push.
+
+## Sanitizers jobs
+
+Watch the output of sanitizers jobs. Warnings are not failing the job, and have important insights.
+
+## Example project
 The new project created with `cmake-init` is here: [mini_armv6_emulator](https://github.com/embeddedk8/mini_armv6_emulator).

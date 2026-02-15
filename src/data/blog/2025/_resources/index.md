@@ -34,6 +34,7 @@ It’s still small, but I’ll keep expanding it over time. 😄
 
 **Operating systems**  
 📖 [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/) *Best intro to operating systems*  
+📝 [A fork() in the road](https://www.microsoft.com/en-us/research/wp-content/uploads/2019/04/fork-hotos19.pdf) *Why fork() is bad and what can be used instead*    
 🎬  [Introduction to Zephyr by Shawn Hymel](https://youtu.be/mTJ_vKlMS_4?si=oqMZG-03SOffOhuX)
 
 **Compilers**  
