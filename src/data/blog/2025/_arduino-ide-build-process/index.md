@@ -23,6 +23,9 @@ math:
   enable: true
 ---
 
+## Table of contents
+
+## Unmasking Arduino Series
 
 Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online 
 about whether Arduino is a good choice for that (like "*Is there anything wrong with Arduino?*",
