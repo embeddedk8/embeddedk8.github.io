@@ -1,12 +1,13 @@
 ---
 weight: 2
-title: "How to Blink an LED on Arduino without `digitalWrite()`"
+title: "Blinking an LED on Arduino Uno R4 using direct register access"
 slug: 'arduino-blink-led-without-digitalwrite'
-pubDatetime: 2026-12-22T15:58:26+08:00
+pubDatetime: 2026-02-18T15:58:26+08:00
+modDatetime: 2026-02-18T15:58:26+08:00
 draft: true
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Learn how to blink an LED on Arduino without digitalWrite. Control GPIO directly using registers and datasheet knowledge."
+description: "Skip Arduino libraries and blink an LED on Arduino Uno R4 using direct registers access. We'll read RA4M1 datasheet and configure and configure a GPIO pin manually."
 images: []
 resources:
 - name: "featured-image"
@@ -20,21 +21,19 @@ math:
     enable: true
 ---
 
-# Arduino way to Blink an LED
+## Table Of Contents
 
-To actually blink an LED on Arduino board (I have Arduino Uno R4 WiFi) all you need to do is to load the Blink example (Examples->Basics->Blink)
-and upload the code to the board. Voila! LED is blinking. Arduino makes it so simply you don't even need to know anything or learn anything.
+## Arduino way to Blink an LED
 
-All the example code is shown below:
+Blinking an LED on Arduino is extremely easy if you use Arduino libraries.
+Let's open Blink example to see the code needed for blinking.
 
 ```
-// the setup function runs once when you press reset or power the board
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
 }
 
-// the loop function runs over and over again forever
 void loop() {
   digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
   delay(1000);                      // wait for a second
@@ -43,21 +42,35 @@ void loop() {
 }
 ```
 
-What this example code is doing?
-1. First, in setup(), it's setting the pin of ID LED_BUILDIN as an output.
-2. In loop(), it's:
-   3. writing to LED_BUILDIN the high state ('1') - turn on LED,
-   4. delay 1s,
-   5. write to LED_BUILDIN the low state ('0') - turn off LED.
+This code is doing two main things needed to blink an LED, or more generally, configure a GPIO as an output pin and set it to high or a low state:
+1. Configure the pin as an output
+```
+   pinMode(LED_BUILTIN, OUTPUT);
+```
 
-## Arduino is hiding real operations from you
+2. Set the pin to high or low state.
+```
+digitalWrite(LED_BUILTIN, HIGH | LOW);
+```
 
-Let's try forget we have the Arduino API pinMode, digitalWrite and LED_BUILTIN definition and let's try to rewrite it the baremetal style.
+This code will work on any Arduino board, because the Arduino libraries will handle the hardware differences, which is pretty convenient.
+But the drawback is that at the same time they are hiding all interesting stuff that is going on under the hood.
+You can be an Arduino user who can blink an LED and everything, but still don't understand what is going on in the hardware.
+If you want to make a step further into real embedded programming, read on! We'll try to do the same thing, but without using Arduino libraries, by reading Arduino
+and CPU datasheets and configuring the GPIO pin manually.
 
-Please note even without these functions, Arduino is still preparing setup for us, in methods called even before our setup is called.
-So it's not yet real baremetal - only the blink part is.
+Our goal will be to do the blinking without using `pinMode` and `digitalWrite` functions. 
+For simplicity of this example, we will still use the Arduino sketch, the default Arduino setup, which is executed even before our `setup()` is called,
+and `delay()` function, which is not the main focus of this post.
 
-## GPIO Basics
+*So this is not a bare-metal yet, but we will be approach it :)*
+
+## Which LED is it? First look into datasheet
+
+Let's keep to our `LED_BUILTIN` LED, but without using the `LED_BUILTIN` macro. Let's do it like real engineers and check the pinout in [Arduino UNO R4 WiFi datasheet](https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf).
+
+![Arduino Uno R4 WiFi Pinout](@/assets/images/arduino-blink-led/pinout.png "Arduino Uno R4 WiFi Pinout, source: Arduino UNO R4 WiFi datasheet")
+*Source: https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf*
 
 To understand the undercovers of Blink LED example, let's refresh the GPIO handling in embedded.
 
@@ -67,6 +80,9 @@ First, we need to know what PIN is responsible for our LED (LED_BUILTIN).
 We don't want to use LED_BUILTIN macro.
 
 Open the pinout page and try to locate the LED. It's also marked as LED_BUILTIN so things are clear. It gets signal from P102 pin.
+
+![Arduino Uno R4 WiFi Pinout](@/assets/images/arduino-github-actions-with-wokwi/github-secret.png "Adding a secret to Github repository")
+
 
 ## Set P102 as digital output
 
@@ -85,7 +101,26 @@ To specify the I/O pin functions:
 7. Set 1 to the B0WI bit in the PWPR register. This disables writing to the PFSWE bit in the PWPR register.
 ```
 
+(source: https://edm.eeworld.com.cn/ra4m1-Users_Manual_Hardware.pdf)
 
+
+Ok, let's do it slowly.
+
+1. Clear the B0WI bit in the PWPR register. This enables writing to the PFSWE bit in the PWPR register.
+
+How to get address of PWPR register? How to get the bit number of BOWI bit?
+
+In above manual, let's look for PWPR register (simply by search for PWPR string). It's described in a section 19.2.6 Write-Protect Register (PWPR).
+Address(es): PMISC.PWPR 40040D03h
+BOWI bit is bit 7 of this register.
+
+So, to clear BOWI bit we need to write '0' to bit 7 of address 40040D03h.
+
+PWPR &= ~(1 << 7);
+
+PWPR |= (1 << 6);
+
+/home/kate/.arduino15/packages/arduino/hardware/renesas_uno/1.5.1/variants/UNOWIFIR4/includes/ra/fsp/src/bsp/cmsis/Device/RENESAS/Include
 
 // Check datasheet
 // https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf
