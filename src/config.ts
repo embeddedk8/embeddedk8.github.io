@@ -6,10 +6,10 @@ export const SITE = {
   title: "Kasia Zalewska",
   ogImage: "ov.png",
   lightAndDarkMode: true,
-  postPerIndex: 4,
-  postPerPage: 4,
+  postPerIndex: 5,
+  postPerPage: 20,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
-  showArchives: false,
+  showArchives: true,
   showBackButton: true, // show back button in post detail
   editPost: {
     enabled: false,
