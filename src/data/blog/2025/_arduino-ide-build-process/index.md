@@ -1,7 +1,8 @@
 ---
 weight: 2
-title: "Unmasking Arduino: what happens when Arduino builds a sketch"
+title: "Understanding the Arduino build process: from a sketch to a binary"
 pubDatetime: 2025-09-13T15:58:26+08:00
+modDatetime: 2026-02-20T15:58:26+08:00
 draft: false
 pubDate: 'Sep 13 2025'
 author: "embeddedk8"
@@ -23,10 +24,21 @@ math:
   enable: true
 ---
 
+<div class="border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 p-4 my-6 rounded-r-md">
+  <span class="text-slate-700 dark:text-slate-200">
+    📚 This post is part of the 
+    <a href="https://www.embeddedk8.com/posts/2025/arduino-the-hard-way/" 
+       class="font-bold text-indigo-700 dark:text-indigo-300 hover:underline">
+       Arduino the Hard Way
+    </a> 
+    series
+  </span>
+</div>
+
 ## Table of contents
 
-
 ## Understanding Arduino build process
+
 Building an Arduino sketch in the IDE is as simple as clicking one button, but
 under the hood it performs several important steps. Some are common to nearly every embedded development environment,
 and others unique to Arduino.
