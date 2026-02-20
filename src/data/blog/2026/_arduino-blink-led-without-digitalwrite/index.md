@@ -2,8 +2,8 @@
 weight: 2
 title: "Blinking an LED on Arduino Uno R4 using direct register access"
 slug: 'arduino-blink-led-without-digitalwrite'
-pubDatetime: 2026-02-18T15:58:26+08:00
-modDatetime: 2026-02-18T15:58:26+08:00
+pubDatetime: 2026-02-20T15:58:26+08:00
+modDatetime: 2026-02-20T15:58:26+08:00
 draft: true
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
@@ -25,10 +25,13 @@ math:
 
 ## Arduino way to Blink an LED
 
-Blinking an LED on Arduino is extremely easy if you use Arduino libraries.
+Blinking an LED on Arduino is extremely easy if you use Arduino libraries. In this post, we will make the first step to leave the kindergarten. ;)
+
+![Arduino Uno R4 WiFi Blink LED](@/assets/images/arduino-blink-led/blink.gif "Arduino Uno R4 WiFi Blink LED")
+
 Let's open Blink example to see the code needed for blinking.
 
-```
+```cpp
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
@@ -42,52 +45,47 @@ void loop() {
 }
 ```
 
-This code is doing two main things needed to blink an LED, or more generally, configure a GPIO as an output pin and set it to high or a low state:
-1. Configure the pin as an output
-```
-   pinMode(LED_BUILTIN, OUTPUT);
-```
-
+This code is doing two main things needed to blink an LED:
+1. Configure the GPIO pin as an output,
 2. Set the pin to high or low state.
-```
-digitalWrite(LED_BUILTIN, HIGH | LOW);
-```
 
-This code will work on any Arduino board, because the Arduino libraries will handle the hardware differences, which is pretty convenient.
+This code will work on any Arduino board, because the Arduino libraries handle the hardware differences, which is pretty convenient.
 But the drawback is that at the same time they are hiding all interesting stuff that is going on under the hood.
 You can be an Arduino user who can blink an LED and everything, but still don't understand what is going on in the hardware.
-If you want to make a step further into real embedded programming, read on! We'll try to do the same thing, but without using Arduino libraries, by reading Arduino
+Additionally, we cannot assess if the implementation of Arduino libraries is efficient or not, and there are often claims about
+the Arduino libraries are having unnecessary overhead, or even implementation issues ([see: Reddit](https://www.reddit.com/r/embedded/comments/mbn7nm/where_are_the_bad_arduino_libraries/)).
+
+In order to make a step further into real embedded programming, we will to do the same thing, but without using Arduino libraries, by reading Arduino
 and CPU datasheets and configuring the GPIO pin manually.
 
 Our goal will be to do the blinking without using `pinMode` and `digitalWrite` functions. 
 For simplicity of this example, we will still use the Arduino sketch, the default Arduino setup, which is executed even before our `setup()` is called,
-and `delay()` function, which is not the main focus of this post.
-
-*So this is not a bare-metal yet, but we will be approach it :)*
+and `delay()` function, which is not the main focus of this post. So this is not a bare-metal yet, but we will be approach it :)
 
 ## Which LED is it? First look into datasheet
 
-Let's keep to our `LED_BUILTIN` LED, but without using the `LED_BUILTIN` macro. Let's do it like real engineers and check the pinout in [Arduino UNO R4 WiFi datasheet](https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf).
+Let's stick to our `LED_BUILTIN` LED, but without using the `LED_BUILTIN` macro. Let's do it like real engineers and check the pinout in [Arduino UNO R4 WiFi datasheet](https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf).
 
 ![Arduino Uno R4 WiFi Pinout](@/assets/images/arduino-blink-led/pinout.png "Arduino Uno R4 WiFi Pinout, source: Arduino UNO R4 WiFi datasheet")
 *Source: https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf*
 
-To understand the undercovers of Blink LED example, let's refresh the GPIO handling in embedded.
+In the pinout diagram wer see that `LED_BUILTIN` is connected to P102 pin of microcontroller. P102 means: PORT 1, PIN 02. This will be our steering pin for blinking the LED.
 
-## Search for LED L in datasheet diagram
+## What microcontroller it is?
 
-First, we need to know what PIN is responsible for our LED (LED_BUILTIN).
-We don't want to use LED_BUILTIN macro.
+Ok, so we know which pin of microcontroller, but we don't know yet which microcontroller it is :). Let's go back to Arduino UNO R4 WiFi datasheet.
+On the first page it gives us the exact microcontroller model: `R7FA4M1AB3CFM#AA0` from a RA4M1 series microcontroller of Renesas. 
+To proceed, we need to look into the technical reference manual of this microcontroller: [Renesas RA4M1 Group User’s Manual: Hardware](https://cdn.sparkfun.com/assets/b/1/d/3/6/RA4M1_Datasheet.pdf).
 
-Open the pinout page and try to locate the LED. It's also marked as LED_BUILTIN so things are clear. It gets signal from P102 pin.
+When you open this manual, you are leaving the friendly Arduino ecosystem, and entering the realms of real embedded systems.
+You will see more than 1400 pages of documentation. Good news is that you don't need to read it all.
+We will only need to dig into the GPIO configuration and usage part.
 
-![Arduino Uno R4 WiFi Pinout](@/assets/images/arduino-github-actions-with-wokwi/github-secret.png "Adding a secret to Github repository")
+## Digging the RA4M1 user manual for GPIO configuration
 
+Jump to the Section `19. I/O Ports` of the manual. Here, everything that is needed for blinking the LED will be described. It's always easiest
+to check for examples or usage notes first. Cited below is the procedure of specifying the pin function, which in our case means configuring the pin as output.
 
-## Set P102 as digital output
-
-The instruction on how to set LED without Arduino libraries will not be in Arduino datasheet - the recommended way of Arduino is to
-use their libraries. Instead, we need to look into the datasheet/user manual of actual CPU that steers the LED.
 ```
 19.5 Usage Notes
 19.5.1 Procedure for Specifying the Pin Functions
@@ -100,7 +98,6 @@ To specify the I/O pin functions:
 6. Clear the PFSWE bit in the PWPR register. This disables writing to the PmnPFS register.
 7. Set 1 to the B0WI bit in the PWPR register. This disables writing to the PFSWE bit in the PWPR register.
 ```
-
 (source: https://edm.eeworld.com.cn/ra4m1-Users_Manual_Hardware.pdf)
 
 

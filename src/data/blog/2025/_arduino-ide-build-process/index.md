@@ -25,34 +25,6 @@ math:
 
 ## Table of contents
 
-## Unmasking Arduino Series
-
-Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online 
-about whether Arduino is a good choice for that (like "*Is there anything wrong with Arduino?*",
-"*Why engineers hate Arduino?*" 
-[[1]](https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/), 
-[[2]](https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/) ). 
-
-While the list of arguments from Arduino "opponents" is quite long -- and some of their points are completely reasonable 
--- I want to prove that you can learn just as much with Arduino as with any other embedded platform,
-as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.
-That's why I am creating the Arduino Internals series.
-
-As a starting point, let’s take a closer look at what happens when you build a sketch in the Arduino IDE.
-
-
-**Assumed knowledge**
-
-I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.
-
-**My setup**
-- Arduino UNO R4 WiFi board
-- Arduino IDE  2.3.6
-- Ubuntu 24.04
-
-If you’re using a different board, IDE version, or operating system -- don’t worry! 
-You can still follow along. Some details may just look a little different on your setup.
-
 
 ## Understanding Arduino build process
 Building an Arduino sketch in the IDE is as simple as clicking one button, but
