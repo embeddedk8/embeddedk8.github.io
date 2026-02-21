@@ -1,12 +1,12 @@
 ---
-title: "Arduino the Hard Way: learning embedded programming beyond Arduino magic"
+title: "Arduino the Hard Way: real embedded programming with Arduino UNO R4"
 slug: 'arduino-the-hard-way'
 pubDatetime: 2025-09-10T15:58:26+08:00
-modDatetime: 2025-09-10T15:58:26+08:00
+modDatetime: 2026-02-21T15:58:26+08:00
 draft: false
 author: "embeddedk8"
-authorLink: "https://embeddedk8.com"
-description: "Learn embedded systems the right way using Arduino UNO R4 WiFi. This series goes beyond the Arduino API to explore real embedded development: toolchains, registers, RTOS, and more."
+authorLink: "https://www.embeddedk8.com"
+description: "Learn embedded systems the right way using Arduino UNO R4. This series goes beyond the Arduino API to explore real embedded development: toolchains, registers, RTOS, and more."
 tags: ["Arduino"]
 ---
 
@@ -17,29 +17,35 @@ about whether Arduino is a good choice for that (like [Is there anything wrong w
 
 While the list of arguments from Arduino "opponents" is quite long -- and some of their points are completely reasonable
 -- you can learn just as much with Arduino as with any other embedded platform,
-as long as you avoid blindly relying on the Arduino API and stay curious to explore what’s happening under the hood.
-That's why I am creating the Arduino the Hard Way series.
+as long as you avoid blindly relying on the Arduino API and instead stay curious to explore what’s happening under the hood.
+That's why I am creating the **Arduino the Hard Way** series. In this context, "The Hard Way" just means 
+that we will go beyond the beginner-friendly Arduino layer and move forward doing things like real embedded engineers :) .
 
-## Assumed knowledge
+## Who is this for?
 
-I assume you already know how to compile and flash an Arduino board with the Arduino IDE, but haven’t yet dived into the internals of the compilation and flashing process.
+This series is for developers and hobbyists who are comfortable writing Arduino sketches and want to go deeper into real embedded systems.
+If you've been using the Arduino API to get things working but feel like you're missing what's actually happening underneath --
+how the code gets compiled, how it lands on the chip, how the hardware really works -- this series is for you.
+
+It will be perfect if you have an Arduino UNO R4 WiFi or Minima, as the series is built around their shared microcontroller -- the Renesas RA4M1 (ARM Cortex-M4).
+Many things will be totally different if you have an AVR-based board like the UNO R3, so if you have that, you can still follow along, but many CPU-related details won't match.
 
 ## My setup
 - Arduino UNO R4 WiFi board
 - Arduino IDE  2.3.6
 - Ubuntu 24.04
 
-If you're using a different IDE version or operating system -- don't worry, you can still follow along. Some details may just look a little different on your setup.
-
-However, if you're using a different Arduino board, the differences may be more significant.
-The Arduino UNO R4 WiFi is powered by the Renesas RA4M1 (ARM Cortex-M4), 
-and many posts in this series go into hardware-specific details. 
-Older boards like the UNO R3 use a completely different architecture (AVR ATmega328P), so the low-level details won't match at all. 
-The concepts will still apply, but the specifics won't transfer directly.
+If you're using a different IDE version or operating system -- some details may just look a little different on your setup.
 
 ## Arduino the Hard Way series
+
+The posts in this series published so far:
 
 1. [What happens when Arduino builds a sketch](https://www.embeddedk8.com/posts/2025/arduino-ide-build-process/)
 2. [How to build Arduino sketches with Arduino CLI](https://www.embeddedk8.com/posts/2025/arduino-cli-compilation/)
 3. [Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation](https://www.embeddedk8.com/posts/2025/arduino-github-actions-with-wokwi/)
 4. [Running Zephyr RTOS on Arduino UNO R4 WiFi ](https://www.embeddedk8.com/posts/2026/running-zephyr-on-arduino-uno-r4/)
+
+More posts coming soon!
+
+Sign up for the newsletter to get notified about new posts: [Disassembled Newsletter](https://disassembled.substack.com/subscribe).

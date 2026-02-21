@@ -60,7 +60,7 @@ the basics. (But remember to test on real hardware before each release 🙂).
 
 ➤ **Extra security**
 
-Although the RA41M CPU (*Arduino Uno R4s CPU*) has MPU, Arduino sketch keeps it disabled by default.
+Although the RA4M1 CPU (*Arduino Uno R4s CPU*) has MPU, Arduino sketch keeps it disabled by default.
 With Zephyr, you can enable the MPU to isolate tasks, protect memory regions, and catch illegal accesses. 
 You can also enable compiler stack canaries, which detect stack overflows before they corrupt memory.
 

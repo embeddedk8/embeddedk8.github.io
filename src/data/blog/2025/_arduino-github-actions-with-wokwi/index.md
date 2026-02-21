@@ -46,7 +46,7 @@ With such approach, on each push to Github repository we will test on CI/CD that
 ### Arduino CLI
 To build and simulate Arduino projects from the scripts in CI/CD jobs we need to use Arduino command line interface. 
 If you're not familiar with it, you
-can read my introduction: [Arduino Internals: building sketches with Arduino CLI](https://www.embeddedk8.com/arduino-cli-compilation/).
+can read my introduction: [Arduino Internals: building sketches with Arduino CLI](https://www.embeddedk8.com/posts/2025/arduino-cli-compilation/).
 
 ### Wokwi
 

@@ -81,7 +81,7 @@ Alright, it's time to get our hands dirty. We’ll install the Arduino CLI, set 
 
 > If you already have `arduino-cli` installed and working, you can jump to [Basic usage](#basic-usage) chapter.
 
-As of October 2025, the latest version is Arduino CLI 1.3.1, which I'll be using here.
+In this post I am using Arduino CLI 1.3.1.
 
 Please refer to [official installation guide](https://docs.arduino.cc/arduino-cli/installation/) to install Arduino CLI on your system.
 
@@ -458,7 +458,7 @@ make clean
 Using the Arduino CLI gives you full control over the build process, 
 from compiling to uploading sketches, without relying on the Arduino IDE. 
 It’s perfect for automation, reproducibility, and integrating Arduino projects into advanced workflows or CI/CD pipelines.
-In this post we saw how to use basic commands of Arduino IDE, add some customizations for build setup, and write a simple Makefile 
+In this post we saw how to use basic commands of Arduino CLI, add some customizations for build setup, and write a simple Makefile 
 using `arduino-cli` internally.
 
 MyBlink sketch using Makefile is published [here](https://github.com/embeddedk8/MyBlink).

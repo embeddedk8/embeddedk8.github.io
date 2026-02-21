@@ -21,8 +21,8 @@ It’s still small, but I’ll keep expanding it over time. 😄
 ---
 **Programming basics**  
 📖 [Competitive Programmer’s Handbook, Antti Laaksonen](https://cses.fi/book/book.pdf)  
-🧩 [Exercism](https://exercism.org) *My favorite platform for programming exercises across many languages, with free mentor reviews.*
-
+🧩 [Exercism](https://exercism.org) *My favorite platform for programming exercises across many languages, with free mentor reviews.*  
+📖 🎬 [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)
 
 **Rust**  
 📖 [Rust Book](https://doc.rust-lang.org/book/title-page.html)
@@ -50,11 +50,14 @@ It’s still small, but I’ll keep expanding it over time. 😄
 📖 [What Every Programmer Should Know About Memory, Ulrich Drepper](https://people.freebsd.org/~lstewart/articles/cpumemory.pdf)  
 🎬 [Scott Meyers: Cpu Caches and Why You Care | code::dive conference 2014 | Youtube](https://www.youtube.com/watch?v=WDIkqP4JbkE)    
 🎬 [The Engineering that Runs the Digital World | How CPUs Work](https://www.youtube.com/watch?v=16zrEPOsIcI)    
+📖 [Programming from the Ground Up | Jonathan Bartlett](https://download-mirror.savannah.gnu.org/releases/pgubook/ProgrammingGroundUp-1-0-booksize.pdf)  
 
 **Tools**  
-🛠️ [cmake-init](https://github.com/friendlyanon/cmake-init) *The must-have tool for initializing CMake based projects. Adds UT, CI/CD, linters etc.*
+🛠️ [cmake-init](https://github.com/friendlyanon/cmake-init) *The must-have tool for initializing CMake based projects. Adds UT, CI/CD, linters etc.*  
+🛠️ [Wokwi](https://wokwi.com/) *Online simulator for Arduino AVR, ESP32, STM32, Pi Pico.*
 
-
+**Security**  
+📖 [Embedded Application Security Best Practices](https://scriptingxss.gitbook.io/embedded-appsec-best-practices/)
 
 [//]: # (https://www.youtube.com/watch?v=lLv1s7rKeCM)
 
