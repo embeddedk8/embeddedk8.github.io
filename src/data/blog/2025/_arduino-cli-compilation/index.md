@@ -1,54 +1,59 @@
 ---
 weight: 2
-title: "How to build Arduino sketches with Arduino CLI?"
+title: "Arduino CLI guide: advanced compilation, automation, and makefiles"
 slug: 'arduino-cli-compilation'
 pubDate: 'Oct 01 2025'
 pubDatetime: 2025-10-01T15:58:26+08:00
-lastmod: 2025-10-01T15:58:26+08:00
+modDatetime: 2026-02-24T15:58:26+08:00
 draft: false
 author: "embeddedk8"
-authorLink: "https://embeddedk8.com"
-description: "Learn how to manage Arduino sketches from the command line. This guide covers everything from Arduino CLI configuration to building, uploading, and using Makefiles."
+authorLink: "https://www.embeddedk8.com"
+description: "Stop clicking, start coding. Learn how to use Arduino CLI to compile sketches, manage dependencies, and automate your workflow with Makefiles for professional embedded development."
 images: []
 resources:
 
 
 tags: ["Arduino"]
-categories: ["Arduino"]
-
-lightgallery: true
-
-toc:
-    auto: false
-math:
-    enable: true
 ---
 
-Do you know that you don’t actually need the Arduino IDE to build and upload sketches?
+<div class="border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 p-4 my-6 rounded-r-md">
+  <span class="text-slate-700 dark:text-slate-200">
+    📚 This post is part of the 
+    <a href="https://www.embeddedk8.com/posts/2025/arduino-the-hard-way/" 
+       class="font-bold text-indigo-700 dark:text-indigo-300 hover:underline">
+       Arduino the Hard Way
+    </a> 
+    series
+  </span>
+</div>
 
-Arduino projects can be compiled and uploaded straight from the command line using the **Arduino Command Line Interface (CLI)**. 
-Underneath, this process is identical to what happens when you build and upload from the IDE, 
-because Arduino IDE 2.0 and later use `arduino-cli` under the hood.
-The only difference is how do you trigger build and upload — by command line instead of clicking inside IDE.
+Did you know that you don’t actually need the Arduino IDE to build and upload programs to your board?
 
-Working directly with the CLI, without IDE as a middle layer, is actually better for many reasons, which we will discuss below.
+Arduino sketches can be compiled and uploaded straight from the command line using the **Arduino Command Line Interface (CLI)**. 
+Underneath, this process is identical to what happens in the IDE, 
+because Arduino IDE 2.0+ simply calls `arduino-cli` during the build.
+The only difference is how you trigger the process -- via the command line instead of clicking inside the IDE.
+
+Working directly with the CLI, without the IDE as a middle layer, is actually better for many reasons. We'll discuss them in a moment.
+
+## Table Of Contents
 
 ## Reasons to use Arduino CLI
 
-If you are comfortable using IDE, you may not immediately see why would you use Arduino CLI instead.
-At first, it may seem more complicated, right? Nothing is as easy as pressing a button.
-That's true — Arduino IDE is great for getting started. But as your project grows, and you want to make more complicated
-things with it, Arduino CLI will allow you to achieve much more.
+I get it. You are comfortable using the IDE and might not see yet why should you use Arduino the CLI instead.
+At first, it may seem more complicated, as typing commands takes more effort than clicking one button.
+However, as your project grows and becomes more complex, 
+moving beyond the limitations of the Arduino IDE becomes important, or even necessary.
 
 Some of the benefits are:
 
 - **Advanced configuration**
 
-    Using custom build or configuration options is not possible from the Arduino IDE. 
-    Setting things like custom defines, special compilation flags, or customizing where `build` artifacts are stored,
-    requires modifying configuration files that are outside the IDE. Global configuration files affect all projects,
-    while maintaining per-project config files would be time-consuming. That's why when your project starts requiring
-    any non-standard setup it's better to switch to Arduino CLI for simplicity and convenience.
+    Customizing build or configuration options is often not possible within the Arduino IDE. 
+    Defining custom macros, special compilation flags, or specifying where `build` artifacts are stored,
+    requires modifying configuration files outside the IDE. Global configuration files affect all projects,
+    while maintaining per-project config files would be time-consuming. Therefore, when your project requires a non-standard setup, 
+    switching to the Arduino CLI is simpler and more convenient.
 
 - **Automation and CI/CD**
 

@@ -49,8 +49,8 @@ If you're using a different IDE version or operating system -- some details may 
 
 The posts in this series published so far:
 
-1. [Understanding the Arduino build process: from a sketch to a binary ](https://www.embeddedk8.com/posts/2025/arduino-ide-build-process/)
-2. [How to build Arduino sketches with Arduino CLI](https://www.embeddedk8.com/posts/2025/arduino-cli-compilation/)
+1. [Understanding the Arduino build process: from a sketch to a binary](https://www.embeddedk8.com/posts/2025/arduino-ide-build-process/)
+2. [Arduino CLI guide: advanced compilation, automation, and makefiles](https://www.embeddedk8.com/posts/2025/arduino-cli-compilation/)
 3. [Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation](https://www.embeddedk8.com/posts/2025/arduino-github-actions-with-wokwi/)
 4. [Running Zephyr RTOS on Arduino UNO R4 WiFi ](https://www.embeddedk8.com/posts/2026/running-zephyr-on-arduino-uno-r4/)
 
