@@ -2,7 +2,7 @@
 title: "Running Zephyr RTOS on Arduino UNO R4 WiFi"
 description: "Turn your ARM-based Arduino board into a high-performance, secure and professional hardware by running Zephyr RTOS on it."
 pubDatetime: 2026-01-26T15:58:26+08:00
-tags: ["Arduino", "Zephyr"]
+tags: ["Arduino", "Zephyr", "RTOS"]
 draft: false
 slug: 'running-zephyr-on-arduino-uno-r4'
 ---

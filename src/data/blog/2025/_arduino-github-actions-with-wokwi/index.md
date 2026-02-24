@@ -14,9 +14,7 @@ images: []
 #  - name: "featured-image"
 #    src: "featured-image.png"
 
-tags: ["Arduino"]
-categories: ["Arduino"]
-
+tags: ["Arduino", "ci-cd", "github-actions", "wokwi"]
 lightgallery: true
 
 toc:

@@ -38,7 +38,8 @@ It’s still small, but I’ll keep expanding it over time. 😄
 🎬  [Introduction to Zephyr by Shawn Hymel](https://youtu.be/mTJ_vKlMS_4?si=oqMZG-03SOffOhuX)
 
 **Compilers**  
-📝 [A Compiler Writing Journey](https://github.com/DoctorWkt/acwj/tree/master)
+📝 [A Compiler Writing Journey](https://github.com/DoctorWkt/acwj/tree/master)  
+📝 [Beginner's Guide to Linkers](https://www.lurklurk.org/linkers/linkers.html)
 
 **Embedded**  
 🎬 [Embedded System Project Series | Artful Bytes](https://www.youtube.com/watch?v=g9KbXJydf8I&list=PLS_iNJJVTtiRV0DZRDcTHnvAuDrKGPN40)  

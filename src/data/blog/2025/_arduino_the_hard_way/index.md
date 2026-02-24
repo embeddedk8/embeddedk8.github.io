@@ -2,24 +2,33 @@
 title: "Arduino the Hard Way: real embedded programming with Arduino UNO R4"
 slug: 'arduino-the-hard-way'
 pubDatetime: 2025-09-10T15:58:26+08:00
-modDatetime: 2026-02-21T15:58:26+08:00
+modDatetime: 2026-02-24T15:58:26+08:00
 draft: false
 author: "embeddedk8"
 authorLink: "https://www.embeddedk8.com"
-description: "Learn embedded systems the right way using Arduino UNO R4. This series goes beyond the Arduino API to explore real embedded development: toolchains, registers, RTOS, and more."
+description: "Learn embedded systems the right way using Arduino UNO R4. This series goes beyond the Arduino API to explore real embedded development: ARM architecture, register-level control, Real-Time Operating Systems and more."
 tags: ["Arduino"]
 ---
+Arduino is one of the most popular ways to start learning embedded systems.
+But for a long time, there was a gap between playing with an Arduino and doing professional embedded engineering.
+It changed with the upgrade from Arduino Uno R3 to Arduino Uno R4, when 8-bit ATMega was replaced with a powerful ARM Cortex-M4 microcontroller, 
+and the potential of this board has grown massively.
 
-Arduino is one of the most popular ways to start learning embedded systems. At the same time, you can find plenty of debates online
-about whether Arduino is a good choice for that (like [Is there anything wrong with Arduino?](https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/),
-[Why engineers hate Arduino?](https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/),
-[Don't use Arduino for professional work](https://embedded.fm/blog/2017/8/12/dont-use-arduino-for-professional-work)).
+## Arduino the Hard Way series
 
-While the list of arguments from Arduino "opponents" is quite long -- and some of their points are completely reasonable
--- you can learn just as much with Arduino as with any other embedded platform,
-as long as you avoid blindly relying on the Arduino API and instead stay curious to explore what’s happening under the hood.
-That's why I am creating the **Arduino the Hard Way** series. In this context, "The Hard Way" just means 
+Having [Arduino Uno R4](https://store.arduino.cc/products/uno-r4-wifi) you can do (and learn!) real advanced embedded engineering,
+as long as you avoid blindly relying on the Arduino API. If you stay curious and explore what's happening under the hood,
+this board becomes a gateway to the same ARM architecture found in medical devices, automotive systems, and industrial robots.
+
+That's why I am creating the **Arduino the Hard Way** series. 
+
+In this context, "The Hard Way" just means
 that we will go beyond the beginner-friendly Arduino layer and move forward doing things like real embedded engineers :) .
+
+*At the same time, please be aware that Arduino is not suitable for **everything**. 
+You can read some discussion to get more context on that, for example [Is there anything wrong with Arduino?](https://www.reddit.com/r/embedded/comments/1bz55bj/is_there_anything_wrong_with_arduino/),
+[Why engineers hate Arduino?](https://www.reddit.com/r/embedded/comments/evb5nu/why_engineers_hate_arduino/), and most important, a very clear explanation
+[why you shouldn't use Arduino for professional work](https://embedded.fm/blog/2017/8/12/dont-use-arduino-for-professional-work).*
 
 ## Who is this for?
 
@@ -27,8 +36,7 @@ This series is for developers and hobbyists who are comfortable writing Arduino 
 If you've been using the Arduino API to get things working but feel like you're missing what's actually happening underneath --
 how the code gets compiled, how it lands on the chip, how the hardware really works -- this series is for you.
 
-It will be perfect if you have an Arduino UNO R4 WiFi or Minima, as the series is built around their shared microcontroller -- the Renesas RA4M1 (ARM Cortex-M4).
-Many things will be totally different if you have an AVR-based board like the UNO R3, so if you have that, you can still follow along, but many CPU-related details won't match.
+It will be perfect if you have an Arduino UNO R4 WiFi or Minima.
 
 ## My setup
 - Arduino UNO R4 WiFi board
@@ -37,11 +45,11 @@ Many things will be totally different if you have an AVR-based board like the UN
 
 If you're using a different IDE version or operating system -- some details may just look a little different on your setup.
 
-## Arduino the Hard Way series
+## Published posts
 
 The posts in this series published so far:
 
-1. [What happens when Arduino builds a sketch](https://www.embeddedk8.com/posts/2025/arduino-ide-build-process/)
+1. [Understanding the Arduino build process: from a sketch to a binary ](https://www.embeddedk8.com/posts/2025/arduino-ide-build-process/)
 2. [How to build Arduino sketches with Arduino CLI](https://www.embeddedk8.com/posts/2025/arduino-cli-compilation/)
 3. [Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation](https://www.embeddedk8.com/posts/2025/arduino-github-actions-with-wokwi/)
 4. [Running Zephyr RTOS on Arduino UNO R4 WiFi ](https://www.embeddedk8.com/posts/2026/running-zephyr-on-arduino-uno-r4/)
