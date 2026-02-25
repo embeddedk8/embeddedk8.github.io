@@ -1,0 +1,658 @@
+<!DOCTYPE html><html dir="ltr" lang="en" class="scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.png"><link rel="canonical" href="https://www.embeddedk8.com/posts/2026/arduino-blink-led-without-digitalwrite/"><meta name="generator" content="Astro v5.16.8"><!-- Load Font --><style>@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/9617ee3bc3ad47fd.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:italic;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:300;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:400;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:500;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:600;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992";src:url("/_astro/fonts/616354e20c7baae2.woff2") format("woff2");font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-weight:700;font-style:normal;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:italic;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:300;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:400;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:500;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:600;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}@font-face{font-family:"Google Sans Code-04a186ad63205992 fallback: Courier New";src:local("Courier New");font-display:swap;font-weight:700;font-style:normal;size-adjust:99.9837%;ascent-override:96.6157%;descent-override:28.6047%;}:root{--font-google-sans-code:"Google Sans Code-04a186ad63205992","Google Sans Code-04a186ad63205992 fallback: Courier New",monospace;}</style><!-- General Meta Tags --><title>Blinking an LED on Arduino Uno R4 using direct register access | Kasia Zalewska</title><meta name="title" content="Blinking an LED on Arduino Uno R4 using direct register access | Kasia Zalewska"><meta name="description" content="Skip Arduino libraries and blink an LED on Arduino Uno R4 using direct registers access. We'll read RA4M1 datasheet and configure a GPIO pin manually."><meta name="author" content="embeddedk8"><link rel="sitemap" href="/sitemap-index.xml"><!-- Open Graph / Facebook --><meta property="og:title" content="Blinking an LED on Arduino Uno R4 using direct register access | Kasia Zalewska"><meta property="og:description" content="Skip Arduino libraries and blink an LED on Arduino Uno R4 using direct registers access. We'll read RA4M1 datasheet and configure a GPIO pin manually."><meta property="og:url" content="https://www.embeddedk8.com/posts/2026/arduino-blink-led-without-digitalwrite/"><meta property="og:image" content="https://www.embeddedk8.com/posts/2026/arduino-blink-led-without-digitalwrite/index.png"><!-- Article Published/Modified time --><meta property="article:published_time" content="2026-02-25T07:58:26.000Z"><meta property="article:modified_time" content="2026-02-25T07:58:26.000Z"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://www.embeddedk8.com/posts/2026/arduino-blink-led-without-digitalwrite/"><meta property="twitter:title" content="Blinking an LED on Arduino Uno R4 using direct register access | Kasia Zalewska"><meta property="twitter:description" content="Skip Arduino libraries and blink an LED on Arduino Uno R4 using direct registers access. We'll read RA4M1 datasheet and configure a GPIO pin manually."><meta property="twitter:image" content="https://www.embeddedk8.com/posts/2026/arduino-blink-led-without-digitalwrite/index.png"><!-- Google JSON-LD Structured data --><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Blinking an LED on Arduino Uno R4 using direct register access | Kasia Zalewska","image":"https://www.embeddedk8.com/posts/2026/arduino-blink-led-without-digitalwrite/index.png","datePublished":"2026-02-25T07:58:26.000Z","dateModified":"2026-02-25T07:58:26.000Z","author":[{"@type":"Person","name":"embeddedk8","url":"https://www.embeddedk8.com/"}]}</script><!-- Enable RSS feed auto-discovery  --><!-- https://docs.astro.build/en/recipes/rss/#enabling-rss-feed-auto-discovery --><link rel="alternate" type="application/rss+xml" title="Kasia Zalewska" href="https://www.embeddedk8.com/rss.xml"><meta name="theme-color" content=""><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><!-- Minimal inline script to prevent FOUC - sets theme immediately --><script>
+      (function () {
+        const initialColorScheme = ""; // "light" | "dark"
+        const currentTheme = localStorage.getItem("theme");
+
+        function getPreferTheme() {
+          if (currentTheme) return currentTheme;
+          if (initialColorScheme) return initialColorScheme;
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        }
+
+        const themeValue = getPreferTheme();
+
+        // Set theme immediately to prevent flash
+        document.firstElementChild?.setAttribute("data-theme", themeValue);
+
+        // Export minimal API for external script
+        window.theme = {
+          themeValue: themeValue,
+          getTheme: () => window.theme.themeValue,
+          setTheme: val => {
+            window.theme.themeValue = val;
+          },
+        };
+      })();
+    </script><style>:where([data-astro-image]){object-fit:var(--fit);object-position:var(--pos);height:auto}:where([data-astro-image=full-width]){width:100%}:where([data-astro-image=constrained]){max-width:100%}
+</style>
+<link rel="stylesheet" href="/_astro/about.DfnqGeTF.css">
+<style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-fam6wyqg-1"] { view-transition-name: blinking-an-led-on-arduino-uno-r-4-using-direct-register-access; }@layer astro { ::view-transition-old(blinking-an-led-on-arduino-uno-r-4-using-direct-register-access) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(blinking-an-led-on-arduino-uno-r-4-using-direct-register-access) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(blinking-an-led-on-arduino-uno-r-4-using-direct-register-access) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(blinking-an-led-on-arduino-uno-r-4-using-direct-register-access) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-fam6wyqg-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-fam6wyqg-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-2"] { view-transition-name: arduino; }@layer astro { ::view-transition-old(arduino) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(arduino) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(arduino) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(arduino) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-3"] { view-transition-name: gpio; }@layer astro { ::view-transition-old(gpio) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(gpio) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(gpio) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(gpio) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-36ssibgs-4"] { view-transition-name: ra-4-m-1; }@layer astro { ::view-transition-old(ra-4-m-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(ra-4-m-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(ra-4-m-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(ra-4-m-1) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-36ssibgs-4"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-36ssibgs-4"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head> <body> <div class="color-stripe"></div>  <a id="skip-to-content" href="#main-content" class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4">
+Skip to content
+</a> <header class="app-layout flex flex-col items-center justify-between sm:flex-row"> <div id="top-nav-wrap" class="py-4 sm:py-6 border-b border-border relative w-full bg-background flex items-baseline justify-between sm:items-center"> <a href="/" class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"> Kasia Zalewska </a> <nav id="nav-menu" class="flex w-full flex-col items-center sm:ms-2 sm:flex-row sm:justify-end sm:space-x-4 sm:py-0"> <button id="menu-btn" class="focus-outline self-end p-2 sm:hidden" aria-label="Open Menu" aria-expanded="false" aria-controls="menu-items"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden" id="close-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-menu-deep" id="menu-icon"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 6h16" /><path d="M7 12h13" /><path d="M10 18h10" /></svg> </button> <ul id="menu-items" class="mt-4 grid w-44 grid-cols-2 place-content-center gap-2 [&#38;>li>a]:block [&#38;>li>a]:px-4 [&#38;>li>a]:py-3 [&#38;>li>a]:text-center [&#38;>li>a]:font-medium [&#38;>li>a]:hover:text-accent sm:[&#38;>li>a]:px-2 sm:[&#38;>li>a]:py-1 hidden sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0"> <li class="col-span-2"> <a href="/posts" class="active-nav">
+Posts
+</a> </li> <li class="col-span-2"> <a href="/tags">
+Tags
+</a> </li> <li class="col-span-2"> <a href="/about">
+About
+</a> </li> <li class="col-span-2"> <a href="/archives" title="Archives" aria-label="archives" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex justify-center p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden sm:inline-block"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" /><path d="M10 12l4 0" /></svg> <span class="sm:sr-only">Archives</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <a href="/search" title="Search" aria-label="search" class="group inline-flex items-center gap-1 hover:text-accent focus-outline flex p-3 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg> <span class="sr-only">Search</span>  </a> </li> <li class="col-span-1 flex items-center justify-center"> <button id="theme-btn" class="focus-outline relative size-12 p-4 sm:size-8 hover:[&>svg]:stroke-accent" title="Toggles light & dark" aria-label="auto" aria-live="polite"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" /></svg> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14.828 14.828a4 4 0 1 0 -5.656 -5.656a4 4 0 0 0 5.656 5.656z" /><path d="M6.343 17.657l-1.414 1.414" /><path d="M6.343 6.343l-1.414 -1.414" /><path d="M17.657 6.343l1.414 -1.414" /><path d="M17.657 17.657l1.414 1.414" /><path d="M4 12h-2" /><path d="M12 4v-2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg> </button> </li> </ul> </nav> </div> </header> <script type="module">function s(){const e=document.querySelector("#menu-btn"),t=document.querySelector("#menu-items"),n=document.querySelector("#menu-icon"),o=document.querySelector("#close-icon");!e||!t||!n||!o||e.addEventListener("click",()=>{const c=e.getAttribute("aria-expanded")==="true";e.setAttribute("aria-expanded",c?"false":"true"),e.setAttribute("aria-label",c?"Open Menu":"Close Menu"),t.classList.toggle("hidden"),n.classList.toggle("hidden"),o.classList.toggle("hidden")})}s();document.addEventListener("astro:after-swap",s);</script> <div class="app-layout flex items-center justify-start"><a id="back-button" href="/" class="group inline-flex items-center gap-1 hover:text-accent focus-outline -ms-2 mt-8 mb-2 hover:text-foreground/75"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg><span>Go back</span> </a></div><script type="module">function o(){const t=document.querySelector("#back-button"),e=sessionStorage.getItem("backUrl");e&&t&&(t.href=e)}document.addEventListener("astro:page-load",o);o();</script> <main id="main-content" class="app-layout pb-12" data-pagefind-body> <h1 class="inline-block text-2xl font-bold text-accent sm:text-3xl" data-astro-transition-scope="astro-fam6wyqg-1"> Blinking an LED on Arduino Uno R4 using direct register access </h1> <div class="my-2 flex items-center gap-2"> <div class="flex items-center gap-x-2 opacity-80"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 min-w-5.5"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" /><path d="M7 14h.013" /><path d="M10.01 14h.005" /><path d="M13.01 14h.005" /><path d="M16.015 14h.005" /><path d="M13.015 17h.005" /><path d="M7.01 17h.005" /><path d="M10.01 17h.005" /></svg>  <time class="text-sm sm:text-base" datetime="2026-02-25T07:58:26.000Z">25 Feb, 2026</time> </div> <span aria-hidden="true" class="max-sm:hidden hidden">|</span>  </div> <article id="article" class="app-prose mt-8 w-full max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"> <h2 id="table-of-contents">Table Of Contents</h2>
+<p></p><details><summary>Open Table Of Contents</summary><p></p>
+<ul>
+<li><a href="#arduino-way-to-blink-an-led">Arduino way to Blink an LED</a></li>
+<li><a href="#which-led-is-it-first-look-into-datasheet">Which LED is it? First look into datasheet</a></li>
+<li><a href="#what-microcontroller-is-it">What microcontroller is it?</a></li>
+<li><a href="#usage-notes-for-gpio-configuration-on-ra4m1">Usage Notes for GPIO configuration on RA4M1</a></li>
+<li><a href="#different-ways-of-accessing-the-registers">Different ways of accessing the registers</a></li>
+<li><a href="#gpio-configuration-procedure-for-ra4m1">GPIO configuration procedure for RA4M1</a>
+<ul>
+<li><a href="#clear-the-b0wi-bit-in-the-pwpr-register-1">Clear the B0WI bit in the PWPR register [1]</a></li>
+<li><a href="#set-1-to-the-pfswe-bit-in-the-pwpr-register-2">Set 1 to the PFSWE bit in the PWPR register [2]</a></li>
+<li><a href="#clear-the-port-mode-control-bit-in-the-pmr-for-the-target-pin-to-select-the-general-io-port-3">Clear the Port Mode Control bit in the PMR for the target pin to select the general I/O port [3]</a></li>
+<li><a href="#specify-the-inputoutput-function-for-the-pin-through-the-psel40-bit-settings-in-the-pmnpfs-register">Specify the input/output function for the pin through the PSEL[4:0] bit settings in the PmnPFS register</a></li>
+<li><a href="#set-the-pmr-to-1-as-required-to-switch-to-the-selected-inputoutput-function-for-the-pin">Set the PMR to 1 as required to switch to the selected input/output function for the pin</a></li>
+<li><a href="#set-the-pdr-bit-in-pmnpfs-register-to-1-to-configure-the-pin-as-output-4">Set the PDR bit in PmnPFS register to 1 to configure the pin as output [4]</a></li>
+<li><a href="#clear-the-pfswe-bit-and-set-b0wi-bit-to-lock-the-configuration-5-and-6">Clear the PFSWE bit and set B0WI bit to lock the configuration [5] and [6]</a></li>
+<li><a href="#full-code-needed-to-configure-the-pin-as-io-output">Full code needed to configure the pin as I/O output</a></li>
+</ul>
+</li>
+<li><a href="#set-the-pin-to-high-or-low-state-to-blink-a-led">Set the pin to high or low state to blink a LED</a></li>
+<li><a href="#compare-speed">Compare speed</a></li>
+<li><a href="#compare-code-size">Compare code size</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul>
+<p></p></details><p></p>
+<h2 id="arduino-way-to-blink-an-led">Arduino way to Blink an LED</h2>
+<p>Blinking an LED on Arduino is extremely easy if you use Arduino libraries. In this post, we’ll take the first step beyond the beginner-friendly approach. ;)</p>
+<p><img alt="Arduino Uno R4 WiFi Blink LED" title="Arduino Uno R4 WiFi Blink LED" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 480px) 480px, 100vw"  data-astro-image="constrained" width="480" height="270" src="/_astro/blink.Bm3e6T-A_hKxDy.webp" srcset="/_astro/blink.Bm3e6T-A_hKxDy.webp 480w"></p>
+<p>Let’s open Blink example to see the easy way to blink an LED:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="cpp"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> setup</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // initialize digital pin LED_BUILTIN as an output.</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">  pinMode</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> OUTPUT);</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> loop</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">  digitalWrite</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> HIGH);</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // turn the LED on (HIGH is the voltage level)</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">  delay</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1000</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">                      // wait for a second</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">  digitalWrite</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> LOW);</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">   // turn the LED off by making the voltage LOW</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">  delay</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1000</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">                      // wait for a second</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>This code is doing two main things needed to blink an LED:</p>
+<ol>
+<li>Configure the GPIO pin as an output,</li>
+<li>Set the pin to HIGH or LOW state.</li>
+</ol>
+<p>This code will work on any Arduino board, because the Arduino libraries handle the hardware differences internally.
+We would say that this code is hardware-agnostic. <code>LED_BUILTIN</code> can mean a different pin for different boards, <code>digitalWrite</code> will do different things
+depending on the CPU architecture. That’s why this example can look the same for every Arduino board (AVR-based, ARM-based, etc.).</p>
+<p>It’s convenient. However, at the same time the abstractions are hiding all interesting stuff that is going on under the hood.
+This approach is not really teaching us anything about embedded development: what really needs to be done to control the microcontroller pin?
+Additionally, we cannot assess if the implementation of Arduino libraries is efficient in terms of speed or code size, or evenif it’s free from
+any bugs or other issues (<a href="https://www.reddit.com/r/embedded/comments/mbn7nm/where_are_the_bad_arduino_libraries/">see: Reddit</a>).</p>
+<p>That’s why we will blink an LED without using Arduino libraries (well, not totally without, as we will still use some Arduino stuff).
+Instead, we will read the Arduino Uno R4 and RA4M1 datasheets and configure the GPIO pin manually.</p>
+<p>Our goal is to blink the LED without using <code>pinMode</code> and <code>digitalWrite</code> functions.</p>
+<p>For simplicity of this example, we will still use:</p>
+<ul>
+<li>the Arduino sketch, with the default/hidden Arduino setup, which is executed even before our <code>setup()</code> is called,</li>
+<li><code>delay()</code> function,</li>
+<li>some definitions of the pins and registers from the Renesas RA4M1 support package, which is included in Arduino IDE for our board.</li>
+</ul>
+<p>So this is not a bare-metal yet, but we will be approaching it :)</p>
+<h2 id="which-led-is-it-first-look-into-datasheet">Which LED is it? First look into datasheet</h2>
+<p>First we need to know where the LED that we want to blink is connected. From Arduino datasheet, or Blinky example, we know that it’s <code>LED_BUILTIN</code> LED.
+I will the same LED, but without using the <code>LED_BUILTIN</code> macro, to show you how to find the pin number and how to configure it manually.
+For this purpose check the pinout in <a href="https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf">Arduino UNO R4 WiFi datasheet</a>.</p>
+<p><img alt="Arduino Uno R4 WiFi Pinout" title="Arduino Uno R4 WiFi Pinout, source: Arduino UNO R4 WiFi datasheet" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 1135px) 1135px, 100vw"  data-astro-image="constrained" width="1135" height="844" src="/_astro/pinout.BS0cDsOl_13lwse.webp" srcset="/_astro/pinout.BS0cDsOl_164zXz.webp 640w, /_astro/pinout.BS0cDsOl_ZaRNpg.webp 750w, /_astro/pinout.BS0cDsOl_CWh30.webp 828w, /_astro/pinout.BS0cDsOl_Vyfn6.webp 1080w, /_astro/pinout.BS0cDsOl_13lwse.webp 1135w">
+<em>Source: <a href="https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf">https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf</a></em></p>
+<p>From the pinout diagram we see that <code>LED_BUILTIN</code> is connected to P102 pin of microcontroller. P102 means: <strong>PORT 1, PIN 02</strong>. This will be our output pin for blinking the LED.</p>
+<h2 id="what-microcontroller-is-it">What microcontroller is it?</h2>
+<p>Ok, so we know which microcontroller pin, but we don’t know yet which microcontroller is it :). Let’s go back to Arduino UNO R4 WiFi datasheet.
+On the first page we can find the exact microcontroller model: <code>R7FA4M1AB3CFM#AA0</code> from the Renesas RA4M1 series.
+To proceed further, we need to consult the official hardware manual: <a href="https://cdn.sparkfun.com/assets/b/1/d/3/6/RA4M1_Datasheet.pdf">Renesas RA4M1 Group User’s Manual: Hardware</a>.</p>
+<p>When you open this manual, you are leaving the friendly Arduino ecosystem, and entering the world of real embedded systems.
+You will see more than 1400 pages of documentation. Good news is that you don’t need to read it all.
+For this tutorial, we will only need to dig into the GPIO usage part.</p>
+<h2 id="usage-notes-for-gpio-configuration-on-ra4m1">Usage Notes for GPIO configuration on RA4M1</h2>
+<p>Jump to Section <code>19. I/O Ports</code> in the RA4M1 hardware manual. This section describes everything needed to control a GPIO pin and blink the LED.
+It’s always easiest to check for examples or usage notes first. Below is the procedure of specifying the pin function, which in our case means configuring the pin as output.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>19.5 Usage Notes  </span></span>
+<span class="line"><span>19.5.1 Procedure for Specifying the Pin Functions  </span></span>
+<span class="line"><span>To specify the I/O pin functions:  </span></span>
+<span class="line"><span>1. Clear the B0WI bit in the PWPR register. This enables writing to the PFSWE bit in the PWPR register.</span></span>
+<span class="line"><span>2. Set 1 to the PFSWE bit in the PWPR register. This enables writing to the PmnPFS register.</span></span>
+<span class="line"><span>3. Clear the Port Mode Control bit in the PMR for the target pin to select the general I/O port.</span></span>
+<span class="line"><span>4. Specify the input/output function for the pin through the PSEL[4:0] bit settings in the PmnPFS register.</span></span>
+<span class="line"><span>5. Set the PMR to 1 as required to switch to the selected input/output function for the pin.</span></span>
+<span class="line"><span>6. Clear the PFSWE bit in the PWPR register. This disables writing to the PmnPFS register.</span></span>
+<span class="line"><span>7. Set 1 to the B0WI bit in the PWPR register. This disables writing to the PFSWE bit in the PWPR register.</span></span></code></pre>
+<p>We will break down what actually matters for our use case. But first, we need to decide how to the access to registers.</p>
+<h2 id="different-ways-of-accessing-the-registers">Different ways of accessing the registers</h2>
+<p>As the procedure above requires us to write to specific registers and bits, we need to know how to find them and how to write to them.</p>
+<p>Do you remember that a register is just a specific memory address that is mapped to a hardware function? To control the hardware, we need to write to these addresses.</p>
+<p>We have two options:</p>
+<ul>
+<li>
+<p><strong>manual access:</strong> check the memory address of the register in the datasheet. Define the macro for this register address in the code.
+Then, use the macros as a pointers to write to this register. This is the most basic way to access registers, but it can be quite tedious and error-prone, especially for complex microcontrollers with many registers.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>#define PWPR (*(volatile unsigned long *)0x40040D03)</span></span>
+<span class="line"><span>PWPR = 0x01; // write</span></span></code></pre>
+</li>
+<li>
+<p><strong>using the support package:</strong> Instead of defining addresses manually, we can use the header files provided by the manufacturer.
+These files add friendly names (like R_PORT1) to their physical memory addresses.
+In case of Arduino Uno R4 with RA4M1 microcontroller, these definitions are part of the Renesas Flexible Software Package (FSP), which is installed together with Arduino IDE.
+Let’s look for this file for RA4M1 in the hidden Arduino files.</p>
+<p>On my PC, it’s located at:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>~/.arduino15/packages/arduino/hardware/renesas_uno/1.5.1/variants/UNOWIFIR4/includes/ra/fsp/src/bsp/cmsis/Device/RENESAS/Include/R7FA4M1AB.h</span></span></code></pre>
+</li>
+</ul>
+<p>I suggest use the support package now. In the header <code>R7FA4M1AB.h</code> you will find all the registers definitions for RA4M1, including the ones we need to configure the GPIO pin.
+Open this file and browse it; we will need to find the definitions for the registers we need. Then, let’s follow the procedure.</p>
+<h2 id="gpio-configuration-procedure-for-ra4m1">GPIO configuration procedure for RA4M1</h2>
+<h3 id="clear-the-b0wi-bit-in-the-pwpr-register-1">Clear the B0WI bit in the PWPR register [1]</h3>
+<p>The <strong>PWPR</strong> register is a Port Write Protection Register, which protects the pin configuration registers from accidental writes.
+By default, the B0WI bit is set to 1, which means that writes are locked. To allow changes to the pin configuration, we need to clear the B0WI bit.</p>
+<p>You can consult again the manual to understand the PWPR and B0WI bit.</p>
+<p><img alt="RA4M1 -- GPIO PWPR register meaning" title="RA4M1 -- GPIO PWPR register meaning, source: https://edm.eeworld.com.cn/ra4m1-Users_Manual_Hardware.pdf" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 903px) 903px, 100vw"  data-astro-image="constrained" width="903" height="362" src="/_astro/pwpr.DAwkK9jH_1eEAGv.webp" srcset="/_astro/pwpr.DAwkK9jH_240M0R.webp 640w, /_astro/pwpr.DAwkK9jH_Z2tjCx4.webp 750w, /_astro/pwpr.DAwkK9jH_1Y6Faj.webp 828w, /_astro/pwpr.DAwkK9jH_1eEAGv.webp 903w"></p>
+<p>You can also see the address of the PWPR register and the bit number of B0WI bit in the manual, but as we don’t define the registers manually now, it’s just FYI.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Address(es): PMISC.PWPR 40040D03h</span></span>
+<span class="line"><span>B0WI bit: 7</span></span></code></pre>
+<p>In BSP, the PWPR register and B0WI bit are defined as <code>R_PMISC->PWPR_b.B0WI</code>.
+When you start typing the <code>R_PMISC</code> in IDE, you can always click on the macro to jump to the header and check other definitions.</p>
+<h3 id="set-1-to-the-pfswe-bit-in-the-pwpr-register-2">Set 1 to the PFSWE bit in the PWPR register [2]</h3>
+<p>What is PFSWE? Look at the above PWPR screenshot again. The PFSWE (PmnPFS Register Write Enable) bit is another protection bit in PWPR register. After clearing B0WI, we can now set PFSWE
+bit to enable writing to PmnPFS (Port mn Pin Function Select Register) register.</p>
+<h3 id="clear-the-port-mode-control-bit-in-the-pmr-for-the-target-pin-to-select-the-general-io-port-3">Clear the Port Mode Control bit in the PMR for the target pin to select the general I/O port [3]</h3>
+<p>Each GPIO pin on the CPU can serve two roles: it can be a general-purpose I/O pin, or it can be used for a specific peripheral function (like UART, SPI, etc).
+PMR (Port Mode Control) bit inside PmnPF configures this role.</p>
+<p><img alt="RA4M1 --  (PmnPF PDR bit meaning" title="RA4M1 --  (PmnPF PDR meaning, source: https://edm.eeworld.com.cn/ra4m1-Users_Manual_Hardware.pdf" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 891px) 891px, 100vw"  data-astro-image="constrained" width="891" height="511" src="/_astro/pdr.DUFlxuHx_Z1g9aYY.webp" srcset="/_astro/pdr.DUFlxuHx_2sxYn5.webp 640w, /_astro/pdr.DUFlxuHx_Z1q5qrJ.webp 750w, /_astro/pdr.DUFlxuHx_ZFJXqY.webp 828w, /_astro/pdr.DUFlxuHx_Z1g9aYY.webp 891w">
+<img alt="RA4M1 --  (PmnPF PMR bit meaning" title="RA4M1 --  (PmnPF PMR meaning, source: https://edm.eeworld.com.cn/ra4m1-Users_Manual_Hardware.pdf" loading="lazy" decoding="async" fetchpriority="auto" sizes="(min-width: 836px) 836px, 100vw"  data-astro-image="constrained" width="836" height="394" src="/_astro/pmr.LoUp_KmI_vp8hI.webp" srcset="/_astro/pmr.LoUp_KmI_2wCw7W.webp 640w, /_astro/pmr.LoUp_KmI_ZSJ0Wm.webp 750w, /_astro/pmr.LoUp_KmI_17lPp7.webp 828w, /_astro/pmr.LoUp_KmI_vp8hI.webp 836w"></p>
+<p>For general I/O purpose (which is our LED) — we need to clear the PMR bit.</p>
+<h3 id="specify-the-inputoutput-function-for-the-pin-through-the-psel40-bit-settings-in-the-pmnpfs-register">Specify the input/output function for the pin through the PSEL[4:0] bit settings in the PmnPFS register</h3>
+<p>Not needed.</p>
+<p>PSEL decides which peripheral function is assigned to the pin. Since we want to use it as a general I/O pin, and PMR bit was
+already cleared, we don’t need to set PSEL.</p>
+<h3 id="set-the-pmr-to-1-as-required-to-switch-to-the-selected-inputoutput-function-for-the-pin">Set the PMR to 1 as required to switch to the selected input/output function for the pin</h3>
+<p>Not needed.</p>
+<p>As we use pin as general I/O, PMR should be 0.</p>
+<h3 id="set-the-pdr-bit-in-pmnpfs-register-to-1-to-configure-the-pin-as-output-4">Set the PDR bit in PmnPFS register to 1 to configure the pin as output [4]</h3>
+<p>The pin is already configured as general I/O, but we need to specify the direction — input or output.
+For blinking LED, it’s output, so we need to set PDR bit to 1.</p>
+<h3 id="clear-the-pfswe-bit-and-set-b0wi-bit-to-lock-the-configuration-5-and-6">Clear the PFSWE bit and set B0WI bit to lock the configuration [5] and [6]</h3>
+<p>After we finish configuring the pin, set the protection bits back to their default state.</p>
+<h3 id="full-code-needed-to-configure-the-pin-as-io-output">Full code needed to configure the pin as I/O output</h3>
+<p>The full configuration goes as follows:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="cpp"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> setup</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">    R_PMISC</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">PWPR_b</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">B0WI</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">  =</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 0</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // [1]</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">    R_PMISC</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">PWPR_b</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PFSWE</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // [2]</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">    R_PFS</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PORT</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">[port]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PIN</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">[pin]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">PmnPFS_b</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PMR</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 0</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // [3]</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">    R_PFS</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PORT</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">[port]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PIN</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">[pin]</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">PmnPFS_b</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PDR</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // [4]</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">    R_PMISC</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">PWPR_b</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PFSWE</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 0</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // [5]</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">    R_PMISC</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">PWPR_b</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">B0WI</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">  =</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic"> // [6]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<h2 id="set-the-pin-to-high-or-low-state-to-blink-a-led">Set the pin to high or low state to blink a LED</h2>
+<p>Now, we only need to set the pin to HIGH or LOW state to blink the LED. This is done by writing to the PODR (Port Output Data Register) register.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="cpp"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> loop</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">    R_PORT1</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">PODR_b</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PODR2</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // ON</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    delay</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1000</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);   </span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">    R_PORT1</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">PODR_b</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PODR2</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 0</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // OFF</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    delay</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1000</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">                // wait for a second</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<h2 id="compare-speed">Compare speed</h2>
+<p>We have the manual LED blinking. It wasn’t that hard, although the datasheet sometimes wasn’t very clear. Now I want to compare
+the speed of execution of our Arduino code vs manual register access. For doing this, I will use the DWT (Data Watchpoint and Trace) cycle counter,
+which is a special register in ARM Cortex-M that counts the number of CPU cycles. This way, we will be able to verify
+if our manual way of blinking LED is faster than using <code>digitalWrite()</code>, and if yes, how much.</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="cpp"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> runBenchmark</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">  uint32_t</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> start</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> end;</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">  const</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> int</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> N </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1000</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  </span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">println</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">--- Uno R4 Performance Benchmark (Cycles) ---</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // 1. Measure digitalWrite</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  start </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478"> DWT</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">CYCCNT</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">  __DSB</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">();</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">  for</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> (</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">int</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> i </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 0</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">; i </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">&#x3C;</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> N; i</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">++</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">) </span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">digitalWrite</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> HIGH);</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">  __DSB</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">();</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  end </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478"> DWT</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">CYCCNT</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">  uint32_t</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> dwTime </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> end </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> start;</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">print</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">digitalWrite(): </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">print</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(dwTime);</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">println</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> cycles</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // 2. Measure Register Access</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  start </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478"> DWT</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">CYCCNT</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">  __DSB</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">();</span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-light-font-style:inherit;--shiki-dark:#C792EA;--shiki-dark-font-style:italic">  for</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> (</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">int</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> i </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 0</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">; i </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">&#x3C;</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> N; i</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">++</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">) </span><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">R_PORT1</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">PODR_b</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PODR2</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">  __DSB</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">();</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  end </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478"> DWT</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">CYCCNT</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">  </span></span>
+<span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">  uint32_t</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> regTime </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">=</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> end </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">-</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> start;</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">print</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Direct Register: </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">print</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(regTime);</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">println</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D"> cycles</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">print</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">Registers are </span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">print</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">((</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">float</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">)dwTime </span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">/</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> regTime);</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">println</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">x faster!</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">  Serial</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">println</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#22863A;--shiki-dark:#ECC48D">---------------------------------------------</span><span style="--shiki-light:#22863A;--shiki-dark:#D9F5DD">"</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">);</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>The result confirmed that direct register access is about 3.5x faster than <code>digitalWrite()'.</code></p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="plaintext"><code><span class="line"><span>10:11:20.307 -> ---------------------------------------------</span></span>
+<span class="line"><span>10:11:28.344 -> --- Uno R4 Performance Benchmark (Cycles) ---</span></span>
+<span class="line"><span>10:11:28.344 -> digitalWrite(): 42292 cycles</span></span>
+<span class="line"><span>10:11:28.375 -> Direct Register: 12169 cycles</span></span>
+<span class="line"><span>10:11:28.375 -> Registers are 3.48x faster!</span></span>
+<span class="line"><span>10:11:28.375 -> ---------------------------------------------</span></span></code></pre>
+<h2 id="compare-code-size">Compare code size</h2>
+<p>As the last of our experiments, let’s compare the <code>digitalWrite()</code> code size with
+direct register write. In this case, I only left LED ON call in the loop, so we can compare the loop size.</p>
+<p>Original:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="cpp"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> loop</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic">    digitalWrite</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">(LED_BUILTIN</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">,</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> HIGH);</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>produces the following assembly code for the loop part:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="asm"><code><span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">00004140</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> &#x3C;</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">loop</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">>:</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    4140</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">2101</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">      	movs</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	r1, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    4142</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">200d</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">      	movs</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	r0, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">13</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    4144</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	f005 bd68 	b.w	9c18 &#x3C;digitalWrite></span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">00009c18 &#x3C;digitalWrite>:</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    9c18</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	4b04      	ldr	r3, [pc, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">16</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]	@ (9c2c &#x3C;digitalWrite+</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0x14</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">>)</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    9c1a</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	1c0a      	adds	r2, r1, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    9c1c</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	bf18      	it	ne</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    9c1e</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">	2201</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      	movne	r2, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    9c20</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	f833 </span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1030</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 	ldrh.w	r1, [r3, r0, </span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">lsl</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">3</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    9c24</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">	2000</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">      	movs</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	r0, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    9c26</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	f7fb bcf3 	b.w	</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">5610</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> &#x3C;R_IOPORT_PinWrite></span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    9c2a</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	bf00      	</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">nop</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    9c2c</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	0000fa6c 	.</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">word</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">	0x0000fa6c</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">    </span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">00005610</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> &#x3C;R_IOPORT_PinWrite>:</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    5610</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	b2c8      	uxtb	r0, r1</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    5612</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">2301</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">      	movs</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	r3, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    5614</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">4083</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      	lsls	r3, r0</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    5616</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	b94a      	cbnz	r2, 562c &#x3C;R_IOPORT_PinWrite+</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0x1c</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">></span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    5618</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	041a      	lsls	r2, r3, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">16</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    561a</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	0a0b      	lsrs	r3, r1, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">8</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    561c</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	015b      	lsls	r3, r3, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">5</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    561e</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	f103 </span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">4380</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> 	add</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">.w	r3, r3, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">1073741824</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	@ </span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0x40000000</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    5622</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	f503 </span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">2380</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA"> 	add</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">.w	r3, r3, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">262144</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	@ </span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0x40000</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    5626</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">2000</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">      	movs</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	r0, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    5628</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	609a      	</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">str</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	r2, [r3, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">8</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    562a</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">	4770</span><span style="--shiki-light:#1976D2;--shiki-dark:#82AAFF">      	bx</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	lr</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    562c</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	b29a      	uxth	r2, r3</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    562e</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	e7f4      	b.n	561a &#x3C;R_IOPORT_PinWrite+</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0xa</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">></span></span></code></pre>
+<p>Raw register access:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="cpp"><code><span class="line"><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">void</span><span style="--shiki-light:#6F42C1;--shiki-light-font-style:inherit;--shiki-dark:#82AAFF;--shiki-dark-font-style:italic"> loop</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">() {</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#C5E478">    R_PORT1</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">-></span><span style="--shiki-light:#1976D2;--shiki-light-font-style:inherit;--shiki-dark:#FAF39F;--shiki-dark-font-style:italic">PODR_b</span><span style="--shiki-light:#212121;--shiki-dark:#D6DEEB">.</span><span style="--shiki-light:#24292EFF;--shiki-dark:#BAEBE2">PODR2</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA"> =</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C"> 1</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">;</span><span style="--shiki-light:#C2C3C5;--shiki-light-font-style:inherit;--shiki-dark:#637777;--shiki-dark-font-style:italic">  // ON</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">}</span></span></code></pre>
+<p>produces the following:</p>
+<pre class="astro-code astro-code-themes min-light night-owl" style="--shiki-light:#24292eff;--shiki-dark:#d6deeb;--shiki-light-bg:#ffffff;--shiki-dark-bg:#011627; overflow-x: auto;--file-name-offset: -0.75rem;" tabindex="0" data-language="asm"><code><span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">00004140</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> &#x3C;</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">loop</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">>:</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    4140</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	4a02      	ldr	r2, [pc, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">8</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]	@ (414c &#x3C;</span><span style="--shiki-light:#D32F2F;--shiki-dark:#7FDBCA">loop</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">+</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0xc</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">>)</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    4142</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">8813</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      	ldrh	r3, [r2, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    4144</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	f043 </span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0304</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 	orr.w	r3, r3, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">4</span></span>
+<span class="line"><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">    4148</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">:	</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">8013</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">      	strh	r3, [r2, #</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">0</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">]</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    414a</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">	4770</span><span style="--shiki-light:#1976D2;--shiki-dark:#82AAFF">      	bx</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB">	lr</span></span>
+<span class="line"><span style="--shiki-light:#24292EFF;--shiki-dark:#FFFFFF">    414c</span><span style="--shiki-light:#212121;--shiki-dark:#FFFFFF">:</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">	40040020</span><span style="--shiki-light:#24292EFF;--shiki-dark:#D6DEEB"> 	.</span><span style="--shiki-light:#D32F2F;--shiki-dark:#C792EA">word</span><span style="--shiki-light:#1976D2;--shiki-dark:#F78C6C">	0x40040020</span></span></code></pre>
+<p>In original code we have more or less 22 instructions, while in the modified code only 5 instructions. So the code size is another win!</p>
+<h2 id="summary">Summary</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th align="left"></th><th align="left"><code>digitalWrite()</code></th><th align="left">Direct register access</th></tr></thead><tbody><tr><td align="left"><strong>Portability</strong></td><td align="left">High (works on any Arduino)</td><td align="left">Low (Specific to RA4M1)</td></tr><tr><td align="left"><strong>Execution Speed</strong></td><td align="left">Slower ~3.5x</td><td align="left">Faster</td></tr><tr><td align="left"><strong>Code Size</strong></td><td align="left">Larger ~4x</td><td align="left">Smaller</td></tr></tbody></table> </article> <hr class="my-8 border-dashed">  <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8"> <li> <a href="/tags/arduino/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-2"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> Arduino </a> </li><li> <a href="/tags/gpio/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-3"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> GPIO </a> </li><li> <a href="/tags/ra-4-m-1/" class="flex items-center gap-0.5 border-b-2 border-dashed border-foreground hover:-mt-0.5 hover:border-accent hover:text-accent focus-visible:border-none focus-visible:text-accent text-sm" data-astro-transition-scope="astro-36ssibgs-4"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-80 size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 9l14 0" /><path d="M5 15l14 0" /><path d="M11 4l-4 16" /><path d="M17 4l-4 16" /></svg> RA4M1 </a> </li> </ul> <div id="btt-btn-container" class="fixed end-4 bottom-8 z-50 md:sticky md:end-auto md:float-end md:me-1 translate-y-14 opacity-0 transition duration-500"> <button data-button="back-to-top" class="group relative bg-background px-2 py-1 size-14 rounded-full shadow-xl md:h-8 md:w-fit md:rounded-md md:shadow-none md:focus-visible:rounded-none md:bg-background/35 md:bg-clip-padding md:backdrop-blur-lg"> <span id="progress-indicator" class="absolute inset-0 -z-10 block size-14 scale-110 rounded-full bg-transparent md:hidden md:h-8 md:rounded-md"></span> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block rotate-90 md:hidden"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 6l-6 6l6 6" /></svg> <span class="sr-only text-sm group-hover:text-accent md:not-sr-only"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-4"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M12 5l0 14" /><path d="M16 9l-4 -4" /><path d="M8 9l4 -4" /></svg>
+Back To Top
+</span> </button> </div> <script data-astro-rerun>
+  /** Scrolls the document to the top when
+   * the "Back to Top" button is clicked. */
+  function backToTop() {
+    const rootElement = document.documentElement;
+    const btnContainer = document.querySelector("#btt-btn-container");
+    const backToTopBtn = document.querySelector("[data-button='back-to-top']");
+    const progressIndicator = document.querySelector("#progress-indicator");
+
+    if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
+      return;
+
+    // Attach click event handler for back-to-top button
+    backToTopBtn.addEventListener("click", () => {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+
+    // Handle button visibility according to scroll position
+    let lastVisible = null;
+    function handleScroll() {
+      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTop = rootElement.scrollTop;
+      const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
+
+      progressIndicator.style.setProperty(
+        "background-image",
+        `conic-gradient(var(--accent), var(--accent) ${scrollPercent}%, transparent ${scrollPercent}%)`
+      );
+
+      const isVisible = scrollTop / scrollTotal > 0.3;
+
+      if (isVisible !== lastVisible) {
+        btnContainer.classList.toggle("opacity-100", isVisible);
+        btnContainer.classList.toggle("translate-y-0", isVisible);
+        btnContainer.classList.toggle("opacity-0", !isVisible);
+        btnContainer.classList.toggle("translate-y-14", !isVisible);
+        lastVisible = isVisible;
+      }
+    }
+
+    let ticking = false;
+    document.addEventListener("scroll", () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+  backToTop();
+</script> <div class="flex flex-none flex-col items-center justify-center gap-1 md:items-start"><span class="italic">Share this post on:</span><div class="flex flex-wrap items-center justify-center gap-2 md:justify-start"><div class="text-center"><a href="https://wa.me/?text=https://www.embeddedk8.com/posts/2026/arduino-blink-led-without-digitalwrite/" title="Share this post via WhatsApp" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" /><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" /></svg><span class="sr-only">Share this post via WhatsApp</span> </a><a href="https://www.facebook.com/sharer.php?u=https://www.embeddedk8.com/posts/2026/arduino-blink-led-without-digitalwrite/" title="Share this post on Facebook" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg><span class="sr-only">Share this post on Facebook</span> </a><a href="https://x.com/intent/post?url=https://www.embeddedk8.com/posts/2026/arduino-blink-led-without-digitalwrite/" title="Share this post on X" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg><span class="sr-only">Share this post on X</span> </a><a href="https://t.me/share/url?url=https://www.embeddedk8.com/posts/2026/arduino-blink-led-without-digitalwrite/" title="Share this post via Telegram" class="group inline-flex items-center gap-1 hover:text-accent scale-90 p-2 hover:rotate-6 sm:p-1"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4" /></svg><span class="sr-only">Share this post via Telegram</span> </a></div><div class="hidden h-6 w-px bg-skin-line sm:block"></div><a href="https://disassembled.substack.com/subscribe" title="Subscribe to Newsletter" class="group inline-flex items-center gap-1 hover:text-accent rounded-md border border-skin-line px-3 py-1.5 text-sm hover:bg-skin-accent hover:text-skin-inverted"> <svg xmlns="http://www.w3.org/2000/svg" class="inline-block size-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+Newsletter
+ </a></div></div> <hr class="my-6 border-dashed"> <!-- Previous/Next Post Buttons --> <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">  <a href="/posts/2025/arduino-cli-compilation" class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"> <div> <span>Next Post</span> <div class="text-sm text-accent/85">Arduino CLI guide: advanced compilation, automation, and makefiles</div> </div> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block flex-none rtl:rotate-180"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 6l6 6l-6 6" /></svg> </a> </div> </main> <footer class="app-layout mt-auto"> <div class="py-6 sm:py-4 border-t border-border flex flex-col items-center justify-between sm:flex-row-reverse"> <div class="flex flex-wrap items-center gap-1"> <a href="https://github.com/embeddedk8" title="Kasia Zalewska on GitHub" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg> <span class="sr-only">Kasia Zalewska on GitHub</span>  </a><a href="https://x.com/KateZlv" title="Kasia Zalewska on X" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 4l11.733 16h4.267l-11.733 -16z" /><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" /></svg> <span class="sr-only">Kasia Zalewska on X</span>  </a><a href="mailto:embeddedkate@gmail.com" title="Send an email to Kasia Zalewska" class="group inline-flex items-center gap-1 hover:text-accent p-2 hover:rotate-6 sm:p-1">  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block size-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg> <span class="sr-only">Send an email to Kasia Zalewska</span>  </a> </div> <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row"> <span>Copyright &#169; 2026</span> <span class="hidden sm:inline">&nbsp;|&nbsp;</span> <span>All rights reserved.</span> </div> </div> </footer>  <!-- Load full theme logic --> <script type="module">const d="theme",r="light",m="dark";function i(){const e=localStorage.getItem(d);return e||(window.matchMedia("(prefers-color-scheme: dark)").matches?m:r)}let t=window.theme?.themeValue??i();function c(){localStorage.setItem(d,t),o()}function o(){document.firstElementChild?.setAttribute("data-theme",t),document.querySelector("#theme-btn")?.setAttribute("aria-label",t);const e=document.body;if(e){const n=window.getComputedStyle(e).backgroundColor;document.querySelector("meta[name='theme-color']")?.setAttribute("content",n)}}window.theme?(window.theme.setPreference=c,window.theme.reflectPreference=o):window.theme={themeValue:t,setPreference:c,reflectPreference:o,getTheme:()=>t,setTheme:e=>{t=e}};o();function s(){o(),document.querySelector("#theme-btn")?.addEventListener("click",()=>{t=t===r?m:r,window.theme?.setTheme(t),c()})}s();document.addEventListener("astro:after-swap",s);document.addEventListener("astro:before-swap",e=>{const a=e,n=document.querySelector("meta[name='theme-color']")?.getAttribute("content");n&&a.newDocument.querySelector("meta[name='theme-color']")?.setAttribute("content",n)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",({matches:e})=>{t=e?m:r,window.theme?.setTheme(t),c()});</script> <script>
+  var sc_project = 13166912;
+  var sc_invisible = 1;
+  var sc_security = "b5be05e2";
+</script> <script src="https://www.statcounter.com/counter/counter.js" async></script> <noscript><div class="statcounter"><a title="Web Analytics" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13166912/0/b5be05e2/1/" alt="Web Analytics" referrerpolicy="no-referrer-when-downgrade"></a></div></noscript><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ window.dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-WMKZ5G9QL5');
+</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-WMKZ5G9QL5"></script><!-- 100% privacy-first analytics --><script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script> </body></html> <script data-astro-rerun>
+  /** Create a progress indicator
+   *  at the top */
+  function createProgressBar() {
+    // Create the main container div
+    const progressContainer = document.createElement("div");
+    progressContainer.className =
+      "progress-container fixed top-0 z-10 h-1 w-full bg-background";
+
+    // Create the progress bar div
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar h-1 w-0 bg-accent";
+    progressBar.id = "myBar";
+
+    // Append the progress bar to the progress container
+    progressContainer.appendChild(progressBar);
+
+    // Append the progress container to the document body or any other desired parent element
+    document.body.appendChild(progressContainer);
+  }
+  createProgressBar();
+
+  /** Update the progress bar
+   *  when user scrolls */
+  function updateScrollProgress() {
+    document.addEventListener("scroll", () => {
+      const winScroll =
+        document.body.scrollTop || document.documentElement.scrollTop;
+      const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      if (document) {
+        const myBar = document.getElementById("myBar");
+        if (myBar) {
+          myBar.style.width = scrolled + "%";
+        }
+      }
+    });
+  }
+  updateScrollProgress();
+
+  /** Attaches links to headings in the document,
+   *  allowing sharing of sections easily */
+  function addHeadingLinks() {
+    const headings = Array.from(
+      document.querySelectorAll("h2, h3, h4, h5, h6")
+    );
+    for (const heading of headings) {
+      heading.classList.add("group");
+      const link = document.createElement("a");
+      link.className =
+        "heading-link ms-2 no-underline opacity-75 md:opacity-0 md:group-hover:opacity-100 md:focus:opacity-100";
+      link.href = "#" + heading.id;
+
+      const span = document.createElement("span");
+      span.ariaHidden = "true";
+      span.innerText = "#";
+      link.appendChild(span);
+      heading.appendChild(link);
+    }
+  }
+  addHeadingLinks();
+
+  /** Attaches copy buttons to code blocks in the document,
+   * allowing users to copy code easily. */
+  function attachCopyButtons() {
+    const copyButtonLabel = "Copy";
+    const codeBlocks = Array.from(document.querySelectorAll("pre"));
+
+    for (const codeBlock of codeBlocks) {
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "relative";
+
+      // Check if --file-name-offset custom property exists
+      const computedStyle = getComputedStyle(codeBlock);
+      const hasFileNameOffset =
+        computedStyle.getPropertyValue("--file-name-offset").trim() !== "";
+
+      // Determine the top positioning class
+      const topClass = hasFileNameOffset
+        ? "top-(--file-name-offset)"
+        : "-top-3";
+
+      const copyButton = document.createElement("button");
+      copyButton.className = `copy-code absolute end-3 ${topClass} rounded bg-muted border border-muted px-2 py-1 text-xs leading-4 text-foreground font-medium`;
+      copyButton.innerHTML = copyButtonLabel;
+      codeBlock.setAttribute("tabindex", "0");
+      codeBlock.appendChild(copyButton);
+
+      // wrap codebock with relative parent element
+      codeBlock?.parentNode?.insertBefore(wrapper, codeBlock);
+      wrapper.appendChild(codeBlock);
+
+      copyButton.addEventListener("click", async () => {
+        await copyCode(codeBlock, copyButton);
+      });
+    }
+
+    async function copyCode(block, button) {
+      const code = block.querySelector("code");
+      const text = code?.innerText;
+
+      await navigator.clipboard.writeText(text ?? "");
+
+      // visual feedback that task is completed
+      button.innerText = "Copied";
+
+      setTimeout(() => {
+        button.innerText = copyButtonLabel;
+      }, 700);
+    }
+  }
+  attachCopyButtons();
+
+  /* Go to page start after page swap */
+  document.addEventListener("astro:after-swap", () =>
+    window.scrollTo({ left: 0, top: 0, behavior: "instant" })
+  );
+</script>
