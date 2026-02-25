@@ -10,6 +10,17 @@ description: "Skip Arduino libraries and blink an LED on Arduino Uno R4 using di
 tags: ["Arduino", "GPIO", "RA4M1"]
 ---
 
+<div class="border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 p-4 my-6 rounded-r-md">
+  <span class="text-slate-700 dark:text-slate-200">
+    📚 This post is part of the 
+    <a href="https://www.embeddedk8.com/posts/2025/arduino-the-hard-way/" 
+       class="font-bold text-indigo-700 dark:text-indigo-300 hover:underline">
+       Arduino the Hard Way
+    </a> 
+    series
+  </span>
+</div>
+
 ## Table Of Contents
 
 ## Arduino way to Blink an LED
@@ -259,7 +270,7 @@ void runBenchmark() {
   Serial.println("---------------------------------------------");
 }
 ```
-The result confirmed that direct register access is about 3.5x faster than `digitalWrite()'.`
+The result confirmed that direct register access is about 3.5x faster than `digitalWrite()`:
 ```
 10:11:20.307 -> ---------------------------------------------
 10:11:28.344 -> --- Uno R4 Performance Benchmark (Cycles) ---

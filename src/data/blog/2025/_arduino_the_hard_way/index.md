@@ -51,8 +51,9 @@ The posts in this series published so far:
 
 1. [Understanding the Arduino build process: from a sketch to a binary](https://www.embeddedk8.com/posts/2025/arduino-ide-build-process/)
 2. [Arduino CLI guide: advanced compilation, automation, and makefiles](https://www.embeddedk8.com/posts/2025/arduino-cli-compilation/)
-3. [Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation](https://www.embeddedk8.com/posts/2025/arduino-github-actions-with-wokwi/)
-4. [Running Zephyr RTOS on Arduino UNO R4 WiFi ](https://www.embeddedk8.com/posts/2026/running-zephyr-on-arduino-uno-r4/)
+3. [Blinking an LED on Arduino Uno R4 using direct register access](https://www.embeddedk8.com/posts/2025/arduino-the-hard-way/)
+4. [Adding CI/CD to Arduino projects: Github Actions and Wokwi simulation](https://www.embeddedk8.com/posts/2025/arduino-github-actions-with-wokwi/)
+5. [Running Zephyr RTOS on Arduino UNO R4 WiFi ](https://www.embeddedk8.com/posts/2026/running-zephyr-on-arduino-uno-r4/)
 
 More posts coming soon!
 
