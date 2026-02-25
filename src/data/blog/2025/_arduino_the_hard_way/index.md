@@ -1,12 +1,12 @@
 ---
-title: "Arduino the Hard Way: real embedded programming with Arduino UNO R4"
+title: "Arduino the Hard Way: real embedded with Arduino UNO R4"
 slug: 'arduino-the-hard-way'
 pubDatetime: 2025-09-10T15:58:26+08:00
 modDatetime: 2026-02-24T15:58:26+08:00
 draft: false
 author: "embeddedk8"
 authorLink: "https://www.embeddedk8.com"
-description: "Learn embedded systems the right way using Arduino UNO R4. This series goes beyond the Arduino API to explore real embedded development: ARM architecture, register-level control, Real-Time Operating Systems and more."
+description: "Learn embedded systems the right way using Arduino UNO R4. This series goes beyond the Arduino API to discuss: ARM architecture, registers, RTOS and more."
 tags: ["Arduino"]
 ---
 Arduino is one of the most popular ways to start learning embedded systems.

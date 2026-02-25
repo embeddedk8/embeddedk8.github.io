@@ -1,31 +1,20 @@
 ---
-weight: 2
 title: "Blinking an LED on Arduino Uno R4 using direct register access"
 slug: 'arduino-blink-led-without-digitalwrite'
-pubDatetime: 2026-02-22T15:58:26+08:00
-modDatetime: 2026-02-22T15:58:26+08:00
-draft: true
+pubDatetime: 2026-02-25T15:58:26+08:00
+modDatetime: 2026-02-25T15:58:26+08:00
+draft: false
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Skip Arduino libraries and blink an LED on Arduino Uno R4 using direct registers access. We'll read RA4M1 datasheet and configure and configure a GPIO pin manually."
-images: []
-resources:
-- name: "featured-image"
-  src: "featured-image.png"
-
+description: "Skip Arduino libraries and blink an LED on Arduino Uno R4 using direct registers access. We'll read RA4M1 datasheet and configure a GPIO pin manually."
 tags: ["Arduino", "GPIO", "RA4M1"]
-lightgallery: true
-toc:
-    auto: false
-math:
-    enable: true
 ---
 
 ## Table Of Contents
 
 ## Arduino way to Blink an LED
 
-Blinking an LED on Arduino is extremely easy if you use Arduino libraries. In this post, we`ll take the first step beyond the beginner-friendly approach. ;)
+Blinking an LED on Arduino is extremely easy if you use Arduino libraries. In this post, we'll take the first step beyond the beginner-friendly approach. ;)
 
 ![Arduino Uno R4 WiFi Blink LED](@/assets/images/arduino-blink-led/blink.gif "Arduino Uno R4 WiFi Blink LED")
 
@@ -53,9 +42,9 @@ This code will work on any Arduino board, because the Arduino libraries handle t
 We would say that this code is hardware-agnostic. `LED_BUILTIN` can mean a different pin for different boards, `digitalWrite` will do different things
 depending on the CPU architecture. That's why this example can look the same for every Arduino board (AVR-based, ARM-based, etc.).
 
-It's convenient. However, the drawback is that at the same time the abstractions are hiding all interesting stuff that is going on under the hood.
-One issue with that is that this is not really teaching us anything about embedded development: what really needs to be done to control the microcontroller pin?
-Additionally, we cannot assess if the implementation of Arduino libraries is efficient or not, or if it's free from 
+It's convenient. However, at the same time the abstractions are hiding all interesting stuff that is going on under the hood.
+This approach is not really teaching us anything about embedded development: what really needs to be done to control the microcontroller pin?
+Additionally, we cannot assess if the implementation of Arduino libraries is efficient in terms of speed or code size, or evenif it's free from 
 any bugs or other issues ([see: Reddit](https://www.reddit.com/r/embedded/comments/mbn7nm/where_are_the_bad_arduino_libraries/)).
 
 That's why we will blink an LED without using Arduino libraries (well, not totally without, as we will still use some Arduino stuff).
@@ -73,13 +62,13 @@ So this is not a bare-metal yet, but we will be approaching it :)
 ## Which LED is it? First look into datasheet
 
 First we need to know where the LED that we want to blink is connected. From Arduino datasheet, or Blinky example, we know that it's `LED_BUILTIN` LED. 
-I want to use the same LED, but without using the `LED_BUILTIN` macro, to show you how to find the pin number and how to configure it manually.
+I will the same LED, but without using the `LED_BUILTIN` macro, to show you how to find the pin number and how to configure it manually.
 For this purpose check the pinout in [Arduino UNO R4 WiFi datasheet](https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf).
 
 ![Arduino Uno R4 WiFi Pinout](@/assets/images/arduino-blink-led/pinout.png "Arduino Uno R4 WiFi Pinout, source: Arduino UNO R4 WiFi datasheet")
 *Source: https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf*
 
-From the pinout diagram we see that `LED_BUILTIN` is connected to P102 pin of microcontroller. P102 means: PORT 1, PIN 02. This will be our output pin for blinking the LED.
+From the pinout diagram we see that `LED_BUILTIN` is connected to P102 pin of microcontroller. P102 means: **PORT 1, PIN 02**. This will be our output pin for blinking the LED.
 
 ## What microcontroller is it?
 
@@ -89,7 +78,7 @@ To proceed further, we need to consult the official hardware manual: [Renesas RA
 
 When you open this manual, you are leaving the friendly Arduino ecosystem, and entering the world of real embedded systems.
 You will see more than 1400 pages of documentation. Good news is that you don't need to read it all.
-For this tutorial, we will only need to dig into the GPIO configuration and usage part.
+For this tutorial, we will only need to dig into the GPIO usage part.
 
 ## Usage Notes for GPIO configuration on RA4M1
 
@@ -108,9 +97,9 @@ To specify the I/O pin functions:
 7. Set 1 to the B0WI bit in the PWPR register. This disables writing to the PFSWE bit in the PWPR register.
 ```
 
-Let’s break down what actually matters for our use case. But first, let's talk quickly about the access to registers.
+We will break down what actually matters for our use case. But first, we need to decide how to the access to registers.
 
-## How to access registers on RA4M1 or any other microcontroller
+## Different ways of accessing the registers
 
 As the procedure above requires us to write to specific registers and bits, we need to know how to find them and how to write to them.
 
@@ -121,20 +110,29 @@ We have two options:
 - **manual access:** check the memory address of the register in the datasheet. Define the macro for this register address in the code.
 Then, use the macros as a pointers to write to this register. This is the most basic way to access registers, but it can be quite tedious and error-prone, especially for complex microcontrollers with many registers.
 
-- **using the support package:** most microcontroller manufacturers provide support packages for their chips, which include header files with definitions for all registers and bits.
-In our case (Arduino Uno R4 with RA4M1 microcontroller), the support package is installed together with Arduino IDE, so we can use the provided definitions to access registers and bits more easily.
-Let's look for the Flexible Software Package (FSP) for RA4M1 in the hidden Arduino files. On my disk, it's located at:
+    ```
+    #define PWPR (*(volatile unsigned long *)0x40040D03)
+    PWPR = 0x01; // write
+    ```
 
-```
-~/.arduino15/packages/arduino/hardware/renesas_uno/1.5.1/variants/UNOWIFIR4/includes/ra/fsp/src/bsp/cmsis/Device/RENESAS/Include/R7FA4M1AB.h
-```
+
+- **using the support package:** Instead of defining addresses manually, we can use the header files provided by the manufacturer.
+These files add friendly names (like R_PORT1) to their physical memory addresses.
+In case of Arduino Uno R4 with RA4M1 microcontroller, these definitions are part of the Renesas Flexible Software Package (FSP), which is installed together with Arduino IDE.
+Let's look for this file for RA4M1 in the hidden Arduino files. 
+
+    On my PC, it's located at:
+
+    ```
+    ~/.arduino15/packages/arduino/hardware/renesas_uno/1.5.1/variants/UNOWIFIR4/includes/ra/fsp/src/bsp/cmsis/Device/RENESAS/Include/R7FA4M1AB.h
+    ```
 
 I suggest use the support package now. In the header `R7FA4M1AB.h` you will find all the registers definitions for RA4M1, including the ones we need to configure the GPIO pin.
 Open this file and browse it; we will need to find the definitions for the registers we need. Then, let's follow the procedure.
 
 ## GPIO configuration procedure for RA4M1
 
-### [1] Clear the B0WI bit in the PWPR register.
+### Clear the B0WI bit in the PWPR register [1]
 
 The **PWPR** register is a Port Write Protection Register, which protects the pin configuration registers from accidental writes. 
 By default, the B0WI bit is set to 1, which means that writes are locked. To allow changes to the pin configuration, we need to clear the B0WI bit.
@@ -149,45 +147,44 @@ Address(es): PMISC.PWPR 40040D03h
 B0WI bit: 7
 ```
 
-But for now, we can still reuse some Arduino definitions to make it easier. 
-To access mentioned B0WI bit, we need to write to: `R_PMISC->PWPR_b.B0WI`. 
-All these macros are defined by the Renesas RA4M1 support package, which is included in Arduino IDE for our board.
-When you type it in IDE, you can click on the macro to jump to the header that defines these definitions. On my disk it's at:
-`~/.arduino15/packages/arduino/hardware/renesas_uno/1.5.1/variants/UNOWIFIR4/includes/ra/fsp/src/bsp/cmsis/Device/RENESAS/Include/R7FA4M1AB.h`.
+In BSP, the PWPR register and B0WI bit are defined as `R_PMISC->PWPR_b.B0WI`.
+When you start typing the `R_PMISC` in IDE, you can always click on the macro to jump to the header and check other definitions.
 
 
-### [2] Set 1 to the PFSWE bit in the PWPR register. 
+### Set 1 to the PFSWE bit in the PWPR register [2]
 
-The PFSWE bit is another protection bit in PWPR register (look at PWPR screenshot again). After clearing B0WI, we can now write to PFSWE. 
-We need to set PFSWE bit to 1 to enable writing to PmnPFS (Port mn Pin Function Select Register) register.
+What is PFSWE? Look at the above PWPR screenshot again. The PFSWE (PmnPFS Register Write Enable) bit is another protection bit in PWPR register. After clearing B0WI, we can now set PFSWE
+bit to enable writing to PmnPFS (Port mn Pin Function Select Register) register.
 
-### [3] Clear the Port Mode Control bit in the PMR for the target pin to select the general I/O port
+### Clear the Port Mode Control bit in the PMR for the target pin to select the general I/O port [3]
 
-Each GPIO pin on the CPU can serve two roles: it can be a general-purpose I/O pin, or it can be used for a specific peripheral function (like UART, SPI, etc.).
-PMR (Port Mode Register) configures this role. 
+Each GPIO pin on the CPU can serve two roles: it can be a general-purpose I/O pin, or it can be used for a specific peripheral function (like UART, SPI, etc).
+PMR (Port Mode Control) bit inside PmnPF configures this role. 
 
 ![RA4M1 --  (PmnPF PDR bit meaning](@/assets/images/arduino-blink-led/pdr.png "RA4M1 --  (PmnPF PDR meaning, source: https://edm.eeworld.com.cn/ra4m1-Users_Manual_Hardware.pdf")
 ![RA4M1 --  (PmnPF PMR bit meaning](@/assets/images/arduino-blink-led/pmr.png "RA4M1 --  (PmnPF PMR meaning, source: https://edm.eeworld.com.cn/ra4m1-Users_Manual_Hardware.pdf")
 
-So for our LED pin -- general I/O purpose -- we need to clear the PMR bit.
+For general I/O purpose (which is our LED) -- we need to clear the PMR bit.
 
 ### Specify the input/output function for the pin through the PSEL[4:0] bit settings in the PmnPFS register
+
+Not needed. 
 
 PSEL decides which peripheral function is assigned to the pin. Since we want to use it as a general I/O pin, and PMR bit was
 already cleared, we don't need to set PSEL.
 
 ### Set the PMR to 1 as required to switch to the selected input/output function for the pin
 
-Again, this is not needed for our usecase. We want to use pin as general I/O, so PMR should be 0.
-Instead, we need to set the pin as output, which is done by setting PDR (Port Direction Bit) bit in PmnPFS register.
+Not needed.
 
-### [4] Set the PDR bit in PmnPFS register to 1 to configure the pin as output
-The pin is already configured as general I/O, but we need to specify the direction -- will it be input or output?
+As we use pin as general I/O, PMR should be 0.
+
+### Set the PDR bit in PmnPFS register to 1 to configure the pin as output [4]
+The pin is already configured as general I/O, but we need to specify the direction -- input or output.
 For blinking LED, it's output, so we need to set PDR bit to 1.
 
-### [5] and [6] Clear the PFSWE bit and set B0WI bit to lock the configuration
-After we finish configuring the pin, set the protection bits back to their default state to prevent accidental changes to the pin configuration later in the code. 
-This means we need to clear PFSWE bit and set B0WI bit back to 1.
+### Clear the PFSWE bit and set B0WI bit to lock the configuration [5] and [6]
+After we finish configuring the pin, set the protection bits back to their default state.
 
 ### Full code needed to configure the pin as I/O output
 
@@ -219,14 +216,131 @@ void loop() {
 }
 ```
 
+## Compare speed
 
-// Check datasheet
-// https://docs.arduino.cc/resources/datasheets/ABX00087-datasheet.pdf
-// https://edm.eeworld.com.cn/ra4m1-Users_Manual_Hardware.pdf
-// Our led is LED_BUILTIN P102
-// https://docs.arduino.cc/resources/datasheets/ra4m1-datasheet.pdf
-//https://docs.arduino.cc/resources/datasheets/ra4m1-datasheet.pdf
+We have the manual LED blinking. It wasn't that hard, although the datasheet sometimes wasn't very clear. Now I want to compare
+the speed of execution of our Arduino code vs manual register access. For doing this, I will use the DWT (Data Watchpoint and Trace) cycle counter, 
+which is a special register in ARM Cortex-M that counts the number of CPU cycles. This way, we will be able to verify
+if our manual way of blinking LED is faster than using `digitalWrite()`, and if yes, how much.
+
+```cpp
+void runBenchmark() {
+  uint32_t start, end;
+  const int N = 1000;
+  
+  Serial.println("--- Uno R4 Performance Benchmark (Cycles) ---");
+
+  // 1. Measure digitalWrite
+  start = DWT->CYCCNT;
+  __DSB();
+  for (int i = 0; i < N; i++) digitalWrite(LED_BUILTIN, HIGH);
+  __DSB();
+  end = DWT->CYCCNT;
+  uint32_t dwTime = end - start;
+  Serial.print("digitalWrite(): ");
+  Serial.print(dwTime);
+  Serial.println(" cycles");
+
+  // 2. Measure Register Access
+  start = DWT->CYCCNT;
+  __DSB();
+  for (int i = 0; i < N; i++) R_PORT1->PODR_b.PODR2 = 1;
+  __DSB();
+  end = DWT->CYCCNT;
+  
+  uint32_t regTime = end - start;
+  Serial.print("Direct Register: ");
+  Serial.print(regTime);
+  Serial.println(" cycles");
+
+  Serial.print("Registers are ");
+  Serial.print((float)dwTime / regTime);
+  Serial.println("x faster!");
+  Serial.println("---------------------------------------------");
+}
+```
+The result confirmed that direct register access is about 3.5x faster than `digitalWrite()'.`
+```
+10:11:20.307 -> ---------------------------------------------
+10:11:28.344 -> --- Uno R4 Performance Benchmark (Cycles) ---
+10:11:28.344 -> digitalWrite(): 42292 cycles
+10:11:28.375 -> Direct Register: 12169 cycles
+10:11:28.375 -> Registers are 3.48x faster!
+10:11:28.375 -> ---------------------------------------------
+```
+
+## Compare code size
+As the last of our experiments, let's compare the `digitalWrite()` code size with
+direct register write. In this case, I only left LED ON call in the loop, so we can compare the loop size.
+
+Original:
+```cpp
+void loop() {
+    digitalWrite(LED_BUILTIN, HIGH);
+}
+```
+
+produces the following assembly code for the loop part:
+```asm
+00004140 <loop>:
+    4140:	2101      	movs	r1, #1
+    4142:	200d      	movs	r0, #13
+    4144:	f005 bd68 	b.w	9c18 <digitalWrite>
+
+00009c18 <digitalWrite>:
+    9c18:	4b04      	ldr	r3, [pc, #16]	@ (9c2c <digitalWrite+0x14>)
+    9c1a:	1c0a      	adds	r2, r1, #0
+    9c1c:	bf18      	it	ne
+    9c1e:	2201      	movne	r2, #1
+    9c20:	f833 1030 	ldrh.w	r1, [r3, r0, lsl #3]
+    9c24:	2000      	movs	r0, #0
+    9c26:	f7fb bcf3 	b.w	5610 <R_IOPORT_PinWrite>
+    9c2a:	bf00      	nop
+    9c2c:	0000fa6c 	.word	0x0000fa6c
+    
+00005610 <R_IOPORT_PinWrite>:
+    5610:	b2c8      	uxtb	r0, r1
+    5612:	2301      	movs	r3, #1
+    5614:	4083      	lsls	r3, r0
+    5616:	b94a      	cbnz	r2, 562c <R_IOPORT_PinWrite+0x1c>
+    5618:	041a      	lsls	r2, r3, #16
+    561a:	0a0b      	lsrs	r3, r1, #8
+    561c:	015b      	lsls	r3, r3, #5
+    561e:	f103 4380 	add.w	r3, r3, #1073741824	@ 0x40000000
+    5622:	f503 2380 	add.w	r3, r3, #262144	@ 0x40000
+    5626:	2000      	movs	r0, #0
+    5628:	609a      	str	r2, [r3, #8]
+    562a:	4770      	bx	lr
+    562c:	b29a      	uxth	r2, r3
+    562e:	e7f4      	b.n	561a <R_IOPORT_PinWrite+0xa>
+```
+
+Raw register access:
+```cpp
+void loop() {
+    R_PORT1->PODR_b.PODR2 = 1;  // ON
+}
+```
+produces the following:
+```asm
+00004140 <loop>:
+    4140:	4a02      	ldr	r2, [pc, #8]	@ (414c <loop+0xc>)
+    4142:	8813      	ldrh	r3, [r2, #0]
+    4144:	f043 0304 	orr.w	r3, r3, #4
+    4148:	8013      	strh	r3, [r2, #0]
+    414a:	4770      	bx	lr
+    414c:	40040020 	.word	0x40040020
+```
+
+In original code we have more or less 22 instructions, while in the modified code only 5 instructions. So the code size is another win!
 
 
-https://kleinembedded.com/stm32-without-cubeide-part-1-the-bare-necessities/
-https://github.com/MarcJacob/MyBareMetalLEDBlinker
+## Summary
+
+|                     | `digitalWrite()`            | Direct register access  |
+|:--------------------|:----------------------------|:------------------------|
+| **Portability**     | High (works on any Arduino) | Low (Specific to RA4M1) |
+| **Execution Speed** | Slower ~3.5x                | Faster                  |
+| **Code Size**       | Larger ~4x                  | Smaller                 |
+
+
