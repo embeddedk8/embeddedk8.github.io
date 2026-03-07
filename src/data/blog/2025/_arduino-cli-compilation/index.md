@@ -466,7 +466,7 @@ It’s perfect for automation, reproducibility, and integrating Arduino projects
 In this post we saw how to use basic commands of Arduino CLI, add some customizations for build setup, and write a simple Makefile 
 using `arduino-cli` internally.
 
-MyBlink sketch using Makefile is published [here](https://github.com/embeddedk8/MyBlink).
+MyBlink sketch using Makefile is published [here](https://github.com/kasia0x01/MyBlink).
 
 ## More about Arduino CLI
 - 📚 [Official documentation of Arduino CLI](https://docs.arduino.cc/arduino-cli/)
