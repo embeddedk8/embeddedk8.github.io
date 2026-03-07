@@ -20,10 +20,11 @@ It’s still small, but I’ll keep expanding it over time. 😄
 
 ## Table Of Contents
 
-## Programming basics
+## Programming
 📖 [Competitive Programmer’s Handbook, Antti Laaksonen](https://cses.fi/book/book.pdf)  
 🧩 [Exercism](https://exercism.org) *My favorite platform for programming exercises across many languages, with free mentor reviews.*  
-📖 🎬 [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)
+📖 🎬 [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)  
+📖 [Modern C++ Programming, Federico Busato](https://github.com/federico-busato/Modern-CPP-Programming)
 
 ## Rust  
 📖 [Rust Book](https://doc.rust-lang.org/book/title-page.html)
