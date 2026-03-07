@@ -19,7 +19,7 @@ tags: ["Arduino"]
 <div class="border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 p-4 my-6 rounded-r-md">
   <span class="text-slate-700 dark:text-slate-200">
     📚 This post is part of the 
-    <a href="https://www.embeddedk8.com/posts/2025/arduino-the-hard-way/" 
+    <a href="/posts/2025/arduino-the-hard-way/" 
        class="font-bold text-indigo-700 dark:text-indigo-300 hover:underline">
        Arduino the Hard Way
     </a> 
