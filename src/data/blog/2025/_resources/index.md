@@ -59,8 +59,8 @@ It’s still small, but I’ll keep expanding it over time. 😄
 🛠️ [Wokwi](https://wokwi.com/) *Online simulator for Arduino AVR, ESP32, STM32, Pi Pico.*
 
 ## Security  
-📖 [Embedded Application Security Best Practices](https://scriptingxss.gitbook.io/embedded-appsec-best-practices/)
-📝 [Compiler Options Hardening Guide for C and C++]([)https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html)
+📖 [Embedded Application Security Best Practices](https://scriptingxss.gitbook.io/embedded-appsec-best-practices/)  
+📝 [Compiler Options Hardening Guide for C and C++](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html)
 
 ## Linux
 🎬 [Systemd Explained: How to Manage Linux Services Easily](https://www.youtube.com/watch?v=Kzpm-rGAXos)

@@ -139,4 +139,4 @@ Now, files are automatically reformatted. You can review the changes and push.
 Watch the output of sanitizers jobs. Warnings are not failing the job, and have important insights.
 
 ## Example project
-The new project created with `cmake-init` is here: [mini_armv6_emulator](https://github.com/embeddedk8/mini_armv6_emulator).
+The new project created with `cmake-init` is here: [mini_armv6_emulator](https://github.com/kasia0x01/mini_armv6_emulator).

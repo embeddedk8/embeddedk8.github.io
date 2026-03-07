@@ -19,19 +19,19 @@ interface Social {
 export const SOCIALS: Social[] = [
   {
     name: "GitHub",
-    href: "https://github.com/embeddedk8",
+    href: "https://github.com/kasia0x01",
     linkTitle: `${SITE.title} on GitHub`,
     icon: IconGitHub,
   },
   {
     name: "X",
-    href: "https://x.com/KateZlv",
+    href: "https://x.com/Kasia0x01",
     linkTitle: `${SITE.title} on X`,
     icon: IconBrandX,
   },
   {
     name: "Mail",
-    href: "mailto:embeddedkate@gmail.com",
+    href: "mailto:kasia0x01@gmail.com",
     linkTitle: `Send an email to ${SITE.title}`,
     icon: IconMail,
   },
