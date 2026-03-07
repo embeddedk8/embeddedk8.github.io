@@ -1,13 +1,13 @@
 ---
 weight: 2
-title: "Understanding the Arduino build process: from a sketch to a binary"
+title: "Reverse engineering the Arduino build process: from a sketch to a binary"
 pubDatetime: 2025-09-13T15:58:26+08:00
 modDatetime: 2026-02-20T15:58:26+08:00
 draft: false
 pubDate: 'Sep 13 2025'
 author: "embeddedk8"
 authorLink: "https://embeddedk8.com"
-description: "Stop treating Arduino as a black box and understand how Arduino builds a sketch. This guide breaks down the process of preprocessing, compiling, and linking with the Arduino-specific steps."
+description: "Let's stop pretending that Arduino sketches are magic written in Arduino language. I'm reverse engineering the Arduino build process, showing the common C/C++ build steps and Arduino specific additions."
 images: []
 slug: "arduino-ide-build-process"
 resources:
@@ -26,10 +26,10 @@ math:
 
 <div class="border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 p-4 my-6 rounded-r-md">
   <span class="text-slate-700 dark:text-slate-200">
-    📚 This post is part of the 
+    This post is part of the
     <a href="/posts/2025/arduino-the-hard-way/" 
        class="font-bold text-indigo-700 dark:text-indigo-300 hover:underline">
-       Arduino the Hard Way
+       Mastering ARM Cortex-M4 with Arduino R4
     </a> 
     series
   </span>
@@ -49,11 +49,11 @@ Once you move beyond Arduino’s friendly abstraction layer,
 you’ll need to know how the build process works — because without it, things may not behave as you expect.
 
 
-### What you will learn?
+### Key takeaways
 After reading this article, you will:
 - understand the standard build flow in embedded software development,
 - learn about the additional steps performed during the Arduino build process,
-- know where to find the build files, caches, and linked libraries,
+- locate build caches, object files, and linked libraries,
 - discover what language Arduino sketches are actually written in.
 
 ### Let's get started!
@@ -572,6 +572,7 @@ and the `main()` function is predefined and hidden within a library.
   not included.
 - Arduino doesn't use `Make` or any other common build system. Instead, it uses `arduino-cli` which constructs
   build commands based on recipies from `platform.txt` and `boards.txt`.
+- Understanding these build steps is the first step toward migrating from the Arduino IDE to more robust environments like PlatformIO, where you have full control over the project configurations.
 
 ## More reading
 

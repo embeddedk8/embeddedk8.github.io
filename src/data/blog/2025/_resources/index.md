@@ -24,7 +24,12 @@ It’s still small, but I’ll keep expanding it over time. 😄
 📖 [Competitive Programmer’s Handbook, Antti Laaksonen](https://cses.fi/book/book.pdf)  
 🧩 [Exercism](https://exercism.org) *My favorite platform for programming exercises across many languages, with free mentor reviews.*  
 📖 🎬 [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)  
-📖 [Modern C++ Programming, Federico Busato](https://github.com/federico-busato/Modern-CPP-Programming)
+
+## Modern C++
+📖 [Modern C++ Programming, Federico Busato](https://github.com/federico-busato/Modern-CPP-Programming)  
+📝 [Modern CPP features: C++23/20/17/14/11](https://github.com/AnthonyCalandra/modern-cpp-features)  
+📖 [C++ Core Guidelines, Bjarne Stroustrup, Herb Sutter](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
+📖 [Collection of slides from CppNow presentations](https://github.com/boostcon)
 
 ## Rust  
 📖 [Rust Book](https://doc.rust-lang.org/book/title-page.html)
