@@ -1,31 +1,26 @@
 ---
 weight: 2
-title: "Arduino CLI guide: advanced compilation, automation, and makefiles"
+title: "Automating the Arduino build process: Arduino CLI and Makefiles"
 slug: 'arduino-cli-compilation'
 pubDate: 'Oct 01 2025'
 pubDatetime: 2025-10-01T15:58:26+08:00
 modDatetime: 2026-02-24T15:58:26+08:00
 draft: false
-author: "embeddedk8"
-authorLink: "https://www.embeddedk8.com"
-description: "Stop clicking, start coding. Learn how to use Arduino CLI to compile sketches, manage dependencies, and automate your workflow with Makefiles for professional embedded development."
-images: []
-resources:
-
-
+description: "Moving away from the Arduino IDE to the terminal. A practical guide on using Arduino CLI and Makefiles to handle compilation and build automation for a more efficient embedded workflow."
 tags: ["Arduino"]
 ---
 
 <div class="border-l-4 border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 p-4 my-6 rounded-r-md">
   <span class="text-slate-700 dark:text-slate-200">
-    📚 This post is part of the 
+    This post is part of the
     <a href="/posts/2025/arduino-the-hard-way/" 
        class="font-bold text-indigo-700 dark:text-indigo-300 hover:underline">
-       Arduino the Hard Way
+       Mastering ARM Cortex-M4 with Arduino R4
     </a> 
     series
   </span>
 </div>
+
 
 Did you know that you don’t actually need the Arduino IDE to build and upload programs to your board?
 
@@ -40,8 +35,8 @@ Working directly with the CLI, without the IDE as a middle layer, is actually be
 
 ## Reasons to use Arduino CLI
 
-I get it. You are comfortable using the IDE and might not see yet why should you use Arduino the CLI instead.
-At first, it may seem more complicated, as typing commands takes more effort than clicking one button.
+Arduino IDE is perfect for beginners.
+At first, switching to using the console may seem more complicated, as typing commands takes more effort than clicking one button.
 However, as your project grows and becomes more complex, 
 moving beyond the limitations of the Arduino IDE becomes important, or even necessary.
 
@@ -73,10 +68,6 @@ Some of the benefits are:
     In Arduino IDE, only one version of a library can be installed at the same time. This becomes a real problem when
     you work on multiple projects that require different versions of the same library. This issue is solved when 
     using CLI — you can specify library versions directly from the command line, ensuring each one uses the correct dependencies.
-
-![Benefits of using arduino-cli](
-  @/assets/images/arduino-cli-compilation/cli-benefits.png
-  "Benefits of using arduino-cli")
 
 In summary, using Arduino CLI instead of Arduino IDE gives a lot of new potential to improve your workflow with the project.
 

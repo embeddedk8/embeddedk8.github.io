@@ -28,7 +28,7 @@ It’s still small, but I’ll keep expanding it over time. 😄
 ## Modern C++
 📖 [Modern C++ Programming, Federico Busato](https://github.com/federico-busato/Modern-CPP-Programming)  
 📝 [Modern CPP features: C++23/20/17/14/11](https://github.com/AnthonyCalandra/modern-cpp-features)  
-📖 [C++ Core Guidelines, Bjarne Stroustrup, Herb Sutter](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
+📖 [C++ Core Guidelines, Bjarne Stroustrup, Herb Sutter](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)   
 📖 [Collection of slides from CppNow presentations](https://github.com/boostcon)
 
 ## Rust  
@@ -66,7 +66,8 @@ It’s still small, but I’ll keep expanding it over time. 😄
 
 ## Security  
 📖 [Embedded Application Security Best Practices](https://scriptingxss.gitbook.io/embedded-appsec-best-practices/)  
-📝 [Compiler Options Hardening Guide for C and C++](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html)
+📝 [Compiler Options Hardening Guide for C and C++](https://best.openssf.org/Compiler-Hardening-Guides/Compiler-Options-Hardening-Guide-for-C-and-C++.html)  
+📝 [MITRE ATT&CK®, knowledge base of attack techniques and mitigation](https://attack.mitre.org/) *Advanced and wide lists of used attacks techniques and way to prevent them.* 
 
 ## Linux
 🎬 [Systemd Explained: How to Manage Linux Services Easily](https://www.youtube.com/watch?v=Kzpm-rGAXos)
