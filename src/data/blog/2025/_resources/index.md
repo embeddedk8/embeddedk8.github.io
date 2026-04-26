@@ -3,8 +3,8 @@ title: "Resources for learning embedded systems"
 pubDatetime: 2025-12-30T11:04:49+08:00
 pubDate: 'Dec 30 2025'
 draft: false
-author: "embeddedk8"
-authorLink: "https://embeddedk8.com"
+author: "Kate"
+authorLink: "https://kasia0x01.github.io"
 description: "Learning resources covering embedded systems, ARM microcontrollers, and C and C++ programming topics."
 images: []
 tags: ["Embedded", "Resources"]

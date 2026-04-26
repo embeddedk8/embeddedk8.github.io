@@ -3,8 +3,8 @@ weight: 2
 title: "Writing ARM Cortex-M0 emulator — part 1"
 pubDatetime: 2025-12-18T15:58:26+08:00
 pubDate: 'Dec 18 2025'
-author: "embeddedk8"
-authorLink: "https://embeddedk8.com"
+author: "Kate"
+authorLink: "https://kasia0x01.github.io"
 description: "How the Arduino builds the sketch — preprocessing, compiling, and linking explained simply"
 images: []
 resources:

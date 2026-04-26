@@ -4,8 +4,8 @@ slug: 'arduino-the-hard-way'
 pubDatetime: 2025-09-10T15:58:26+08:00
 modDatetime: 2026-02-24T15:58:26+08:00
 draft: false
-author: "embeddedk8"
-authorLink: "https://www.embeddedk8.com"
+author: "Kate"
+authorLink: "https://kasia0x01.github.io"
 description: "Master professional embedded systems with the ARM Cortex-M4 (RA4M1). Go beyond the Arduino API: learn registers, RTOS, and bare-metal coding on the Arduino UNO R4."
 tags: ["Embedded Systems", "ARM Cortex-M4", "Renesas RA4M1", "Arduino UNO R4"]
 ---

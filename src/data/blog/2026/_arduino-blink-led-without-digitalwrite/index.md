@@ -4,8 +4,8 @@ slug: 'arduino-blink-led-without-digitalwrite'
 pubDatetime: 2026-02-25T15:58:26+08:00
 modDatetime: 2026-02-25T15:58:26+08:00
 draft: false
-author: "embeddedk8"
-authorLink: "https://embeddedk8.com"
+author: "Kate"
+authorLink: "https://kasia0x01.github.io"
 description: "Skip Arduino libraries and blink an LED on Arduino Uno R4 using direct registers access. We'll read RA4M1 datasheet and configure a GPIO pin manually."
 tags: ["Arduino", "GPIO", "RA4M1"]
 ---

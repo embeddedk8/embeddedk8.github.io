@@ -6,8 +6,8 @@ lastmod: 2025-10-01T15:58:26+08:00
 pubDate: 'Nov 11 2025'
 draft: false
 slug: "arduino-github-actions-with-wokwi"
-author: "embeddedk8"
-authorLink: "https://embeddedk8.com"
+author: "Kate"
+authorLink: "https://kasia0x01.github.io"
 description: "Learn how to automate your Arduino projects using GitHub Actions and Wokwi. This guide shows you how to set up a CI/CD pipeline for automated builds and simulations."
 images: []
 #resources:
